@@ -1,14 +1,14 @@
 # Đặc tả chức năng điểm đỏ（赤点）
 
-**Phiên bản:** 1.1 — 25/09/2026, cập nhật xác nhận Q3.  
+**Phiên bản:** 1.2 — 28/09/2026, thống nhất chỉ dùng Figma tiếng Nhật; giữ xác nhận Q3.  
 **Đối tượng đọc:** thành viên phát triển, thiết kế, kiểm thử và người phụ trách nghiệp vụ BLEND.  
 **Phạm vi tài liệu:** đặc tả chức năng đầy đủ, gồm màn hình, quy tắc tính, vòng đời kết quả, đầu ra và yêu cầu tích hợp. Có thể chuyển riêng file này cho team; không cần tài liệu nội bộ khác để hiểu các quy tắc.
 
 **Cơ sở áp dụng:** các yêu cầu và Q&A đã xác nhận đến ngày 25/09/2026, gồm phản hồi Q3 bổ sung do người phụ trách cung cấp trong phiên: dùng kết quả tổng hợp thứ hạng hiện có; không xử lý riêng hoặc ngăn cấu hình khác điểm tối đa giữa các lớp trong cùng nhóm, nhưng tình huống đó không được gây lỗi làm dừng xử lý. Q3 đã đóng theo hướng kế thừa kết quả hiện hữu, không còn chờ chọn A/B.
 
-**Thiết kế giao diện:** dùng trang **Japanese Design** của [Figma tiếng Nhật — luồng tổng thể và thiết kế chi tiết ngày 25/09](https://www.figma.com/design/O2fNFrlnuG8XdQlQIc3H3T/Red-Score-UI-Mockup---Final?node-id=4592-1631). Tên UI tiếng Nhật trong tài liệu là nhãn để đối chiếu; phần giải thích và yêu cầu viết bằng tiếng Việt. Các giá trị mẫu trên Figma không tự trở thành giá trị mặc định của sản phẩm.
+**Thiết kế giao diện:** chỉ sử dụng trang **Japanese Design** của [Figma tiếng Nhật — luồng tổng thể và thiết kế chi tiết ngày 25/09](https://www.figma.com/design/O2fNFrlnuG8XdQlQIc3H3T/Red-Score-UI-Mockup---Final?node-id=4592-1631). Tên UI tiếng Nhật trong tài liệu là nhãn để đối chiếu; phần giải thích và yêu cầu viết bằng tiếng Việt. Các giá trị mẫu trên Figma không tự trở thành giá trị mặc định của sản phẩm.
 
-Bản Figma tiếng Nhật đã đồng bộ Q3 theo mục 5.3: bỏ chú thích giả định Q3-A và ví dụ trộn điểm tối đa; các màn được xếp ngang, đánh dấu thao tác và nối luồng. Bản Việt còn theo bố cục cũ và chưa đồng bộ Q3 ở lượt này.
+Figma tiếng Nhật đã đồng bộ Q3 theo mục 5.3 và là bản thiết kế giao diện duy nhất được sử dụng. Bản Figma tiếng Việt đã được xóa theo xác nhận của người phụ trách ngày 28/09/2026; không còn công việc đồng bộ bản Việt. Q3 là yêu cầu đã xác nhận, không phải giả định thiết kế.
 
 **Trạng thái bàn giao:** dùng để review thiết kế toàn feature. Phạm vi triển khai/phát hành cần thống nhất riêng; tài liệu không xác nhận chức năng đã được xây dựng hoặc kiểm thử thành công. Những lựa chọn bổ sung để cụ thể hóa màn hình và tích hợp được ghi **Đề xuất thiết kế** tại nơi áp dụng.
 
@@ -728,7 +728,7 @@ Nếu không ánh xạ được một tham chiếu, **đề xuất** không kíc
 
 | Nội dung | Trạng thái của bản này | Việc cần làm |
 | --- | --- | --- |
-| Q3 — tỷ lệ nhóm | Đã xác nhận dùng kết quả tổng hợp thứ hạng hiện có; không xử lý riêng hoặc chặn cấu hình khác điểm tối đa | Đồng bộ chú thích/ví dụ trên Figma; xác minh nguồn và độ chính xác khi tích hợp. Không còn chờ khách hàng chọn A/B |
+| Q3 — tỷ lệ nhóm | Đã xác nhận dùng kết quả tổng hợp thứ hạng hiện có; không xử lý riêng hoặc chặn cấu hình khác điểm tối đa | Figma tiếng Nhật đã đồng bộ. Xác minh nguồn và độ chính xác khi tích hợp; không còn chờ khách hàng chọn A/B |
 | Phạm vi triển khai/phát hành | Chưa chốt danh sách theo từng đợt | Đầu mối thống nhất các loại ngưỡng/công thức và điều kiện áp dụng được triển khai, nhóm trường/người dùng, luồng ghi điểm và ba đầu ra theo mục 1.4; bản tối thiểu từng trao đổi là cố định, có thể thêm tỷ lệ |
 | Chi tiết UI được gắn đề xuất | Có phương án cụ thể trong file | Review mặc định tạo mới, trạng thái thêm dở, dấu phân nhánh, tập toán hạng, hành vi đổi loại và thông báo; không gọi đây là xác nhận riêng của khách hàng |
 | Độ chính xác và giới hạn kỹ thuật | Hành vi phải giữ đã nêu; chưa chốt schema vật lý | Chọn miền số/độ chính xác/giới hạn đầu vào và số dòng, kiểm `S=T`, số âm, tràn và lưu/mở lại trước khi hiện thực |
