@@ -1,38 +1,50 @@
 # BLEND Context
 
-Kho tài liệu dùng chung của dự án **BLEND**, lưu bối cảnh nghiệp vụ, yêu cầu, thiết kế, quyết định và căn cứ liên quan để các thành viên có thể tiếp nối công việc.
+**`blend-context` là điểm bắt đầu cho AI và các thành viên làm việc với BLEND.** Repository này quản lý context, định nghĩa, rules, tài liệu và quyết định. Mã nguồn ứng dụng được làm việc trong repository **`blend`**; không sao chép code ứng dụng vào đây.
 
-Repository này quản lý tài liệu độc lập với mã nguồn ứng dụng. Các tệp SQL là tài liệu thiết kế; trạng thái triển khai, kiểm thử và phát hành được xác nhận riêng.
+## Bắt đầu
+
+1. AI đọc `AGENTS.md`; thành viên mới đọc [rules và cách tổ chức](rules/).
+2. Tìm chức năng theo ID ở bảng bên dưới, đọc README của thư mục đó rồi context và tài liệu liên quan.
+3. Khi cần nghiên cứu hoặc sửa ứng dụng, chuyển sang repository `blend`, áp dụng [rules phát triển](rules/development/) theo phạm vi công việc.
 
 ## Cấu trúc
 
 ```text
-context/
-  <feature>/   Bối cảnh, Q&A và trạng thái quyết định của từng chức năng
-docs/
-  <feature>/   Đặc tả, thiết kế, tiêu chí nghiệm thu và kế hoạch của từng chức năng
+AGENTS.md                          Hướng dẫn bắt đầu và phân luồng cho AI
+rules/                             Định nghĩa, nguồn ID và quy ước tổ chức
+  development/                     Rules phát triển BLEND và nguồn Wiki
+  evidence/                        Bằng chứng đối chiếu theo ngày, không phải rules hiện hành
+features/
+  <Feature-ID>-<slug>/              Một chức năng, một nơi quản lý
+    README.md                      Nguồn ID, ticket liên quan và thứ tự đọc
+    context/                       CONTEXT.md và Q&A đã xác nhận
+    docs/                          Tài liệu dùng chung của chức năng
+    tasks/                         Tài liệu riêng từng task, tạo khi cần
+    decisions/                     Quyết định riêng, tạo khi cần
+.github/                           CONTRIBUTING.md và mẫu PR
 ```
 
-Tài liệu được nhóm theo chức năng. Khi có chức năng mới, bổ sung thư mục tương ứng trong `context/` và `docs/`, rồi cập nhật mục lục bên dưới.
+Tên thư mục dùng `<ID>-<slug>`, không thêm tiền tố nguồn. Ghi nguồn Redmine/Sheet trong README của feature hoặc tài liệu task. Giữ nguyên ID của nguồn, kể cả chữ hoa và số 0; chỉ phần mô tả `slug` dùng tiếng Anh chữ thường, nối bằng dấu `-`. Không tạo thư mục rỗng để đủ bộ.
 
-## Danh sách chức năng
+## Tài liệu chức năng hiện có
 
-Mỗi chức năng có thư mục context và tài liệu tương ứng. Đọc context trước để nắm bối cảnh và trạng thái xác nhận, sau đó xem tài liệu chi tiết trong docs.
+Bảng này chỉ liệt kê tài liệu đã có trong repo, không phải danh sách task đang thực hiện hoặc toàn bộ công việc của dự án.
 
-| Chức năng | Context | Tài liệu |
+| Feature ID | Chức năng | Thư mục |
 | --- | --- | --- |
-| Điểm đỏ（赤点） | [context/red-score/](context/red-score/) | [docs/red-score/](docs/red-score/) |
+| Sheet `RC-001` | Điểm đỏ（赤点） — context, đặc tả, thiết kế DB và chia việc hiện có | [RC-001-red-score](features/RC-001-red-score/) |
 
-Context chuẩn xác định yêu cầu hiện hành và trạng thái quyết định. Q&A bổ trợ cách đọc theo câu hỏi; đặc tả, thiết kế và phương án chia việc phải được đối chiếu với context. Ngày cập nhật mới hơn không tự biến một đề xuất thành quyết định đã được duyệt.
+### Ví dụ tổ chức task Redmine
 
-## Quy ước cập nhật
+[225454-student-career-registration](features/225454-student-career-registration/) chỉ là **ví dụ minh họa** cách đặt tên thư mục và liên kết Epic → Backlogitem → SubTask. Việc đưa ticket này vào repo không có nghĩa đây là task đang được thực hiện, task mặc định cho AI hoặc toàn bộ các task Redmine của dự án.
 
-- **Context:** ghi mục tiêu, phạm vi, thuật ngữ, nguồn xác nhận, điều đã biết và điểm còn mở trong `context/<feature>/`.
-- **Docs:** lưu đặc tả, thiết kế, tiêu chí nghiệm thu, kế hoạch và kết quả kiểm chứng trong `docs/<feature>/`.
-- **Decisions:** ghi quyết định cùng bối cảnh liên quan; khi cần tài liệu riêng, dùng `docs/<feature>/decisions/`. Mỗi quyết định cần ngày, trạng thái, vấn đề, lựa chọn đã chốt, lý do, tác động và căn cứ xác nhận. Nêu rõ quyết định nào bị thay thế.
-- **Trạng thái:** phân biệt đề xuất, đã xác nhận, chưa chốt và đã thay thế. Tài liệu thiết kế không tự chứng minh chức năng đã được triển khai hoặc kiểm thử thành công.
-- **Ngôn ngữ:** dùng hậu tố `.vi.md`, `.ja.md`, `.en.md` cho các bản tương ứng; giữ nguyên nhãn UI tiếng Nhật để đối chiếu. Khi sửa quy tắc, đồng bộ các bản dịch liên quan hoặc ghi rõ bản nào chưa cập nhật.
-- **Tham chiếu:** README chỉ liên kết đến thư mục của từng chức năng; cập nhật bảng trên khi thêm chức năng mới. Trong tài liệu chi tiết, dùng liên kết tương đối cho tệp trong repository. Với nguồn bên ngoài, dùng liên kết dùng chung; tài liệu không được đính kèm cần được ghi rõ. Các nguồn Slack, Figma hoặc hệ thống nghiệp vụ có thể yêu cầu quyền truy cập riêng.
-- **Thông tin chia sẻ:** không đưa đường dẫn máy cá nhân, cấu hình môi trường cá nhân, mật khẩu, token, khóa riêng hoặc dữ liệu nhạy cảm vào repository.
+ID từ Sheet lấy tại [BLEND — Project Management](https://docs.google.com/spreadsheets/d/1lK9kXTC5pjuucCCpZThCImZFDBBbQdn9At6Nl8y0LGc/edit?gid=277536463#gid=277536463). `Feature ID` dùng Work Item ID/Parent Item ID; `Task ID` phải lấy đúng cột Task ID trong tab Internal Tasks. Không dùng số dòng làm ID.
 
-Khi cập nhật yêu cầu, sửa context và các tài liệu chịu ảnh hưởng trong cùng thay đổi, ghi rõ căn cứ và phạm vi thay đổi để người đọc tiếp theo có thể truy vết.
+## Cập nhật và review
+
+Repo phục vụ đọc và tra cứu là chính. Mọi thay đổi được đề xuất qua PR vào `main`, phải **request reviewer đại diện cho từng team đang sử dụng chung repo** và hoàn tất review trước khi merge; người tạo PR không tự duyệt. Đọc `CONTRIBUTING.md` trong [hướng dẫn đóng góp](.github/).
+
+AI để thay đổi chưa stage/commit/push để người phụ trách review; chỉ thực hiện các bước Git hoặc tạo PR khi được yêu cầu riêng. Có checkout sẵn thì đọc trực tiếp, không tự fetch/pull để lấy context. Phê duyệt tài liệu không đồng nghĩa phê duyệt triển khai, chạy SQL hoặc phát hành ứng dụng.
+
+README này chỉ liên kết đến thư mục trong repo. Các hướng dẫn chi tiết và nguồn kiểm chứng nằm trong thư mục tương ứng; không đưa đường dẫn máy cá nhân, cấu hình riêng hoặc thông tin xác thực vào tài liệu dùng chung.

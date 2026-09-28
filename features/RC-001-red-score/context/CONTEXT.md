@@ -1,12 +1,12 @@
 # Context chuẩn của chức năng điểm đỏ（赤点）
 
-Cập nhật: **25/09/2026 — bổ sung xác nhận Q3: kế thừa kết quả tổng hợp thứ hạng hiện có; bộ Q1–Q7.2 đã gửi không còn câu hỏi nghiệp vụ mở**.
+Cập nhật: **28/09/2026 — Q3 đã xác nhận; chỉ sử dụng Figma tiếng Nhật, bản Figma tiếng Việt đã được người phụ trách xóa**.
 
 **Tài liệu này là source of truth của feature:** đầu vào chuẩn để so sánh thay đổi, chỉnh thiết kế, lập task, tiêu chí nghiệm thu và triển khai. Việc đổi vai trò nguồn chuẩn do người phụ trách yêu cầu trong phiên ngày 24/09. Tài liệu được đặt cùng Q&A đã xác nhận trong thư mục context; nội dung không còn là baseline ngày 23/09.
 
 **Trạng thái:** đã tổng hợp các yêu cầu/xác nhận hiện hành, những quyết định còn mở và giới hạn tích hợp. Chưa phải phê duyệt toàn bộ thiết kế, phạm vi phát hành hoặc xác nhận tính năng đã được triển khai. Không biến “research đã làm rõ” thành “nghiệp vụ đã đồng ý”.
 
-**Trạng thái thiết kế:** Bản Figma tiếng Nhật đã được xếp thành hàng ngang (bốn cụm màn chính, ba cụm đầu ra), đánh dấu thao tác và nối mũi tên giữa các màn liên quan. Chú thích Q3 đã bỏ giả định A/B và dùng kết quả tổng hợp thứ hạng hiện có; khác điểm tối đa trong cùng nhóm không được làm dừng xử lý. Bản Việt chưa được tổ chức lại ở lượt này. Thiết kế DB/tích hợp và phạm vi phát hành vẫn cần hoàn thiện riêng. Xem [thiết kế đã cập nhật](#design-updated), [phạm vi ảnh hưởng của Q3](#q3-design-impact) và [việc còn lại](#design-pending).
+**Trạng thái thiết kế:** Bản Figma tiếng Nhật đã được xếp thành hàng ngang (bốn cụm màn chính, ba cụm đầu ra), đánh dấu thao tác và nối mũi tên giữa các màn liên quan. Chú thích Q3 đã bỏ giả định A/B và dùng kết quả tổng hợp thứ hạng hiện có; khác điểm tối đa trong cùng nhóm không được làm dừng xử lý. Chỉ sử dụng bản Nhật; bản Figma tiếng Việt đã được người phụ trách xác nhận xóa và không còn thuộc phạm vi đồng bộ. Thiết kế DB/tích hợp và phạm vi phát hành vẫn cần hoàn thiện riêng. Xem [thiết kế đã cập nhật](#design-updated), [phạm vi ảnh hưởng của Q3](#q3-design-impact) và [việc còn lại](#design-pending).
 
 ## Mục lục
 
@@ -20,7 +20,7 @@ Cập nhật: **25/09/2026 — bổ sung xác nhận Q3: kế thừa kết quả
 - [7. Điểm tối đa và dữ liệu cũ](#maximum)
 - [8. Tích hợp: điều đã biết, việc còn phải làm](#code)
 - [9. Trạng thái xác nhận và tác động tới thiết kế](#qa)
-  - [Q3 có chặn thiết kế không?](#q3-design-impact)
+  - [Ảnh hưởng sau khi Q3 đã xác nhận](#q3-design-impact)
   - [Các phần thiết kế còn pending](#design-pending)
 - [10. Bằng chứng và giới hạn](#evidence)
 - [11. Những nội dung cũ đã bị thay thế](#history)
@@ -41,6 +41,8 @@ Cập nhật: **25/09/2026 — bổ sung xác nhận Q3: kế thừa kết quả
 Nếu phát hiện khác biệt giữa context và xác nhận gốc, ghi nhận khác biệt, sửa đúng phần có căn cứ và cập nhật Q&A tương ứng. Không âm thầm chọn cách hiểu tiện cho implementation. Một đề xuất A trong Q&A chưa có câu trả lời không trở thành mặc định được duyệt.
 
 ### 1.2. Căn cứ của lần cập nhật
+
+- Ngày 28/09/2026, người phụ trách xác nhận trong phiên rằng bản Figma tiếng Việt đã được xóa, chỉ còn sử dụng bản tiếng Nhật, và yêu cầu cập nhật tài liệu. Đây là xác nhận về nguồn thiết kế hiện hành, không thay đổi nghiệp vụ Q3; lượt cập nhật tài liệu này không kiểm lại canvas hoặc thực hiện thao tác xóa trên Figma.
 
 - Xác nhận Q3 bổ sung ngày 25/09 do người phụ trách cung cấp nguyên văn trong phiên: sau trao đổi với MW, không cần xử lý riêng hoặc ngăn cấu hình khác điểm tối đa trong cùng nhóm; tình huống đó không được gây lỗi làm dừng xử lý. Câu bổ sung xác nhận về cơ bản dùng nguyên kết quả tổng hợp thứ hạng hiện tại. Chưa có permalink riêng cho hai phản hồi này; không gán chúng cho liên kết Slack bên dưới.
 - [Phản hồi Slack ngày 25/09, Q1–Q7.2 và ba ảnh đính kèm](https://app.slack.com/client/T08LS8ZGDTP/C0BRGJA6XDE/thread/C0BRGJA6XDE-1789563761.146189/1790315716.848689). Đã đọc nguyên văn và đối chiếu với Q&A đã gửi; người phụ trách yêu cầu cập nhật Q&A và context theo những nội dung đã xác nhận. Bản reply soạn trong phiên chưa được coi là tin nhắn đã gửi hoặc xác nhận bổ sung từ khách hàng.
@@ -185,15 +187,14 @@ UI công thức hiện mặc định không xử lý phần lẻ, vị trí ch�
 
 ### 4.4. Thiết kế Figma hiện hành
 
-- [Bản Nhật — hướng dẫn đọc và các chương thiết kế](https://www.figma.com/design/O2fNFrlnuG8XdQlQIc3H3T/Red-Score-UI-Mockup---Final?node-id=4592-1631), trang `Japanese Design`; bố cục theo chương được cập nhật riêng cho bản Nhật theo yêu cầu tiếp theo của người phụ trách.
-- [Bản Việt — thiết kế tổng thể và các trạng thái chi tiết](https://www.figma.com/design/O2fNFrlnuG8XdQlQIc3H3T/Red-Score-UI-Mockup---Final?node-id=4556-2), trang `Vietnamese Design`.
+- [Figma tiếng Nhật — hướng dẫn đọc và các chương thiết kế](https://www.figma.com/design/O2fNFrlnuG8XdQlQIc3H3T/Red-Score-UI-Mockup---Final?node-id=4592-1631), trang `Japanese Design`, là bản Figma duy nhất dùng cho thiết kế và triển khai hiện tại.
 
-Lượt đồng bộ Q&A đầu tiên chỉnh các lớp chữ, hộp thoại và chú thích trên hai bản. Lượt tổ chức lại tiếp theo chỉ thay bố cục **bản Nhật** theo các chương dưới đây, tái sử dụng các màn gốc dưới dạng đối tượng Figma có thể chỉnh sửa và giữ font Noto Sans JP. Bản Việt giữ bố cục trước lượt tổ chức lại này.
+Lịch sử: lượt đồng bộ Q&A đầu tiên chỉnh chữ, hộp thoại và chú thích trên hai bản; lượt tổ chức lại tiếp theo chỉ thay bố cục bản Nhật, tái sử dụng các màn gốc và giữ font Noto Sans JP. Hiện chỉ bản Nhật còn được sử dụng; thông tin kiểm chứng hai ngôn ngữ bên dưới là bằng chứng của thời điểm trước, không phải yêu cầu duy trì hai bản.
 
 | Phần | Nội dung hiện hành |
 | --- | --- |
 | Q1/Q2/Q4 | Ghi nhận dùng maximum hiện hành, cho chọn xử lý phần lẻ ngưỡng tỷ lệ và chấp nhận ngưỡng âm; bỏ nhãn còn chờ xác nhận của các quyết định này |
-| Q3 — bản Nhật hiện hành | Đã bỏ chú thích giả định Q3-A và ví dụ trộn 20/50, 80/100; ghi rõ dùng kết quả tổng hợp thứ hạng hiện có, không thêm cách tính riêng hoặc lỗi dừng chỉ vì khác điểm tối đa. Bản Việt chưa đồng bộ ở lượt này |
+| Q3 — bản Nhật hiện hành | Đã bỏ chú thích giả định Q3-A và ví dụ trộn 20/50, 80/100; ghi rõ dùng kết quả tổng hợp thứ hạng hiện có, không thêm cách tính riêng hoặc lỗi dừng chỉ vì khác điểm tối đa. Không còn công việc đồng bộ bản Figma tiếng Việt |
 | Q5 — thiếu dữ liệu | Sửa nội dung màn trạng thái 06A và chú thích công thức/nguồn/maximum: lần xét không tạo được ngưỡng hợp lệ chuyển chưa xét được, không dùng kết quả cũ; không coi là đã đạt hoặc xóa điểm |
 | Q6.1/Q6.2 — không áp dụng/xóa cuối | Sửa hộp thoại 02D và chú thích đầu ra: xóa cuối vẫn giữ kết quả trước tới lần chạy lại; sau lần xác định không còn thiết lập áp dụng mới ngừng dấu/lọc. Bổ sung yêu cầu dùng thao tác chạy lại hiện hữu cả khi mục đã hết rule |
 | Q7.1/Q7.2 — đầu ra | Giữ cách trình bày đã đúng trong bản vẽ, chuyển chú thích thành đã xác nhận: phiếu dùng điều kiện khớp đầu tiên, đỏ sau ô chọn/trước ô trống; công khai kết hợp hiệu ứng khác nhau và không lặp dấu trùng; không thêm nền đỏ riêng vào công khai/PDF |
@@ -394,7 +395,7 @@ Nguồn snapshot tham chiếu [PR #57058](https://github.com/ednity/school-web/p
 
 ### 8.1. Triển khai trước bằng dummy data
 
-Có thể dùng dummy data cho nguồn trung bình/snapshot để triển khai trước, không bị block bởi PR chưa merge; tích hợp nguồn thật khi sẵn sàng. Nội dung này đã được ghi trong [spec tiếng Việt](../../docs/red-score/specification.vi.md#conditions).
+Có thể dùng dummy data cho nguồn trung bình/snapshot để triển khai trước, không bị block bởi PR chưa merge; tích hợp nguồn thật khi sẵn sàng. Nội dung này đã được ghi trong [spec tiếng Việt](../docs/specification.vi.md#conditions).
 
 <a id="qa"></a>
 
@@ -408,7 +409,7 @@ Số Q ở bảng này là **số của bộ remaining Q&A r17 đã gửi (bản
 | --- | --- | --- | --- |
 | Q1 | A — dùng M hiện hành khi xét tỷ lệ độc lập | Q23 | Trả lời lý do câu hỏi cũ và kết quả kiểm trigger; không mở lại lựa chọn M |
 | Q2 | A — cho chọn xử lý phần lẻ ngưỡng tỷ lệ | Q24 | Cụ thể hóa UI theo cơ chế tham chiếu, giữ mặc định không xử lý của phương án A |
-| Q3 | **Đã xác nhận dùng kết quả tổng hợp thứ hạng hiện có**, không xử lý riêng hoặc ngăn cấu hình khác điểm tối đa; không gây lỗi dừng xử lý do tình huống đó | Q31 | Đồng bộ Figma; kiểm nguồn và độ chính xác khi tích hợp. Không hỏi lại A/B |
+| Q3 | **Đã xác nhận dùng kết quả tổng hợp thứ hạng hiện có**, không xử lý riêng hoặc ngăn cấu hình khác điểm tối đa; không gây lỗi dừng xử lý do tình huống đó | Q31 | Figma tiếng Nhật đã đồng bộ; chỉ còn kiểm nguồn và độ chính xác khi tích hợp. Không hỏi lại A/B |
 | Q4 | A — T âm hợp lệ vẫn xét bình thường | Q25 | Bỏ xử lý coi T âm là lỗi; không ép về 0 |
 | Q5 | Nội dung khách hàng tương ứng B — không giữ kết quả trước làm kết quả hiện hành khi không tạo được ngưỡng hợp lệ | Q26 | Team phản hồi đồng ý cách hiểu; không giữ đề xuất A cũ làm mặc định, không coi bản reply đã được gửi |
 | Q6.1 | A — ngừng dùng kết quả cũ sau lần xét xác định không có thiết lập áp dụng | Q27 | Phân biệt không áp dụng với chưa đủ dữ liệu chọn nhánh |
@@ -429,7 +430,7 @@ Số Q ở bảng này là **số của bộ remaining Q&A r17 đã gửi (bản
 | Phần thiết kế | Ảnh hưởng của xác nhận Q3 | Việc cần làm |
 | --- | --- | --- |
 | Danh sách nhiều thiết lập, ưu tiên, điều hướng và các loại ngưỡng | Không đổi cấu trúc | Tiếp tục theo quy tắc đã xác nhận |
-| Điều kiện tỷ lệ nhóm và chú thích nguồn | Bỏ trạng thái giả định/chờ chọn A/B | Ghi kế thừa kết quả tổng hợp hiện hữu; đồng bộ chú thích Figma |
+| Điều kiện tỷ lệ nhóm và chú thích nguồn | Đã xác nhận, không còn giả định/chờ chọn A/B | Figma tiếng Nhật đã đồng bộ; triển khai theo kết quả tổng hợp hiện hữu |
 | Nguồn dữ liệu và độ chính xác | Còn việc tích hợp, không còn lựa chọn nghiệp vụ A/B | Xác minh đúng nhóm/bản nguồn, ưu tiên bản chốt và giá trị trước làm tròn; không tự dùng số đã làm tròn trên màn hình |
 | Ví dụ và tiêu chí phân nhánh | Không yêu cầu cách tính riêng cho nhóm trộn điểm tối đa | Dùng ví dụ cùng điểm tối đa; với tình huống khác điểm tối đa chỉ yêu cầu không gây lỗi dừng xử lý do sự khác biệt đó |
 | Vòng đời kết quả và ba đầu ra | Giữ Q5/Q6/Q7 | Thiếu dữ liệu vẫn theo quy tắc chung; không coi mọi ô là đã đạt chỉ để tránh lỗi |
@@ -478,22 +479,22 @@ Số trong Q&A confirmed là bộ riêng; dùng bảng 9.1 để nối Q đã g�
 
 ### 9.5. Các phần thiết kế còn pending sau phản hồi ngày 25/09
 
-**Pending ở đây không đồng nghĩa tất cả đều chờ khách hàng.** Q3 đã có xác nhận bổ sung; context, Q&A, spec và chú thích bản Nhật trên Figma đã đồng bộ. Bản Việt chưa được tổ chức lại/đồng bộ chú thích Q3 trong lượt này. Những cập nhật Q1/Q2/Q4–Q7 và việc tổ chức lại bản Nhật tại mục 4.4 vẫn được giữ; các phần kỹ thuật, review và tích hợp chưa hoàn thiện vẫn có trạng thái riêng.
+**Pending ở đây không đồng nghĩa tất cả đều chờ khách hàng.** Q3 đã có xác nhận bổ sung; context, Q&A, spec và chú thích bản Nhật trên Figma đã đồng bộ. Chỉ sử dụng Figma tiếng Nhật; bản Figma tiếng Việt đã được xóa nên không còn công việc tổ chức lại hoặc đồng bộ bản đó. Những cập nhật Q1/Q2/Q4–Q7 và việc tổ chức lại bản Nhật tại mục 4.4 vẫn được giữ; các phần kỹ thuật, review và tích hợp chưa hoàn thiện vẫn có trạng thái riêng.
 
-| Phần còn cần hoàn thiện | Trạng thái và việc cần làm | Có cần chờ Q3? | Khi nào được coi là hoàn tất phần thiết kế? |
-| --- | --- | --- | --- |
-| Luồng màn hình chính và cấu hình nhiều điều kiện | **Bố cục màn chính/phần chi tiết đã có và được giữ trong lượt cập nhật.** Tiếp tục review danh sách/ưu tiên và hai màn chi tiết mở từ danh sách (điều kiện áp dụng, ngưỡng/công thức), quyền và các trạng thái; không có chế độ xét riêng | Không | Review đầy đủ các thao tác/điều hướng theo phần 4.2; lượt chỉnh nội dung Q&A không tự thay thế kiểm prototype và mọi nhánh thao tác |
-| Form ngưỡng và công thức | **Đã đồng bộ quyết định Q1/Q2/Q4 trên canvas; còn review chi tiết.** Giữ các màn lựa chọn/điều khiển hiện có và cập nhật chú thích M hiện hành, phần lẻ, T âm. Miền nhập/độ chính xác và hành vi đổi loại vẫn cần chốt trong thiết kế chi tiết theo phần 4.3/5.1 | Không | Review các chi tiết UI và ví dụ biên; không biến mọi chi tiết team đề xuất thành xác nhận riêng của khách hàng |
-| Tỷ lệ nhóm dùng để chọn nhánh | **Q3 đã xác nhận kế thừa kết quả tổng hợp hiện hữu.** Bản Nhật đã bỏ Q3-A và ví dụ trộn điểm tối đa; bản Việt còn cần đồng bộ. Cần kiểm nguồn/độ chính xác khi tích hợp | Không | Đồng bộ thiết kế; kiểm nguồn/độ chính xác, phân nhánh thông thường và không lỗi dừng xử lý do khác điểm tối đa |
-| Trạng thái kết quả, xóa thiết lập và chạy lại | **Đã sửa UI/chú thích Q5/Q6.1/Q6.2 trên canvas.** 02D giữ trước tới khi chạy lại, 06A không dùng cũ khi thiếu dữ liệu; ghi rõ chạy lại cả khi hết rule. Còn review và thiết kế cơ chế lưu/tích hợp | Không | Review các trạng thái trước/sau và hoàn thiện tích hợp tương ứng; không coi kiểm UI là chứng minh lưu/xét trên ứng dụng |
-| Ba màn/định dạng đầu ra | **Đã đồng bộ chú thích và xác nhận Q7 trên canvas.** Giữ quy tắc/ví dụ trình bày hiện có, sửa ảnh hưởng xóa cuối và thiếu dữ liệu theo Q5/Q6.2. Còn kiểm tích hợp đầu ra thật | Không | Review thiết kế và sau triển khai kiểm từng đầu ra; không dùng bản vẽ làm bằng chứng PDF/Excel hoặc công khai thật đã đúng |
-| Nguồn trung bình, bản chốt, đơn vị và maximum | Có thể triển khai trước bằng dummy data để không bị block; tích hợp nguồn thật khi sẵn sàng | Không; còn xác minh nguồn/độ chính xác | Nguồn thật đúng ngữ cảnh và quy tắc đã chốt |
-| Thiết kế lưu dữ liệu và luồng thực hiện | **Cần hoàn thiện thiết kế kỹ thuật**, theo I01–I05, I09, I11–I12: cấu hình/kết quả mới, cùng tồn tại legacy, các đường ghi điểm/chạy lại, quyền, lỗi, đồng thời, sao chép/năm mới/import-export | Không; hoàn thiện thiết kế nguồn theo xác nhận Q3 | Có bản thiết kế DB/luồng đủ để review, phân biệt kết quả có hiệu lực/chưa xét/không áp dụng và các đường hỗ trợ; báo đầu mối khi thiết kế DB hoàn tất theo yêu cầu đã có |
-| Tích hợp đầu ra và phạm vi bản phát hành | **Cần xác định phạm vi và kế hoạch kiểm chứng**, theo I10 và phần 2.3. Không coi thiết kế đầy đủ là đồng ý phát hành mọi tính năng | Không; phạm vi phát hành vẫn cần thống nhất | Danh sách tính năng/luồng được đưa vào bản đầu được thống nhất; thiết kế chỉ rõ các phụ thuộc và bằng chứng cần kiểm, không tuyên bố QA/phát hành đã xong |
+| Phần còn cần hoàn thiện | Trạng thái và việc cần làm | Khi nào được coi là hoàn tất phần thiết kế? |
+| --- | --- | --- |
+| Luồng màn hình chính và cấu hình nhiều điều kiện | **Bố cục màn chính/phần chi tiết đã có và được giữ trong lượt cập nhật.** Tiếp tục review danh sách/ưu tiên và hai màn chi tiết mở từ danh sách (điều kiện áp dụng, ngưỡng/công thức), quyền và các trạng thái; không có chế độ xét riêng | Review đầy đủ các thao tác/điều hướng theo phần 4.2; lượt chỉnh nội dung Q&A không tự thay thế kiểm prototype và mọi nhánh thao tác |
+| Form ngưỡng và công thức | **Đã đồng bộ quyết định Q1/Q2/Q4 trên canvas; còn review chi tiết.** Giữ các màn lựa chọn/điều khiển hiện có và cập nhật chú thích M hiện hành, phần lẻ, T âm. Miền nhập/độ chính xác và hành vi đổi loại vẫn cần chốt trong thiết kế chi tiết theo phần 4.3/5.1 | Review các chi tiết UI và ví dụ biên; không biến mọi chi tiết team đề xuất thành xác nhận riêng của khách hàng |
+| Tỷ lệ nhóm dùng để chọn nhánh | **Q3 đã xác nhận kế thừa kết quả tổng hợp hiện hữu.** Bản Nhật đã bỏ Q3-A và ví dụ trộn điểm tối đa; chỉ còn kiểm nguồn/độ chính xác khi tích hợp | Kiểm nguồn/độ chính xác, phân nhánh thông thường và không lỗi dừng xử lý do khác điểm tối đa |
+| Trạng thái kết quả, xóa thiết lập và chạy lại | **Đã sửa UI/chú thích Q5/Q6.1/Q6.2 trên canvas.** 02D giữ trước tới khi chạy lại, 06A không dùng cũ khi thiếu dữ liệu; ghi rõ chạy lại cả khi hết rule. Còn review và thiết kế cơ chế lưu/tích hợp | Review các trạng thái trước/sau và hoàn thiện tích hợp tương ứng; không coi kiểm UI là chứng minh lưu/xét trên ứng dụng |
+| Ba màn/định dạng đầu ra | **Đã đồng bộ chú thích và xác nhận Q7 trên canvas.** Giữ quy tắc/ví dụ trình bày hiện có, sửa ảnh hưởng xóa cuối và thiếu dữ liệu theo Q5/Q6.2. Còn kiểm tích hợp đầu ra thật | Review thiết kế và sau triển khai kiểm từng đầu ra; không dùng bản vẽ làm bằng chứng PDF/Excel hoặc công khai thật đã đúng |
+| Nguồn trung bình, bản chốt, đơn vị và maximum | Có thể triển khai trước bằng dummy data để không bị block; tích hợp nguồn thật khi sẵn sàng | Nguồn thật đúng ngữ cảnh và quy tắc đã chốt |
+| Thiết kế lưu dữ liệu và luồng thực hiện | **Cần hoàn thiện thiết kế kỹ thuật**, theo I01–I05, I09, I11–I12: cấu hình/kết quả mới, cùng tồn tại legacy, các đường ghi điểm/chạy lại, quyền, lỗi, đồng thời, sao chép/năm mới/import-export | Có bản thiết kế DB/luồng đủ để review, phân biệt kết quả có hiệu lực/chưa xét/không áp dụng và các đường hỗ trợ; báo đầu mối khi thiết kế DB hoàn tất theo yêu cầu đã có |
+| Tích hợp đầu ra và phạm vi bản phát hành | **Cần xác định phạm vi và kế hoạch kiểm chứng**, theo I10 và phần 2.3. Không coi thiết kế đầy đủ là đồng ý phát hành mọi tính năng | Danh sách tính năng/luồng được đưa vào bản đầu được thống nhất; thiết kế chỉ rõ các phụ thuộc và bằng chứng cần kiểm, không tuyên bố QA/phát hành đã xong |
 
-**Thứ tự tiếp tục:** review luồng Figma bản Nhật với người phụ trách; đồng bộ bản Việt khi được yêu cầu; hoàn thiện nguồn dữ liệu/DB/luồng. Không còn chờ A/B hoặc cần hai bộ thiết kế.
+**Thứ tự tiếp tục:** review luồng Figma tiếng Nhật với người phụ trách; hoàn thiện nguồn dữ liệu/DB/luồng. Không còn chờ A/B hoặc cần hai bộ thiết kế.
 
-**Kết luận về mức sẵn sàng:** hướng nghiệp vụ Q3 đã chốt. Tài liệu và Figma bản Nhật đã đồng bộ Q3; bản Việt còn theo bố cục cũ. Thiết kế kỹ thuật/DB, độ chính xác và ánh xạ nguồn, phạm vi phát hành và kiểm chứng triển khai vẫn còn; đóng Q3 không hoàn thành thay các phần đó.
+**Kết luận về mức sẵn sàng:** hướng nghiệp vụ Q3 đã chốt. Tài liệu và Figma tiếng Nhật đã đồng bộ Q3; đây là bản Figma duy nhất còn sử dụng. Thiết kế kỹ thuật/DB, độ chính xác và ánh xạ nguồn, phạm vi phát hành và kiểm chứng triển khai vẫn còn; đóng Q3 không hoàn thành thay các phần đó.
 
 <a id="evidence"></a>
 
