@@ -18,7 +18,8 @@ rules/                             Định nghĩa, nguồn ID và quy ước t�
 features/
   <Feature-ID>-<slug>/              Một chức năng, một nơi quản lý
     README.md                      Nguồn ID, ticket liên quan và thứ tự đọc
-    context/                       CONTEXT.md và Q&A đã xác nhận
+    CONTEXT.md                     Context chuẩn của feature
+    sources/                       Q&A và nguồn xác nhận, tạo khi cần
     docs/                          Tài liệu dùng chung của chức năng
     tasks/                         Tài liệu riêng từng task, tạo khi cần
     decisions/                     Quyết định riêng, tạo khi cần

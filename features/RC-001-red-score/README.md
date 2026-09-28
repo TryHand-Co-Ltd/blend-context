@@ -12,8 +12,9 @@ Phạm vi: cấu hình điều kiện điểm đỏ và dùng chung kết quả 
 
 ## Thứ tự đọc
 
-1. [Context](context/): đọc `CONTEXT.md`, sau đó `01-business-qa-confirmed.vi.md`. Đây là đầu vào chuẩn về nghiệp vụ và trạng thái xác nhận.
-2. [Tài liệu](docs/): đọc đặc tả, tiêu chí nghiệm thu, thiết kế DB và phương án chia việc theo mục tiêu công việc. Giữ các bản Việt/Nhật/Anh hiện có.
+1. Đọc [CONTEXT.md](CONTEXT.md) để lấy yêu cầu hiện hành và trạng thái xác nhận.
+2. Khi cần đối chiếu theo câu hỏi, đọc [Q&A nghiệp vụ đã xác nhận](sources/confirmed-business-qa.vi.md). Đây là nguồn hỗ trợ, không tạo source of truth cạnh tranh với context.
+3. [Tài liệu](docs/): đọc đặc tả, tiêu chí nghiệm thu, thiết kế DB và phương án chia việc theo mục tiêu công việc. Giữ các bản Việt/Nhật/Anh hiện có.
 
 ## Quy ước task
 
@@ -23,4 +24,4 @@ Số Task 1–8 trong `split-tasks.*.md` chỉ là số mục chia việc, khôn
 
 ## Di chuyển tài liệu
 
-Ngày 28/09/2026, 13 tài liệu từ `context/red-score/` và `docs/red-score/` của repo này được gom vào feature có ID nguồn. Phần restructure chỉ sửa liên kết context → spec cho đúng vị trí mới; các cập nhật nội dung thực hiện song song được giữ lại. Các đường cũ là lịch sử migration, không phải nơi tiếp tục viết tài liệu.
+Ngày 28/09/2026, 13 tài liệu từ `context/red-score/` và `docs/red-score/` của repo này được gom vào feature có ID nguồn. Context chuẩn hiện nằm trực tiếp tại `CONTEXT.md`; Q&A confirmed nằm trong `sources/`. Các đường cũ là lịch sử migration, không phải nơi tiếp tục viết tài liệu.

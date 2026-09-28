@@ -38,7 +38,8 @@ Khi tra Sheet, xác minh tab, tên cột và tìm đúng ID; vị trí hàng/c�
 ```text
 features/<Feature-ID>-<slug>/
   README.md
-  context/CONTEXT.md
+  CONTEXT.md
+  sources/
   docs/
   tasks/<Task-ID>-<slug>/
   decisions/
@@ -68,13 +69,14 @@ Một quyết định nhỏ có thể ghi ngay trong context. Khi cần tách, d
 
 [Cây ticket Epic 222142](evidence/2026-09-28-redmine-hierarchy.md) ghi kết quả đọc 7 Backlogitem và 34 SubTask. Nguồn thực tế có cả task phát triển chứa task con và QA chứa QA con; không ép mọi feature phải có cùng một cây SE/Development/QA. Các rules Wiki mô tả luồng chuẩn vẫn được giữ ở [development](development/), có phạm vi và ngày đối chiếu riêng.
 
-Người và AI cùng đi theo: README repo → rules liên quan → README feature → `context/CONTEXT.md` và Q&A nếu đã có → docs/task cụ thể → code trong `blend` khi công việc cần. Chỉ đọc sâu phần liên quan, không tải toàn bộ tài liệu của mọi feature.
+Người và AI cùng đi theo: README repo → rules liên quan → README feature → `CONTEXT.md` → nguồn xác nhận nếu cần → docs/task cụ thể → code trong `blend` khi công việc cần. Chỉ đọc sâu phần liên quan, không tải toàn bộ tài liệu của mọi feature.
 
 Context chuẩn cùng xác nhận mới được phép áp dụng xác định yêu cầu. Spec, quyết định, task và bản dịch phải đồng bộ với context; code mô tả hiện trạng, không tự thay yêu cầu. Khi nguồn xung đột, nêu cụ thể và yêu cầu chốt phần ảnh hưởng, không âm thầm chọn nguồn thuận tiện hoặc mở lại câu đã được xác nhận.
 
 ## 5. Tài liệu và quyền cập nhật
 
-- Feature-wide docs: `features/<feature>/docs/`; context chuẩn: `features/<feature>/context/CONTEXT.md`; Q&A đã xác nhận đặt cạnh context. Các đường này thay cho mặc định output của skill/template.
+- Feature-wide docs: `features/<feature>/docs/`; context chuẩn: `features/<feature>/CONTEXT.md`; Q&A đã xác nhận và nguồn gốc đặt trong `features/<feature>/sources/`. Các đường này thay cho mặc định output của skill/template.
+- `sources/` giữ dữ liệu nguồn như Q&A confirmed và phản hồi gốc. `decisions/` chỉ giữ quyết định đã chuẩn hóa với vấn đề, lựa chọn, lý do, tác động và trạng thái; không chuyển nguyên file Q&A vào `decisions/`.
 - Quy tắc AI và định nghĩa chung nằm tại đây và `AGENTS.md`; phần đặc thù feature nằm trong feature đó. Không tạo bản instructions riêng cho từng công cụ nếu nội dung giống nhau.
 - Giữ hậu tố `.vi.md`, `.ja.md`, `.en.md` khi có nhiều ngôn ngữ. Không đổi tên/mất bản dịch ngoài phạm vi migration được yêu cầu. Trong bản Việt, mỗi nhãn UI/từ nghiệp vụ tiếng Nhật phải có nghĩa tiếng Việt cạnh bên.
 - Root README chỉ link thư mục; README feature và tài liệu chi tiết được link file tương đối trong repo. Nguồn ngoài dùng URL dùng chung, không có credential/query token. Không reference workstation, cấu hình cá nhân, helper riêng hoặc file nằm ngoài repo.

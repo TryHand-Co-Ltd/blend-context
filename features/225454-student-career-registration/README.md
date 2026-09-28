@@ -26,4 +26,4 @@ Không sao chép danh sách task Sheet vào README. Link tới Backlogitem khôn
 
 ## Cách sử dụng
 
-Tham khảo cách ghi ID, nguồn và parent trong ví dụ này, rồi áp dụng cho đúng feature/task được giao. Đọc [rules chung](../../rules/) và [rules phát triển](../../rules/development/) trước khi chuyển sang code `blend`. Chỉ tạo `context/`, `docs/`, `tasks/` khi được yêu cầu viết tài liệu thật. Cây Backlogitem đã đối chiếu trong Epic mẫu được ghi tại [ví dụ cấu trúc Redmine](../../rules/evidence/2026-09-28-redmine-hierarchy.md).
+Tham khảo cách ghi ID, nguồn và parent trong ví dụ này, rồi áp dụng cho đúng feature/task được giao. Đọc [rules chung](../../rules/) và [rules phát triển](../../rules/development/) trước khi chuyển sang code `blend`. Chỉ tạo `CONTEXT.md`, `sources/`, `docs/` hoặc `tasks/` khi có nội dung thật. Cây Backlogitem đã đối chiếu trong Epic mẫu được ghi tại [ví dụ cấu trúc Redmine](../../rules/evidence/2026-09-28-redmine-hierarchy.md).

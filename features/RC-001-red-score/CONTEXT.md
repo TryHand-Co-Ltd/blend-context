@@ -34,7 +34,7 @@ Cập nhật: **28/09/2026 — Q3 đã xác nhận; chỉ sử dụng Figma ti�
 
 1. **Context này** cung cấp yêu cầu hiện hành và trạng thái từng quyết định.
 2. Xác nhận/thay đổi mới được người có thẩm quyền cho phép áp dụng được đối chiếu với context, ghi rõ phần thay thế và cập nhật vào đây trước khi dùng làm baseline cho công việc tiếp theo.
-3. [Q&A đã xác nhận](01-business-qa-confirmed.vi.md) là bản đọc theo câu hỏi, bổ trợ context mà không tạo nguồn chuẩn cạnh tranh. Sau phản hồi Q3 bổ sung, bộ câu hỏi đã gửi không còn câu hỏi nghiệp vụ mở; các việc còn lại về thiết kế/tích hợp được ghi tại mục 9.5 của context này.
+3. [Q&A đã xác nhận](sources/confirmed-business-qa.vi.md) là bản đọc theo câu hỏi, bổ trợ context mà không tạo nguồn chuẩn cạnh tranh. Sau phản hồi Q3 bổ sung, bộ câu hỏi đã gửi không còn câu hỏi nghiệp vụ mở; các việc còn lại về thiết kế/tích hợp được ghi tại mục 9.5 của context này.
 4. Research ngày 24/09 cung cấp nền tích hợp; điều tra các câu hỏi lại ngày 25/09 và bằng chứng source tương ứng bổ sung luồng maximum và thứ tự hiển thị. Trạng thái quyết định trong research cũ là lịch sử; dùng context này và Q&A tiếng Việt ngày 25/09 để xác định trạng thái hiện hành. Code chứng minh hiện trạng, không tự sửa yêu cầu. Các báo cáo research và bằng chứng source được nhắc ở đây là tài liệu lịch sử không kèm trong repository này.
 5. Google Sheets, các spec/task/AC cũ, report phân tích và mockup cũ là **nguồn lịch sử hoặc tài liệu dẫn hướng**, không còn là source of truth của feature. Không tự nhập lại điều khoản từ Sheets nếu trái hoặc chưa được ghi nhận trong context.
 
@@ -395,7 +395,7 @@ Nguồn snapshot tham chiếu [PR #57058](https://github.com/ednity/school-web/p
 
 ### 8.1. Triển khai trước bằng dummy data
 
-Có thể dùng dummy data cho nguồn trung bình/snapshot để triển khai trước, không bị block bởi PR chưa merge; tích hợp nguồn thật khi sẵn sàng. Nội dung này đã được ghi trong [spec tiếng Việt](../docs/specification.vi.md#conditions).
+Có thể dùng dummy data cho nguồn trung bình/snapshot để triển khai trước, không bị block bởi PR chưa merge; tích hợp nguồn thật khi sẵn sàng. Nội dung này đã được ghi trong [spec tiếng Việt](docs/specification.vi.md#conditions).
 
 <a id="qa"></a>
 
@@ -417,7 +417,7 @@ Số Q ở bảng này là **số của bộ remaining Q&A r17 đã gửi (bản
 | Q7.1 | A — dòng đỏ sau ô chọn/trước ô trống, theo cơ chế trên xuống được hỏi lại | Q29 | Trả lời cơ chế first-match đã kiểm; giữ nguyên trạng cũng dừng, không ghép mọi hiệu ứng |
 | Q7.2 | A — kết hợp hiệu ứng khác nhau, trùng chỉ một lần | Q30 | Không thêm nền đỏ riêng vào bản đầu; khả năng nền màu để sau |
 
-[Q&A confirmed ngày 25/09](01-business-qa-confirmed.vi.md) giữ Q1–Q30 và bổ sung Q31 cho Q3. Bộ Q1–Q7.2 đã gửi không còn câu hỏi nghiệp vụ mở. Bản tiếng Nhật `02-business-qa-open.ja.md` ngày 24/09 được giữ như bản câu hỏi đã gửi, không phải danh sách open hiện hành. Không dùng nó để mở lại những câu đã có phản hồi.
+[Q&A confirmed ngày 25/09](sources/confirmed-business-qa.vi.md) giữ Q1–Q30 và bổ sung Q31 cho Q3. Bộ Q1–Q7.2 đã gửi không còn câu hỏi nghiệp vụ mở. Bản tiếng Nhật `02-business-qa-open.ja.md` ngày 24/09 được giữ như bản câu hỏi đã gửi, không phải danh sách open hiện hành. Không dùng nó để mở lại những câu đã có phản hồi.
 
 **Phạm vi triển khai/phát hành** vẫn chưa chốt theo phần 2, do đầu mối Sales/CS thống nhất. Đóng toàn bộ câu hỏi trong bộ bổ sung không đồng nghĩa triển khai/phát hành đã được duyệt: các khoảng trống tích hợp I01–I12 vẫn phải giải quyết và kiểm chứng.
 

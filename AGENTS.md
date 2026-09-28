@@ -6,11 +6,11 @@ Start every BLEND task here. `blend-context` owns shared instructions, definitio
 
 1. Read `README.md` and [repository rules](rules/README.md).
 2. Resolve the feature by its verified Redmine Backlogitem ID or Sheet Work Item ID. Read `features/<Feature-ID>-<slug>/README.md`; use its recorded ID/source and consult the source for the requested task, not title similarity alone. Do not infer the source from the ID format.
-3. Read that feature's `context/CONTEXT.md` and confirmed Q&A when present; if not yet documented, follow the verified source from its README. Then read documents relevant to the task. Never substitute an old research note or another feature's requirements.
+3. Read that feature's `CONTEXT.md` and confirmed sources when present; if not yet documented, follow the verified source from its README. Then read documents relevant to the task. Never substitute an old research note or another feature's requirements.
 4. For application code work, read [development rule routing](rules/development/README.md) and its required references, then inspect the relevant code in `blend`. These rules also apply to implementation proposals and code reviews.
 5. When a session starts directly in `blend`, explicitly provide this shared entry point; do not assume instructions from another repository are automatically loaded. Confirm which checkout/revision is the application repository before relying on source evidence. `blend` is the team's repository name, not an assumed host URL or required sibling path. If the application checkout is unavailable, ask for access/location; do not invent source paths or clone silently.
 
-For red scores, start in [RC-001-red-score](features/RC-001-red-score/): `context/CONTEXT.md` and `context/01-business-qa-confirmed.vi.md` are the current entry documents. Read task IDs from the registered Sheet when needed. Ticket `225454` and its related hierarchy are organizational examples only, not an active assignment or the project's complete backlog. Do not select an example as implementation scope unless explicitly requested. The README indexes available documentation, not all project work or current assignments.
+For red scores, start in [RC-001-red-score](features/RC-001-red-score/): `CONTEXT.md` is the current source of truth and `sources/confirmed-business-qa.vi.md` preserves the confirmed Q&A. Read task IDs from the registered Sheet when needed. Ticket `225454` and its related hierarchy are organizational examples only, not an active assignment or the project's complete backlog. Do not select an example as implementation scope unless explicitly requested. The README indexes available documentation, not all project work or current assignments.
 
 ## ID and evidence boundaries
 
@@ -21,7 +21,8 @@ For red scores, start in [RC-001-red-score](features/RC-001-red-score/): `contex
 
 ## Write boundaries
 
-- Put feature-wide context in `context/CONTEXT.md` and confirmed Q&A alongside it, shared documents in `docs/`, task-specific material in `tasks/<Task-ID>-<slug>/`, and standalone decisions in `decisions/`, all under the feature folder. Create only folders needed. These paths override generic skill/template output paths.
+- Put feature-wide context in `CONTEXT.md`, confirmed Q&A and source material in `sources/`, shared documents in `docs/`, task-specific material in `tasks/<Task-ID>-<slug>/`, and standalone normalized decisions in `decisions/`, all under the feature folder. Create only folders needed. These paths override generic skill/template output paths.
+- Treat confirmed Q&A as source evidence, not as a decision record. Put a file in `decisions/` only when it states a normalized decision, rationale, impact, status, and replacement relationship when applicable.
 - Keep dated rule/source verification records in `rules/evidence/`, separate from active rules. Feature-specific investigation belongs with that feature. Historical evidence is not a live task/status index.
 - Keep one canonical copy. Task documents link to shared specifications and results instead of duplicating them. Preserve unrelated content, language variants and the user's existing changes.
 - Keep Japanese UI labels exact. In Vietnamese prose, put the Vietnamese meaning immediately beside each Japanese UI name or business term. Follow an explicitly requested output language.
