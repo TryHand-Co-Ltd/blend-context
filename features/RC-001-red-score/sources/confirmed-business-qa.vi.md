@@ -1,12 +1,14 @@
 # Q&A đã xác nhận về chức năng điểm đỏ（赤点）
 
-Ngày cập nhật: **25/09/2026**.
+Ngày cập nhật: **28/09/2026 — bổ sung Q33: khách hàng chọn A cho danh sách nhóm tham chiếu và luồng chọn nguồn**.
 
 Tài liệu ghi lại các yêu cầu đã có, [phản hồi ngày 24/09 cùng ảnh gốc trên Slack](https://tryhand.slack.com/archives/C0BRGJA6XDE/p1790245548913629?thread_ts=1789563761.146189&cid=C0BRGJA6XDE), [trả lời Q&A cuộc họp](https://tryhand.slack.com/files/U096NBBJLSU/F0C498QAKAQ/2026-09-24_______qa___________________.md?origin_team=T08LS8ZGDTP) và [phản hồi bổ sung ngày 25/09](https://app.slack.com/client/T08LS8ZGDTP/C0BRGJA6XDE/thread/C0BRGJA6XDE-1789563761.146189/1790315716.848689). Những nội dung xác minh bằng source được ghi riêng ở phần 2; chúng không được gọi là xác nhận nghiệp vụ.
 
 Giữ nguyên số Q1–Q30 của tài liệu này. Phần 3 bổ sung **Q31 cho xác nhận Q3 của bộ câu hỏi đã gửi** (bản ngày 24/09); không nhầm với Q3 của tài liệu confirmed này. Xác nhận bổ sung được người phụ trách cung cấp nguyên văn trong phiên ngày 25/09, chưa có permalink riêng. Các câu hỏi bổ sung về hiện trạng AutoRating và thứ tự hiển thị đã có kết quả điều tra để trả lời, không phải quyết định nghiệp vụ mới đã được khách hàng duyệt.
 
 ## 1. Yêu cầu đã có và nội dung được xác nhận
+
+Phần 4 bổ sung Q32 và Q33 từ phản hồi review DB ngày 28/09 và các câu xác nhận do người phụ trách cung cấp. Giữ nguyên Q1–Q31; số bổ sung không đổi số của các bộ câu hỏi đã gửi trước đó.
 
 ### Q1 — Ai được thiết lập điều kiện điểm đỏ?
 
@@ -255,3 +257,37 @@ Không thêm xử lý nghiệp vụ riêng hoặc chức năng ngăn cấu hình
 Đây là xác nhận kế thừa kết quả hiện hữu, không phải yêu cầu mới về kết quả cụ thể của nhóm trộn điểm tối đa 50/100. Giữ đúng nhóm và bản nguồn, ưu tiên bản chốt, yêu cầu giá trị trước làm tròn và xử lý dữ liệu không hợp lệ đã có. Phản hồi không tự xác nhận số đã làm tròn trên màn hình đáp ứng yêu cầu so sánh; độ chính xác dữ liệu nguồn còn cần kiểm khi tích hợp. Các quy tắc Q26–Q30 không thay đổi.
 
 Nguồn: hai phản hồi tiếng Nhật do người phụ trách cung cấp nguyên văn trong phiên ngày 25/09/2026; chưa có permalink riêng. Đóng Q3 không đồng nghĩa hoàn tất tích hợp, cập nhật Figma hoặc phê duyệt phạm vi phát hành.
+
+## 4. Xác nhận bổ sung khi review DB ngày 28/09
+
+<a id="q32-population-confirmed"></a>
+
+### Q32 — Nhóm tham chiếu phía điểm đỏ có tuân theo thiết lập tổng hợp hiện hữu không? (DB-R3)
+
+**Đã xác nhận hướng nghiệp vụ.** Khách hàng làm rõ rằng danh sách nhóm tham chiếu（母集団） phải theo thiết lập tổng hợp thứ hạng hiện có. Lớp học（授業） chỉ được chọn khi tổng hợp theo lớp được bật; phía điểm đỏ đọc kết quả tổng hợp tương ứng. Một cấu hình tổng hợp có thể tạo kết quả theo khối（学年）, lớp chủ nhiệm（ホームルーム） và lớp học（授業）.
+
+Đề xuất được xác nhận: dùng thiết lập hiện hữu để quyết định lựa chọn khả dụng, chọn loại nhóm để tham chiếu kết quả của cùng cấu hình, và không thêm công tắc tổng hợp riêng phía điểm đỏ. Ví dụ trong cấu hình X, chỉ bật khối/HR thì trong ba loại này chỉ có khối/HR; bật thêm lớp học thì có thêm lựa chọn lớp học, không tạo cấu hình X mới.
+
+Khách hàng trả lời: “そのようなイメージです” — “Đúng, chúng tôi hình dung theo hướng như vậy.” Nguồn là phản hồi được người phụ trách cung cấp trong phiên ngày 28/09/2026; chưa có permalink riêng. Không hỏi lại hướng đã xác nhận này.
+
+Các cờ bật/tắt thuộc trường/năm học là chi tiết hiện trạng đã kiểm bằng source; ID cấu hình tổng hợp và loại nhóm là hai chiều riêng. Được bật không đồng nghĩa đã có kết quả hợp lệ; quy tắc nguồn chốt và thiếu dữ liệu ở Q26 không đổi. Riêng câu xác nhận Q32 không phê duyệt mã enum, DDL, cơ chế chống ghi cũ hay mọi chi tiết của nhóm môn học（科目グループ）; [Q33 bên dưới](#q33-population-option-a) bổ sung xác nhận A về việc hiển thị/chọn ba loại nhóm cấu hình. Xem [context hiện hành](../CONTEXT.md#db-review-20260928) để phân biệt xác nhận, đề xuất kỹ thuật và giới hạn kiểm chứng.
+
+<a id="q33-population-option-a"></a>
+
+### Q33 — Ba loại nhóm cấu hình có xuất hiện ngoài khối/HR/lớp học không?
+
+**Đã xác nhận A.** Trong Q&A được người phụ trách cho biết đã gửi, A là hiển thị các nhóm tổng hợp thứ hạng（順位集計グループ）, tổ hợp nhóm（組み合わせグループ） và nhóm môn học（科目グループ） đã cấu hình, bên cạnh khối/HR/lớp học đang được bật. Ba loại nhóm bổ sung xuất hiện khi có cấu hình tương ứng, độc lập với ba công tắc khối/HR/lớp học. B là chỉ hiển thị ba loại cơ bản và loại bỏ ba loại nhóm bổ sung; khách hàng không chọn B.
+
+Phản hồi nguyên văn do người phụ trách cung cấp:
+
+> Aの認識です。
+>
+> イメージとして、成績公開設定でも選択できてるように、対象の順位集計設定選んで、集計対象選んでみたいな感じ。
+>
+> ここだと、科目ごとの母集団とかは選べなかったと思いますが。
+
+Nghĩa tiếng Việt: “Tôi hiểu theo A. Hình dung giống màn Thiết lập công khai thành tích（成績公開設定）: chọn Thiết lập tổng hợp thứ hạng（順位集計設定） cần dùng rồi chọn Đối tượng tổng hợp（集計対象）. Tuy nhiên, tôi nhớ rằng ở đây hình như không chọn được nhóm tham chiếu theo từng môn.”
+
+Luồng chọn nguồn phía điểm đỏ theo thứ tự cấu hình tổng hợp → nhóm tham chiếu, giữ trường thời kỳ và quy tắc nguồn đã có. Chọn nhóm cấu hình bằng tên đã đặt và lưu ID; không thêm màn cấu hình nhóm theo từng môn ngay trong dropdown. Nhận xét cuối là mô tả chưa chắc chắn về màn tham chiếu, không phải yêu cầu loại nhóm môn hoặc đổi sang B. Không suy ảnh tham chiếu thành yêu cầu thêm chọn thứ hạng, tên hiển thị hoặc biểu đồ vào form điểm đỏ.
+
+Ảnh người phụ trách chuyển có khu vực Kết quả tổng hợp theo môn/lớp học（科目・授業ごとの集計結果） với các cột cấu hình tổng hợp, đối tượng tổng hợp, giá trị tổng hợp và tên hiển thị. Ảnh không mở dropdown nên không chứng minh toàn bộ lựa chọn. Chưa có permalink riêng của phản hồi/ảnh; không đưa đường dẫn ảnh trên máy cá nhân vào tài liệu chung. Source của màn tham chiếu đã được đối chiếu; chưa xác minh dropdown live ad31. Q33 bổ sung Q32 về phạm vi lựa chọn, không phê duyệt chi tiết DDL hoặc bảo đảm kết quả tổng hợp luôn tồn tại.

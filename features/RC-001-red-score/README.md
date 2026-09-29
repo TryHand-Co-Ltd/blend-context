@@ -14,7 +14,7 @@ Phạm vi: cấu hình điều kiện điểm đỏ và dùng chung kết quả 
 
 1. Đọc [CONTEXT.md](CONTEXT.md) để lấy yêu cầu hiện hành và trạng thái xác nhận.
 2. Khi cần đối chiếu theo câu hỏi, đọc [Q&A nghiệp vụ đã xác nhận](sources/confirmed-business-qa.vi.md). Đây là nguồn hỗ trợ, không tạo source of truth cạnh tranh với context.
-3. [Tài liệu](docs/): đọc đặc tả, tiêu chí nghiệm thu, thiết kế DB và phương án chia việc theo mục tiêu công việc. Giữ các bản Việt/Nhật/Anh hiện có.
+3. [Chỉ mục phiên bản tài liệu](docs/README.md): `docs/v1/` giữ nguyên bộ đã gửi khách hàng; `docs/v2/` là bản làm việc cho các sửa đổi tiếp theo. Khi tách phiên bản, v2 mới là bản sao nguyên nội dung v1, chưa hoàn thiện feedback. Giữ các bản Việt/Nhật/Anh hiện có và đối chiếu context/Q&A mới nhất.
 
 ## Quy ước task
 
@@ -25,3 +25,5 @@ Số Task 1–8 trong `split-tasks.*.md` chỉ là số mục chia việc, khôn
 ## Di chuyển tài liệu
 
 Ngày 28/09/2026, 13 tài liệu từ `context/red-score/` và `docs/red-score/` của repo này được gom vào feature có ID nguồn. Context chuẩn hiện nằm trực tiếp tại `CONTEXT.md`; Q&A confirmed nằm trong `sources/`. Các đường cũ là lịch sử migration, không phải nơi tiếp tục viết tài liệu.
+
+Sau đó, cùng ngày, theo xác nhận của người phụ trách, 11 file trong `docs/` được chuyển nguyên nội dung vào `docs/v1/` và sao chép sang `docs/v2/`. Các chỉnh sửa thiết kế tiếp theo chỉ thực hiện trên v2; context và nguồn xác nhận giữ nguyên vị trí.

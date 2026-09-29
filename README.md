@@ -4,7 +4,7 @@
 
 ## Bắt đầu
 
-1. AI đọc `AGENTS.md`; thành viên mới đọc [rules và cách tổ chức](rules/).
+1. AI đọc `AGENTS.md`; thành viên mới đọc [rules và cách tổ chức](rules/) cùng [quy tắc soạn nội dung](rules/content-authoring.md).
 2. Tìm chức năng theo ID ở bảng bên dưới, đọc README của thư mục đó rồi context và tài liệu liên quan.
 3. Khi cần nghiên cứu hoặc sửa ứng dụng, chuyển sang repository `blend`, áp dụng [rules phát triển](rules/development/) theo phạm vi công việc.
 
@@ -13,6 +13,7 @@
 ```text
 AGENTS.md                          Hướng dẫn bắt đầu và phân luồng cho AI
 rules/                             Định nghĩa, nguồn ID và quy ước tổ chức
+  content-authoring.md             Quy tắc soạn nội dung BLEND dùng chung
   development/                     Rules phát triển BLEND và nguồn Wiki
   evidence/                        Bằng chứng đối chiếu theo ngày, không phải rules hiện hành
 features/

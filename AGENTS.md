@@ -4,7 +4,7 @@ Start every BLEND task here. `blend-context` owns shared instructions, definitio
 
 ## Read and route
 
-1. Read `README.md` and [repository rules](rules/README.md).
+1. Read `README.md`, [repository rules](rules/README.md), and [content-authoring rules](rules/content-authoring.md) for any created or edited BLEND content.
 2. Resolve the feature by its verified Redmine Backlogitem ID or Sheet Work Item ID. Read `features/<Feature-ID>-<slug>/README.md`; use its recorded ID/source and consult the source for the requested task, not title similarity alone. Do not infer the source from the ID format.
 3. Read that feature's `CONTEXT.md` and confirmed sources when present; if not yet documented, follow the verified source from its README. Then read documents relevant to the task. Never substitute an old research note or another feature's requirements.
 4. For application code work, read [development rule routing](rules/development/README.md) and its required references, then inspect the relevant code in `blend`. These rules also apply to implementation proposals and code reviews.
@@ -22,6 +22,8 @@ For red scores, start in [RC-001-red-score](features/RC-001-red-score/): `CONTEX
 ## Write boundaries
 
 - Put feature-wide context in `CONTEXT.md`, confirmed Q&A and source material in `sources/`, shared documents in `docs/`, task-specific material in `tasks/<Task-ID>-<slug>/`, and standalone normalized decisions in `decisions/`, all under the feature folder. Create only folders needed. These paths override generic skill/template output paths.
+- Resolve the owning feature by its verified source and exact ID before choosing an output path. Reuse its existing folder and slug. If no verified Feature ID or Task ID exists, do not invent one or create a canonical folder; keep the result in chat or a user-assigned location until the identity is verified.
+- Use a revision subfolder only when the source or existing feature organization genuinely has revisions. Do not create `r1` by default. For a new feature, add its folder to the root `README.md`; do not list every task there or in the feature README.
 - Treat confirmed Q&A as source evidence, not as a decision record. Put a file in `decisions/` only when it states a normalized decision, rationale, impact, status, and replacement relationship when applicable.
 - Keep dated rule/source verification records in `rules/evidence/`, separate from active rules. Feature-specific investigation belongs with that feature. Historical evidence is not a live task/status index.
 - Keep one canonical copy. Task documents link to shared specifications and results instead of duplicating them. Preserve unrelated content, language variants and the user's existing changes.

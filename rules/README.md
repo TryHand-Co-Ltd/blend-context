@@ -1,6 +1,6 @@
 # Rules và cách tổ chức BLEND
 
-`blend-context` là nơi bắt đầu cho người và AI. Các quy ước dưới đây áp dụng cho tài liệu dùng chung; [rules phát triển](development/) áp dụng khi làm việc với ứng dụng `blend`.
+`blend-context` là nơi bắt đầu cho người và AI. Các quy ước dưới đây áp dụng cho tài liệu dùng chung; [quy tắc soạn nội dung](content-authoring.md) áp dụng cho mọi nội dung BLEND và [rules phát triển](development/) áp dụng khi làm việc với ứng dụng `blend`.
 
 ## 1. Vai trò và định nghĩa
 
@@ -59,6 +59,17 @@ Các đường dẫn dùng `225454` và task liên quan chỉ minh họa cách t
 
 Chỉ tạo `tasks/` khi có tài liệu riêng cho task. Tài liệu dùng cho cả feature giữ một bản ở `docs/`, tài liệu task chỉ tới bản đó. Giữ cây thư mục task phẳng trong feature; tài liệu task ghi parent thật, kể cả khi Redmine có nhiều tầng. Không tạo chuỗi thư mục theo toàn bộ tổ tiên, không nhân bản đặc tả theo mỗi task.
 
+Trước khi ghi file, phân loại nội dung theo owner thay vì theo tên template:
+
+- yêu cầu hiện hành của feature → `CONTEXT.md`;
+- phản hồi/Q&A đã xác nhận hoặc nguồn gốc → `sources/`;
+- đặc tả, thiết kế, research, test design, acceptance criteria hoặc báo cáo dùng chung toàn feature → `docs/`;
+- nội dung chỉ thuộc một Task ID đã xác minh, gồm task bundle, review, PR/QA draft → `tasks/<Task-ID>-<slug>/`;
+- quyết định đã chuẩn hóa → `decisions/`;
+- rule/evidence dùng chung toàn dự án → `rules/` hoặc `rules/evidence/`.
+
+Tái sử dụng folder/slug hiện có. Chỉ tạo revision subfolder khi nguồn có revision thực hoặc feature đã dùng convention đó; không mặc định tạo `r1`. Khi chưa xác minh được Feature ID hoặc Task ID, không tự đặt ID/folder canonical: trả nội dung trong chat hoặc dùng đúng nơi tạm do người dùng chỉ định, rồi chuyển vào repo sau khi có identity.
+
 README của feature ghi Feature ID/nguồn, Epic hoặc Work Item cha nếu có, phạm vi, thứ tự đọc và link nguồn chung. Không liệt kê từng task hoặc link từng hàng Google Sheet trong README; mở nguồn khi cần tra task và trạng thái hiện hành. Khi có tài liệu riêng cho task, ghi ID nguyên gốc, nguồn/link và parent trực tiếp tại tài liệu đó.
 
 Nếu cùng một ID xuất hiện ở hai nguồn, đối chiếu cặp nguồn + ID trước khi chọn thư mục; không tự gộp task. Hai công việc khác nhau dùng slug mô tả khác nhau và ghi rõ nguồn. Nếu vẫn không phân biệt được thì yêu cầu xác minh, không ghi đè thư mục hoặc tự đổi ID.
@@ -77,7 +88,7 @@ Context chuẩn cùng xác nhận mới được phép áp dụng xác định y
 
 - Feature-wide docs: `features/<feature>/docs/`; context chuẩn: `features/<feature>/CONTEXT.md`; Q&A đã xác nhận và nguồn gốc đặt trong `features/<feature>/sources/`. Các đường này thay cho mặc định output của skill/template.
 - `sources/` giữ dữ liệu nguồn như Q&A confirmed và phản hồi gốc. `decisions/` chỉ giữ quyết định đã chuẩn hóa với vấn đề, lựa chọn, lý do, tác động và trạng thái; không chuyển nguyên file Q&A vào `decisions/`.
-- Quy tắc AI và định nghĩa chung nằm tại đây và `AGENTS.md`; phần đặc thù feature nằm trong feature đó. Không tạo bản instructions riêng cho từng công cụ nếu nội dung giống nhau.
+- Quy tắc AI và định nghĩa chung nằm tại đây, [content-authoring.md](content-authoring.md) và `AGENTS.md`; phần đặc thù feature nằm trong feature đó. Không tạo bản instructions riêng cho từng công cụ nếu nội dung giống nhau.
 - Giữ hậu tố `.vi.md`, `.ja.md`, `.en.md` khi có nhiều ngôn ngữ. Không đổi tên/mất bản dịch ngoài phạm vi migration được yêu cầu. Trong bản Việt, mỗi nhãn UI/từ nghiệp vụ tiếng Nhật phải có nghĩa tiếng Việt cạnh bên.
 - Root README chỉ link thư mục; README feature và tài liệu chi tiết được link file tương đối trong repo. Nguồn ngoài dùng URL dùng chung, không có credential/query token. Không reference workstation, cấu hình cá nhân, helper riêng hoặc file nằm ngoài repo.
 - Di chuyển tài liệu phải sửa link, kiểm đủ nội dung và giữ giới hạn chứng cứ cũ. Ngày import không phải ngày tái xác minh nghiệp vụ/Wiki/code.

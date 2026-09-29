@@ -1,14 +1,16 @@
 # Context chuẩn của chức năng điểm đỏ（赤点）
 
-Cập nhật: **28/09/2026 — Q3 đã xác nhận; chỉ sử dụng Figma tiếng Nhật, bản Figma tiếng Việt đã được người phụ trách xóa**.
+Cập nhật: **28/09/2026 — bổ sung Q33: khách hàng chọn A cho ba loại nhóm cấu hình và luồng chọn nguồn theo màn công khai; v2 được đồng bộ. Figma MW chưa được đối chiếu/sửa theo xác nhận mới do giới hạn truy cập**.
 
 **Tài liệu này là source of truth của feature:** đầu vào chuẩn để so sánh thay đổi, chỉnh thiết kế, lập task, tiêu chí nghiệm thu và triển khai. Việc đổi vai trò nguồn chuẩn do người phụ trách yêu cầu trong phiên ngày 24/09. Tài liệu được đặt cùng Q&A đã xác nhận trong thư mục context; nội dung không còn là baseline ngày 23/09.
 
 **Trạng thái:** đã tổng hợp các yêu cầu/xác nhận hiện hành, những quyết định còn mở và giới hạn tích hợp. Chưa phải phê duyệt toàn bộ thiết kế, phạm vi phát hành hoặc xác nhận tính năng đã được triển khai. Không biến “research đã làm rõ” thành “nghiệp vụ đã đồng ý”.
 
-**Trạng thái thiết kế:** Bản Figma tiếng Nhật đã được xếp thành hàng ngang (bốn cụm màn chính, ba cụm đầu ra), đánh dấu thao tác và nối mũi tên giữa các màn liên quan. Chú thích Q3 đã bỏ giả định A/B và dùng kết quả tổng hợp thứ hạng hiện có; khác điểm tối đa trong cùng nhóm không được làm dừng xử lý. Chỉ sử dụng bản Nhật; bản Figma tiếng Việt đã được người phụ trách xác nhận xóa và không còn thuộc phạm vi đồng bộ. Thiết kế DB/tích hợp và phạm vi phát hành vẫn cần hoàn thiện riêng. Xem [thiết kế đã cập nhật](#design-updated), [phạm vi ảnh hưởng của Q3](#q3-design-impact) và [việc còn lại](#design-pending).
+**Trạng thái thiết kế:** nguồn mockup hiện hành là [file Figma của Movitation Works (MW)](#design-updated), do người phụ trách cung cấp và xác nhận đã cập nhật UI. Chưa đối chiếu canvas của file MW. Việc xếp hàng ngang, đánh dấu thao tác và đồng bộ chú thích Q3 được ghi bên dưới là bằng chứng của bản Nhật trước khi đổi file; không tự coi đã kiểm lại các nội dung đó trên file MW. Chỉ sử dụng bản Nhật; bản Figma tiếng Việt đã được người phụ trách xác nhận xóa và không còn thuộc phạm vi đồng bộ. Thiết kế DB/tích hợp và phạm vi phát hành vẫn cần hoàn thiện riêng. Xem [phạm vi ảnh hưởng của Q3](#q3-design-impact) và [việc còn lại](#design-pending).
 
 ## Mục lục
+
+**Nguồn mockup hiện hành:** dùng [link Figma MW tại mục 4.4](#design-updated), file key `iAB9nFC3RuqxbLUMsh79jd`, node được cung cấp `0:1`. Các link của file `O2fNFrlnuG8XdQlQIc3H3T` là tham chiếu lịch sử. Node/frame của file cũ không được tự ghép vào URL file MW.
 
 - [1. Nguồn chuẩn và cách áp dụng](#sources)
 - [2. Thiết kế đầy đủ, triển khai và phát hành có giới hạn](#scope)
@@ -22,6 +24,7 @@ Cập nhật: **28/09/2026 — Q3 đã xác nhận; chỉ sử dụng Figma ti�
 - [9. Trạng thái xác nhận và tác động tới thiết kế](#qa)
   - [Ảnh hưởng sau khi Q3 đã xác nhận](#q3-design-impact)
   - [Các phần thiết kế còn pending](#design-pending)
+  - [Ba phản hồi review DB và bài học thiết kế ngày 28/09](#db-review-20260928)
 - [10. Bằng chứng và giới hạn](#evidence)
 - [11. Những nội dung cũ đã bị thay thế](#history)
 - [12. Cập nhật khi có phản hồi mới](#next)
@@ -35,12 +38,14 @@ Cập nhật: **28/09/2026 — Q3 đã xác nhận; chỉ sử dụng Figma ti�
 1. **Context này** cung cấp yêu cầu hiện hành và trạng thái từng quyết định.
 2. Xác nhận/thay đổi mới được người có thẩm quyền cho phép áp dụng được đối chiếu với context, ghi rõ phần thay thế và cập nhật vào đây trước khi dùng làm baseline cho công việc tiếp theo.
 3. [Q&A đã xác nhận](sources/confirmed-business-qa.vi.md) là bản đọc theo câu hỏi, bổ trợ context mà không tạo nguồn chuẩn cạnh tranh. Sau phản hồi Q3 bổ sung, bộ câu hỏi đã gửi không còn câu hỏi nghiệp vụ mở; các việc còn lại về thiết kế/tích hợp được ghi tại mục 9.5 của context này.
-4. Research ngày 24/09 cung cấp nền tích hợp; điều tra các câu hỏi lại ngày 25/09 và bằng chứng source tương ứng bổ sung luồng maximum và thứ tự hiển thị. Trạng thái quyết định trong research cũ là lịch sử; dùng context này và Q&A tiếng Việt ngày 25/09 để xác định trạng thái hiện hành. Code chứng minh hiện trạng, không tự sửa yêu cầu. Các báo cáo research và bằng chứng source được nhắc ở đây là tài liệu lịch sử không kèm trong repository này.
+4. Research ngày 24/09 cung cấp nền tích hợp; điều tra ngày 25/09 bổ sung luồng maximum và thứ tự hiển thị; đối chiếu source ngày 28/09 bổ sung DB-R3 tại mục 9.6. Trạng thái quyết định trong research cũ là lịch sử; dùng context này và Q&A tiếng Việt đã bổ sung Q32–Q33 ngày 28/09 để xác định trạng thái hiện hành. Code chứng minh hiện trạng, không tự sửa yêu cầu. Các báo cáo research ngày 24–25/09 được nhắc ở đây là tài liệu lịch sử không kèm trong repository này.
 5. Google Sheets, các spec/task/AC cũ, report phân tích và mockup cũ là **nguồn lịch sử hoặc tài liệu dẫn hướng**, không còn là source of truth của feature. Không tự nhập lại điều khoản từ Sheets nếu trái hoặc chưa được ghi nhận trong context.
 
 Nếu phát hiện khác biệt giữa context và xác nhận gốc, ghi nhận khác biệt, sửa đúng phần có căn cứ và cập nhật Q&A tương ứng. Không âm thầm chọn cách hiểu tiện cho implementation. Một đề xuất A trong Q&A chưa có câu trả lời không trở thành mặc định được duyệt.
 
 ### 1.2. Căn cứ của lần cập nhật
+
+- Ngày 28/09/2026, người phụ trách cung cấp link file Figma `iAB9nFC3RuqxbLUMsh79jd`, node `0:1`, xác nhận đây là file của Movitation Works và thay cho link mockup trước. Link hiện hành được ghi tại mục 4.4. Đây là xác nhận về nguồn thiết kế; lượt cập nhật context không kiểm canvas, quyền truy cập hay ánh xạ frame trong file mới.
 
 - Ngày 28/09/2026, người phụ trách xác nhận trong phiên rằng bản Figma tiếng Việt đã được xóa, chỉ còn sử dụng bản tiếng Nhật, và yêu cầu cập nhật tài liệu. Đây là xác nhận về nguồn thiết kế hiện hành, không thay đổi nghiệp vụ Q3; lượt cập nhật tài liệu này không kiểm lại canvas hoặc thực hiện thao tác xóa trên Figma.
 
@@ -171,7 +176,7 @@ Ba ảnh trong phản hồi ngày 25/09 có thứ tự riêng:
 - Không phục hồi radio tùy chọn bản chốt/mới nhất. Fixed/rate độc lập không hiện các trường nguồn trung bình không cần thiết.
 - Không giữ nguyên bốn form đóng cứng của mockup cũ làm giới hạn thiết kế công thức mới. Cách tổ chức loại/mẫu công thức là phần thiết kế, chưa được quyết định bởi tên frame.
 
-[File Figma hiện hữu](https://www.figma.com/design/O2fNFrlnuG8XdQlQIc3H3T/Red-Score-UI-Mockup---Final) phải được kiểm đúng page/frame trước khi chỉnh. Không dùng node lịch sử hay ảnh của report để khẳng định canvas hiện tại. Lượt cập nhật UI ngày 25/09 đã kiểm đúng hai trang và chỉnh các phần chịu ảnh hưởng, ghi tại mục 4.4.
+[File Figma hiện hành của MW](#design-updated) phải được kiểm đúng page/frame trước khi chỉnh. Không dùng node lịch sử hay ảnh của report để khẳng định canvas hiện tại. Lượt cập nhật UI ngày 25/09 đã kiểm hai trang và chỉnh các phần chịu ảnh hưởng trên file cũ, ghi tại mục 4.4; bằng chứng đó không phải kiểm chứng file MW.
 
 Các yêu cầu chỉnh màn trong phần này vẫn là nội dung cần đối chiếu khi hoàn thiện thiết kế. Trạng thái chờ nghiệp vụ, cần đồng bộ bản vẽ và cần hoàn thiện thiết kế kỹ thuật được phân biệt tại [mục 9.5](#design-pending), không gom tất cả thành “đang chờ Q&A”.
 
@@ -187,7 +192,8 @@ UI công thức hiện mặc định không xử lý phần lẻ, vị trí ch�
 
 ### 4.4. Thiết kế Figma hiện hành
 
-- [Figma tiếng Nhật — hướng dẫn đọc và các chương thiết kế](https://www.figma.com/design/O2fNFrlnuG8XdQlQIc3H3T/Red-Score-UI-Mockup---Final?node-id=4592-1631), trang `Japanese Design`, là bản Figma duy nhất dùng cho thiết kế và triển khai hiện tại.
+- **Nguồn hiện hành:** [Figma — Movitation Works (MW)](https://www.figma.com/design/iAB9nFC3RuqxbLUMsh79jd/%25E8%25B5%25A4%25E7%2582%25B9%25E5%2588%25A4%25E5%25AE%259A%25E5%25AF%25BE%25E5%25BF%259C?node-id=0-1&p=f&t=uSbj1CRisHDeJszF-0). File key: `iAB9nFC3RuqxbLUMsh79jd`; node trong link: `0:1`. Dùng file này cho các lần đối chiếu và cập nhật mockup tiếp theo. Người phụ trách xác nhận đây là file MW đã cập nhật UI; chưa có kiểm chứng độc lập về canvas hoặc các frame cụ thể.
+- **Tham chiếu lịch sử:** [bản Figma tiếng Nhật trước khi chuyển sang MW](https://www.figma.com/design/O2fNFrlnuG8XdQlQIc3H3T/Red-Score-UI-Mockup---Final?node-id=4592-1631), trang `Japanese Design`. Các bảng nội dung, link chương và node dưới đây ghi lại lần kiểm trên file cũ, không phải mapping sang file MW. Cần tìm đúng frame trong file mới; không thay file key rồi giữ nguyên node ID cũ.
 
 Lịch sử: lượt đồng bộ Q&A đầu tiên chỉnh chữ, hộp thoại và chú thích trên hai bản; lượt tổ chức lại tiếp theo chỉ thay bố cục bản Nhật, tái sử dụng các màn gốc và giữ font Noto Sans JP. Hiện chỉ bản Nhật còn được sử dụng; thông tin kiểm chứng hai ngôn ngữ bên dưới là bằng chứng của thời điểm trước, không phải yêu cầu duy trì hai bản.
 
@@ -395,7 +401,7 @@ Nguồn snapshot tham chiếu [PR #57058](https://github.com/ednity/school-web/p
 
 ### 8.1. Triển khai trước bằng dummy data
 
-Có thể dùng dummy data cho nguồn trung bình/snapshot để triển khai trước, không bị block bởi PR chưa merge; tích hợp nguồn thật khi sẵn sàng. Nội dung này đã được ghi trong [spec tiếng Việt](docs/specification.vi.md#conditions).
+Có thể dùng dummy data cho nguồn trung bình/snapshot để triển khai trước, không bị block bởi PR chưa merge; tích hợp nguồn thật khi sẵn sàng. Nội dung này đã được ghi trong [spec tiếng Việt — bản làm việc v2](docs/v2/specification.vi.md#conditions).
 
 <a id="qa"></a>
 
@@ -494,7 +500,64 @@ Số trong Q&A confirmed là bộ riêng; dùng bảng 9.1 để nối Q đã g�
 
 **Thứ tự tiếp tục:** review luồng Figma tiếng Nhật với người phụ trách; hoàn thiện nguồn dữ liệu/DB/luồng. Không còn chờ A/B hoặc cần hai bộ thiết kế.
 
-**Kết luận về mức sẵn sàng:** hướng nghiệp vụ Q3 đã chốt. Tài liệu và Figma tiếng Nhật đã đồng bộ Q3; đây là bản Figma duy nhất còn sử dụng. Thiết kế kỹ thuật/DB, độ chính xác và ánh xạ nguồn, phạm vi phát hành và kiểm chứng triển khai vẫn còn; đóng Q3 không hoàn thành thay các phần đó.
+**Kết luận về mức sẵn sàng sau Q3:** hướng nghiệp vụ Q3 đã chốt; tài liệu và bản Figma tiếng Nhật được ghi nhận đã đồng bộ Q3. Thông tin mới về DB-R3 và file Figma MW nằm tại mục 9.6. Thiết kế kỹ thuật/DB, độ chính xác và ánh xạ nguồn, phạm vi phát hành và kiểm chứng triển khai vẫn còn; đóng Q3 không hoàn thành thay các phần đó.
+
+<a id="db-review-20260928"></a>
+
+### 9.6. Ba phản hồi review DB và bài học thiết kế ngày 28/09
+
+**Nguồn:** người phụ trách cung cấp nguyên văn ba phản hồi tiếng Nhật của khách hàng trong phiên ngày 28/09/2026, sau khi gửi thiết kế DB, chia việc, tiêu chí nghiệm thu và UI Mockup để review. Sau đó người phụ trách cung cấp phản hồi làm rõ riêng DB-R3 và câu xác nhận của khách hàng: “そのようなイメージです” — “Đúng, chúng tôi hình dung theo hướng như vậy.” Chưa có permalink riêng. Xác nhận này áp dụng cho đề xuất hành vi nhóm tham chiếu được hỏi ngay trước đó, không phê duyệt toàn bộ bản reply ban đầu, DDL hoặc cơ chế đồng thời.
+
+| Mã nội bộ của phản hồi | Yêu cầu phải giải quyết | Trạng thái quyết định |
+| --- | --- | --- |
+| DB-R1 | Lưu riêng hiệu ứng điểm đỏ theo cấu hình công khai（公開設定）, mục đánh giá（評価項目） và phân loại điểm thường/đơn vị（通常／単元）; bổ sung DDL cùng lưu, đọc lại và copy. Cùng mục có thể dùng ngoặc ở cấu hình X và dấu `*` phía trước ở cấu hình Y | V2 đề xuất mở rộng `grade_publish_conf_grade_items.red_score_display_type`, đã mô tả lưu/đọc/copy; chờ review kỹ thuật, chưa thực thi DDL |
+| DB-R2 | Chỉ rõ dòng được khóa, thời điểm khóa hoặc dữ liệu/phiên bản đối chiếu trước ghi; chống batch dùng điểm 29 ghi đè kết quả mới đã lưu cho điểm 40; xử lý xóa/tạo lại ô điểm | V2 đã mô tả thế hệ ô, phiên bản đặt chỗ/hoàn tất/rule, khóa và điều kiện ghi tại DB design mục 6. Đây là thiết kế đề xuất; thử cạnh tranh, đo lock và xác minh mọi writer thuộc phạm vi triển khai chưa thực hiện |
+| DB-R3 | Khối/HR/lớp học theo công tắc hiện hữu; ba loại nhóm cấu hình xuất hiện khi có cấu hình tương ứng, độc lập ba công tắc; chọn cấu hình tổng hợp rồi chọn nhóm | **Đã xác nhận qua Q32 và Q33, phương án A.** Không loại nhóm môn khỏi dropdown. Mã enum, chi tiết mapping và tích hợp nguồn là thiết kế kỹ thuật, không được tự xem là khách hàng đã duyệt |
+
+**Quyết định DB-R3 đã xác nhận** — ghi tương ứng tại [Q32](sources/confirmed-business-qa.vi.md#q32-population-confirmed) và [Q33 — phương án A](sources/confirmed-business-qa.vi.md#q33-population-option-a):
+
+1. Danh sách nhóm tham chiếu của điểm đỏ tuân theo thiết lập tổng hợp thứ hạng hiện hữu. Khối（学年）, lớp chủ nhiệm（ホームルーム） và lớp học（授業） chỉ được chọn khi loại tổng hợp tương ứng được bật; không hiển thị cố định đủ sáu loại.
+2. Chọn cùng một cấu hình tổng hợp X, rồi chọn loại nhóm để đọc đúng kết quả của X. Nếu chỉ bật khối/HR thì trong ba loại trên chỉ có khối/HR; bật thêm lớp học thì có thêm lựa chọn lớp học và dùng kết quả của lớp liên quan. Không tạo cấu hình tổng hợp mới chỉ để đổi loại nhóm.
+3. Không thêm công tắc bật/tắt tổng hợp riêng phía điểm đỏ. Source xác minh các cờ hiện hữu thuộc trường/năm học trong `grade_calc_detail_conf`, khác với ID của từng cấu hình `grade_calc_conf`.
+4. Được bật để chọn không đồng nghĩa đã có dữ liệu tổng hợp hợp lệ. Quy tắc nguồn chốt, thiếu dữ liệu và Q26 không đổi; không thay dữ liệu thiếu bằng 0 hoặc tự lấy kết quả loại nhóm khác.
+5. Q33 xác nhận ba loại nhóm tổng hợp thứ hạng（順位集計グループ）, tổ hợp（組み合わせグループ） và nhóm môn học（科目グループ） xuất hiện theo cấu hình hiện có của trường/năm, độc lập ba công tắc khối/HR/lớp học. Hiển thị tên nhóm đã đặt, lưu đúng ID; không bắt có đủ sáu loại khi chưa có cấu hình tương ứng.
+6. Theo mẫu Công khai thành tích（成績公開設定）, chọn Thiết lập tổng hợp thứ hạng（順位集計設定） rồi chọn Đối tượng tổng hợp（集計対象）. Áp dụng cho cả nguồn điều kiện và nguồn công thức nhưng giữ hai lựa chọn độc lập. Không tự thêm trường thứ hạng, tên hiển thị hay biểu đồ từ màn mẫu.
+7. Khách hàng nói rõ “Aの認識です” — “Tôi hiểu theo A”. Câu sau “ここだと、科目ごとの母集団とかは選べなかったと思いますが” — “ở đây hình như không chọn được nhóm tham chiếu theo từng môn” là nhận xét về hiện trạng màn tham chiếu, không phải xác nhận loại bỏ nhóm môn. Không mở lại A/B hoặc suy giới hạn này sang chức năng điểm đỏ.
+
+**Đối chiếu màn tham chiếu của Q33:** source cùng baseline nêu dưới cho thấy `GradePublishConfController.php:560` gọi danh sách đầy đủ; `application/views/grade_report_setting/grade_publish/edit_conf_item.php:1002,1059` của Kết quả tổng hợp theo môn/lớp học（科目・授業ごとの集計結果） không loại nhóm môn. Khu vực Kết quả tổng hợp nhiều môn（複数科目の集計結果） tại `:1175,1245` mới bỏ lớp học và nhóm môn. Không suy nguyên nhân cụ thể từ trí nhớ của khách hàng: ảnh chỉ hiển thị giá trị đang chọn, và dropdown live ad31 chưa đọc được.
+
+**Tác động Figma từ Q33:** đối chiếu bộ chọn nguồn của điều kiện và công thức theo thứ tự cấu hình tổng hợp → đối tượng tổng hợp; bổ sung các nhóm đã cấu hình bằng tên thực tế, ghi rõ ba công tắc chỉ điều khiển khối/HR/lớp học. Chú thích review nằm ngoài UI; không thêm công tắc riêng hoặc bảng cấu hình theo từng môn trong form. Chưa xác định node cần sửa trên MW: lần thử hiện tại MCP báo quota và Browser không xác minh được quyền đã lưu. Đây là danh sách yêu cầu để đối chiếu, không phải kết luận đã thấy thiếu trên canvas hoặc đã cập nhật Figma.
+
+**Trạng thái UI do người phụ trách báo:** UI Mockup đã được cập nhật vào [file Figma của Movitation Works (MW)](#design-updated), key `iAB9nFC3RuqxbLUMsh79jd`, node được cung cấp `0:1`. URL hiện đã được xác định; còn cần đối chiếu canvas và tìm frame tương ứng từng màn. Ghi nhận thao tác của người phụ trách, không nhận là thao tác của agent hoặc canvas đã được kiểm. Các link Figma cũ chỉ là tham chiếu lịch sử. Bước UI tiếp theo là đối chiếu file MW và báo chênh lệch còn lại; không tự cập nhật lại bản cũ. Mọi chỉnh sửa UI tiếp theo vẫn phải báo trước theo yêu cầu người phụ trách.
+
+**Bằng chứng source đã đọc trong phiên trước bước lập kế hoạch:** repository `blend`, revision `7652109b4542ecc9fb392bde6f2afb755a244316`. Đây là bằng chứng tĩnh, không xác nhận schema đang deploy hay hành vi runtime.
+
+- `blend:application/migration/20230117_grade_publish.sql:38` và `application/migration/2024/20240911_tangen.sql:41`: bảng `grade_publish_conf_grade_items` có ID cấu hình công khai, mục đánh giá, năm và `tangen_flg`. `application/models/GradePublishConfGradeItems_m.php:35` đọc danh sách cột tường minh; `:50` có đường copy. `application/controllers/grade_report_setting/grade_publish/GradePublishConfController.php:1101` xóa/chèn lại các dòng cấu hình, `:1685` dựng dữ liệu lưu tường minh. Vì vậy thêm cột thôi chưa đủ cho lưu/đọc lại; đây là ứng viên tái sử dụng, chưa phải DDL đã duyệt.
+- [Thiết kế DB đã gửi — v1](docs/v1/database-design.ja.md) và [DDL đã gửi — v1](docs/v1/database-design.ja.sql) chỉ đề xuất hai bảng rule/kết quả, chưa lưu hiệu ứng công khai. Mục 4.4 đã nêu chống ghi cũ nhưng chưa cung cấp cơ chế thực hiện. Đây là bằng chứng của bản được review; phần sửa tiếp theo thực hiện trên v2.
+- `blend:application/usecase/grade_setting/common/query_service/GradeCalcResultService.php:853`: `createPopulationList()` tạo `hr_grade`, `homeroom`, `group`, `calc_group__<id>`, `calc_group_combo__<id>`, `calc_group_sub_subject__<id>`, tùy cấu hình tổng hợp. Hai tham số loại trừ lớp học/nhóm môn mặc định là `false`. Diff [PR #57058](https://github.com/ednity/school-web/pull/57058) đã đọc cho thấy màn thiết lập liên kết thứ hạng gọi hàm với trường/năm, không truyền cờ loại trừ. Danh sách lựa chọn không tự chứng minh bộ đọc nguồn hỗ trợ đầy đủ cả sáu loại trong mọi ngữ cảnh.
+
+**Bằng chứng source bổ sung cho DB-R3:** `blend:application/views/grade_report_setting/grade_calc/_nav.php:5` và `manage.php:44` có tab Thiết lập — chỉ nhân viên（設定 ※社員のみ） và ba tùy chọn tổng hợp; `application/models/GradeCalcDetailConf_m.php:27` đọc cờ theo trường/năm; `application/domain/tmp/GradeCalc.php:263` truyền cùng danh sách cấu hình qua ba nhánh tổng hợp; `:2050` và `:2133` lưu cùng `grade_calc_conf_id` với phạm vi nhóm tương ứng. Baseline vẫn là `7652109b4542ecc9fb392bde6f2afb755a244316`. Chưa kiểm DB/live ad31 trong lượt này: truy cập Browser bị chặn tại bước xác minh quyền, và phiên DB chưa được thiết lập. Không đưa giới hạn này vào lời xác nhận nghiệp vụ như một câu hỏi còn mở.
+
+**Phần kỹ thuật vẫn là đề xuất:** [DB design v2](docs/v2/database-design.vi.md) chọn mở rộng cấu hình công khai hiện hữu, dùng dòng kết quả làm dòng điều khiển thế hệ/phiên bản và phiên bản rule ở mục sở hữu; [DDL v2](docs/v2/database-design.sql) tương ứng đã được soạn. Ánh xạ nhóm theo hành vi DB-R3 đã chốt. Các tên/mã kỹ thuật là phương án thiết kế của team, không phải khách hàng đã duyệt chỉ bởi Q32. DB-R1/DB-R2 không được đổi thành Approved theo DB-R3.
+
+**Bài học áp dụng cho lần bổ sung:**
+
+1. Tách ba trách nhiệm lưu: điều kiện xét, kết quả xét của ô, cấu hình trình bày của từng đầu ra. Mỗi lựa chọn trên UI phải nối được tới schema, ghi, đọc lại, copy và consumer; hai bảng mới không đồng nghĩa đã đủ thiết kế lưu của feature.
+2. Viết invariant cùng cơ chế bảo đảm và tình huống kiểm. Fingerprint của giá trị có thể bỏ sót thay đổi rồi trở về giá trị cũ; ID bản ghi có thể không đổi khi chỉ xóa nội dung ô. Khóa dòng kết quả có thể không tồn tại ở lần ghi đầu. Phương án fingerprint/khóa trong reply trước chưa giải quyết đủ các trường hợp này và không được dùng như bảo đảm đã kiểm chứng.
+3. Giữ đúng Q6.2-B: sửa/xóa rule vẫn giữ kết quả trước đến lần xét lại. Ngăn một lượt cũ ghi đè kết quả mới là yêu cầu cạnh tranh cập nhật riêng, không phải lý do vô hiệu hóa ngay kết quả đang lưu khi sửa rule.
+4. Đối chiếu lựa chọn UI với mã lưu, ID tham chiếu, cách xác định thành viên và cách đọc nguồn thật. Không gộp nhóm môn học vào nhóm tổng hợp chỉ vì tên gần nhau; không suy `group_id` của ô điểm đã biểu diễn lựa chọn nguồn lớp học.
+5. Đồng bộ DB/SQL, spec, chia việc và AC theo cùng hợp đồng; báo riêng tác động tới Figma tiếng Nhật trước khi sửa. Không đưa lock/version/schema kỹ thuật vào form của người dùng chỉ để bù thiếu tài liệu.
+6. Phân biệt ba tầng: loại dữ liệu mà schema biểu diễn, lựa chọn đang được bật trong cấu hình trường/năm, và kết quả tổng hợp thực sự có thể đọc. Không đồng nhất “hỗ trợ sáu loại” với “luôn hiện sáu lựa chọn”.
+7. Gắn câu xác nhận ngắn với đúng đề xuất vừa được hỏi; đóng phần hành vi đó, không mở lại để khách hàng xác nhận lần nữa và không mở rộng thành duyệt mọi chi tiết kỹ thuật. Reply khách hàng nên nêu cách hiểu đúng, phương án cụ thể và ví dụ để xác nhận.
+8. Tách “người phụ trách đã cập nhật Figma MW” khỏi “agent đã đối chiếu bản MW”. Khi đổi file, ghi đúng URL/file key/node được cung cấp và giữ các link cũ như lịch sử; không dùng frame cũ làm đích sửa mới khi chưa có mapping. Chưa đối chiếu canvas không chặn cập nhật tài liệu theo hành vi đã xác nhận.
+
+**Trạng thái công việc tiếp theo:** đã bổ sung và kiểm tra nhất quán nội dung v2 ở DB design/DDL, spec, chia việc và AC Nhật/Việt hiện có; sẵn sàng bàn giao review thiết kế. Kiểm tra bao gồm cấu trúc hai bản SQL, các mã AC, liên kết và đối chiếu yêu cầu/kỹ thuật. V1 giữ nguyên. Không triển khai code, chạy migration hoặc sửa Figma; I10/I12, mọi writer thuộc phạm vi phát hành, hiệu năng khóa và tích hợp nguồn vẫn cần kiểm chứng thực thi. Theo yêu cầu người phụ trách, plan là tài liệu workflow nội bộ bằng tiếng Việt hoặc English, không lưu trong `blend-context` và không thuộc bộ gửi khách hàng.
+
+**Mốc phiên bản tài liệu:** ngày 28/09, người phụ trách xác nhận bộ file hiện tại làm v1. Đã chuyển 11 file vào `docs/v1/`, sao chép nguyên nội dung sang `docs/v2/` và kiểm SHA-256 trùng bản gốc tại thời điểm tách. V1 được giữ nguyên; v2 hiện có 9 file Nhật/Việt/SQL với các bổ sung DB-R1–DB-R3 để review, không còn hai file English trong thư mục v2 khi kiểm kê. Bản English lịch sử ở v1 không đại diện cho nội dung sửa mới. Xem [chỉ mục phiên bản](docs/README.md). Context và Q&A không nhân bản theo phiên bản.
+
+**Ngôn ngữ tài liệu từ lần cập nhật tiếp theo:** theo yêu cầu người phụ trách ngày 28/09, bộ tài liệu tạo/cập nhật dùng bản Nhật và Việt, thay cho Nhật và English. Khi cập nhật v2, đồng bộ hai bản Nhật/Việt; bổ sung bản Nhật cho đặc tả nếu chưa có. Không tạo hoặc cập nhật bản English trừ khi được yêu cầu riêng. Các file English đang có được giữ làm tham chiếu của mốc cũ, không coi là bản đồng hành được cập nhật; v1 tiếp tục giữ nguyên toàn bộ. Quy tắc này không đổi ngôn ngữ của plan nội bộ: plan vẫn chỉ cần một bản Việt hoặc English ngoài repository này.
+
+**Ưu tiên của lượt thực hiện:** người phụ trách yêu cầu hoãn phần tạo/chuyển đổi ngôn ngữ để làm nội dung plan trước. Vì vậy lượt này cập nhật các bản Nhật/Việt đã có, chưa tạo đặc tả Nhật mới và không chỉnh bản English lịch sử tại v1. Không diễn giải việc hoãn thành xóa tài liệu lịch sử.
 
 <a id="evidence"></a>
 
@@ -549,4 +612,4 @@ Các spec/split-tasks/AC và giả định cũ, kể cả bản tạo trước p
 5. Khi source/provider/môi trường thay đổi, kiểm lại các đường liên quan và bằng chứng; không dùng hash hay lời giải thích lịch sử làm chứng minh runtime.
 6. Chỉ sửa Figma, code, dữ liệu hoặc xuất bản khi được giao đúng phạm vi. Việc cập nhật context không tự cấp các quyền đó.
 
-**Bàn giao hiện hành:** context này + Q&A đã xác nhận tiếng Việt trong cùng thư mục context, cập nhật ngày 25/09 + research nền 24/09 và điều tra bổ sung 25/09. Q&A tiếng Nhật ngày 24/09 được giữ nguyên như bản đã gửi; trạng thái hiện hành theo context và Q&A đã xác nhận. Người đọc không cần lịch sử chat hoặc Google Sheets để hiểu yêu cầu hiện hành, điểm chưa chốt và giới hạn bằng chứng.
+**Bàn giao hiện hành:** context này + [Q&A đã xác nhận](sources/confirmed-business-qa.vi.md) có Q32–Q33 ngày 28/09. Research nền 24/09 và điều tra 25/09 giữ vai trò bằng chứng lịch sử; Q&A tiếng Nhật ngày 24/09 là bản đã gửi. DB-R3 đã được xác nhận về nghiệp vụ; DB-R1/DB-R2 và chi tiết tích hợp còn mở. UI MW đã cập nhật theo báo cáo của người phụ trách, chưa được agent đối chiếu. Người đọc không cần lịch sử chat hoặc Google Sheets để hiểu trạng thái hiện hành.
