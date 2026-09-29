@@ -1,6 +1,6 @@
 # Điểm đỏ（赤点） — Tiêu chí nghiệm thu
 
-**Ngày cập nhật:** 28/09/2026.
+**Ngày cập nhật:** 29/09/2026.
 
 **v2 / Draft:** bổ sung lưu theo cấu hình công khai, cập nhật đồng thời/xóa-tạo lại và lựa chọn nhóm tham chiếu đã xác nhận. Các ô kiểm chưa thể hiện kết quả chạy test.
 

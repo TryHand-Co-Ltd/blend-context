@@ -2,7 +2,7 @@
 
 Ngày: **28/09/2026**.
 
-**v2 / Draft — thiết kế kỹ thuật để review.** Ngoài hai bảng mới, mở rộng bảng mục công khai và bảng mục trên khung đánh giá hiện hữu. DDL chưa được thực thi; tài liệu không xác nhận đã triển khai hoặc kiểm chứng trên môi trường thật.
+**Draft — thiết kế kỹ thuật để review.** Ngoài hai bảng mới, mở rộng bảng mục công khai và bảng mục trên khung đánh giá hiện hữu. DDL chưa được thực thi; tài liệu không xác nhận đã triển khai hoặc kiểm chứng trên môi trường thật.
 
 ## 1. Tổng quan và quan hệ
 
@@ -356,11 +356,19 @@ Luồng lưu bổ sung giá trị vào bước dựng POST và xóa/chèn lại 
 
 Không thay thế hiệu ứng điểm dự kiến; kết hợp hiệu ứng khác và loại trùng. Giữ ẩn điểm, quyền, lịch công khai, nền/định dạng. Không chọn bảng hiển thị riêng vì dòng hiện hữu đã thể hiện được đơn vị lưu cần thiết; tránh phát sinh quan hệ phụ thuộc ID dòng con vốn đổi khi lưu và tái sử dụng đường copy hiện có.
 
+### 5.1. Thiết lập hiển thị của Trích xuất thành tích（成績抽出）và Công cụ phiếu điểm（通知表ツール）
+
+Hai đầu ra còn lại không thêm cột hay bảng mới.
+
+Bộ lọc điểm đỏ, ký hiệu trước/sau và màu ô của Trích xuất thành tích（成績抽出）được đề xuất lưu trong JSON `grade_extract_conf.extract_setting` hiện có, với cùng các khóa của mẫu hiển thị hiện hành: `use_target_extract`, `use_prefix_mark`, `prefix_mark`, `use_suffix_mark`, `suffix_mark`, `use_cell_coloring`, `cell_color`. Lưu, đọc lại và sao chép đi theo đường thiết lập trích xuất hiện có. Chỉ dùng kết quả xét hiện hành phía server làm căn cứ lọc/trang trí; không tin cờ điểm đỏ hay ngưỡng gửi lên.
+
+Điều kiện điểm đỏ trên Công cụ phiếu điểm（通知表ツール）được đề xuất thêm vào phần lưu bảng/điều kiện hiện có, không thêm cột riêng như cấu hình công khai. Lưu bằng nút Cập nhật（更新する）ở bảng sau khi đóng hộp thoại. Sao chép mẫu giữ lựa chọn và chuỗi, không sao chép kết quả xét của học sinh.
+
 ## 6. Phương thức xử lý cập nhật đồng thời
 
 ### 6.1. Dữ liệu điều khiển và dòng được khóa
 
-V2 dùng `red_score_results` đồng thời làm dòng điều khiển của ô. K là khóa ô, G là `cell_generation`, V là `write_version` đã đặt chỗ, R là `red_score_revision` của mục sở hữu; worker giữ `(K,G,V,R,grade_id)`. G là token CHAR(32) mới theo cách tạo ID hiện có, cấp lại khi xóa/tạo lại ô. Phiên bản tăng trong khóa DB; khi tới giới hạn thì báo lỗi, không quay về 0.
+`red_score_results` đồng thời là dòng điều khiển của ô. K là khóa ô, G là `cell_generation`, V là `write_version` đã đặt chỗ, R là `red_score_revision` của mục sở hữu; worker giữ `(K,G,V,R,grade_id)`. G là token CHAR(32) mới theo cách tạo ID hiện có, cấp lại khi xóa/tạo lại ô. Phiên bản tăng trong khóa DB; khi tới giới hạn thì báo lỗi, không quay về 0.
 
 Mọi đường ghi tham gia dùng cùng kết nối ghi trong transaction và cùng thứ tự: các `grade_evaluate_frame_items` liên quan theo ID bằng `FOR SHARE`, các dòng `groups` hiện hữu của lớp liên quan theo ID bằng `FOR UPDATE`, dòng điều khiển theo K bằng `FOR UPDATE`, rồi các dòng `grades` tồn tại theo ID bằng `FOR UPDATE`. Thêm/sửa/xóa/sắp rule lấy `FOR UPDATE` trên mục sở hữu, cập nhật rule và tăng R cùng transaction. Không đọc phần cần nhất quán qua replica; đọc lại dữ liệu hiện hành cần thiết sau khi lấy khóa.
 

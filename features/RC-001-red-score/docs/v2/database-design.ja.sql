@@ -1,4 +1,4 @@
--- v2 Draft: 赤点設定・判定結果と既存2テーブルの拡張。未実行。
+-- Draft: 赤点設定・判定結果と既存2テーブルの拡張。未実行。
 
 -- 赤点設定
 CREATE TABLE `red_score_settings` (

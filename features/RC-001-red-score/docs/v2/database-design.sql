@@ -1,5 +1,5 @@
 -- Thiết kế cơ sở dữ liệu điểm đỏ — Định nghĩa bảng
--- v2 Draft: hai bảng mới và mở rộng hai bảng hiện hữu; không đổi giá trị ngưỡng legacy.
+-- Draft: hai bảng mới và mở rộng hai bảng hiện hữu; không đổi giá trị ngưỡng legacy.
 -- Chỉ là DDL thiết kế, chưa được thực thi.
 
 CREATE TABLE `red_score_settings` (

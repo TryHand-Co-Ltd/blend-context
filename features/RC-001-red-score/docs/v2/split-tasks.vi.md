@@ -2,7 +2,7 @@
 
 **Ngày cập nhật:** 28/09/2026.
 
-**v2 / Draft:** bổ sung lưu hiệu ứng công khai, điều khiển đồng thời bằng thế hệ/phiên bản ô và hành vi nhóm tham chiếu đã xác nhận. Đây là phương án chia việc, chưa phải báo cáo đã triển khai.
+**Draft:** bổ sung lưu hiệu ứng công khai, điều khiển đồng thời bằng thế hệ/phiên bản ô và hành vi nhóm tham chiếu đã xác nhận. Đây là phương án chia việc, chưa phải báo cáo đã triển khai.
 
 Cho phép đặt nhiều quy tắc đỏ cho mục đánh giá số, xét điểm cuối đã lưu và dùng chung kết quả tại Trích xuất thành tích（成績抽出）, Công khai thành tích（成績公開） và Công cụ phiếu điểm（通知表ツール）, với cách hiển thị riêng của từng đầu ra. Đối tượng gồm số nguyên, số thập phân và điểm số theo đơn vị bài học. Giáo viên thường cũng được thiết lập nếu có quyền truy cập chức năng và sửa đúng mục.
 
@@ -89,7 +89,7 @@ Giáo viên đủ quyền thiết lập nhiều rule cho mục số, mở lại 
 - **Đề xuất thiết kế:** Tách cấu hình/kết quả mới khỏi scalar cũ; lưu nhận diện ô, trạng thái hiện hành, rule/lượt dùng, thời gian và thông tin giải thích cần thiết. Quan hệ dữ liệu phải cho đọc kết quả sau xóa rule đến khi chạy lại, không phụ thuộc xóa dây chuyền. Task này trình thiết kế bảng vật lý, độ chính xác, index, thứ tự cập nhật; không thêm version toàn bộ rule hoặc màn lịch sử.
 - Bảo đảm so `S=T`, số hữu hạn, xử lý tràn và độ chính xác lưu/mở lại ở phần chung. Không chạy mã tùy ý; dùng model/repository và đọc theo tập, tránh query trong vòng lặp. Cụ thể hóa tính nhất quán giữa ghi/đọc, yêu cầu trùng và từ chối ghi cũ bằng transaction/job hiện hữu.
 - Task 3 cung cấp giá trị nguồn và kết quả công thức/lý do chưa xét được; Task này tập trung lưu và ngừng hiệu lực. Task 4 nối trigger, tập ô và giao dịch; đầu ra không tính lại.
-- **Cách lưu v2:** `red_score_results` giữ thế hệ ô, phiên bản đặt chỗ, phiên bản hoàn tất và phiên bản rule đã dùng. Khóa theo thứ tự mục khung → dòng lớp trong `groups` → dòng điều khiển ô → dòng điểm, đặt chỗ trước đọc đầu vào. Trước lưu đối chiếu thế hệ, phiên bản đặt chỗ/rule và dòng điểm; từ chối khi khác hoặc ticket đã hoàn tất. Payload NULL của dòng điều khiển khởi tạo là chưa từng xét. Khóa chung trên dòng lớp tuần tự hóa cạnh tranh tạo cùng dòng điểm vật lý từ hai mục khác nhau; đọc lại hiện hành sau khóa và dùng ID đã được tạo trong lúc chờ.
+- **Cách lưu:** `red_score_results` giữ thế hệ ô, phiên bản đặt chỗ, phiên bản hoàn tất và phiên bản rule đã dùng. Khóa theo thứ tự mục khung → dòng lớp trong `groups` → dòng điều khiển ô → dòng điểm, đặt chỗ trước đọc đầu vào. Trước lưu đối chiếu thế hệ, phiên bản đặt chỗ/rule và dòng điểm; từ chối khi khác hoặc ticket đã hoàn tất. Payload NULL của dòng điều khiển khởi tạo là chưa từng xét. Khóa chung trên dòng lớp tuần tự hóa cạnh tranh tạo cùng dòng điểm vật lý từ hai mục khác nhau; đọc lại hiện hành sau khóa và dùng ID đã được tạo trong lúc chờ.
 - Xóa thành trống/xóa mềm/tạo lại phải tiến thế hệ/phiên bản dù ID điểm không đổi, ngừng kết luận cũ. Giữ dòng điều khiển sau xóa và không mang token cũ sang đích khôi phục. Chỉ khác phiên bản đặt chỗ khi đang chờ không làm mất kết quả trước. Đây là điều khiển nhất quán hiện tại, không phải quản lý lịch sử mọi rule.
 
 ### Phụ thuộc và phần chưa chốt
