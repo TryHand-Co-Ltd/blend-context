@@ -6,7 +6,7 @@ Nguồn chính: [file Figma của Movitation Works (MW)](https://www.figma.com/d
 
 Quy ước riêng cho file này:
 
-- R18 §13.2 «Cách sử dụng Figma và nguồn gốc xác nhận» ghi Figma "chưa phải chứng nhận mọi chi tiết tương tác/pixel hoặc bản vẽ đã được khách hàng duyệt toàn bộ", và chi tiết UI gắn đề xuất vẫn chờ review (R18 §13.1 «Các quyết định còn lại được phân loại rõ»). Vì vậy **câu chữ/nhãn/bố cục chỉ có trong Figma là PROPOSED**; phần có căn cứ QAC «Q&A nghiệp vụ đã xác nhận»/R18/RSD-AC là CONFIRMED; phần Figma khác spec là **CONFLICT** (không đánh giá phần tranh chấp — [01 §3](01-test-strategy.vi.md) «Nhãn trạng thái của test case»).
+- R18 §13.2 «Tài liệu liên quan» ghi Figma "chưa phải chứng nhận mọi chi tiết tương tác/pixel hoặc bản vẽ đã được khách hàng duyệt toàn bộ", và chi tiết UI gắn đề xuất vẫn chờ review (R18 §13.1 «Điều kiện triển khai và kiểm chứng»). Vì vậy **câu chữ/nhãn/bố cục chỉ có trong Figma là PROPOSED**; phần có căn cứ QAC «Q&A nghiệp vụ đã xác nhận»/R18/RSD-AC là CONFIRMED; phần Figma khác spec là **CONFLICT** (không đánh giá phần tranh chấp — [01 §3](01-test-strategy.vi.md) «Nhãn trạng thái của test case»).
 - Giá trị mẫu trên Figma (30, 60, 65, `※`…) là dữ liệu minh họa, không phải mặc định sản phẩm (R18 phần mở đầu).
 - "Lưu" = bấm Cập nhật（更新する）. Mọi case đang **NOT RUN**.
 
@@ -804,6 +804,40 @@ PROPOSED: nhãn dòng 「赤点設定」 (thiết lập điểm đỏ) và câu 
 - Nguồn: [Q&A nghiệp vụ đã xác nhận](../../../sources/confirmed-business-qa.vi.md) (QAC) câu “Điều kiện điểm đỏ nằm ở đâu trên phiếu điểm?” (Q29); Figma MW “tùy chọn đỏ ở Công cụ phiếu điểm (đặc tả v2: 07-A)” (58:5176) (UI｜07C): (58:5386) 「※上から最初に一致した条件の表示方法を使用します。非表示・斜線の設定は維持します。」, dòng (58:5401) 特定の科目の場合 → (58:5418) [見込点]チェック → [未受験]チェック → (58:5434) 赤点設定 → (58:5464) 空欄の場合, (58:5474); Figma MW “chương 07 – phiếu điểm PDF” (58:5175)
 - Bằng chứng cần chụp: Ảnh hộp.
 - Ghi chú: Trong dữ liệu text Figma có lớp chồng hiển thị [未受験] sau 赤点設定; hiển thị của frame “tùy chọn đỏ ở Công cụ phiếu điểm (đặc tả v2: 07-A)” xác nhận thứ tự nhìn thấy khớp Q&A nghiệp vụ đã xác nhận câu “Điều kiện điểm đỏ nằm ở đâu trên phiếu điểm?”.
+
+**結果（Kết quả）**
+
+**証跡（Bằng chứng）**
+
+<a id="tc-rs-ui-026"></a>
+
+### TC-RS-UI-026 — Bộ chọn hiệu ứng đỏ của điểm thường và điểm đơn vị hiển thị độc lập
+
+Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Cấu hình công khai và ẩn điểm” (AC-G32)
+
+<!-- Mã truy vết: Q38, AC-G32 -->
+
+**前提条件（Điều kiện trước）**
+
+- Điều kiện: Có một cấu hình công khai chứa cả mục điểm thường và mục điểm đơn vị; tài khoản có quyền sửa cấu hình công khai.
+- Dữ liệu test: mục thường và mục đơn vị cùng có kết quả đỏ; lựa chọn hiển thị khác nhau cho hai loại.
+
+**操作（Thao tác）**
+
+1. Mở màn hình cấu hình công khai và đến khu vực hiển thị điểm đỏ.
+2. Kiểm tra panel điểm thường và panel điểm đơn vị.
+3. Chọn hiệu ứng khác nhau cho hai panel, lưu, đóng và mở lại.
+
+**期待結果（Kết quả mong đợi）**
+
+1. Cả hai panel đều hiển thị bộ chọn tương ứng; panel điểm đơn vị không bị nền hoặc lớp khác che.
+2. Có thể thao tác hai bộ chọn độc lập.
+3. Sau khi mở lại, mỗi panel giữ đúng lựa chọn của mình; lựa chọn điểm thường không ghi đè lựa chọn điểm đơn vị và ngược lại.
+
+**補足（Bổ sung）**
+
+- Nguồn: [xác nhận thiết kế ngày 30/09](../../../sources/2026-09-30-design-review-confirmation.vi.md) (Q38: hai phía thường/đơn vị phải hiển thị và kiểm được lựa chọn độc lập); [đặc tả v2](../specification.vi.md) (R18) mục 10.1; [checklist cập nhật Figma](../figma-update-checklist.vi.md) mục 5.
+- Bằng chứng cần chụp: Ảnh trước khi thao tác; ảnh từng panel sau khi chọn; ảnh mở lại sau khi lưu.
 
 **結果（Kết quả）**
 

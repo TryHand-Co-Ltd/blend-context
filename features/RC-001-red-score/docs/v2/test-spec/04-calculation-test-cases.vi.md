@@ -26,7 +26,7 @@ Các case cần trung bình/tỷ lệ nhóm dùng nguồn dummy khi snapshot ch�
 | [CALC-012](#tc-rs-calc-012) | M hiện hành, không lấy M của bản chốt | CONFIRMED |
 | [CALC-013](#tc-rs-calc-013) | Công thức một dòng | CONFIRMED |
 | [CALC-014](#tc-rs-calc-014) | Làm tròn theo từng dòng | PROPOSED |
-| [CALC-015](#tc-rs-calc-015) | Công thức hai dòng Figma | PROPOSED |
+| [CALC-015](#tc-rs-calc-015) | Công thức hai dòng Figma | CONFIRMED |
 | [CALC-016](#tc-rs-calc-016) | Ngưỡng âm | CONFIRMED |
 | [CALC-017](#tc-rs-calc-017) | Ngưỡng công thức vượt M | CONFIRMED |
 | [CALC-018](#tc-rs-calc-018) | `A−0` | CONFIRMED |
@@ -493,23 +493,22 @@ Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 **前提条件（Điều kiện trước）**
 
 - Điều kiện: Nguồn `A=49.7`; dòng 1 `A÷2`; dòng 2 `Kết quả dòng 1 × 0.8`; `<`.
-- Dữ liệu test: S = 19.5
+- Dữ liệu test: S = 19.1 và S = 19.2
 
 **操作（Thao tác）**
 
-(a) Dòng 1 xuống p1, dòng 2 không xử lý.
-
-(b) Cả hai dòng không xử lý.
+1. Lưu đúng cấu hình: dòng 1 bật xử lý phần lẻ, vị trí 1, làm tròn xuống; dòng 2 không xử lý.
+2. Chạy xét với `S=19.1` và `S=19.2`.
 
 **期待結果（Kết quả mong đợi）**
 
-(a) `24.85→24`; `T=24×0.8=19.2` → Không đỏ.
-
-(b) `T=24.85×0.8=19.88` → Đỏ.
+1. `24.85→24`; `T=24×0.8=19.2`.
+2. Với dấu `<`: `S=19.1` Đỏ và `S=19.2` Không đỏ.
+3. Không làm tròn dòng 2 thành `19`.
 
 **補足（Bổ sung）**
 
-- Nguồn: [đặc tả v2](../specification.vi.md) (R18) mục 6.5 “Xử lý phần lẻ” (ví dụ `A=49.7`); [tiêu chí nghiệm thu v2](../acceptance-criteria.vi.md) (RSD-AC) tiêu chí nghiệm thu “Công thức theo dòng và phần lẻ” (AC-G16) ("Tham chiếu dòng trước nhận giá trị sau phần lẻ"; ví dụ `A=49.7` → 19.2 / 19.88)
+- Nguồn: [đặc tả v2](../specification.vi.md) (R18) mục 6.5 “Xử lý phần lẻ” (ví dụ `A=49.7`); [tiêu chí nghiệm thu v2](../acceptance-criteria.vi.md) (RSD-AC) tiêu chí nghiệm thu “Công thức theo dòng và phần lẻ” (AC-G16); [xác nhận thiết kế ngày 30/09](../../../sources/2026-09-30-design-review-confirmation.vi.md) (Q37: dòng 1 cắt xuống, dòng 2 không xử lý; `T=19.2`, `S=19.1` với `<` là đỏ).
 - Bằng chứng cần chụp: Ảnh cấu hình, kết quả.
 - Ghi chú: Là ví dụ của tiêu chí nghiệm thu “Công thức theo dòng và phần lẻ”. Chỉ chạy khi công thức nhiều dòng thuộc đợt phát hành (phạm vi phát hành chưa chốt — đặc tả v2 mục 13.1); ngoài đợt thì SKIPPED.
 
@@ -519,7 +518,7 @@ Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 
 <a id="tc-rs-calc-015"></a>
 
-### TC-RS-CALC-015 — Công thức hai dòng theo Figma: (A÷2)×0.8, xuống p1 ở dòng 2
+### TC-RS-CALC-015 — Công thức hai dòng theo Figma: (A÷2)×0.8, dòng 1 làm tròn xuống
 
 Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Công thức theo dòng và phần lẻ” (AC-G16)
 
@@ -528,7 +527,7 @@ Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 **前提条件（Điều kiện trước）**
 
 - Điều kiện: quy tắc công thức hai dòng (trung bình ÷ 2 × 0.8); nguồn `A=61`.
-- Dữ liệu test: quy tắc công thức hai dòng (trung bình ÷ 2 × 0.8); S = 23.9, 24
+- Dữ liệu test: quy tắc công thức hai dòng (trung bình ÷ 2 × 0.8); S = 24, 24.4
 
 **操作（Thao tác）**
 
@@ -536,9 +535,9 @@ Chạy nút cam; xét với `<` rồi `≤`.
 
 **期待結果（Kết quả mong đợi）**
 
-Dòng 1 `61÷2=30.5`; dòng 2 `30.5×0.8=24.4` → xuống p1 → `T=24`.
+Dòng 1 `61÷2=30.5`; dòng 2 `30.5×0.8=24.4`, không xử lý phần lẻ ở dòng 2 → `T=24.4`.
 
-`<`: 23.9 Đỏ; 24 Không đỏ. `≤`: 24 Đỏ.
+`<`: 24 Đỏ; 24.4 Không đỏ. `≤`: 24.4 Đỏ.
 
 **補足（Bổ sung）**
 

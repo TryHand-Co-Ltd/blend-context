@@ -434,7 +434,7 @@ Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 
 1. Lưu được 2 dòng; mở lại giữ vế trái, phép toán, vế phải, xử lý phần lẻ từng dòng.
 2. Danh sách tóm tắt đủ các dòng và dấu so sánh.
-3. Khi xét, `T` = kết quả dòng cuối (tính đúng ở case “Công thức hai dòng theo Figma: (A÷2)×0.8, xuống p1 ở dòng 2”).
+3. Khi xét, `T` = kết quả dòng cuối (tính đúng ở case “Công thức hai dòng theo Figma: (A÷2)×0.8, dòng 1 làm tròn xuống”).
 
 **補足（Bổ sung）**
 
@@ -508,7 +508,7 @@ Priority: TBD ｜ Status: PROPOSED ｜ Requirement ID: đặc tả v2 mục 4.4 
 **補足（Bổ sung）**
 
 - Nguồn: [đặc tả v2](../specification.vi.md) (R18) mục 4.4 “Lưu, đổi thứ tự và xóa” (Đề xuất thiết kế cho thao tác thêm); Figma MW “chương 01 – lối vào, danh sách, xóa thiết lập” (58:10165–10179) 「基準が未設定のため、この設定は判定に使用しません。」 (vì chưa thiết lập ngưỡng, thiết lập này không dùng để xét), “chương 02 – điều kiện áp dụng và nguồn trung bình” (58:8925) 「基準未設定の行は判定に使わない。」 (dòng chưa có ngưỡng không dùng để xét)
-- Bằng chứng cần chụp: Ảnh danh sách; ảnh kết quả trích xuất; SELECT `active` của quy tắc mới chỉ có điều kiện, chưa có ngưỡng (khi có schema; kỳ vọng `active=0` — thiết kế DB v2 mục 4.1 “Loại ngưỡng và tính hợp lệ”: "Quy tắc nhập dở không được có `active=1`").
+- Bằng chứng cần chụp: Ảnh danh sách; ảnh kết quả trích xuất; SELECT `setting_status` của quy tắc mới chỉ có điều kiện, chưa có ngưỡng (khi có schema; kỳ vọng `setting_status=0` — thiết kế DB v2 mục 4.1: trạng thái 0 là đang thiết lập/vô hiệu và không tham gia xét).
 - Ghi chú: Toàn bộ case là đề xuất: không phải must-pass. Nếu thiết kế cuối không lưu trung gian, chuyển SKIPPED.
 
 **結果（Kết quả）**
@@ -1476,6 +1476,40 @@ P1, P2: Đỏ. P3, P4: Không áp dụng.
 
 **証跡（Bằng chứng）**
 
+<a id="tc-rs-br-041"></a>
+
+### TC-RS-BR-041 — Điều kiện trung bình cùng nguồn kết hợp AND
+
+Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Đối tượng áp dụng và nhu cầu nguồn” (AC-G05)
+
+<!-- Mã truy vết: TD-RULE-15, AC-G05 -->
+
+**前提条件（Điều kiện trước）**
+
+- Điều kiện: Một rule có hai điều kiện trung bình cùng nguồn `A`: `A≥50` và `A<70`, cùng dấu/ngưỡng theo thiết kế; các học sinh có A lần lượt là 40, 50, 60 và 70. Các học sinh đều thỏa bộ lọc đối tượng khác của rule.
+- Dữ liệu test: nguồn tổng hợp cùng phạm vi; P9 `A=40`, P10 `A=50`, P11 `A=60`, P12 `A=70`; cùng điểm đầu vào để khi rule khớp tạo cùng ngưỡng đỏ.
+
+**操作（Thao tác）**
+
+1. Lưu một rule chứa đồng thời `A≥50` và `A<70`.
+2. Chạy xét cho P9–P12.
+3. Mở lại rule và kiểm tra hai điều kiện vẫn thuộc cùng một rule/nguồn.
+
+**期待結果（Kết quả mong đợi）**
+
+1. P9 (`A=40`) và P12 (`A=70`) không thỏa điều kiện → Không áp dụng.
+2. P10 (`A=50`) và P11 (`A=60`) thỏa cả hai điều kiện → được xét theo ngưỡng của rule.
+3. Không diễn giải hai điều kiện cùng nguồn thành OR; không ghép hai rule riêng biệt bằng AND.
+
+**補足（Bổ sung）**
+
+- Nguồn: [đặc tả v2](../specification.vi.md) (R18) mục 5.1 và 5.2; [xác nhận thiết kế ngày 30/09](../../../sources/2026-09-30-design-review-confirmation.vi.md) (Q35: `A≥50` và `A<70` nghĩa là `50≤A<70`; 40/70 không thỏa, 50/60 thỏa).
+- Bằng chứng cần chụp: Ảnh form mở lại; ảnh kết quả bốn học sinh; log hoặc SELECT kết quả nếu có schema.
+
+**結果（Kết quả）**
+
+**証跡（Bằng chứng）**
+
 <a id="tc-rs-br-005"></a>
 
 ### TC-RS-BR-005 — Toàn bộ đối tượng（全員が対象） không vượt phạm vi mục, trường, năm
@@ -1975,7 +2009,7 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 
 - Nguồn: [Q&A nghiệp vụ đã xác nhận](../../../sources/confirmed-business-qa.vi.md) (QAC) câu “Xóa thiết lập cuối cùng thì dấu đỏ mất ngay hay chờ chạy lại?” (Q28); [đặc tả v2](../specification.vi.md) (R18) mục 4.1 “Điểm vào và trạng thái trống”, mục 4.4 “Lưu, đổi thứ tự và xóa”, mục 8.2 “Bảng chuyển trạng thái” dòng 7–8, mục 10.1 “Phạm vi và tùy chọn”; Figma MW “chương 01 – lối vào, danh sách, xóa thiết lập” (58:9618) 「削除後も再実行まで前回結果を使用します。」 (sau khi xóa vẫn dùng kết quả trước tới khi chạy lại), “chương 05 – trích xuất thành tích và kết quả Excel” (58:6248), “chương 06 – công khai thành tích và màn học sinh” (58:5598)
 - Bằng chứng cần chụp: Ảnh/file ba đầu ra ở bước 2 và 4; ảnh cấu hình đầu ra sau bước 4.
-- Ghi chú: Trường không có tính tự động: chạy lại bằng thao tác hàng loạt hiện có (case “Trường chỉ có quy tắc đỏ (không có tính tự động) vẫn có đường chạy hàng loạt”). Xóa là xóa mềm (`active=0`) và kết quả giữ đến lần xét tiếp theo (thiết kế DB v2 mục 4.1 “Loại ngưỡng và tính hợp lệ”, mục 4.4 “Cập nhật và hiệu lực kết quả” — PROPOSED); có thể SELECT làm bằng chứng. Kiểm thêm (PROPOSED, khi có schema): sau bước 1, tạo một quy tắc mới → quy tắc mới có ID mới, không dùng lại ID đã xóa; kết quả cũ vẫn trỏ ID cũ (thiết kế DB v2: "không tái sử dụng ID cho quy tắc khác").
+- Ghi chú: Trường không có tính tự động: chạy lại bằng thao tác hàng loạt hiện có (case “Trường chỉ có quy tắc đỏ (không có tính tự động) vẫn có đường chạy hàng loạt”). Xóa chuyển `setting_status=2` trong cùng transaction; kết quả giữ đến lần xét tiếp theo (thiết kế DB v2 mục 4.1 và 4.4 — PROPOSED); có thể SELECT làm bằng chứng. Không dùng kiểm tra truthy/khác 0 để xác định rule có hiệu lực. Kiểm thêm (PROPOSED, khi có schema): sau bước 1, tạo một quy tắc mới → quy tắc mới có ID mới, không dùng lại ID đã xóa; kết quả cũ vẫn trỏ ID cũ.
 
 **結果（Kết quả）**
 
@@ -2468,34 +2502,34 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 
 <a id="tc-rs-br-035"></a>
 
-### TC-RS-BR-035 — Bộ lọc nhóm tổng hợp thuộc hai loại nhóm vẫn kết hợp HOẶC
+### TC-RS-BR-035 — Bộ lọc nhóm tổng hợp khác loại phải kết hợp VÀ
 
-Priority: TBD ｜ Status: PROPOSED ｜ Requirement ID: tiêu chí nghiệm thu “Đối tượng áp dụng và nhu cầu nguồn” (AC-G05)
+Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Đối tượng áp dụng và nhu cầu nguồn” (AC-G05)
 
 <!-- Mã truy vết: TD-RULE-14 -->
 
 **前提条件（Điều kiện trước）**
 
-- Điều kiện: Hai loại nhóm tổng hợp: K1 = Nhóm thành tích（成績グループ） có mục Nâng cao; K2 = một loại nhóm tổng hợp khác có mục X. Học sinh P5 thuộc Nâng cao, P6 thuộc X, P7 không thuộc cả hai; cả ba học khối 1.
-- Dữ liệu test: quy tắc lọc theo nhóm tổng hợp thuộc hai loại nhóm; S = 20 cho P5–P7
+- Điều kiện: Hai loại nhóm tổng hợp: K1 = Nhóm thành tích（成績グループ） có mục Nâng cao; K2 = một loại nhóm tổng hợp khác có mục X. P5 chỉ thuộc Nâng cao; P6 chỉ thuộc X; P7 thuộc cả Nâng cao và X; P8 không thuộc cả hai. Cả bốn học khối 1.
+- Dữ liệu test: quy tắc lọc theo nhóm tổng hợp thuộc hai loại nhóm; S = 20 cho P5–P8
 
 **操作（Thao tác）**
 
-1. Đăng ký điểm 20 cho P5–P7.
+1. Đăng ký điểm 20 cho P5–P8.
 2. Xem kết quả.
 3. Mở lại quy tắc.
 
 **期待結果（Kết quả mong đợi）**
 
-1–2. P5, P6: Đỏ. P7: Không áp dụng.
+1–2. Chỉ P7 thỏa cả hai loại nhóm và được xét → Đỏ. P5, P6, P8: Không áp dụng.
 
 3. Mỗi giá trị vẫn gắn đúng loại nhóm của nó.
 
 **補足（Bổ sung）**
 
-- Nguồn: [đặc tả v2](../specification.vi.md) (R18) mục 5.1 “Đối tượng áp dụng” (HOẶC trong cùng loại, VÀ giữa các loại); [thiết kế DB v2](../database-design.vi.md) (RSD-DB) mục 3.2 “`apply_condition`” ("Các giá trị trong `values` và các phần tử cùng `type` dùng OR, kể cả khác key" — PROPOSED)
-- Bằng chứng cần chụp: Ảnh kết quả ba học sinh; ảnh form mở lại.
-- Ghi chú: PROPOSED — không phải must-pass. P5–P7 là học sinh bổ sung ngoài TD-STU.
+- Nguồn: [đặc tả v2](../specification.vi.md) (R18) mục 5.1 “Đối tượng áp dụng”; [xác nhận thiết kế ngày 30/09](../../../sources/2026-09-30-design-review-confirmation.vi.md) (Q35: bộ lọc thường OR cùng loại/AND khác loại; điều kiện trung bình/tỷ lệ nhóm AND với bộ lọc); [thiết kế DB v2](../database-design.vi.md) (RSD-DB) mục 3.2 “`apply_condition`”.
+- Bằng chứng cần chụp: Ảnh kết quả bốn học sinh; ảnh form mở lại xác nhận mỗi giá trị vẫn gắn đúng loại nhóm.
+- Ghi chú: P5–P8 là học sinh bổ sung ngoài TD-STU. Oracle AND là CONFIRMED; biểu diễn JSON/schema vẫn có thể là PROPOSED.
 
 **結果（Kết quả）**
 
@@ -3584,7 +3618,7 @@ Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 
 **期待結果（Kết quả mong đợi）**
 
-1. Sáu trạng thái phân biệt được, không gộp Chưa xét được với Không áp dụng hay Không đỏ. Ánh xạ đề xuất (PROPOSED): Chưa từng xét = không có dòng, hoặc dòng điều khiển khởi tạo có `judgment_status`/`is_red` NULL (đã đặt chỗ lần đầu nhưng chưa hoàn tất) — cả hai không được đọc thành Không đỏ hay Đỏ; Đỏ = 1, `is_red=1`; Không đỏ = 1, `is_red=0`; Chưa xét được = 2, `is_red` NULL, có `reason_code`; Không áp dụng = 3, `no_applicable_rule`; Không có điểm = 4, `no_score`. `red_score_setting_id` (PROPOSED): trạng thái 1 bắt buộc có; trạng thái 2 chỉ có khi đã chọn được quy tắc (ví dụ case “Chạy lại không tạo được ngưỡng hợp lệ → Chưa xét được, ngừng kết quả cũ, giữ điểm”: có; case “Ưu tiên 1 khớp nhưng thiếu dữ liệu → Chưa xét được, không chuyển xuống ưu tiên 2”, điều kiện không xác định được: NULL); trạng thái 3 và 4: NULL.
+1. Sáu trạng thái phân biệt được, không gộp Chưa xét được với Không áp dụng hay Không đỏ. Việc dùng cột, mã số, `reason_code` hoặc `red_score_setting_id` cụ thể là phần thiết kế DB cần đối chiếu khi schema được chốt; không dùng mapping đề xuất làm business oracle. Bất kể cách lưu, kết quả quan sát phải phân biệt rõ sáu trạng thái và trạng thái Đang chờ chạy lại.
 2. Dòng của S03 giữ nguyên (đang chờ chạy lại không có trạng thái riêng).
 
 **補足（Bổ sung）**
@@ -3853,7 +3887,7 @@ Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: đặc tả v2 mục 12.
 
 **期待結果（Kết quả mong đợi）**
 
-1. Có phạm vi trường/năm, cột audit và comment theo quy tắc schema hiện hành. Đối chiếu thêm với thiết kế (PROPOSED): InnoDB, `utf8mb4`/`utf8mb4_general_ci`, không khai báo foreign key, có `idx_red_score_settings_01`, `uk_red_score_results_01`, `idx_red_score_results_01`, `active` mặc định 0; `red_score_results` có thêm `cell_generation`, `write_version` (mặc định 0), `judged_version`, `rule_revision` (cho phép NULL); bảng/cột cũ (`red_score`, `changed_red_score`) không đổi.
+1. Có phạm vi trường/năm, cột audit và comment theo quy tắc schema hiện hành. Đối chiếu thêm với thiết kế (PROPOSED): InnoDB, `utf8mb4`/`utf8mb4_general_ci`, không khai báo foreign key, có `idx_red_score_settings_01`, `uk_red_score_results_01`, `idx_red_score_results_01`, `setting_status` mặc định 0 và phân biệt rõ trạng thái 0/1/2; `red_score_results` có thêm `cell_generation`, `write_version` (mặc định 0), `judged_version`, `rule_revision` (cho phép NULL); bảng/cột cũ (`red_score`, `changed_red_score`) không đổi.
 2. (PROPOSED) Chỉ thêm `red_score_display_type TINYINT UNSIGNED NOT NULL DEFAULT 0` vào `grade_publish_conf_grade_items` và `red_score_revision BIGINT UNSIGNED NOT NULL DEFAULT 0` vào `grade_evaluate_frame_items`; không đổi kiểu/khóa/collation của cột có sẵn, không thêm index hay foreign key. Thiết lập đỏ của Trích xuất thành tích（成績抽出） và Công cụ phiếu điểm（通知表ツール） không có cột/bảng mới (dùng JSON `grade_extract_conf.extract_setting` và phần lưu bảng/điều kiện phiếu điểm hiện có).
 
 **補足（Bổ sung）**

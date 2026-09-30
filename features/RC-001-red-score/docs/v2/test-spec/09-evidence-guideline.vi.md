@@ -51,7 +51,7 @@ Chỉ lấy những gì case yêu cầu ở dòng Bằng chứng cần chụp (m
 | PASS | Kết quả thực tế khớp toàn bộ 期待結果（Kết quả mong đợi） phần CONFIRMED/IMPLEMENTED |
 | FAIL | Có ít nhất một điểm lệch với phần CONFIRMED/IMPLEMENTED; phải có Bug ID |
 | BLOCKED | Không chạy được vì thiếu môi trường, dữ liệu hoặc cách giả lập |
-| SKIPPED | Case ngoài phạm vi đợt phát hành (R18 «đặc tả RC-001 v2» §13.1 «Các quyết định còn lại được phân loại rõ») hoặc môi trường không có tính năng liên quan; ghi lý do |
+| SKIPPED | Case ngoài phạm vi đợt phát hành (R18 «đặc tả RC-001 v2» §13.1 «Điều kiện triển khai và kiểm chứng») hoặc môi trường không có tính năng liên quan; ghi lý do |
 
 Phần PROPOSED/TBD/CONFLICT trong 期待結果（Kết quả mong đợi）: ghi hành vi thực tế vào Actual Result và Notes, **không** làm case FAIL. Nếu phát hiện lệch ở phần này, ghi vào Notes thay vì mở bug.
 

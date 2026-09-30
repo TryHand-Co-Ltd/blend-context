@@ -81,7 +81,7 @@ Nguồn = Thời kỳ tổng hợp（集計対象時期）+ Thiết lập tổng
 | TD-SRC-06 | Tỷ lệ nhóm khác M | 2 học sinh: 20/50 (lớp dùng M=50) và 80/100 | source | Khác M không gây lỗi dừng | Xử lý không dừng |
 | TD-SRC-07 | Có học sinh bị loại khỏi xếp hạng | 3 học sinh: 60, 40 và 20 (học sinh 20 điểm bị loại khỏi xếp hạng) | source | Mẫu số trung bình (R18 «đặc tả RC-001 v2» §5.5 «Chọn bản nguồn», AC-G14 «Giá trị thô từ cùng tập dữ liệu») | Kỳ vọng: `A=40` (chia số người có điểm, 3); chia số người thuộc xếp hạng (`A=50`) là sai. Trường nào (`examinees`/`student_count`) mang giá trị đúng: kiểm khi tích hợp |
 | TD-SRC-08 | Trung bình bằng 0 | Mọi học sinh trong nhóm có 0 điểm → `A=0` | source | Chia 0 khi chạy | Chưa xét được |
-| TD-SRC-09 | Trung bình cho điểm đơn vị | Điểm đơn vị U1, U2 cùng môn, trung bình khác nhau (U1=40, U2=70) | source | Không gộp đơn vị (nguồn trung bình theo đơn vị chưa tích hợp — R18 «đặc tả RC-001 v2» §13.1 «Các quyết định còn lại được phân loại rõ») | Mỗi đơn vị dùng trung bình riêng: TBD |
+| TD-SRC-09 | Trung bình cho điểm đơn vị | Điểm đơn vị U1, U2 cùng môn, trung bình khác nhau (U1=40, U2=70) | source | Không gộp đơn vị (nguồn trung bình theo đơn vị chưa tích hợp — R18 «đặc tả RC-001 v2» §13.1 «Điều kiện triển khai và kiểm chứng») | Mỗi đơn vị dùng trung bình riêng: TBD |
 | TD-SRC-10 | A = 60 và 59.96 | Hai nguồn riêng: `A`=60.00 và `A`=59.96 (hiển thị 60.0) | source | Biên điều kiện phân nhánh | 60 khớp `≥60`; 59.96 không khớp |
 
 <a id="population"></a>
@@ -108,7 +108,7 @@ Theo QAC «Q&A nghiệp vụ đã xác nhận» Q32 «Nhóm tham chiếu phía �
 | TD-RULE-03 | Tỷ lệ | Tỷ lệ điểm tối đa（得点率） 30%, không xử lý phần lẻ（しない）, Nhỏ hơn（未満） | rule | Tỷ lệ theo M hiện hành | `T=M×0.3` |
 | TD-RULE-04 | Tỷ lệ làm tròn xuống | Như TD-RULE-03 «Tỷ lệ: Tỷ lệ điểm tối đa（得点率） 30%, không xử lý phần lẻ（しない）, Nhỏ hơn（未満）», xử lý phần lẻ: chữ số thập phân thứ 1（小数第1位）, Làm tròn xuống（切り捨て） | rule | Làm tròn | `T` là số nguyên làm tròn xuống |
 | TD-RULE-05 | Tỷ lệ làm tròn gần nhất | Như TD-RULE-04 «Tỷ lệ làm tròn xuống: Như TD-RULE-03, xử lý phần lẻ: chữ số thập phân…» nhưng Làm tròn gần nhất（四捨五入） | rule | Làm tròn | `T` là số nguyên gần nhất |
-| TD-RULE-06 | Công thức hai dòng | Dòng 1: Trung bình（平均点）÷ Số cố định（固定値）2, không xử lý; Dòng 2: Kết quả dòng 1（式の結果 式1）× 0.8, chữ số thập phân thứ 1 làm tròn xuống; Nhỏ hơn（未満）; nguồn mặc định | rule | Công thức Figma 58:8389 «Figma MW: màn Ngưỡng – công thức» | `T=floor((A÷2)×0.8)` |
+| TD-RULE-06 | Công thức hai dòng | Dòng 1: Trung bình（平均点）÷ Số cố định（固定値）2, chữ số thập phân thứ 1 làm tròn xuống về số nguyên; Dòng 2: Kết quả dòng 1（式の結果 式1）× 0.8, không xử lý phần lẻ; Nhỏ hơn（未満）; nguồn mặc định | rule | Xác nhận thiết kế 30/09, ví dụ `A=49.7` | `T=floor(A÷2)×0.8`; với `A=49.7`, `T=19.2` |
 | TD-RULE-07 | Cặp phân nhánh | Ưu tiên 1 "Trung bình từ 60": điều kiện `A≥60`, cố định 30 `<`. Ưu tiên 2 "Trung bình dưới 60": `A<60`, công thức `A×0.5` `<` | rule | Phân nhánh bằng nhiều quy tắc (R18 «đặc tả RC-001 v2» §5.2 «Điều kiện dựa trên trung bình») | Chọn đúng nhánh theo A thô |
 | TD-RULE-08 | Cặp cùng áp dụng | Ưu tiên 1: Toàn bộ, cố định 20 `<`; Ưu tiên 2: Toàn bộ, cố định 30 `<` | rule | First match (R18 «đặc tả RC-001 v2» §4.3 «Chọn quy tắc») | Luôn dùng ưu tiên 1 |
 | TD-RULE-09 | Tỷ lệ nhóm | Điều kiện Tỷ lệ điểm của nhóm（集団の得点率） `≥65%`; cố định 70 `<` | rule | Nguồn tỷ lệ nhóm | Học sinh 60 đỏ, 80 không đỏ khi khớp |
@@ -116,7 +116,8 @@ Theo QAC «Q&A nghiệp vụ đã xác nhận» Q32 «Nhóm tham chiếu phía �
 | TD-RULE-11 | Chia cho trung bình | Dòng 1: Số cố định（固定値）100 ÷ Trung bình（平均点） | rule | Chia 0 khi chạy | Với `A=0`: chưa xét được |
 | TD-RULE-12 | Bộ lọc kết hợp | Giới hạn bằng bộ lọc（特定条件で絞り込む）: Khối（学年） = 1 hoặc 2; Nhóm thành tích（成績グループ） = Nâng cao; cố định 30 `<` | rule | OR trong loại, AND giữa loại | Chỉ học sinh khối 1/2 **và** nhóm Nâng cao |
 | TD-RULE-13 | Cố định chưa có ngưỡng | Chỉ lưu điều kiện áp dụng, chưa lưu ngưỡng | rule | Trạng thái thêm dở (Figma 58:10165 «Figma MW: chương 01 – lối vào, danh sách, xóa thiết lập») | Không tham gia xét (PROPOSED) |
-| TD-RULE-14 | Nhóm tổng hợp hai loại nhóm | Giới hạn bằng bộ lọc（特定条件で絞り込む）: nhóm tổng hợp loại K1 = Nâng cao HOẶC loại K2 = X; cố định 30 `<` | rule | HOẶC trong cùng loại bộ lọc dù khác loại nhóm (RSD-DB «thiết kế DB v2 đề xuất» §3.2 «`apply_condition`», PROPOSED) | P5, P6 thuộc; P7 không |
+| TD-RULE-14 | Nhóm tổng hợp hai loại nhóm | Giới hạn bằng bộ lọc（特定条件で絞り込む）: nhóm tổng hợp loại K1 = Nâng cao VÀ loại K2 = X; cố định 30 `<` | rule | AND giữa các loại nhóm theo xác nhận Q35 | P7 thuộc cả hai; P5/P6 chỉ thuộc một loại và không áp dụng |
+| TD-RULE-15 | Hai điều kiện trung bình cùng nguồn | Cùng nguồn `A`: `A≥50` và `A<70`; Nhỏ hơn（未満）; ngưỡng cố định 30 | rule | AND trong một rule theo xác nhận Q35 | A=40/70 không khớp; A=50/60 khớp |
 
 ## 7. Cấu hình đầu ra
 

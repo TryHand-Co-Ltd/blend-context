@@ -2,7 +2,7 @@
 
 Sinh bằng script. Mọi tỷ lệ đều ghi công thức. Đây là độ phủ **thiết kế** (có case), không phải kết quả chạy.
 
-Tổng số test case: **208**.
+Tổng số test case: **210**.
 
 ## 1. Theo category và trạng thái chắc chắn
 
@@ -10,15 +10,15 @@ Tổng số test case: **208**.
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | A. Functional | 35 | 0 | 1 | 1 | 0 | 37 | 21 | 16 |
 | B. Validation | 15 | 2 | 8 | 0 | 0 | 25 | 3 | 22 |
-| C. Business Rules | 39 | 0 | 1 | 0 | 0 | 40 | 36 | 4 |
+| C. Business Rules | 41 | 0 | 0 | 0 | 0 | 41 | 38 | 3 |
 | D. Calculation | 29 | 0 | 1 | 2 | 0 | 32 | 25 | 7 |
-| E. UI/Visual | 6 | 1 | 16 | 0 | 2 | 25 | 0 | 25 |
+| E. UI/Visual | 7 | 1 | 16 | 0 | 2 | 26 | 1 | 25 |
 | F. State/Error | 15 | 0 | 0 | 4 | 0 | 19 | 12 | 7 |
 | G. Data/Persistence | 9 | 0 | 4 | 0 | 0 | 13 | 2 | 11 |
 | H. Regression | 17 | 0 | 0 | 0 | 0 | 17 | 6 | 11 |
-| **Tổng** | 165 | 3 | 31 | 7 | 2 | 208 | 105 | 103 |
+| **Tổng** | 168 | 3 | 30 | 7 | 2 | 210 | 108 | 102 |
 
-Case có kỳ vọng chắc chắn (CONFIRMED + IMPLEMENTED): 168/208. Công thức: số case có Status CONFIRMED hoặc IMPLEMENTED ÷ tổng số case.
+Case có kỳ vọng chắc chắn (CONFIRMED + IMPLEMENTED): 171/210. Công thức: số case có Status CONFIRMED hoặc IMPLEMENTED ÷ tổng số case.
 
 ## 2. Độ phủ yêu cầu
 
@@ -41,12 +41,12 @@ Mục = số mục (N.M) của chương. Test Cases = số case khác nhau tríc
 | 2. Khái niệm và dữ liệu dùng để xét | 4 | 11 | 3 | 1 | 2.1 |
 | 3. Bản đồ màn hình và luồng thao tác | 1 | 2 | 1 | 0 | — |
 | 4. Danh sách thiết lập và thứ tự ưu tiên | 4 | 24 | 4 | 0 | — |
-| 5. Điều kiện áp dụng và nguồn tham chiếu | 6 | 36 | 6 | 0 | — |
+| 5. Điều kiện áp dụng và nguồn tham chiếu | 6 | 37 | 6 | 0 | — |
 | 6. Ngưỡng điểm, công thức và xử lý phần lẻ | 8 | 51 | 8 | 0 | — |
 | 7. Quy trình xét và thời điểm cập nhật | 5 | 34 | 5 | 0 | — |
 | 8. Trạng thái kết quả và xử lý lỗi | 4 | 26 | 4 | 0 | — |
 | 9. Trích xuất thành tích（成績抽出） | 3 | 12 | 3 | 0 | — |
-| 10. Công khai thành tích（成績公開） | 3 | 14 | 3 | 0 | — |
+| 10. Công khai thành tích（成績公開） | 3 | 15 | 3 | 0 | — |
 | 11. Công cụ phiếu điểm（通知表ツール） và PDF | 3 | 9 | 3 | 0 | — |
 | 12. Dữ liệu, tích hợp và bảo toàn chức năng cũ | 4 | 21 | 4 | 0 | — |
 
@@ -58,9 +58,9 @@ Tiêu chí = số tiêu chí nghiệm thu khác nhau được case của nhóm t
 | --- | ---: | ---: | ---: | ---: | --- |
 | Functional | 19 | 37 | 19 | 0 | — |
 | Validation | 11 | 25 | 11 | 0 | — |
-| Business Rules | 19 | 40 | 19 | 0 | — |
+| Business Rules | 19 | 41 | 19 | 0 | — |
 | Calculation | 9 | 32 | 9 | 0 | — |
-| UI | 6 | 25 | 4 | 2 | Chưa chắc chắn: AC-G26 «Lưu thành công và thông báo an toàn», AC-G29 «Lọc khi trích xuất» |
+| UI | 6 | 26 | 4 | 2 | Chưa chắc chắn: AC-G26 «Lưu thành công và thông báo an toàn», AC-G29 «Lọc khi trích xuất» |
 | Error Handling | 15 | 19 | 12 | 3 | Chưa chắc chắn: AC-G24 «Trigger khi đổi điểm tối đa/đơn vị», AC-G30 «Hiển thị ô trích xuất», AC-G32 «Cấu hình công khai và ẩn điểm» |
 | Data | 8 | 13 | 6 | 2 | Chưa chắc chắn: AC-G12 «Đúng phạm vi tham chiếu», AC-G39 «Không dùng lại kết quả cho đối tượng mới» |
 | Regression | 9 | 17 | 9 | 0 | — |
@@ -72,7 +72,7 @@ Tiêu chí và mục chưa có case: [11 §2](11-traceability-matrix.vi.md#uncov
 | Scenario | Kịch bản | Số case |
 | --- | --- | --- |
 | TS-RS-001 | Quản lý danh sách quy tắc đỏ của một mục | 20 |
-| TS-RS-002 | Điều kiện áp dụng | 12 |
+| TS-RS-002 | Điều kiện áp dụng | 13 |
 | TS-RS-003 | Ngưỡng điểm cố định | 14 |
 | TS-RS-004 | Ngưỡng tỷ lệ điểm tối đa | 11 |
 | TS-RS-005 | Ngưỡng công thức | 26 |
@@ -83,7 +83,7 @@ Tiêu chí và mục chưa có case: [11 §2](11-traceability-matrix.vi.md#uncov
 | TS-RS-010 | Trạng thái kết quả và lỗi | 11 |
 | TS-RS-011 | Quyền và kiểm tra phía server | 10 |
 | TS-RS-012 | Trích xuất thành tích（成績抽出） | 9 |
-| TS-RS-013 | Công khai thành tích（成績公開） | 9 |
+| TS-RS-013 | Công khai thành tích（成績公開） | 10 |
 | TS-RS-014 | Công cụ phiếu điểm（通知表ツール） và PDF | 8 |
 | TS-RS-015 | Ba đầu ra dùng chung một kết quả | 4 |
 | TS-RS-016 | Dữ liệu và dữ liệu đỏ cũ | 13 |
@@ -91,7 +91,7 @@ Tiêu chí và mục chưa có case: [11 §2](11-traceability-matrix.vi.md#uncov
 | TS-RS-018 | Hồi quy AutoRating và các luồng hiện có | 9 |
 | TS-RS-019 | Luồng đầu–cuối（end-to-end） | 8 |
 
-Case thuộc ít nhất một kịch bản: 208/208 (số case có trong cột Test case của [02](02-test-scenarios.vi.md) «Kịch bản kiểm thử (Test Scenario)» ÷ tổng số case).
+Case thuộc ít nhất một kịch bản: 210/210 (số case có trong cột Test case của [02](02-test-scenarios.vi.md) «Kịch bản kiểm thử (Test Scenario)» ÷ tổng số case).
 
 ## 4. Lớp giá trị trong tính toán
 
@@ -116,8 +116,8 @@ Case thuộc ít nhất một kịch bản: 208/208 (số case có trong cột T
 
 | File | Số case |
 | --- | --- |
-| [03-test-cases.vi.md](03-test-cases.vi.md) | 115 |
+| [03-test-cases.vi.md](03-test-cases.vi.md) | 116 |
 | [04-calculation-test-cases.vi.md](04-calculation-test-cases.vi.md) | 32 |
-| [05-ui-test-cases.vi.md](05-ui-test-cases.vi.md) | 25 |
+| [05-ui-test-cases.vi.md](05-ui-test-cases.vi.md) | 26 |
 | [06-error-and-edge-case-test-cases.vi.md](06-error-and-edge-case-test-cases.vi.md) | 19 |
 | [07-regression-test-cases.vi.md](07-regression-test-cases.vi.md) | 17 |
