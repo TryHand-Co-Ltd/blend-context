@@ -1,8 +1,7 @@
 # Điểm đỏ（赤点） — Tiêu chí nghiệm thu
 
-**Ngày cập nhật:** 29/09/2026.
+**Ngày cập nhật:** 30/09/2026.
 
-**v2 / Draft:** bổ sung lưu theo cấu hình công khai, cập nhật đồng thời/xóa-tạo lại và lựa chọn nhóm tham chiếu đã xác nhận. Các ô kiểm chưa thể hiện kết quả chạy test.
 
 Tiêu chí nghiệm thu việc thiết lập, xét và hiển thị kết quả điểm đỏ.
 
@@ -13,9 +12,12 @@ Tiêu chí nghiệm thu việc thiết lập, xét và hiển thị kết quả 
 - [ ] **AC-G01 — Quyền thao tác và phạm vi dữ liệu:** Giáo viên thường được thiết lập nếu có quyền truy cập chức năng và sửa đúng mục; quyền sửa mục không tự cấp quyền chạy hàng loạt. Kiểm quyền trường/năm/mục/lớp/đơn vị khi xem, lưu, xóa, đổi thứ tự, chọn nguồn; đăng ký, trích xuất, công khai và phiếu điểm giữ quyền riêng. Từ chối ID bị sửa trái phép mà không đổi cấu hình, điểm hoặc kết quả.
 - [ ] **AC-G02 — Kiểu điểm được hỗ trợ:** Xét mục số nguyên, số thập phân và điểm số theo đơn vị bài học; không xét trực tiếp kiểu lựa chọn A/B/C hoặc đạt/không đạt. Bộ lọc lựa chọn hiện có vẫn dùng được để giới hạn đối tượng của một mục điểm số.
 - [ ] **AC-G03 — Nhận diện ô điểm:** Kết quả thuộc đúng học sinh, trường, năm, lớp học phần/môn, mục, kỳ/thời điểm và đơn vị; không trộn mục cùng tên hoặc khác đơn vị. Không gắn kết quả cũ vào ô đã bị xóa rồi tạo lại. Nhập lại cùng điểm hoặc kích hoạt lại bản ghi xóa mềm cũng không được làm kết quả của xử lý cũ sống lại.
-- [ ] **AC-G04 — Lưu và mở lại nhiều thiết lập:** Danh sách thể hiện mục/kiểu/thời điểm; khi trống, báo chưa thiết lập và cho thêm, không tự tạo rule từ ngưỡng cũ hay “dưới 30”. Sửa nhiều rule qua Điều kiện áp dụng（適用条件） và Thiết lập ngưỡng（基準設定）; mở lại đúng tên, thứ tự, điều kiện, ngưỡng, dấu, phần lẻ, tóm tắt. Đổi tên giữ liên kết; hủy/lưu lỗi giữ cấu hình và kết quả đã lưu.
-- [ ] **AC-G05 — Đối tượng áp dụng và nhu cầu nguồn:** “Tất cả” vẫn trong phạm vi được phép; bộ lọc giáo khoa/môn, khối, lớp/nhóm và lựa chọn được hỗ trợ dùng HOẶC trong cùng loại, VÀ giữa các loại. Nếu điều kiện hoặc ngưỡng dùng trung bình/tỷ lệ nhóm thì bắt buộc có nguồn, không bỏ điều kiện khi thiếu dữ liệu; nếu cả hai độc lập thì không hiện hoặc bắt nhập nguồn không dùng.
-- [ ] **AC-G06 — Chọn quy tắc khớp đầu tiên:** Chọn quy tắc khớp đầu tiên theo ưu tiên rồi mới tính, không chọn lại ngưỡng nghiêm ngặt hơn. Điều kiện ưu tiên cao có thể áp dụng nhưng chưa xác định được, hoặc quy tắc đã chọn không tính được, đều là chưa xét được và không thử quy tắc thấp hơn. Nếu bộ lọc độc lập đã xác định không áp dụng thì không cần nguồn tổng hợp của quy tắc đó.
+- [ ] **AC-G04 — Lưu và mở lại nhiều thiết lập:** Danh sách thể hiện mục/kiểu/thời điểm; khi trống, báo chưa thiết lập và cho thêm, không tự tạo rule từ ngưỡng cũ hay “dưới 30”. Sửa nhiều rule qua Điều kiện áp dụng（適用条件） và Thiết lập ngưỡng（基準設定）; mở lại đúng tên, thứ tự, điều kiện, ngưỡng, dấu, phần lẻ, tóm tắt. Đổi tên giữ liên kết; hủy/lưu lỗi giữ cấu hình và kết quả đã lưu. Rule mới lưu điều kiện còn trong danh sách để mở ngưỡng sửa tiếp nhưng không tham gia xét. Xóa xong thì không còn trong danh sách/bộ xét; tải lại hoặc lưu từ form cũ không làm rule sống lại.
+- [ ] **AC-G05 — Đối tượng áp dụng và nhu cầu nguồn:** “Tất cả” vẫn trong phạm vi được phép. Bộ lọc giáo khoa/môn, khối, lớp/nhóm và lựa chọn được hỗ trợ dùng OR trong cùng loại, AND giữa các loại. Các dòng điều kiện trung bình/tỷ lệ nhóm dùng AND kể cả cùng loại, rồi AND với kết quả bộ lọc. Nếu điều kiện hoặc ngưỡng dùng trung bình/tỷ lệ nhóm thì bắt buộc có nguồn, không bỏ điều kiện khi thiếu dữ liệu; nếu cả hai độc lập thì không hiện hoặc bắt nhập nguồn không dùng.
+
+Ví dụ: `A≥50 AND A<70` biểu diễn `50≤A<70`; 40/70 không thỏa, 50/60 thỏa. Hướng dẫn trên màn điều kiện áp dụng cũng phải phân biệt cách kết hợp bộ lọc đối tượng với các điều kiện trung bình/tỷ lệ nhóm.
+
+- [ ] **AC-G06 — Chọn quy tắc khớp đầu tiên:** Chọn quy tắc khớp đầu tiên theo ưu tiên rồi mới tính, không chọn lại ngưỡng nghiêm ngặt hơn. Điều kiện ưu tiên cao có thể áp dụng nhưng chưa xác định được, hoặc quy tắc đã chọn không tính được, đều là chưa xét được và không thử quy tắc thấp hơn. Nếu bộ lọc độc lập đã xác định không áp dụng thì không cần nguồn tổng hợp của quy tắc đó. Không kết hợp nhiều rule bằng AND.
 
 ## Ngưỡng, điểm tối đa và độ chính xác
 
@@ -53,17 +55,17 @@ Các quy tắc chọn/đọc nhóm thuộc AC-G12/G13:
 
 - [ ] **AC-G14 — Giá trị thô từ cùng tập dữ liệu:** Chọn nhánh bằng giá trị trước làm tròn; trung bình dùng số người có điểm cùng bản, không phải số người xếp hạng; tử/mẫu tỷ lệ dùng cùng tập đóng góp. Trung bình 49.99 thuộc `<50` dù hiển thị 50; phần lẻ không đổi nhánh; số người 0, tổng maximum sai hoặc tập đóng góp không xác định thì chưa xét được.
 - [ ] **AC-G15 — Kế thừa tỷ lệ nhóm:** Dùng tổng điểm/tổng điểm tối đa của tổng hợp thứ hạng hiện có, không tính lại bằng trung bình tỷ lệ cá nhân hay điểm tối đa của học sinh đang xét. Khác điểm tối đa không cần cách tính riêng, không bị chặn cấu hình hoặc làm dừng xử lý chỉ vì khác biệt đó; dữ liệu sai vẫn phải được xử lý là sai.
-- [ ] **AC-G16 — Công thức theo dòng và phần lẻ:** Công thức được chọn triển khai gồm các dòng dùng bốn phép toán, không có biểu thức tự do, script hoặc hàm tùy ý. Tham chiếu dòng trước nhận giá trị sau phần lẻ, dòng cuối tạo `T`; không dùng số hiển thị rút gọn, ghi/xóa điểm hoặc ép ngưỡng theo min/max của điểm.
+- [ ] **AC-G16 — Công thức theo dòng và phần lẻ:** Công thức được chọn triển khai gồm các dòng dùng bốn phép toán, không có biểu thức tự do, script hoặc hàm tùy ý. Tham chiếu dòng trước nhận giá trị sau phần lẻ, dòng cuối tạo `T`; không dùng số hiển thị rút gọn, ghi/xóa điểm hoặc ép ngưỡng theo min/max của điểm. Form sửa, danh sách và giải thích của cùng rule đã lưu phải khớp vị trí xử lý phần lẻ từng dòng và kết quả.
 - [ ] **AC-G17 — Kiểm công thức khi lưu:** Cần ít nhất một dòng đầy đủ; từ chối toán hạng thiếu, mẫu số cố định bằng 0, tham chiếu chính dòng/dòng sau/dòng đã xóa. Xóa hoặc đổi thứ tự dòng không được âm thầm trỏ sang công thức khác chỉ vì nó mang cùng số thứ tự.
 - [ ] **AC-G18 — Ngưỡng âm:** `T` âm, hữu hạn và tính đúng vẫn hợp lệ, được so sánh bình thường, không ép về 0. Với `T=−5`, điểm không âm không đỏ; nếu mục cho điểm âm thì −6 đỏ với dấu nhỏ hơn, −5 chỉ đỏ với dấu nhỏ hơn hoặc bằng.
 
-Nhóm có 60/100 và 80/100 cho 70%, khớp điều kiện từ 65% trở lên. Công thức `A÷2` rồi nhân 0.8 với `A=49.7` cho 19.2 nếu dòng đầu làm tròn xuống số nguyên; không xử lý thì cho 19.88.
+Nhóm có 60/100 và 80/100 cho 70%, khớp điều kiện từ 65% trở lên. Cùng rule trong 01-B/03-C: `A=49.7`, dòng 1 `A÷2` làm tròn xuống số nguyên, dòng 2 nhân 0.8 không xử lý, nên `T=19.2`; `S=19.1` xét nhỏ hơn thì đỏ. Cấu hình khác chỉ làm tròn xuống dòng 2 cho `T=19` và không đỏ; cả hai dòng không xử lý cho 19.88. Không trộn chúng thành trước/sau lưu của cùng cấu hình; tên nhóm tham chiếu trong danh sách không chồng lên cột phép toán.
 
 ## Điểm được xét và cập nhật kết quả
 
 Chỉ kết quả đỏ còn hiệu lực mới đóng góp dấu/lọc đỏ; chưa có kết quả không có nghĩa là đỏ hoặc đã xét đạt.
 
-- [ ] **AC-G19 — Dùng điểm cuối cùng:** Dùng giá trị đã lưu sau tính toán, giới hạn điểm và cập nhật liên quan; xét cả điểm sửa tay, Điểm dự kiến（見込点）, Chưa dự thi（未受験） có số và 0 hợp lệ, không phụ thuộc AutoRating hay đối tượng xếp hạng. Giữ trạng thái dự kiến riêng với đỏ; không đổi trống/NULL/đã xóa/không dùng thành 0, ngừng dấu/lọc của điểm đã mất và giữ cách hiển thị ô trống hiện có.
+- [ ] **AC-G19 — Dùng điểm cuối cùng:** Dùng giá trị đã lưu sau tính toán, giới hạn điểm và cập nhật liên quan; xét cả điểm sửa tay, Điểm dự kiến（見込点）, Chưa dự thi（未受験） có số và 0 hợp lệ, không phụ thuộc AutoRating hay đối tượng xếp hạng. Giữ trạng thái dự kiến riêng với đỏ; không đổi trống/NULL/đã xóa/không dùng thành 0, ngừng dấu/lọc của điểm đã mất và giữ cách hiển thị ô trống hiện có. Ngay khi lưu xóa điểm thành công, ô trống và dấu/lọc đỏ cũ của ô ngừng hiệu lực, không chờ chạy lại. Lưu lỗi không được coi là đã xóa xong.
 - [ ] **AC-G20 — Trạng thái sau lần chạy:** Phân biệt đỏ, không đỏ, chưa từng xét, chưa xét được, không áp dụng và không có điểm; chưa xét/chưa xét được không phải đã đạt. Giữ nguyên điểm và ngừng dùng kết quả cũ theo bảng dưới sau khi lưu thành công trạng thái của lần chạy.
 
 | Kết quả lần chạy | Kết quả hiện hành và xử lý tiếp |
@@ -84,7 +86,6 @@ Ví dụ thứ tự cập nhật thuộc AC-G03/G22:
 | Hai lượt xét lần đầu đồng thời, hoặc gửi lại cùng thao tác hoàn tất | Chỉ một kết quả hiện hành, không nhân đôi dấu hoặc thao tác ghi |
 | Đăng ký lần đầu đồng thời hai mục khác nhau của cùng học sinh/lớp/thời điểm/đơn vị | Giữ cả hai mục trên một dòng điểm vật lý, không tạo dòng trùng hoặc mất điểm/kết quả của một mục |
 | Sửa rule nhưng chưa chạy xét lại | Giữ kết quả đã hoàn tất trước đó, đồng thời không cho lượt bắt đầu trước thay đổi ghi đè sai |
-
 
 Ví dụ: phép tính trung gian 120 nhưng lưu 100 thì xét 100; sửa tay 28→35 thì xét 35. Điểm 32 đang không đỏ với `<30` vẫn giữ kết quả khi chỉ lưu `<35`, sau xét thành công mới đỏ.
 
@@ -108,7 +109,7 @@ Ví dụ: phép tính trung gian 120 nhưng lưu 100 thì xét 100; sửa tay 28
 - [ ] **AC-G29 — Lọc khi trích xuất:** Chỉ khi bật lọc, giữ học sinh có ít nhất một ô đỏ còn hiệu lực trong môn/mục/thời điểm/đơn vị được chọn. Ô đỏ ngoài phạm vi không giúp thỏa điều kiện; 0 kết quả là hợp lệ và các bộ lọc khác giữ nguyên nghĩa.
 - [ ] **AC-G30 — Hiển thị ô trích xuất:** Chỉ áp ký hiệu trước/sau và màu trong palette hiện hữu cho ô đỏ; bật ký hiệu phải nhập giá trị và được bật cả hai. Chỉ trang trí không lọc học sinh, không lộ điểm ẩn, không giữ hiệu ứng cũ ở ô mất hiệu lực/trống hoặc ép màu mẫu cho mọi template (24 với trước `※`, sau `!` → `※24!`).
 - [ ] **AC-G31 — Excel khớp và dùng kết luận server:** Cùng một lần xuất, màn hình và Excel thật phải khớp đối tượng, ký hiệu, màu, ô trống và giá trị. Sửa cờ đỏ/ngưỡng trong dữ liệu gửi lên không làm đổi kết luận của server hoặc phạm vi được phép.
-- [ ] **AC-G32 — Cấu hình công khai và ẩn điểm:** Lưu/mở lại ngoặc, dấu `*` cố định trước/sau cho mục được thiết lập trong phạm vi điểm thường/đơn vị; không thêm ký tự tự do, lọc học sinh đỏ hoặc nền riêng. Không lộ điểm/trạng thái ẩn qua ký hiệu; khi đỏ hết hiệu lực vẫn giữ hiệu ứng dự kiến và nền/định dạng khác còn hiệu lực. Cùng mục có thể lưu/mở lại/copy độc lập cấu hình X dùng ngoặc, Y dùng `*` trước, không trộn thường/đơn vị và không copy kết quả cá nhân. Lỗi lưu giữ cấu hình cũ.
+- [ ] **AC-G32 — Cấu hình công khai và ẩn điểm:** Lưu/mở lại ngoặc, dấu `*` cố định trước/sau cho mục được thiết lập trong phạm vi điểm thường/đơn vị; không thêm ký tự tự do, lọc học sinh đỏ hoặc nền riêng. Không lộ điểm/trạng thái ẩn qua ký hiệu; khi đỏ hết hiệu lực vẫn giữ hiệu ứng dự kiến và nền/định dạng khác còn hiệu lực. Cùng mục có thể lưu/mở lại/copy độc lập cấu hình X dùng ngoặc, Y dùng `*` trước, không trộn thường/đơn vị và không copy kết quả cá nhân. Lỗi lưu giữ cấu hình cũ. Bộ chọn cách hiển thị ở cả điểm thường/đơn vị đều nhìn thấy và thao tác được; sửa lựa chọn bên này không đổi bên kia.
 - [ ] **AC-G33 — Kết hợp hiệu ứng công khai:** Hiệu ứng dự kiến và đỏ khác nhau được kết hợp, trùng nhau chỉ áp một lần. Ngoặc + `*` trước thành `(*24)`; hai `*` trước thành `*24`; hai ngoặc thành `(24)`; `*` trước và sau thành `*24*`.
 - [ ] **AC-G34 — Đúng người, lịch và đầu ra công khai:** Học sinh/phụ huynh chỉ xem dữ liệu đúng quan hệ sở hữu, trường, năm và lịch công khai được phép. Web phía học sinh, API liên quan và PDF công khai phải khớp trạng thái, cách hiển thị và ẩn của cùng ô.
 - [ ] **AC-G35 — Tùy chọn trên phiếu:** Điều kiện đỏ có Nguyên trạng（そのまま表示）, Kèm ngoặc（カッコ付き）, ký tự trước hoặc sau; chỉ trước/sau mới bắt buộc ký tự. Không thêm ẩn, gạch chéo hoặc nền riêng cho đỏ; giữ những khả năng đó ở điều kiện có sẵn.

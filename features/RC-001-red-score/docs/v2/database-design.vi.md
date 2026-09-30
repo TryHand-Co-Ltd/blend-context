@@ -1,8 +1,8 @@
 # Thiết kế cơ sở dữ liệu — Chức năng điểm đỏ
 
-Ngày: **28/09/2026**.
+Ngày: **30/09/2026**.
 
-**Draft — thiết kế kỹ thuật để review.** Ngoài hai bảng mới, mở rộng bảng mục công khai và bảng mục trên khung đánh giá hiện hữu. DDL chưa được thực thi; tài liệu không xác nhận đã triển khai hoặc kiểm chứng trên môi trường thật.
+Phương án thiết kế dùng hai bảng mới cho quy tắc và kết quả xét, đồng thời mở rộng bảng mục công khai và bảng mục trên khung đánh giá hiện hữu.
 
 ## 1. Tổng quan và quan hệ
 
@@ -68,7 +68,8 @@ Kỳ/thời điểm nguồn trung bình được chọn riêng; môn, mục và 
 | `round_flg` | TINYINT UNSIGNED | Có | NULL | Bật/tắt xử lý phần lẻ của loại tỷ lệ maximum |
 | `round_type` | TINYINT UNSIGNED | Có | NULL | Cách xử lý phần lẻ |
 | `round_digits` | TINYINT UNSIGNED | Có | NULL | Vị trí chữ số cần xử lý |
-| `active` | TINYINT UNSIGNED | Không | 0 | 0: chưa áp dụng hoặc đã tắt/xóa mềm; 1: cấu hình đầy đủ có hiệu lực |
+| `setting_status` | TINYINT UNSIGNED | Không | 0 | 0: đang thiết lập/vô hiệu; 1: hoàn chỉnh, có hiệu lực; 2: đã xóa |
+
 | `created_at` | TIMESTAMP | Không | CURRENT_TIMESTAMP | Thời điểm tạo |
 | `created` | INT | Không | — | Người tạo |
 | `updated_at` | TIMESTAMP | Có | NULL | Thời điểm cập nhật gần nhất |
@@ -105,7 +106,7 @@ Kỳ/thời điểm nguồn trung bình được chọn riêng; môn, mục và 
 | Bảng | Khóa/chỉ mục | Cột | Mục đích |
 | --- | --- | --- | --- |
 | settings | PRIMARY KEY | `id` | Định danh quy tắc |
-| settings | `idx_red_score_settings_01` | `school_id, year, evaluate_frame_item_id, active, sort_no` | Đọc quy tắc có hiệu lực theo mục và thứ tự |
+| settings | `idx_red_score_settings_01` | `school_id, year, evaluate_frame_item_id, setting_status, sort_no` | Đọc quy tắc có hiệu lực theo mục và thứ tự |
 | results | PRIMARY KEY | `id` | Định danh dòng kết quả |
 | results | `uk_red_score_results_01` | `school_id, year, evaluate_frame_item_id, group_id, student_id, tangen_id` | Một dòng hiện hành cho một ô |
 | results | `idx_red_score_results_01` | `school_id, year, group_id, student_id` | Đọc kết quả theo trường/năm/lớp/học sinh |
@@ -129,7 +130,7 @@ Bộ nguồn gồm `period_id`, `term_id`, `grade_calc_conf_id`, `population_typ
 | 5 | Lớp học（授業） | NULL | Kết quả tổng hợp theo lớp ứng với `group_id` của ô đang xét |
 | 6 | Nhóm môn học（科目グループ） | `grade_calc_group_sub_subjects.id` | Dùng cấu hình riêng của môn, nếu không có thì default đã lưu, để phân giải thành loại 1–5 và nhóm thực tế |
 
-Bảng này mô tả kiểu lưu, không yêu cầu luôn hiển thị sáu lựa chọn. Khối/HR/lớp học chỉ được chọn khi `grade_calc_detail_conf.use_calc_hr_grade`, `use_calc_homeroom`, `use_calc_group` tương ứng bằng 1 trong trường/năm. **Phương án A đã được xác nhận:** nhóm tổng hợp, tổ hợp và nhóm môn có cấu hình tương ứng trong trường/năm thì được chọn bằng tên đã đặt, độc lập với ba cờ trên. Dù cả ba cờ bằng 0, không vì thế mà ẩn hoặc từ chối chọn/lưu nhóm đã cấu hình. Không thêm công tắc tổng hợp riêng phía điểm đỏ.
+Bảng này mô tả kiểu lưu, không yêu cầu luôn hiển thị sáu lựa chọn. Khối/HR/lớp học chỉ được chọn khi `grade_calc_detail_conf.use_calc_hr_grade`, `use_calc_homeroom`, `use_calc_group` tương ứng bằng 1 trong trường/năm. Nhóm tổng hợp, tổ hợp và nhóm môn có cấu hình tương ứng trong trường/năm thì được chọn bằng tên đã đặt, độc lập với ba cờ trên. Dù cả ba cờ bằng 0, không vì thế mà ẩn hoặc từ chối chọn/lưu nhóm đã cấu hình. Không thêm công tắc tổng hợp riêng phía điểm đỏ.
 
 Theo mẫu Thiết lập công khai thành tích（成績公開設定）, chọn Thiết lập tổng hợp thứ hạng（順位集計設定） rồi chọn Đối tượng tổng hợp（集計対象）. Giữ trường thời kỳ hiện có; cùng `grade_calc_conf_id` được dùng để đọc kết quả tương ứng loại đã chọn. Áp dụng luồng chọn cho cả điều kiện và công thức nhưng lưu nguồn độc lập. Không thêm trường thứ hạng, tên hiển thị hoặc biểu đồ từ màn ví dụ vào form điểm đỏ.
 
@@ -156,6 +157,8 @@ Tỷ lệ nhóm kế thừa kết quả tổng hợp hiện có trước làm tr
 | `choice` | Chuỗi mã lựa chọn của mục, không phải tên hiển thị | `grade_evaluate_frame_items.id` |
 
 Các giá trị trong `values` và các phần tử cùng `type` dùng OR, kể cả khác key; giữ key gắn với từng giá trị. Khác type dùng AND; các `aggregate_conditions` kết hợp AND với nhau và với filters. Cùng type/key thì gộp values và bỏ trùng. Không lưu AND/OR lồng nhau.
+
+OR cùng loại áp dụng cho bộ lọc đối tượng thông thường. Các điều kiện trung bình/tỷ lệ nhóm dùng AND với nhau, kể cả nhiều dòng cùng metric, rồi AND với kết quả bộ lọc. Hướng dẫn màn hình phân biệt hai cách kết hợp này. Ví dụ `A≥50 AND A<70` biểu diễn `50≤A<70`: 40/70 không thỏa, 50/60 thỏa.
 
 Ví dụ: khối 1 hoặc 2 và nhóm A hoặc B được hiểu là `(khối 1 OR khối 2) AND (A OR B)`, kể cả A/B có key khác nhau.
 
@@ -186,7 +189,7 @@ SQL NULL nghĩa toàn bộ phạm vi của mục. Từ chối JSON null, chuỗi
 
 OR có một nhánh khớp là đủ; AND có một nhánh không khớp thì loại. Chưa đủ thông tin thì chưa xét được. JSON hỏng/tham chiếu ngoài quyền không được bỏ qua nhờ nhánh khác.
 
-Chọn quy tắc khớp đầu tiên theo ưu tiên. Nếu quy tắc đã chọn không tạo được ngưỡng, ghi chưa xét được và không thử quy tắc thấp hơn. Đủ dữ liệu nhưng không quy tắc nào khớp thì không áp dụng.
+Cách kết hợp AND/OR áp dụng cho điều kiện bên trong từng rule, không AND các rule với nhau. Chọn quy tắc khớp đầu tiên theo ưu tiên. Nếu quy tắc đã chọn không tạo được ngưỡng, ghi chưa xét được và không thử quy tắc thấp hơn. Đủ dữ liệu nhưng không quy tắc nào khớp thì không áp dụng.
 
 ### 3.3. `formula`
 
@@ -228,6 +231,8 @@ Ba dạng toán hạng:
 
 Ví dụ trên: trung bình 49.7 → 24 → ngưỡng 19.2. Công thức phải có ít nhất một bước đầy đủ, chỉ tham chiếu bước trước còn tồn tại; sắp/xóa bước không được đổi nhầm tham chiếu. Từ chối mẫu số hằng bằng 0 lúc lưu; thiếu toán hạng, chia 0 hoặc kết quả không hợp lệ lúc xét → chưa xét được.
 
+Danh sách 01-B, form 03-C và phần giải thích của cùng rule thống nhất: chỉ dòng 1 làm tròn xuống số nguyên, dòng 2 không xử lý phần lẻ. Với `S=19.1`, dấu nhỏ hơn thì đỏ. Không xử lý dòng 1 nhưng làm tròn xuống dòng 2 cho ngưỡng 19 và không đỏ, nên không thể coi là cùng cấu hình đã lưu. Đây là cấu hình của ví dụ, không bắt mọi rule làm tròn ở dòng 1.
+
 ### 3.4. `judgment_context`
 
 Lưu thông tin của lần xét hiện hành, không lưu toàn bộ lịch sử hoặc danh sách học sinh của nguồn tổng hợp.
@@ -260,6 +265,8 @@ Tử/mẫu đề xuất tối đa 256 chữ số mỗi số nguyên; vượt mi�
 
 `compare_type`: **1** = nhỏ hơn (`S<T`); **2** = nhỏ hơn hoặc bằng (`S≤T`).
 
+Các giá trị bắt buộc trong bảng dưới áp dụng khi lưu thiết lập ngưỡng và kích hoạt rule. Dòng chỉ mới lưu điều kiện tuân theo quy tắc lưu dở ở cuối mục này và giữ các giá trị chưa nhập là NULL.
+
 | `threshold_type` | Ý nghĩa | `threshold_value` | Nguồn trung bình của công thức | `formula` | Làm tròn cấp quy tắc |
 | --- | --- | --- | --- | --- | --- |
 | 1 | Điểm cố định | Bắt buộc | Tất cả NULL | NULL | Cả ba cột NULL |
@@ -271,8 +278,23 @@ Tử/mẫu đề xuất tối đa 256 chữ số mỗi số nguyên; vượt mi�
 - Loại 3: ngưỡng âm được tính hợp lệ vẫn được lưu trong kết quả xét; không ép về 0.
 - Nguồn chọn điều kiện và nguồn công thức độc lập. Fixed vẫn cần nguồn nếu điều kiện áp dụng dùng trung bình/tỷ lệ nhóm.
 - `sort_no≥1`. Các quy tắc có hiệu lực có thứ tự xác định; đọc theo `sort_no,id`. Tên quy tắc không cần duy nhất.
-- Quy tắc nhập dở không được có `active=1`. Khi thay loại ngưỡng, các cột không dùng được lưu thành SQL NULL.
+- Quy tắc nhập dở không được có `setting_status=1`. Khi thay loại ngưỡng, các cột không dùng được lưu thành SQL NULL.
 - Xóa quy tắc là xóa mềm, không xóa dây chuyền kết quả và không tái sử dụng ID cho quy tắc khác.
+
+#### Lưu và đọc trạng thái chưa hoàn chỉnh, có hiệu lực và đã xóa
+
+Quản lý trạng thái rule bằng một cột `setting_status`: 0 đang thiết lập/vô hiệu, 1 có hiệu lực, 2 đã xóa. Từ chối giá trị khác khi lưu. Mức hoàn chỉnh của dữ liệu quyết định nhãn đang thiết lập; không bổ sung thao tác vô hiệu hóa hoặc màn quản lý trạng thái mới.
+
+| Trạng thái | Giá trị lưu | Danh sách/mở lại | Xét đỏ |
+| --- | --- | --- | --- |
+| Mới lưu điều kiện, chưa có ngưỡng | setting_status=0, ngưỡng chưa nhập | Hiện chưa hoàn chỉnh; tiếp tục bằng Mở thiết lập ngưỡng（基準設定を開く） | Không tham gia |
+| Hoàn chỉnh, có hiệu lực | setting_status=1, đủ giá trị hợp lệ | Hiện và cho sửa | Xét theo ưu tiên |
+| Không có hiệu lực nhưng chưa xóa | setting_status=0 | Có thể hiện; không yêu cầu thêm UI tắt rule | Không tham gia |
+| Đã xóa, kể cả khi chưa hoàn chỉnh | setting_status=2 | Không hiện; URL/form chỉnh sửa cũ không được lưu lại | Không tham gia |
+
+Danh sách lọc `setting_status IN (0,1)`; bộ xét lọc `setting_status=1`. Không đưa trạng thái không hợp lệ hoặc trạng thái đã xóa 2 vào đối tượng xử lý. Khi lưu dở, giữ `threshold_type`/`compare_type` đang chọn và để các giá trị chưa nhập là NULL. Lựa chọn ban đầu cố định/nhỏ hơn theo đề xuất UI, không điền ngầm ngưỡng 0. Kiểm định dạng, quyền và tham chiếu của phần đã nhập khi lưu; chỉ cho có hiệu lực sau khi đáp ứng toàn bộ điều kiện ngưỡng bắt buộc ở mục 4.1. Rule chưa hoàn chỉnh không chặn xét hoặc chọn rule phía dưới như một rule ưu tiên cao. Khi triển khai dùng hằng có tên và so sánh trạng thái tường minh, không dùng truthy hoặc khác 0 để xác định có hiệu lực.
+
+Khi xóa, khóa mục sở hữu rồi cập nhật setting_status=2 và tăng phiên bản rule trong cùng transaction. Nếu xóa cạnh tranh với sửa, kiểm lại chưa xóa ngay trước lưu để form cũ không làm rule sống lại. Xóa rule chưa hoàn chỉnh dùng cùng cơ chế. Không xóa dây chuyền kết quả cá nhân; kết quả đã hoàn tất trước đó vẫn giữ đến lần xét tiếp theo. Không bổ sung chức năng hoàn tác/khôi phục rule đã xóa.
 
 ### 4.2. Xử lý phần lẻ và miền lưu trữ
 
@@ -327,9 +349,10 @@ Các mã nguyên nhân của trạng thái 2:
 | Sự kiện | Thay đổi dữ liệu |
 | --- | --- |
 | Sửa ngưỡng, điều kiện, nguồn hoặc thứ tự | Cập nhật settings và `red_score_revision` của mục sở hữu trong cùng transaction; giữ kết quả trước |
-| Tắt/xóa mềm quy tắc, kể cả quy tắc cuối | Cập nhật active và phiên bản của mục sở hữu; giữ kết quả trước đến lần xét tiếp theo |
+| Tắt quy tắc | Cập nhật setting_status=0 và phiên bản mục sở hữu; giữ kết quả trước đến lần xét tiếp theo |
+| Xóa mềm quy tắc, kể cả chưa hoàn chỉnh hoặc quy tắc cuối | Cùng lúc lưu setting_status=2 và tăng phiên bản mục sở hữu. Bỏ khỏi danh sách; giữ kết quả trước đến lần xét tiếp theo |
 | Lần xét hoàn tất | Cập nhật một dòng hiện hành theo trạng thái tại mục 4.3; kết luận cũ hết hiệu lực khi chưa xét được hoặc không áp dụng |
-| Điểm bị xóa thành trống hoặc ngừng hoạt động | Đổi thế hệ, tăng phiên bản, ghi status=4 và xóa payload kết luận cũ trong cùng transaction |
+| Điểm bị xóa thành trống hoặc ngừng hoạt động | Cùng transaction đổi thế hệ, tăng phiên bản, ghi status=4. Ngay khi lưu thành công, hiển thị ô trống và ngừng dấu/lọc đỏ của ô; không chờ chạy lại |
 | Identity ô bị hủy hoặc thay thế | Giữ dòng điều khiển đánh dấu ô đã bị xóa, ngừng kết quả cũ; tái tạo dùng thế hệ mới, không kế thừa kết quả |
 | Xem, trích xuất hoặc in | Không thay đổi dữ liệu xét |
 
@@ -339,8 +362,10 @@ Kết quả phải nhất quán với điểm cuối. Lượt dùng dữ liệu 
 
 ### 4.5. Sao chép và năm học
 
+Loại rule đã xóa khỏi sao chép/kế thừa năm. Nếu đường được hỗ trợ có chuyển rule chưa hoàn chỉnh và chưa xóa, ánh xạ đầy đủ các tham chiếu đã nhập rồi giữ setting_status=0 cùng các giá trị chưa nhập; không tự kích hoạt. Không đổi trạng thái đã xóa 2 về 0/1 để phục hồi rule.
+
 - Chỉ sao chép cấu hình thuộc phạm vi thao tác; ánh xạ lại frame item, kỳ/thời điểm, thiết lập tổng hợp, nhóm và ID trong JSON.
-- Chỉ lưu quy tắc đích sau khi toàn bộ tham chiếu hợp lệ. Không ánh xạ được frame item sở hữu thì không tạo quy tắc; thiếu tham chiếu phụ thì không ghi đè quy tắc đích đã có.
+- Chỉ lưu quy tắc đích sau khi toàn bộ tham chiếu đã nhập hợp lệ; bản chưa hoàn chỉnh tiếp tục không có hiệu lực. Không ánh xạ được frame item sở hữu thì không tạo quy tắc; thiếu tham chiếu phụ thì không ghi đè quy tắc đích đã có.
 - Không bỏ bộ lọc hoặc đổi `apply_condition` thành NULL để vượt qua lỗi ánh xạ. Giữ đúng chế độ toàn bộ/từng phần của thao tác sao chép và báo phần không được lưu.
 - Không sao chép kết quả cá nhân hoặc tham chiếu bản chốt năm cũ sang năm mới.
 - Không mang token thế hệ, phiên bản đặt chỗ/hoàn tất từ dữ liệu copy/import/khôi phục vào đích. Tăng phiên bản mục sở hữu khi chuyển quy tắc vào đích. Loại 6 phải ánh xạ cấu hình và các môn/nhóm phụ thuộc; loại 5 phân giải theo lớp của ô đích. Copy cấu hình công khai theo mục 5.

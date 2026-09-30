@@ -14,7 +14,7 @@ Phạm vi: cấu hình điều kiện điểm đỏ và dùng chung kết quả 
 
 1. Đọc [CONTEXT.md](CONTEXT.md) để lấy yêu cầu hiện hành và trạng thái xác nhận.
 2. Khi cần đối chiếu theo câu hỏi, đọc [Q&A nghiệp vụ đã xác nhận](sources/confirmed-business-qa.vi.md). Đây là nguồn hỗ trợ, không tạo source of truth cạnh tranh với context.
-3. [Chỉ mục phiên bản tài liệu](docs/README.md): `docs/v1/` giữ nguyên bộ đã gửi khách hàng; `docs/v2/` là bản làm việc cho các sửa đổi tiếp theo. Khi tách phiên bản, v2 mới là bản sao nguyên nội dung v1, chưa hoàn thiện feedback. Giữ các bản Việt/Nhật/Anh hiện có và đối chiếu context/Q&A mới nhất.
+3. [Chỉ mục phiên bản tài liệu](docs/README.md): `docs/v1/` giữ nguyên bộ đã gửi khách hàng; `docs/v2/` là bản làm việc cho các sửa đổi tiếp theo. V2 dùng setting_status theo hướng ưu tiên mới; AND trong từng rule và các hành vi UI đã được xác nhận ngày 30/09, Figma còn cần đối chiếu theo checklist. Giữ các bản Việt/Nhật/Anh hiện có và đối chiếu context/Q&A mới nhất.
 
 ## Quy ước task
 
@@ -27,3 +27,7 @@ Số Task 1–8 trong `split-tasks.*.md` chỉ là số mục chia việc, khôn
 Ngày 28/09/2026, 13 tài liệu từ `context/red-score/` và `docs/red-score/` của repo này được gom vào feature có ID nguồn. Context chuẩn hiện nằm trực tiếp tại `CONTEXT.md`; Q&A confirmed nằm trong `sources/`. Các đường cũ là lịch sử migration, không phải nơi tiếp tục viết tài liệu.
 
 Sau đó, cùng ngày, theo xác nhận của người phụ trách, 11 file trong `docs/` được chuyển nguyên nội dung vào `docs/v1/` và sao chép sang `docs/v2/`. Các chỉnh sửa thiết kế tiếp theo chỉ thực hiện trên v2; context và nguồn xác nhận giữ nguyên vị trí.
+
+## Phản hồi review và decisions
+
+[Năm phản hồi ban đầu](sources/2026-09-29-design-review-feedback.vi.md), [xác nhận 30/09](sources/2026-09-30-design-review-confirmation.vi.md), [DEC-002 hiện hành](decisions/DEC-002-setting-status.vi.md) và [DEC-001 / lessons lịch sử](decisions/DEC-001-review-state-and-ui-consistency.vi.md) bổ sung trạng thái rule, ý nghĩa AND/OR và sự nhất quán của mockup. Đọc cùng CONTEXT; không coi bản nháp trả lời là đã gửi hoặc đã được khách hàng xác nhận.

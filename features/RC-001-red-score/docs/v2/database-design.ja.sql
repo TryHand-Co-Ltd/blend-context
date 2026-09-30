@@ -1,4 +1,4 @@
--- Draft: 赤点設定・判定結果と既存2テーブルの拡張。未実行。
+-- 設計DDL: 赤点設定・判定結果と既存2テーブルの拡張。未実行。
 
 -- 赤点設定
 CREATE TABLE `red_score_settings` (
@@ -21,13 +21,13 @@ CREATE TABLE `red_score_settings` (
 	`round_flg` TINYINT UNSIGNED NULL DEFAULT NULL COMMENT '端数処理フラグ（閾値種別2のみ、0:しない 1:する、閾値種別1・3はNULL）',
 	`round_type` TINYINT UNSIGNED NULL DEFAULT NULL COMMENT '端数処理方法（閾値種別2で有効時のみ、1:四捨五入 2:切り上げ 3:切り捨て）',
 	`round_digits` TINYINT UNSIGNED NULL DEFAULT NULL COMMENT '端数処理の桁（閾値種別2で有効時のみ、1～9、1は整数）',
-	`active` TINYINT UNSIGNED NOT NULL DEFAULT 0 COMMENT '有効フラグ（0:未適用・無効・論理削除済み 1:設定完了・有効）',
+	`setting_status` TINYINT UNSIGNED NOT NULL DEFAULT 0 COMMENT 'ルール状態（0:設定途中・無効 1:有効 2:削除済み）',
 	`created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '登録日時',
 	`created` INT NOT NULL COMMENT '登録者',
 	`updated_at` TIMESTAMP NULL DEFAULT NULL COMMENT '更新日時',
 	`updated` INT NULL DEFAULT NULL COMMENT '更新者',
 	PRIMARY KEY (`id`),
-	KEY `idx_red_score_settings_01` (`school_id`, `year`, `evaluate_frame_item_id`, `active`, `sort_no`)
+	KEY `idx_red_score_settings_01` (`school_id`, `year`, `evaluate_frame_item_id`, `setting_status`, `sort_no`)
 ) ENGINE=InnoDB
   DEFAULT CHARSET=utf8mb4
   COLLATE=utf8mb4_general_ci
