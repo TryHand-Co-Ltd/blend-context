@@ -69,7 +69,6 @@ school_id + year + evaluate_frame_item_id + group_id + student_id + tangen_id
 | `round_type` | TINYINT UNSIGNED | 可 | NULL | 端数処理の方法 |
 | `round_digits` | TINYINT UNSIGNED | 可 | NULL | 端数処理を行う桁 |
 | `setting_status` | TINYINT UNSIGNED | 不可 | 0 | 0：設定途中・無効、1：設定完了・有効、2：削除済み |
-
 | `created_at` | TIMESTAMP | 不可 | CURRENT_TIMESTAMP | 作成日時 |
 | `created` | INT | 不可 | — | 作成者 |
 | `updated_at` | TIMESTAMP | 可 | NULL | 最終更新日時 |

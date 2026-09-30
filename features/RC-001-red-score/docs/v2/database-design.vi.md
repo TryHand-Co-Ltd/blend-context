@@ -69,7 +69,6 @@ Kỳ/thời điểm nguồn trung bình được chọn riêng; môn, mục và 
 | `round_type` | TINYINT UNSIGNED | Có | NULL | Cách xử lý phần lẻ |
 | `round_digits` | TINYINT UNSIGNED | Có | NULL | Vị trí chữ số cần xử lý |
 | `setting_status` | TINYINT UNSIGNED | Không | 0 | 0: đang thiết lập/vô hiệu; 1: hoàn chỉnh, có hiệu lực; 2: đã xóa |
-
 | `created_at` | TIMESTAMP | Không | CURRENT_TIMESTAMP | Thời điểm tạo |
 | `created` | INT | Không | — | Người tạo |
 | `updated_at` | TIMESTAMP | Có | NULL | Thời điểm cập nhật gần nhất |
