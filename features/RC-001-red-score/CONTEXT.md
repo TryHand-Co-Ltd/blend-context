@@ -1,12 +1,12 @@
 # Context chuẩn của chức năng điểm đỏ（赤点）
 
-Cập nhật: **30/09/2026 — ưu tiên một cột setting_status; Q35–Q38 đã được khách hàng xác nhận, AND chỉ trong từng rule. Tài liệu đã cập nhật; tình trạng sửa Figma cần kiểm trực tiếp**.
+Cập nhật: **30/09/2026 — ưu tiên một cột setting_status; Q35–Q38 đã được khách hàng xác nhận, AND chỉ trong từng rule. Tài liệu đã cập nhật; Figma MW đã được kiểm trực tiếp và đồng bộ ngày 30/09**.
 
 **Tài liệu này là source of truth của feature:** đầu vào chuẩn để so sánh thay đổi, chỉnh thiết kế, lập task, tiêu chí nghiệm thu và triển khai. Việc đổi vai trò nguồn chuẩn do người phụ trách yêu cầu trong phiên ngày 24/09. Tài liệu được đặt cùng Q&A đã xác nhận trong thư mục context; nội dung không còn là baseline ngày 23/09.
 
 **Trạng thái:** đã tổng hợp các yêu cầu/xác nhận hiện hành, những quyết định còn mở và giới hạn tích hợp. Chưa phải phê duyệt toàn bộ thiết kế, phạm vi phát hành hoặc xác nhận tính năng đã được triển khai. Không biến “research đã làm rõ” thành “nghiệp vụ đã đồng ý”.
 
-**Trạng thái thiết kế:** nguồn mockup hiện hành là [file Figma của Movitation Works (MW)](#design-updated), do người phụ trách cung cấp và xác nhận đã cập nhật UI. Chưa đối chiếu canvas của file MW. Việc xếp hàng ngang, đánh dấu thao tác và đồng bộ chú thích Q3 được ghi bên dưới là bằng chứng của bản Nhật trước khi đổi file; không tự coi đã kiểm lại các nội dung đó trên file MW. Chỉ sử dụng bản Nhật; bản Figma tiếng Việt đã được người phụ trách xác nhận xóa và không còn thuộc phạm vi đồng bộ. Thiết kế DB/tích hợp và phạm vi phát hành vẫn cần hoàn thiện riêng. Xem [phạm vi ảnh hưởng của Q3](#q3-design-impact) và [việc còn lại](#design-pending).
+**Trạng thái thiết kế:** nguồn mockup hiện hành là [file Figma của Movitation Works (MW)](#design-updated), do người phụ trách cung cấp và xác nhận đã cập nhật UI. Ngày 30/09/2026 canvas file MW đã được đối chiếu trực tiếp: năm phản hồi ①–⑤ đã thể hiện, file không có prototype (xem [checklist](docs/v2/figma-update-checklist.vi.md)). Việc xếp hàng ngang, đánh dấu thao tác và đồng bộ chú thích Q3 được ghi bên dưới là bằng chứng của bản Nhật trước khi đổi file; không tự coi đã kiểm lại các nội dung đó trên file MW. Chỉ sử dụng bản Nhật; bản Figma tiếng Việt đã được người phụ trách xác nhận xóa và không còn thuộc phạm vi đồng bộ. Thiết kế DB/tích hợp và phạm vi phát hành vẫn cần hoàn thiện riêng. Xem [phạm vi ảnh hưởng của Q3](#q3-design-impact) và [việc còn lại](#design-pending).
 
 ## Mục lục
 
@@ -188,13 +188,13 @@ Các yêu cầu chỉnh màn trong phần này vẫn là nội dung cần đối
 
 **Đề xuất kỹ thuật:** theo pattern hiện có, không thêm kho lưu lịch sử các loại ẩn; mô tả rõ cùng phiên và sau lưu/mở lại. Đây là kết quả hoàn thành yêu cầu nghiên cứu Q12 cũ, không phải một câu trả lời mới chấp thuận xóa mọi input.
 
-UI công thức hiện mặc định không xử lý phần lẻ, vị trí chữ số 1–9; phương thức có làm tròn thông thường/lên/xuống. Vị trí 1 nghĩa xử lý chữ số thập phân thứ nhất để còn số nguyên; vị trí 2 còn một chữ số. Các giá trị này là **căn cứ đề xuất kế thừa**, chưa tự được duyệt thành mọi giới hạn của tính năng mới. Thiết kế phải ghi rõ giá trị/mặc định được chọn, không gọi “không làm tròn” là độ chính xác vô hạn.
+UI công thức hiện mặc định không xử lý phần lẻ, vị trí chữ số 1–9; phương thức có làm tròn thông thường/lên/xuống. Vị trí 1 nghĩa xử lý chữ số thập phân thứ nhất để còn số nguyên; vị trí 2 còn một chữ số. Trên form 03-C của Figma, ô nhập hiển thị 小数第［p］位 kèm chú thích “位置1は整数”: p=1 nghĩa là còn số nguyên. Các giá trị này là **căn cứ đề xuất kế thừa**, chưa tự được duyệt thành mọi giới hạn của tính năng mới. Thiết kế phải ghi rõ giá trị/mặc định được chọn, không gọi “không làm tròn” là độ chính xác vô hạn.
 
 <a id="design-updated"></a>
 
 ### 4.4. Thiết kế Figma hiện hành
 
-- **Nguồn hiện hành:** [Figma — Movitation Works (MW)](https://www.figma.com/design/iAB9nFC3RuqxbLUMsh79jd/%25E8%25B5%25A4%25E7%2582%25B9%25E5%2588%25A4%25E5%25AE%259A%25E5%25AF%25BE%25E5%25BF%259C?node-id=0-1&p=f&t=uSbj1CRisHDeJszF-0). File key: `iAB9nFC3RuqxbLUMsh79jd`; node trong link: `0:1`. Dùng file này cho các lần đối chiếu và cập nhật mockup tiếp theo. Người phụ trách xác nhận đây là file MW đã cập nhật UI; chưa có kiểm chứng độc lập về canvas hoặc các frame cụ thể.
+- **Nguồn hiện hành:** [Figma — Movitation Works (MW)](https://www.figma.com/design/iAB9nFC3RuqxbLUMsh79jd/%25E8%25B5%25A4%25E7%2582%25B9%25E5%2588%25A4%25E5%25AE%259A%25E5%25AF%25BE%25E5%25BF%259C?node-id=0-1&p=f&t=uSbj1CRisHDeJszF-0). File key: `iAB9nFC3RuqxbLUMsh79jd`; node trong link: `0:1`. Dùng file này cho các lần đối chiếu và cập nhật mockup tiếp theo. Người phụ trách xác nhận đây là file MW đã cập nhật UI; canvas và các frame liên quan đã được kiểm trực tiếp ngày 30/09/2026 (xem [checklist](docs/v2/figma-update-checklist.vi.md)).
 - **Tham chiếu lịch sử:** [bản Figma tiếng Nhật trước khi chuyển sang MW](https://www.figma.com/design/O2fNFrlnuG8XdQlQIc3H3T/Red-Score-UI-Mockup---Final?node-id=4592-1631), trang `Japanese Design`. Các bảng nội dung, link chương và node dưới đây ghi lại lần kiểm trên file cũ, không phải mapping sang file MW. Cần tìm đúng frame trong file mới; không thay file key rồi giữ nguyên node ID cũ.
 
 Lịch sử: lượt đồng bộ Q&A đầu tiên chỉnh chữ, hộp thoại và chú thích trên hai bản; lượt tổ chức lại tiếp theo chỉ thay bố cục bản Nhật, tái sử dụng các màn gốc và giữ font Noto Sans JP. Hiện chỉ bản Nhật còn được sử dụng; thông tin kiểm chứng hai ngôn ngữ bên dưới là bằng chứng của thời điểm trước, không phải yêu cầu duy trì hai bản.
@@ -595,9 +595,9 @@ Nguồn: [nguyên văn khách hàng và bản dịch](sources/2026-09-30-design-
 | --- | --- | --- |
 | ① / Q34 | Ưu tiên đổi active thành setting_status. Chỉ nếu có ràng buộc xử lý chung cần active thì giải thích lý do và dùng deleted_flg. Không tiếp tục active + deleted_at | Hướng ưu tiên khách hàng yêu cầu; team chọn setting_status với 0 đang thiết lập/vô hiệu, 1 có hiệu lực, 2 đã xóa. Mã số/kiểu TINYINT là lựa chọn kỹ thuật |
 | ② / Q35 | Trong một rule: bộ lọc OR cùng loại/AND khác loại; trung bình/tỷ lệ nhóm AND với nhau và với bộ lọc. Giữa nhiều rule: chọn khớp đầu tiên theo ưu tiên, không AND các rule | **Đã xác nhận**, đóng câu hỏi AND/OR |
-| ③ / Q36 | Lưu xóa điểm thành công thì ô trống, ngừng dấu/lọc đỏ của ô ngay; xóa rule vẫn giữ kết quả trước tới lần xét lại | **Đã xác nhận**, cần thể hiện khác biệt trên mockup |
-| ④ / Q37 | Dòng 1 A÷2 cắt xuống, dòng 2 nhân 0.8 không xử lý: A=49.7, T=19.2; S=19.1 với < là đỏ; sửa chữ chồng | **Đã xác nhận**, áp dụng cho ví dụ cùng rule |
-| ⑤ / Q38 | Hai phía thường/đơn vị đều thấy và kiểm được lựa chọn độc lập; sửa nền che panel B | **Đã xác nhận**, không có thay đổi schema từ lỗi layer |
+| ③ / Q36 | Lưu xóa điểm thành công thì ô trống, ngừng dấu/lọc đỏ của ô ngay; xóa rule vẫn giữ kết quả trước tới lần xét lại | **Đã xác nhận**, đã thể hiện khác biệt trên Frame 04 (thẻ giải thích và hình minh họa 5 ô) |
+| ④ / Q37 | Dòng 1 A÷2 cắt xuống, dòng 2 nhân 0.8 không xử lý: A=49.7, T=19.2; S=19.1 với < là đỏ; sửa chữ chồng | **Đã xác nhận**, áp dụng cho ví dụ cùng rule; đã thể hiện ở 01-B và 03-C |
+| ⑤ / Q38 | Hai phía thường/đơn vị đều thấy và kiểm được lựa chọn độc lập; sửa nền che panel B | **Đã xác nhận**, không có thay đổi schema từ lỗi layer; panel B đã kiểm hiển thị đầy đủ |
 
 [DEC-002 Việt](decisions/DEC-002-setting-status.vi.md) / [Nhật](decisions/DEC-002-setting-status.ja.md) ghi lý do chọn một cột, kiểm giới hạn tương thích và mã lưu. Danh sách dùng setting_status IN (0,1), bộ xét chỉ =1; xóa chuyển 2 cùng transaction tăng phiên bản rule. Mã 2 không được kiểm như boolean true. Không có dữ liệu chứng minh cần giữ active trong phạm vi source đã đọc; nếu tích hợp phát hiện khác, phải nêu đường phụ thuộc trước khi dùng phương án dự phòng.
 

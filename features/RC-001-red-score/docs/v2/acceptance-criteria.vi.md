@@ -74,7 +74,7 @@ Chỉ kết quả đỏ còn hiệu lực mới đóng góp dấu/lọc đỏ; c
 | Thiếu nguồn/toán hạng, chia 0, số không hữu hạn hoặc không tạo được ngưỡng | Chưa xét được; không dùng kết quả cũ làm hiện hành, không thay bằng quy tắc thấp hơn, nguồn khác, 0 hoặc ngưỡng đỏ cũ |
 | Đã khắc phục nhưng mới lưu cấu hình/nguồn | Chưa có kết luận mới; chạy lại thành công mới cập nhật đỏ/không đỏ |
 
-- [ ] **AC-G21 — Giữ kết quả trước khi chạy lại:** Chỉ đổi ngưỡng/dấu/công thức/ưu tiên/đối tượng/nguồn/bản tổng hợp hoặc xóa rule cuối thì vẫn giữ kết quả, cấu hình hiển thị và hiệu ứng trước đó. Thông báo phân biệt lưu với xét và hướng dẫn chạy lại; lần đăng ký/batch tiếp theo xác định hết rule mới chuyển không áp dụng. Màn công khai cũng không bỏ dấu ngay chỉ vì số rule bằng 0.
+- [ ] **AC-G21 — Giữ kết quả trước khi chạy lại và xóa rule cuối:** Chỉ đổi ngưỡng/dấu/công thức/ưu tiên/đối tượng/nguồn/bản tổng hợp hoặc xóa rule cuối thì vẫn giữ kết quả, cấu hình hiển thị và hiệu ứng trước đó. Thông báo phân biệt lưu với xét và hướng dẫn chạy lại; lần đăng ký/batch tiếp theo xác định hết rule mới chuyển không áp dụng. Màn công khai cũng không bỏ dấu ngay chỉ vì số rule bằng 0.
 - [ ] **AC-G22 — Kết quả chung và thứ tự cập nhật:** Ba đầu ra đọc cùng kết quả có hiệu lực của ô; chạy lại cùng điều kiện cho cùng kết quả, không nhân đôi bản ghi hoặc ký hiệu. Lượt cũ hoàn tất muộn không ghi đè kết quả của điểm/cấu hình mới hơn, không ghép điểm và kết quả khác thời điểm rồi báo thành công.
 
 Ví dụ thứ tự cập nhật thuộc AC-G03/G22:
@@ -130,7 +130,7 @@ Các phương án thiết kế đề xuất dưới đây bổ sung cho tiêu ch
 | --- | --- |
 | Thêm và đổi loại | Thêm cuối danh sách, cố định, dấu nhỏ hơn, chưa nhập giá trị. Rule chưa đủ không có hiệu lực; giới hạn đối tượng nhưng bộ lọc rỗng thì báo lỗi. Giữ tạm input theo loại trong phiên sửa, mở lại loại đã lưu; không tạo lịch sử mọi loại |
 | Điều kiện/công thức | Phân nhánh bằng `<`/`≤`/`≥`/`>`; toán hạng là trung bình, số/hệ số, kết quả dòng trước; một nguồn trung bình trong công thức. Danh sách công thức và toán hạng theo phạm vi triển khai của từng đợt |
-| UI phần lẻ | Công thức cũng mặc định không xử lý; vị trí `p=1..9`, bật lần đầu là 1, giữ lại `p−1` chữ số. Phải chọn phương thức; gần nhất đưa điểm giữa ra xa 0, lên/xuống theo ceil/floor (−5.2→lên −5/xuống −6; −5.5→gần nhất −6) |
+| UI phần lẻ | Công thức cũng mặc định không xử lý; vị trí `p=1..9`, bật lần đầu là 1, giữ lại `p−1` chữ số (p=1 còn số nguyên; ô nhập ở Figma 03-C hiển thị Chữ số thập phân thứ p（小数第［p］位） kèm chú thích Vị trí 1 cho kết quả số nguyên（位置1は整数）). Phải chọn phương thức; gần nhất đưa điểm giữa ra xa 0, lên/xuống theo ceil/floor (−5.2→lên −5/xuống −6; −5.5→gần nhất −6) |
 | Mặc định và thông báo | Lọc/hiệu ứng trích xuất mới OFF, công khai chưa chọn hiệu ứng, phiếu để nguyên trạng. Thông báo nêu rõ việc cần chạy lại, lý do thiếu dữ liệu và phần chưa cập nhật khi có lỗi |
 | Giới hạn nhập | Độ chính xác, số chữ số, độ dài tên, miền hệ số và số dòng do thiết kế kỹ thuật xác định; giữ AC-G11 về biên so sánh, số hữu hạn và không âm thầm cắt giá trị |
 | Chuyển cấu hình | Ánh xạ mục/thời điểm/môn/nhóm/đơn vị/dòng công thức trong phạm vi triển khai. Đề xuất không kích hoạt và thông báo khi không ánh xạ được; xử lý tệp cũ thiếu phần mới và phạm vi cập nhật/hoàn tác theo từng đường được hỗ trợ. Không tạo từ legacy hoặc âm thầm xóa rule hiện hành |
