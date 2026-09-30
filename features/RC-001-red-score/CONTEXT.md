@@ -1,6 +1,6 @@
 # Context chuẩn của chức năng điểm đỏ（赤点）
 
-Cập nhật: **28/09/2026 — bổ sung Q33: khách hàng chọn A cho ba loại nhóm cấu hình và luồng chọn nguồn theo màn công khai; v2 được đồng bộ. Figma MW chưa được đối chiếu/sửa theo xác nhận mới do giới hạn truy cập**.
+Cập nhật: **30/09/2026 — ưu tiên một cột setting_status; Q35–Q38 đã được khách hàng xác nhận, AND chỉ trong từng rule. Tài liệu đã cập nhật; tình trạng sửa Figma cần kiểm trực tiếp**.
 
 **Tài liệu này là source of truth của feature:** đầu vào chuẩn để so sánh thay đổi, chỉnh thiết kế, lập task, tiêu chí nghiệm thu và triển khai. Việc đổi vai trò nguồn chuẩn do người phụ trách yêu cầu trong phiên ngày 24/09. Tài liệu được đặt cùng Q&A đã xác nhận trong thư mục context; nội dung không còn là baseline ngày 23/09.
 
@@ -25,6 +25,8 @@ Cập nhật: **28/09/2026 — bổ sung Q33: khách hàng chọn A cho ba loạ
   - [Ảnh hưởng sau khi Q3 đã xác nhận](#q3-design-impact)
   - [Các phần thiết kế còn pending](#design-pending)
   - [Ba phản hồi review DB và bài học thiết kế ngày 28/09](#db-review-20260928)
+  - [Năm phản hồi review và lessons ngày 29/09](#review-consistency-20260929)
+  - [Xác nhận và trạng thái thiết kế ngày 30/09](#review-consistency-20260930)
 - [10. Bằng chứng và giới hạn](#evidence)
 - [11. Những nội dung cũ đã bị thay thế](#history)
 - [12. Cập nhật khi có phản hồi mới](#next)
@@ -37,7 +39,7 @@ Cập nhật: **28/09/2026 — bổ sung Q33: khách hàng chọn A cho ba loạ
 
 1. **Context này** cung cấp yêu cầu hiện hành và trạng thái từng quyết định.
 2. Xác nhận/thay đổi mới được người có thẩm quyền cho phép áp dụng được đối chiếu với context, ghi rõ phần thay thế và cập nhật vào đây trước khi dùng làm baseline cho công việc tiếp theo.
-3. [Q&A đã xác nhận](sources/confirmed-business-qa.vi.md) là bản đọc theo câu hỏi, bổ trợ context mà không tạo nguồn chuẩn cạnh tranh. Sau phản hồi Q3 bổ sung, bộ câu hỏi đã gửi không còn câu hỏi nghiệp vụ mở; các việc còn lại về thiết kế/tích hợp được ghi tại mục 9.5 của context này.
+3. [Q&A đã xác nhận](sources/confirmed-business-qa.vi.md) là bản đọc theo câu hỏi, bổ trợ context mà không tạo nguồn chuẩn cạnh tranh. Bộ câu hỏi cũ đến Q33 đã có câu trả lời; Q34–Q38 đã có trả lời mới ngày 30/09: ưu tiên setting_status, xác nhận AND trong rule và các hành vi UI. Các việc thiết kế/tích hợp tại mục 9.5 được đọc cùng mục 9.7–9.8.
 4. Research ngày 24/09 cung cấp nền tích hợp; điều tra ngày 25/09 bổ sung luồng maximum và thứ tự hiển thị; đối chiếu source ngày 28/09 bổ sung DB-R3 tại mục 9.6. Trạng thái quyết định trong research cũ là lịch sử; dùng context này và Q&A tiếng Việt đã bổ sung Q32–Q33 ngày 28/09 để xác định trạng thái hiện hành. Code chứng minh hiện trạng, không tự sửa yêu cầu. Các báo cáo research ngày 24–25/09 được nhắc ở đây là tài liệu lịch sử không kèm trong repository này.
 5. Google Sheets, các spec/task/AC cũ, report phân tích và mockup cũ là **nguồn lịch sử hoặc tài liệu dẫn hướng**, không còn là source of truth của feature. Không tự nhập lại điều khoản từ Sheets nếu trái hoặc chưa được ghi nhận trong context.
 
@@ -275,7 +277,7 @@ Giữ đúng nhóm/bản nguồn, ưu tiên bản chốt và giá trị trước
 | Thiếu dữ liệu khi đã chạy | Không tạo được ngưỡng hợp lệ thì ngừng dùng kết quả trước; chưa xét được, không tạo kết luận đã đạt; không đổi nguồn hoặc thử cấu hình thấp hơn để có kết quả |
 | Mục còn cấu hình nhưng học sinh không khớp sau chạy lại | Khi đủ thông tin xác định không có thiết lập áp dụng, ngừng dùng kết quả cũ và ảnh hưởng dấu/lọc; không áp dụng khác với chưa xét được |
 | Xóa thiết lập cuối cùng, chưa chạy lại | Giữ kết quả trước tới lần đăng ký điểm/tính hàng loạt tiếp theo; lần đó xác định hết cấu hình thì ngừng dùng kết quả cũ, không xóa điểm hay bật lại legacy |
-| Điểm bị xóa thành trống | Không xét như số 0; bảo toàn trạng thái không có điểm, không giữ dấu bằng cách đọc nhầm kết quả của ô số trước đó |
+| Điểm bị xóa thành trống | Ngay khi lưu xóa thành công, ô trống và ngừng dấu/đóng góp lọc đỏ của ô trong cùng transaction; không chờ chạy lại, không xét như số 0. Lưu lỗi không được báo đã xóa |
 | Xem/trích xuất/in lại | Đọc kết quả hoàn tất; không kích hoạt xét |
 
 Quy trình trung bình: tắt tự tổng hợp → chuẩn bị đầy đủ điểm đầu vào → xanh và chờ xong → cam và chờ xong → dùng đầu ra. Tắt tự tổng hợp không tắt đăng ký điểm/tính tự động.
@@ -415,7 +417,7 @@ Số Q ở bảng này là **số của bộ remaining Q&A r17 đã gửi (bản
 | --- | --- | --- | --- |
 | Q1 | A — dùng M hiện hành khi xét tỷ lệ độc lập | Q23 | Trả lời lý do câu hỏi cũ và kết quả kiểm trigger; không mở lại lựa chọn M |
 | Q2 | A — cho chọn xử lý phần lẻ ngưỡng tỷ lệ | Q24 | Cụ thể hóa UI theo cơ chế tham chiếu, giữ mặc định không xử lý của phương án A |
-| Q3 | **Đã xác nhận dùng kết quả tổng hợp thứ hạng hiện có**, không xử lý riêng hoặc ngăn cấu hình khác điểm tối đa; không gây lỗi dừng xử lý do tình huống đó | Q31 | Figma tiếng Nhật đã đồng bộ; chỉ còn kiểm nguồn và độ chính xác khi tích hợp. Không hỏi lại A/B |
+| Q3 | **Đã xác nhận dùng kết quả tổng hợp thứ hạng hiện có**, không xử lý riêng hoặc ngăn cấu hình khác điểm tối đa; không gây lỗi dừng xử lý do tình huống đó | Q31 | Bản Figma Nhật lịch sử đã đồng bộ Q3; MW còn theo mục 9.7. Kiểm nguồn và độ chính xác khi tích hợp. Không hỏi lại A/B |
 | Q4 | A — T âm hợp lệ vẫn xét bình thường | Q25 | Bỏ xử lý coi T âm là lỗi; không ép về 0 |
 | Q5 | Nội dung khách hàng tương ứng B — không giữ kết quả trước làm kết quả hiện hành khi không tạo được ngưỡng hợp lệ | Q26 | Team phản hồi đồng ý cách hiểu; không giữ đề xuất A cũ làm mặc định, không coi bản reply đã được gửi |
 | Q6.1 | A — ngừng dùng kết quả cũ sau lần xét xác định không có thiết lập áp dụng | Q27 | Phân biệt không áp dụng với chưa đủ dữ liệu chọn nhánh |
@@ -436,7 +438,7 @@ Số Q ở bảng này là **số của bộ remaining Q&A r17 đã gửi (bản
 | Phần thiết kế | Ảnh hưởng của xác nhận Q3 | Việc cần làm |
 | --- | --- | --- |
 | Danh sách nhiều thiết lập, ưu tiên, điều hướng và các loại ngưỡng | Không đổi cấu trúc | Tiếp tục theo quy tắc đã xác nhận |
-| Điều kiện tỷ lệ nhóm và chú thích nguồn | Đã xác nhận, không còn giả định/chờ chọn A/B | Figma tiếng Nhật đã đồng bộ; triển khai theo kết quả tổng hợp hiện hữu |
+| Điều kiện tỷ lệ nhóm và chú thích nguồn | Đã xác nhận, không còn giả định/chờ chọn A/B | Bản Nhật lịch sử đã đồng bộ; MW còn theo mục 9.7. Triển khai theo kết quả tổng hợp hiện hữu |
 | Nguồn dữ liệu và độ chính xác | Còn việc tích hợp, không còn lựa chọn nghiệp vụ A/B | Xác minh đúng nhóm/bản nguồn, ưu tiên bản chốt và giá trị trước làm tròn; không tự dùng số đã làm tròn trên màn hình |
 | Ví dụ và tiêu chí phân nhánh | Không yêu cầu cách tính riêng cho nhóm trộn điểm tối đa | Dùng ví dụ cùng điểm tối đa; với tình huống khác điểm tối đa chỉ yêu cầu không gây lỗi dừng xử lý do sự khác biệt đó |
 | Vòng đời kết quả và ba đầu ra | Giữ Q5/Q6/Q7 | Thiếu dữ liệu vẫn theo quy tắc chung; không coi mọi ô là đã đạt chỉ để tránh lỗi |
@@ -485,7 +487,7 @@ Số trong Q&A confirmed là bộ riêng; dùng bảng 9.1 để nối Q đã g�
 
 ### 9.5. Các phần thiết kế còn pending sau phản hồi ngày 25/09
 
-**Pending ở đây không đồng nghĩa tất cả đều chờ khách hàng.** Q3 đã có xác nhận bổ sung; context, Q&A, spec và chú thích bản Nhật trên Figma đã đồng bộ. Chỉ sử dụng Figma tiếng Nhật; bản Figma tiếng Việt đã được xóa nên không còn công việc tổ chức lại hoặc đồng bộ bản đó. Những cập nhật Q1/Q2/Q4–Q7 và việc tổ chức lại bản Nhật tại mục 4.4 vẫn được giữ; các phần kỹ thuật, review và tích hợp chưa hoàn thiện vẫn có trạng thái riêng.
+**Trạng thái lịch sử sau phản hồi 25/09; đọc cùng mục 9.7.** Q3 đã có xác nhận bổ sung; context, Q&A, spec và chú thích bản Nhật lịch sử đã đồng bộ tại mốc đó. Q35 đã được xác nhận ngày 30/09 tại mục 9.8; canvas MW chưa được kiểm sau sửa. Chỉ sử dụng Figma tiếng Nhật; bản Figma tiếng Việt đã được xóa nên không còn công việc tổ chức lại hoặc đồng bộ bản đó. Những cập nhật Q1/Q2/Q4–Q7 và việc tổ chức lại bản Nhật tại mục 4.4 vẫn được giữ; các phần kỹ thuật, review và tích hợp chưa hoàn thiện vẫn có trạng thái riêng.
 
 | Phần còn cần hoàn thiện | Trạng thái và việc cần làm | Khi nào được coi là hoàn tất phần thiết kế? |
 | --- | --- | --- |
@@ -551,13 +553,55 @@ Số trong Q&A confirmed là bộ riêng; dùng bảng 9.1 để nối Q đã g�
 7. Gắn câu xác nhận ngắn với đúng đề xuất vừa được hỏi; đóng phần hành vi đó, không mở lại để khách hàng xác nhận lần nữa và không mở rộng thành duyệt mọi chi tiết kỹ thuật. Reply khách hàng nên nêu cách hiểu đúng, phương án cụ thể và ví dụ để xác nhận.
 8. Tách “người phụ trách đã cập nhật Figma MW” khỏi “agent đã đối chiếu bản MW”. Khi đổi file, ghi đúng URL/file key/node được cung cấp và giữ các link cũ như lịch sử; không dùng frame cũ làm đích sửa mới khi chưa có mapping. Chưa đối chiếu canvas không chặn cập nhật tài liệu theo hành vi đã xác nhận.
 
-**Trạng thái công việc tiếp theo:** đã bổ sung và kiểm tra nhất quán nội dung v2 ở DB design/DDL, spec, chia việc và AC Nhật/Việt hiện có; sẵn sàng bàn giao review thiết kế. Kiểm tra bao gồm cấu trúc hai bản SQL, các mã AC, liên kết và đối chiếu yêu cầu/kỹ thuật. V1 giữ nguyên. Không triển khai code, chạy migration hoặc sửa Figma; I10/I12, mọi writer thuộc phạm vi phát hành, hiệu năng khóa và tích hợp nguồn vẫn cần kiểm chứng thực thi. Theo yêu cầu người phụ trách, plan là tài liệu workflow nội bộ bằng tiếng Việt hoặc English, không lưu trong `blend-context` và không thuộc bộ gửi khách hàng.
+**Trạng thái tại mốc 28/09:** đã bổ sung nội dung v2 theo DB-R1–DB-R3 để review. Đánh giá đó không bao phủ đủ vòng đời rule lưu dở và canvas; các thiếu sót mới, cách xử lý và trạng thái chờ xác nhận được cập nhật tại mục 9.7. Kiểm tra bao gồm cấu trúc hai bản SQL, các mã AC, liên kết và đối chiếu yêu cầu/kỹ thuật. V1 giữ nguyên. Không triển khai code, chạy migration hoặc sửa Figma; I10/I12, mọi writer thuộc phạm vi phát hành, hiệu năng khóa và tích hợp nguồn vẫn cần kiểm chứng thực thi. Theo yêu cầu người phụ trách, plan là tài liệu workflow nội bộ bằng tiếng Việt hoặc English, không lưu trong `blend-context` và không thuộc bộ gửi khách hàng.
 
-**Mốc phiên bản tài liệu:** ngày 28/09, người phụ trách xác nhận bộ file hiện tại làm v1. Đã chuyển 11 file vào `docs/v1/`, sao chép nguyên nội dung sang `docs/v2/` và kiểm SHA-256 trùng bản gốc tại thời điểm tách. V1 được giữ nguyên; v2 hiện có 9 file Nhật/Việt/SQL với các bổ sung DB-R1–DB-R3 để review, không còn hai file English trong thư mục v2 khi kiểm kê. Bản English lịch sử ở v1 không đại diện cho nội dung sửa mới. Xem [chỉ mục phiên bản](docs/README.md). Context và Q&A không nhân bản theo phiên bản.
+**Mốc phiên bản tài liệu:** ngày 28/09, người phụ trách xác nhận bộ file hiện tại làm v1. Đã chuyển 11 file vào `docs/v1/`, sao chép nguyên nội dung sang `docs/v2/` và kiểm SHA-256 trùng bản gốc tại thời điểm tách. V1 được giữ nguyên; tại mốc này v2 có 9 file Nhật/Việt/SQL với các bổ sung DB-R1–DB-R3 để review, không còn hai file English trong thư mục v2 khi kiểm kê. Bản English lịch sử ở v1 không đại diện cho nội dung sửa mới. Xem [chỉ mục phiên bản](docs/README.md). Context và Q&A không nhân bản theo phiên bản.
 
 **Ngôn ngữ tài liệu từ lần cập nhật tiếp theo:** theo yêu cầu người phụ trách ngày 28/09, bộ tài liệu tạo/cập nhật dùng bản Nhật và Việt, thay cho Nhật và English. Khi cập nhật v2, đồng bộ hai bản Nhật/Việt; bổ sung bản Nhật cho đặc tả nếu chưa có. Không tạo hoặc cập nhật bản English trừ khi được yêu cầu riêng. Các file English đang có được giữ làm tham chiếu của mốc cũ, không coi là bản đồng hành được cập nhật; v1 tiếp tục giữ nguyên toàn bộ. Quy tắc này không đổi ngôn ngữ của plan nội bộ: plan vẫn chỉ cần một bản Việt hoặc English ngoài repository này.
 
 **Ưu tiên của lượt thực hiện:** người phụ trách yêu cầu hoãn phần tạo/chuyển đổi ngôn ngữ để làm nội dung plan trước. Vì vậy lượt này cập nhật các bản Nhật/Việt đã có, chưa tạo đặc tả Nhật mới và không chỉnh bản English lịch sử tại v1. Không diễn giải việc hoãn thành xóa tài liệu lịch sử.
+
+<a id="review-consistency-20260929"></a>
+
+### 9.7. Năm phản hồi review và lessons ngày 29/09
+
+**Lịch sử ngày 29/09:** phương án lưu và trạng thái chờ trong bảng dưới đã được cập nhật bởi mục 9.8 ngày 30/09. Giữ bảng để truy vết, không dùng làm trạng thái hiện hành.
+
+Nguồn: [nguyên văn khách hàng và bản dịch](sources/2026-09-29-design-review-feedback.vi.md), do người phụ trách cung cấp và yêu cầu cập nhật. [Q34–Q38](sources/confirmed-business-qa.vi.md#q34-rule-deletion-state) giữ trạng thái từng ý. Reply tiếng Anh trong phiên là bản soạn, chưa chứng minh đã gửi hoặc đã có câu trả lời cho đề xuất AND.
+
+| Phản hồi | Hướng xử lý hiện hành | Trạng thái |
+| --- | --- | --- |
+| ① — rule lưu dở/xóa | Rule chưa hoàn chỉnh còn trong danh sách để sửa tiếp; đã xóa thì không hiện/không xét. DB/DDL chọn thêm deleted_at, giữ active cho hiệu lực; bảo vệ cả lưu từ form cũ, copy và không xóa kết quả cá nhân dây chuyền | Yêu cầu phân biệt rõ; tên cột là thiết kế kỹ thuật, không tự là khách hàng duyệt DDL |
+| ② — AND/OR | Bộ lọc thường: OR cùng loại, AND khác loại. Đề xuất các dòng trung bình/tỷ lệ nhóm dùng AND với nhau và với bộ lọc, kể cả cùng loại. A≥50 và A<70: 40/70 không thỏa, 50/60 thỏa | **Q35 chưa có xác nhận riêng của khách hàng**; trạng thái này giữ trong context/Q&A. Bộ tài liệu gửi review trình bày trực tiếp thiết kế AND và ví dụ, không chèn lịch sử phản hồi hoặc nhãn chờ xác nhận; không mở lại Q3/Q32/Q33 |
+| ③ — xóa điểm | Khi lưu thành công, cùng transaction chuyển không có điểm, ô trống, ngừng dấu/lọc đỏ của ô. Không chờ chạy lại; xóa rule vẫn giữ trước theo Q28 | Quy tắc dữ liệu hiện hành được làm rõ để trả lời khách hàng; chú thích Figma cần sửa |
+| ④ — phần lẻ | Cùng rule 01-B/03-C: dòng 1 A÷2 cắt xuống số nguyên, dòng 2 nhân 0.8 không xử lý; A=49.7 cho T=19.2, S=19.1 với < thì đỏ. Sửa cột tên nhóm không đè phép toán | Chọn thống nhất theo DB/AC dưới chỉ dẫn người phụ trách; không áp thành mặc định mọi công thức |
+| ⑤ — bộ chọn đơn vị | Hiển thị và thao tác độc lập ở cả A/B, sửa nền che panel B; bảo toàn cấu hình thường/đơn vị | Yêu cầu UI rõ, không thêm bảng/cột cho lỗi layer |
+
+**Decisions và lessons:** [DEC-001 bản Việt](decisions/DEC-001-review-state-and-ui-consistency.vi.md) / [bản Nhật](decisions/DEC-001-review-state-and-ui-consistency.ja.md) ghi lựa chọn, phương án không chọn, phần thay thế và bài học. Điểm chính: trạng thái UI phải phân biệt được khi lưu; AND/OR cần phản ví dụ; phân biệt xóa điểm/rule theo thời điểm commit; đối chiếu kết quả ở điểm nằm giữa hai ngưỡng; node tồn tại không chứng minh hiển thị.
+
+**Figma:** chưa hoàn tất cập nhật hoặc kiểm trực quan. Các quan sát về 02-A/B, 03-C, 04 và panel B là khách hàng báo. [Checklist sửa thủ công bản Việt](docs/v2/figma-update-checklist.vi.md) / [bản Nhật](docs/v2/figma-update-checklist.ja.md) liệt kê đủ vị trí, câu chữ và kiểm sau sửa. Chỉ đổi trạng thái hoàn tất khi có node/ảnh đã kiểm; không dùng kiểm tài liệu làm bằng chứng canvas.
+
+**Bàn giao tài liệu:** v2 có 9 tài liệu/SQL đã cập nhật và 2 checklist Figma. Giữ 8 task, 40 AC; phần điều kiện tổng hợp của AC-G05 đã được xác nhận tại mốc 30/09. Không chạy DDL, sửa ứng dụng, stage hoặc publish trong lượt cập nhật này. Thiết kế chi tiết vẫn cần review; chưa có bằng chứng runtime.
+
+**Quy ước bộ gửi review — người phụ trách xác nhận trong phiên:** Database Design/DDL, AC, Split Tasks và đặc tả là tài liệu độc lập trình bày phương án đầy đủ, không ghi mã Q, lịch sử phản hồi, nội dung trao đổi hoặc trạng thái chờ khách hàng. AND/OR được mô tả trực tiếp: bộ lọc OR cùng loại/AND khác loại; điều kiện trung bình và tỷ lệ nhóm AND với nhau và với bộ lọc. Nguồn phản hồi, trạng thái xác nhận và lessons/decisions giữ ở hồ sơ context nội bộ, không kèm bộ gửi; việc gửi bản hoàn chỉnh để review không tự trở thành khách hàng đã phê duyệt hoặc kiểm thử thành công. Chỉ dẫn này thay yêu cầu trước đó đưa nhãn chờ xác nhận vào file gửi hoặc chú thích mockup. Không đổi nguồn hay xóa lịch sử nội bộ.
+
+<a id="review-consistency-20260930"></a>
+
+### 9.8. Xác nhận ngày 30/09 và thiết kế trạng thái hiện hành
+
+Nguồn: [nguyên văn khách hàng và bản dịch](sources/2026-09-30-design-review-confirmation.vi.md); yêu cầu cập nhật do người phụ trách cung cấp. Bản này thay các trạng thái tương ứng ở mục 9.7, không xóa nguồn cũ.
+
+| Điểm | Quy tắc hiện hành | Trạng thái |
+| --- | --- | --- |
+| ① / Q34 | Ưu tiên đổi active thành setting_status. Chỉ nếu có ràng buộc xử lý chung cần active thì giải thích lý do và dùng deleted_flg. Không tiếp tục active + deleted_at | Hướng ưu tiên khách hàng yêu cầu; team chọn setting_status với 0 đang thiết lập/vô hiệu, 1 có hiệu lực, 2 đã xóa. Mã số/kiểu TINYINT là lựa chọn kỹ thuật |
+| ② / Q35 | Trong một rule: bộ lọc OR cùng loại/AND khác loại; trung bình/tỷ lệ nhóm AND với nhau và với bộ lọc. Giữa nhiều rule: chọn khớp đầu tiên theo ưu tiên, không AND các rule | **Đã xác nhận**, đóng câu hỏi AND/OR |
+| ③ / Q36 | Lưu xóa điểm thành công thì ô trống, ngừng dấu/lọc đỏ của ô ngay; xóa rule vẫn giữ kết quả trước tới lần xét lại | **Đã xác nhận**, cần thể hiện khác biệt trên mockup |
+| ④ / Q37 | Dòng 1 A÷2 cắt xuống, dòng 2 nhân 0.8 không xử lý: A=49.7, T=19.2; S=19.1 với < là đỏ; sửa chữ chồng | **Đã xác nhận**, áp dụng cho ví dụ cùng rule |
+| ⑤ / Q38 | Hai phía thường/đơn vị đều thấy và kiểm được lựa chọn độc lập; sửa nền che panel B | **Đã xác nhận**, không có thay đổi schema từ lỗi layer |
+
+[DEC-002 Việt](decisions/DEC-002-setting-status.vi.md) / [Nhật](decisions/DEC-002-setting-status.ja.md) ghi lý do chọn một cột, kiểm giới hạn tương thích và mã lưu. Danh sách dùng setting_status IN (0,1), bộ xét chỉ =1; xóa chuyển 2 cùng transaction tăng phiên bản rule. Mã 2 không được kiểm như boolean true. Không có dữ liệu chứng minh cần giữ active trong phạm vi source đã đọc; nếu tích hợp phát hiện khác, phải nêu đường phụ thuộc trước khi dùng phương án dự phòng.
+
+Bộ gửi review tiếp tục mô tả trực tiếp thiết kế, không chép lịch sử này hoặc nhãn chờ xác nhận lên tài liệu/canvas. Q35–Q38 được chốt nghiệp vụ không có nghĩa DDL/ứng dụng đã được chạy hay Cursor/Claude đã hoàn tất sửa Figma. [Checklist Việt](docs/v2/figma-update-checklist.vi.md) / [Nhật](docs/v2/figma-update-checklist.ja.md) chỉ rõ phần cần kiểm/sửa, nhất là giới hạn AND trong một rule. Giữ 8 task, 40 AC, v1 không đổi; không tự publish.
 
 <a id="evidence"></a>
 
@@ -612,4 +656,4 @@ Các spec/split-tasks/AC và giả định cũ, kể cả bản tạo trước p
 5. Khi source/provider/môi trường thay đổi, kiểm lại các đường liên quan và bằng chứng; không dùng hash hay lời giải thích lịch sử làm chứng minh runtime.
 6. Chỉ sửa Figma, code, dữ liệu hoặc xuất bản khi được giao đúng phạm vi. Việc cập nhật context không tự cấp các quyền đó.
 
-**Bàn giao hiện hành:** context này + [Q&A đã xác nhận](sources/confirmed-business-qa.vi.md) có Q32–Q33 ngày 28/09. Research nền 24/09 và điều tra 25/09 giữ vai trò bằng chứng lịch sử; Q&A tiếng Nhật ngày 24/09 là bản đã gửi. DB-R3 đã được xác nhận về nghiệp vụ; DB-R1/DB-R2 và chi tiết tích hợp còn mở. UI MW đã cập nhật theo báo cáo của người phụ trách, chưa được agent đối chiếu. Người đọc không cần lịch sử chat hoặc Google Sheets để hiểu trạng thái hiện hành.
+**Bàn giao hiện hành:** context/Q&A đến Q38 cùng phản hồi 30/09 và DEC-002. Thiết kế dùng setting_status; AND trong từng rule, xóa điểm, ví dụ phần lẻ và hiển thị thường/đơn vị đã được xác nhận. Tài liệu hiện hành độc lập với lịch sử phản hồi. Figma chưa kiểm hoàn tất; không suy thiết kế thành runtime/QA.

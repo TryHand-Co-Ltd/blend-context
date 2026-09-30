@@ -1,6 +1,6 @@
 # Q&A đã xác nhận về chức năng điểm đỏ（赤点）
 
-Ngày cập nhật: **28/09/2026 — bổ sung Q33: khách hàng chọn A cho danh sách nhóm tham chiếu và luồng chọn nguồn**.
+Ngày cập nhật: **30/09/2026 — Q34 ưu tiên setting_status; Q35–Q38 đã được khách hàng xác nhận. Figma và triển khai vẫn cần kiểm chứng riêng**.
 
 Tài liệu ghi lại các yêu cầu đã có, [phản hồi ngày 24/09 cùng ảnh gốc trên Slack](https://tryhand.slack.com/archives/C0BRGJA6XDE/p1790245548913629?thread_ts=1789563761.146189&cid=C0BRGJA6XDE), [trả lời Q&A cuộc họp](https://tryhand.slack.com/files/U096NBBJLSU/F0C498QAKAQ/2026-09-24_______qa___________________.md?origin_team=T08LS8ZGDTP) và [phản hồi bổ sung ngày 25/09](https://app.slack.com/client/T08LS8ZGDTP/C0BRGJA6XDE/thread/C0BRGJA6XDE-1789563761.146189/1790315716.848689). Những nội dung xác minh bằng source được ghi riêng ở phần 2; chúng không được gọi là xác nhận nghiệp vụ.
 
@@ -291,3 +291,51 @@ Nghĩa tiếng Việt: “Tôi hiểu theo A. Hình dung giống màn Thiết l�
 Luồng chọn nguồn phía điểm đỏ theo thứ tự cấu hình tổng hợp → nhóm tham chiếu, giữ trường thời kỳ và quy tắc nguồn đã có. Chọn nhóm cấu hình bằng tên đã đặt và lưu ID; không thêm màn cấu hình nhóm theo từng môn ngay trong dropdown. Nhận xét cuối là mô tả chưa chắc chắn về màn tham chiếu, không phải yêu cầu loại nhóm môn hoặc đổi sang B. Không suy ảnh tham chiếu thành yêu cầu thêm chọn thứ hạng, tên hiển thị hoặc biểu đồ vào form điểm đỏ.
 
 Ảnh người phụ trách chuyển có khu vực Kết quả tổng hợp theo môn/lớp học（科目・授業ごとの集計結果） với các cột cấu hình tổng hợp, đối tượng tổng hợp, giá trị tổng hợp và tên hiển thị. Ảnh không mở dropdown nên không chứng minh toàn bộ lựa chọn. Chưa có permalink riêng của phản hồi/ảnh; không đưa đường dẫn ảnh trên máy cá nhân vào tài liệu chung. Source của màn tham chiếu đã được đối chiếu; chưa xác minh dropdown live ad31. Q33 bổ sung Q32 về phạm vi lựa chọn, không phê duyệt chi tiết DDL hoặc bảo đảm kết quả tổng hợp luôn tồn tại.
+
+## 5. Review ngày 29/09 và xác nhận ngày 30/09
+
+Nguồn: [năm phản hồi ban đầu](2026-09-29-design-review-feedback.vi.md) và [trả lời mới nhất](2026-09-30-design-review-confirmation.vi.md), do người phụ trách cung cấp. Phản hồi 30/09 thay trạng thái chờ AND và thay hướng lưu active + deleted_at. Xác nhận nghiệp vụ không có nghĩa đã sửa xong Figma hay đã triển khai.
+
+<a id="q34-rule-deletion-state"></a>
+
+### Q34 — Lưu trạng thái rule chưa hoàn chỉnh và đã xóa thế nào?
+
+**Hướng ưu tiên khách hàng yêu cầu ngày 30/09:** hạn chế thêm cột; trước tiên đổi active thành setting_status để biểu diễn đang thiết lập/vô hiệu, có hiệu lực và đã xóa. Chỉ nếu có ràng buộc xử lý chung bắt buộc giữ active mới giải thích lý do và thêm deleted_flg. Phương án thêm deleted_at ngày 29/09 được thay thế.
+
+**Lựa chọn kỹ thuật hiện hành:** dùng một cột setting_status, mã 0 đang thiết lập/vô hiệu, 1 có hiệu lực, 2 đã xóa. Kiểu TINYINT và mã 0/1/2 do team thiết kế, không phải số khách hàng chỉ định hoặc quy định DB bắt buộc. Căn cứ kiểm tương thích và giới hạn nằm ở [DEC-002](../decisions/DEC-002-setting-status.vi.md).
+
+Rule lưu dở còn trong danh sách, cho tiếp tục bằng Mở thiết lập ngưỡng（基準設定を開く）; không điền ngầm ngưỡng 0 và không tham gia xét. Rule đã xóa không hiện/không được xét, form cũ không được phục hồi. Xóa rule vẫn giữ kết quả học sinh đã hoàn tất đến lần xét lại.
+
+<a id="q35-average-condition-logic"></a>
+
+### Q35 — Hai dòng trung bình và nhiều rule kết hợp thế nào?
+
+**Đã được khách hàng xác nhận ngày 30/09; không còn câu hỏi AND/OR mở.** Trong một rule: bộ lọc đối tượng OR cùng loại, AND khác loại; các điều kiện trung bình/tỷ lệ nhóm AND với nhau và AND với bộ lọc. Với cùng nguồn A≥50 và A<70, kết quả là 50≤A<70: 40/70 không thỏa, 50/60 thỏa.
+
+**Giữa nhiều rule:** giữ ưu tiên, chọn rule đầu tiên có điều kiện áp dụng khớp. Không AND các rule với nhau và không gộp để lấy ngưỡng nghiêm ngặt nhất. Ví dụ hai rule cùng khớp, ưu tiên 1 có T=20 và ưu tiên 2 có T=30, S=25, dấu <: dùng rule 1 và không đỏ.
+
+Bộ gửi review mô tả trực tiếp hành vi này, không đưa lịch sử Q&A hoặc nhãn chờ xác nhận lên tài liệu/canvas.
+
+<a id="q36-score-deletion-timing"></a>
+
+### Q36 — Xóa điểm có phải chờ chạy lại không?
+
+**Đã xác nhận ngày 30/09:** ngay khi lưu xóa điểm thành công, ô trống và ngừng dấu/đóng góp lọc đỏ của ô; không chờ chạy lại. Lưu lỗi không được báo đã xóa. Học sinh vẫn có thể được lọc nếu còn ô đỏ khác trong phạm vi.
+
+Mockup phải phân biệt với Q28: xóa rule khi điểm vẫn tồn tại giữ kết quả trước đến lần xét lại. Trước đây khách hàng hỏi để xác nhận; phản hồi mới đã đồng ý trực tiếp, không cần hỏi lại.
+
+<a id="q37-rounding-example"></a>
+
+### Q37 — Vị trí làm tròn và kết luận của cùng ví dụ
+
+**Đã xác nhận ngày 30/09:** thống nhất ví dụ 01-B/03-C và giải thích: dòng 1 A÷2 cắt xuống số nguyên, dòng 2 nhân 0.8 không xử lý. A=49.7 → 24 → T=19.2; S=19.1, dấu nhỏ hơn thì đỏ. Không xử lý dòng 1 nhưng cắt dòng 2 cho T=19 là cấu hình khác.
+
+Sửa chữ Trung bình lớp chủ nhiệm（ホームルーム平均） chồng lên phép toán. Đây chỉ là cấu hình của ví dụ, không bắt mọi công thức làm tròn dòng 1. Xác nhận này chưa chứng minh đã sửa/kiểm canvas.
+
+<a id="q38-unit-selector-visibility"></a>
+
+### Q38 — Lựa chọn điểm thường và đơn vị
+
+**Đã xác nhận ngày 30/09:** hướng sửa panel B được đồng ý; hai phía điểm thường/đơn vị đều phải thấy và kiểm được lựa chọn riêng biệt. Sửa nền che Cách hiển thị điểm đỏ（赤点の表示方法） và Hiển thị kèm ngoặc（括弧付きで表示する）. Không tạo control trùng hoặc thêm schema vì lỗi layer. Chưa kiểm lại canvas sau Cursor/Claude nên không ghi đã hoàn tất.
+
+Theo dõi [DEC-002](../decisions/DEC-002-setting-status.vi.md), [lessons lịch sử](../decisions/DEC-001-review-state-and-ui-consistency.vi.md) và [checklist Figma](../docs/v2/figma-update-checklist.vi.md).

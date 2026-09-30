@@ -1,16 +1,15 @@
 # Điểm đỏ（赤点） — Nội dung thay đổi và chia công việc
 
-**Ngày cập nhật:** 28/09/2026.
+**Ngày cập nhật:** 30/09/2026.
 
-**Draft:** bổ sung lưu hiệu ứng công khai, điều khiển đồng thời bằng thế hệ/phiên bản ô và hành vi nhóm tham chiếu đã xác nhận. Đây là phương án chia việc, chưa phải báo cáo đã triển khai.
 
 Cho phép đặt nhiều quy tắc đỏ cho mục đánh giá số, xét điểm cuối đã lưu và dùng chung kết quả tại Trích xuất thành tích（成績抽出）, Công khai thành tích（成績公開） và Công cụ phiếu điểm（通知表ツール）, với cách hiển thị riêng của từng đầu ra. Đối tượng gồm số nguyên, số thập phân và điểm số theo đơn vị bài học. Giáo viên thường cũng được thiết lập nếu có quyền truy cập chức năng và sửa đúng mục.
 
 Đây là **phương án chia việc cho thiết kế toàn feature**, chưa phải duyệt triển khai/phát hành toàn bộ. Điểm cố định là mức tối thiểu từng trao đổi; tỷ lệ điểm tối đa, công thức trung bình và điều kiện trung bình/tỷ lệ nhóm phải được chọn riêng cho từng đợt. Phần được chọn phải hoàn chỉnh từ cấu hình → xét → lưu → ba đầu ra; phần chưa chọn không được hiển thị như lựa chọn đang hoạt động.
 
-Q3 đã chốt: tỷ lệ nhóm dùng kết quả tổng hợp thứ hạng hiện có. Không thêm cách tính riêng hoặc chặn cấu hình khác điểm tối đa; sự khác biệt đó không được làm dừng xử lý. Độ chính xác, nhận diện đơn vị và tích hợp bản tổng hợp đã chốt vẫn cần được xác minh kỹ thuật.
+Tỷ lệ nhóm dùng kết quả tổng hợp thứ hạng hiện có. Không thêm cách tính riêng hoặc chặn cấu hình khác điểm tối đa; sự khác biệt đó không được làm dừng xử lý. Độ chính xác, nhận diện đơn vị và tích hợp bản tổng hợp đã chốt vẫn cần được xác minh kỹ thuật.
 
-Tham chiếu bố cục tại [Figma của Movitation Works](https://www.figma.com/design/iAB9nFC3RuqxbLUMsh79jd/%25E8%25B5%25A4%25E7%2582%25B9%25E5%2588%25A4%25E5%25AE%259A%25E5%25AF%25BE%25E5%25BF%259C?node-id=0-1). Người phụ trách báo đã cập nhật; frame từng màn cần đối chiếu riêng. URL của các màn đỏ mới chưa chốt; bên dưới ghi điểm vào đã xác định.
+Tham chiếu bố cục tại [Figma của Movitation Works](https://www.figma.com/design/iAB9nFC3RuqxbLUMsh79jd/%25E8%25B5%25A4%25E7%2582%25B9%25E5%2588%25A4%25E5%25AE%259A%25E5%25AF%25BE%25E5%25BF%259C?node-id=0-1). Đối chiếu từng màn với thao tác và kết quả được mô tả trong tài liệu. URL của các màn đỏ mới chưa chốt; bên dưới ghi điểm vào đã xác định.
 
 ## Danh sách công việc
 
@@ -43,6 +42,7 @@ Tham chiếu bố cục tại [Figma của Movitation Works](https://www.figma.c
 - Khi lưu cố định, kiểm `0≤N≤M` cho mọi đối tượng và kiểm lại khi mở rộng phạm vi. Tỷ lệ phải thỏa `0≤N≤100`; dấu cuối là Nhỏ hơn（未満） hoặc Nhỏ hơn hoặc bằng（以下）. Không bắt nhập nguồn tổng hợp không dùng.
 - Lưu, đổi thứ tự, xóa chỉ đổi cấu hình, không báo đã xét xong. Xóa rule cuối vẫn giữ kết quả đến lần chạy lại và phải có hướng dẫn; hủy hoặc lưu lỗi giữ cấu hình/kết quả đã lưu.
 - **Đề xuất cần review:** Rule mới đặt cuối, mở loại cố định, dấu nhỏ hơn, chưa nhập giá trị. Rule chưa hoàn chỉnh không có hiệu lực; giới hạn đối tượng nhưng không có bộ lọc hợp lệ thì báo lỗi. Đổi loại trong phiên sửa giữ tạm input; mở lại phục hồi loại đã lưu. Đổi nguồn chỉ xóa lựa chọn phụ thuộc không còn hợp lệ.
+- Rule chỉ mới lưu điều kiện còn trong danh sách; tiếp tục bằng Mở thiết lập ngưỡng（基準設定を開く）. Tách trạng thái xóa và hiệu lực theo Task 2; sau khi xóa rule nhập dở thì loại khỏi danh sách/bộ xét. URL hoặc form cũ không được lưu để làm rule sống lại.
 
 ### Hướng kỹ thuật
 
@@ -90,6 +90,7 @@ Giáo viên đủ quyền thiết lập nhiều rule cho mục số, mở lại 
 - Bảo đảm so `S=T`, số hữu hạn, xử lý tràn và độ chính xác lưu/mở lại ở phần chung. Không chạy mã tùy ý; dùng model/repository và đọc theo tập, tránh query trong vòng lặp. Cụ thể hóa tính nhất quán giữa ghi/đọc, yêu cầu trùng và từ chối ghi cũ bằng transaction/job hiện hữu.
 - Task 3 cung cấp giá trị nguồn và kết quả công thức/lý do chưa xét được; Task này tập trung lưu và ngừng hiệu lực. Task 4 nối trigger, tập ô và giao dịch; đầu ra không tính lại.
 - **Cách lưu:** `red_score_results` giữ thế hệ ô, phiên bản đặt chỗ, phiên bản hoàn tất và phiên bản rule đã dùng. Khóa theo thứ tự mục khung → dòng lớp trong `groups` → dòng điều khiển ô → dòng điểm, đặt chỗ trước đọc đầu vào. Trước lưu đối chiếu thế hệ, phiên bản đặt chỗ/rule và dòng điểm; từ chối khi khác hoặc ticket đã hoàn tất. Payload NULL của dòng điều khiển khởi tạo là chưa từng xét. Khóa chung trên dòng lớp tuần tự hóa cạnh tranh tạo cùng dòng điểm vật lý từ hai mục khác nhau; đọc lại hiện hành sau khóa và dùng ID đã được tạo trong lúc chờ.
+- Dùng `red_score_settings.setting_status`: 0 đang thiết lập/vô hiệu, 1 có hiệu lực, 2 đã xóa. Danh sách đọc 0/1, bộ xét chỉ đọc 1. Lưu dở giữ loại/dấu và ngưỡng NULL; chỉ kích hoạt khi đủ dữ liệu hợp lệ. Xóa dưới khóa owner, cùng lúc lưu trạng thái 2 và tăng phiên bản rule; chặn form cũ làm rule sống lại, không xóa dây chuyền kết quả cá nhân.
 - Xóa thành trống/xóa mềm/tạo lại phải tiến thế hệ/phiên bản dù ID điểm không đổi, ngừng kết luận cũ. Giữ dòng điều khiển sau xóa và không mang token cũ sang đích khôi phục. Chỉ khác phiên bản đặt chỗ khi đang chờ không làm mất kết quả trước. Đây là điều khiển nhất quán hiện tại, không phải quản lý lịch sử mọi rule.
 
 ### Phụ thuộc và phần chưa chốt
@@ -114,11 +115,13 @@ Lưu duy nhất đúng trạng thái của ô mà không đổi điểm; ba đ�
 
 - Chọn Thời kỳ tổng hợp（集計対象時期）, Thiết lập tổng hợp thứ hạng（順位集計設定）, Nhóm học sinh được tổng hợp（集計対象（母集団）） và đúng môn/mục/đơn vị. Tách đối tượng áp dụng khỏi nhóm tham chiếu, không đổi trung bình theo bộ lọc trích xuất. Ngưỡng cố định có điều kiện trung bình/tỷ lệ cũng phụ thuộc nguồn.
 - Lựa chọn nhóm tham chiếu theo thiết lập tổng hợp hiện có của trường/năm. Chỉ cho chọn khối/HR/lớp học khi loại tương ứng được bật; không thêm công tắc phía điểm đỏ. Cùng cấu hình tổng hợp X đọc kết quả của nhóm đã chọn, không tạo cấu hình khác chỉ để đổi loại. Được bật nhưng chưa có kết quả thì chưa xét được.
-- Theo A đã xác nhận, nhóm tổng hợp, tổ hợp và nhóm môn có cấu hình hiện hữu thì được chọn/lưu độc lập với ba cờ trên; chọn bằng tên nhưng lưu ID. Theo mẫu Công khai thành tích（成績公開設定）, chọn cấu hình tổng hợp rồi đối tượng tổng hợp, dùng cùng thao tác ở điều kiện và công thức. Không thêm trường thứ hạng/tên hiển thị/biểu đồ từ màn ví dụ hoặc màn sửa nhóm theo từng môn mới.
+- Nhóm tổng hợp, tổ hợp và nhóm môn có cấu hình hiện hữu thì được chọn/lưu độc lập với ba cờ trên; chọn bằng tên nhưng lưu ID. Theo mẫu Công khai thành tích（成績公開設定）, chọn cấu hình tổng hợp rồi đối tượng tổng hợp, dùng cùng thao tác ở điều kiện và công thức. Không thêm trường thứ hạng/tên hiển thị/biểu đồ từ màn ví dụ hoặc màn sửa nhóm theo từng môn mới.
 - Tự ưu tiên bản chốt đúng phạm vi; chỉ khi không có mới dùng bản hoàn tất mới nhất cùng phạm vi. Không lấy bản khác lấp dữ liệu thiếu của bản chốt, không tính lại trung bình từ điểm chưa tổng hợp.
 - Chọn nhánh bằng `A`/`R` trước làm tròn: `A=49.99` thuộc `<50`. `R` kế thừa tổng điểm/tổng maximum của cùng tập đóng góp, không dùng trung bình cộng tỷ lệ cá nhân hoặc `A/M` của học sinh đang xét.
 - Công thức gồm vế trái/phải, bốn phép toán, phần lẻ từng dòng; tham chiếu nhận kết quả sau phần lẻ, dòng cuối cho `T`. Ngưỡng âm hữu hạn hợp lệ, không ép về 0/maximum. Từ chối mẫu số cố định 0, thiếu giá trị, tham chiếu chính dòng/dòng sau/dòng đã xóa lúc lưu; lỗi chỉ xuất hiện khi chạy thì trả chưa xét được cho Task 2.
 - **Đề xuất cần review:** Dấu phân nhánh `<`/`≤`/`≥`/`>`; toán hạng trung bình, số/hệ số, kết quả dòng trước. Công thức có một bộ nguồn cho trung bình; điều kiện có lựa chọn nguồn riêng. Vị trí phần lẻ `p=1..9` xử lý chữ số thập phân thứ p; phương thức gần nhất/lên/xuống. Với số âm, điểm giữa làm tròn ra xa 0, lên/xuống là ceil/floor.
+- Tách hướng dẫn bộ lọc đối tượng khỏi điều kiện tổng hợp. Bộ lọc đối tượng dùng OR cùng loại, AND khác loại; các dòng trung bình/tỷ lệ nhóm dùng AND kể cả cùng loại, rồi AND với kết quả bộ lọc. `A≥50 AND A<70` không thỏa ở 40/70, thỏa ở 50/60. Áp dụng cùng quy tắc khi lưu, xét và hiển thị hướng dẫn. AND chỉ áp dụng trong từng rule. Giữa nhiều rule, dùng rule đầu tiên khớp theo ưu tiên, không AND các rule với nhau.
+- Đồng bộ ví dụ 01-B/03-C: chỉ dòng 1 `trung bình÷2` làm tròn xuống số nguyên, dòng 2 `kết quả dòng 1×0.8` không xử lý. Trung bình 49.7 cho ngưỡng 19.2; điểm 19.1 xét nhỏ hơn thì đỏ. Lưu, mở lại và tóm tắt danh sách phải khớp từng dòng; đủ độ rộng để tên nhóm không chồng cột phép toán.
 
 ### Hướng kỹ thuật
 
@@ -157,6 +160,7 @@ Cần chọn rõ điều kiện/công thức trong đợt triển khai. Phần �
 - Với đánh giá tương đối: tự tổng hợp để Không thực hiện（実行しない）, hoàn tất đầu vào → nút xanh Thực hiện tổng hợp（集計実行） hoàn tất → nút cam Thực hiện tính toán tự động（自動算出実行） hoàn tất. Tắt tự tổng hợp không tắt xét lúc đăng ký; bản chốt vẫn ưu tiên. Không thêm vòng lặp hội tụ hoặc quản lý hoàn tất mọi môn.
 - Nhập trực tiếp/CSV/liên kết giữ ranh giới giao dịch hiện có và điểm/kết quả nhất quán. Batch phân biệt phần hoàn tất, chưa xét được, thất bại; vào hàng đợi hay số lớp đã xử lý không được báo mọi ô đã xét xong.
 - Tách chưa chạy lại sau đổi cấu hình, đã chạy nhưng không tạo được ngưỡng, và lỗi kỹ thuật không lưu được. Hướng dẫn chạy lại, không thêm retry vô hạn, lộ lỗi nội bộ hoặc cấm công khai mới.
+- Xóa chính điểm số: ngay khi lưu thành công thì ô trống, ngừng dấu/lọc đỏ của ô, không chờ chạy lại. Lưu điểm và status=4 cùng transaction, không xác nhận thay đổi khi lưu lỗi. Hướng dẫn UI phân biệt với giữ kết quả trước sau xóa rule.
 
 ### Hướng kỹ thuật
 
@@ -215,6 +219,7 @@ Có thể chuẩn bị UI khi thống nhất dạng kết quả chung. Sau tích
 
 - Với mục đỏ đủ điều kiện, lưu ngoặc hoặc `*` cố định trước/sau trong phạm vi điểm thường/đơn vị. Không thêm ký tự tự do, lọc học sinh đỏ hay nền đỏ riêng. **Đề xuất mặc định:** chưa cấu hình thì giữ hiển thị hiện có.
 - Cùng mục đánh giá có thể lưu độc lập cấu hình X dùng ngoặc, Y dùng `*` trước; giữ khi mở lại và copy cấu hình công khai. Phân loại thường/đơn vị cũng độc lập; không copy kết quả xét học sinh.
+- Hai phía điểm thường/đơn vị đều phải hiện bộ chọn cách hiển thị độc lập. Không để lớp nền che bộ chọn phía đơn vị; kiểm thao tác chọn, lưu và mở lại ở cả hai phía.
 - Kết hợp hiệu ứng dự kiến và đỏ khác nhau; trùng thì chỉ một lần. Ngoặc và `*` trước → `(*24)`; hai `*` trước → `*24`; hai ngoặc → `(24)`; trước/sau → `*24*`.
 - Tuân theo ẩn điểm có hiệu lực, không lộ điểm hoặc chỉ dấu. Khi đỏ hết hiệu lực vẫn giữ các hiệu ứng dự kiến/khác còn hợp lệ.
 - Xóa rule cuối không xóa cấu hình hiển thị; trước chạy lại vẫn dùng hiệu ứng cho kết quả còn hiệu lực. Renderer không bỏ dấu ngay dựa vào số rule; xem/xuất lại không kích hoạt xét.
@@ -278,7 +283,7 @@ Chuẩn bị lưu cấu hình theo kết quả chung. Sau Task 2/4, kiểm lưu/
 - Sao chép cấu hình, kế thừa năm học, xuất cấu hình, nhập cấu hình, khôi phục cấu hình đang xử lý ngưỡng và ánh xạ mục. Đường thêm cấu hình mới dùng thiết kế Task 1–3 và bảng ánh xạ ID hiện có, giữ lưu và xuất/nhập giá trị cũ.
 - Xử lý ánh xạ dữ liệu khi sao chép và xử lý ánh xạ dữ liệu khi kế thừa năm xử lý ID mục mới cùng ngưỡng cũ. Không nhân bản ID kết quả; bổ sung ánh xạ dòng công thức, đơn vị, nguồn, rồi đọc cấu hình ở quyền/ngữ cảnh đích.
 - Trước triển khai, chốt phạm vi, thứ tự áp dụng, phần dữ liệu giữ khi lỗi của import thiếu phần mới, failback thay thế, đồng bộ lớp. Không ghi đường chưa xác minh thành đã hỗ trợ; chưa hỗ trợ phải nêu giới hạn. Không mở rộng thành chuyển mọi báo cáo riêng trường sang rule mới.
-- Xóa mềm từ `FailbackUsecase::deleteGradeInfo` cũng khóa dòng điều khiển Task 2 trước rồi tiến thế hệ. Chuyển cấu hình tăng phiên bản owner rule, không copy thế hệ ô/phiên bản đặt chỗ-hoàn tất/kết quả cá nhân. Tham chiếu lớp đọc theo ô đích; nhóm môn ánh xạ cấu hình riêng/default và ID phụ thuộc. Task 6 sở hữu copy hiệu ứng công khai; Task này nối với các đường chuyển năm được hỗ trợ.
+- Xóa mềm từ `FailbackUsecase::deleteGradeInfo` cũng khóa dòng điều khiển Task 2 trước rồi tiến thế hệ. Chuyển cấu hình tăng phiên bản owner rule, không copy thế hệ ô/phiên bản đặt chỗ-hoàn tất/kết quả cá nhân. Tham chiếu lớp đọc theo ô đích; nhóm môn ánh xạ cấu hình riêng/default và ID phụ thuộc. Task 6 sở hữu copy hiệu ứng công khai; Task này nối với các đường chuyển năm được hỗ trợ. Loại rule đã xóa khỏi chuyển cấu hình; nếu đường được hỗ trợ chuyển rule chưa hoàn chỉnh và chưa xóa thì không tự kích hoạt.
 
 ### Phụ thuộc và phần chưa chốt
 
@@ -290,7 +295,7 @@ Có thể bắt đầu kiểm hồi quy legacy và điều tra ánh xạ. Chuy�
 
 ## Bắt đầu công việc và hoàn tất tích hợp
 
-- **Review phạm vi/thiết kế:** Có thể review theo phân công này. Bộ Q&A đã gửi, gồm Q3, đã có câu trả lời; không mở lại cùng câu hỏi.
+- **Phạm vi thiết kế:** Kết nối thiết lập, xét, lưu kết quả và ba đầu ra theo phân công và hợp đồng dữ liệu trong tài liệu này.
 - **Có thể làm trước:** Thiết kế ô/trạng thái/DB, dữ liệu cấu hình/đầu ra, phần cố định/tỷ lệ độc lập, dummy data cho phần phụ thuộc nguồn đã chọn. Bắt đầu triển khai theo loại/đường của từng đợt và xác nhận thiết kế cần thiết.
 - **Trước khi hoàn tất toàn bộ:** Chốt danh sách đợt, đề xuất UI, độ chính xác lưu và DB, nguồn thật về bản chốt/đơn vị/độ chính xác, đường chuyển cấu hình và kiểm thực thi từng đầu vào cùng ba đầu ra. Tài liệu/source không chứng minh đã xong triển khai, QA hoặc phát hành.
 

@@ -1,5 +1,5 @@
 -- Thiết kế cơ sở dữ liệu điểm đỏ — Định nghĩa bảng
--- Draft: hai bảng mới và mở rộng hai bảng hiện hữu; không đổi giá trị ngưỡng legacy.
+-- DDL thiết kế: hai bảng mới và mở rộng hai bảng hiện hữu; không đổi giá trị ngưỡng legacy.
 -- Chỉ là DDL thiết kế, chưa được thực thi.
 
 CREATE TABLE `red_score_settings` (
@@ -22,13 +22,13 @@ CREATE TABLE `red_score_settings` (
 	`round_flg` TINYINT UNSIGNED NULL DEFAULT NULL COMMENT 'Chỉ loại 2: 0 không làm tròn, 1 có; loại 1/3 là NULL',
 	`round_type` TINYINT UNSIGNED NULL DEFAULT NULL COMMENT 'Chỉ loại 2 khi bật: 1 gần nhất, 2 ceil, 3 floor',
 	`round_digits` TINYINT UNSIGNED NULL DEFAULT NULL COMMENT 'Chỉ loại 2 khi bật: vị trí 1-9; 1 ra số nguyên',
-	`active` TINYINT UNSIGNED NOT NULL DEFAULT 0 COMMENT '0 chưa áp dụng hoặc đã tắt/xóa mềm; 1 cấu hình đầy đủ có hiệu lực',
+	`setting_status` TINYINT UNSIGNED NOT NULL DEFAULT 0 COMMENT 'Trạng thái quy tắc: 0 đang thiết lập/vô hiệu, 1 có hiệu lực, 2 đã xóa',
 	`created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Thời điểm tạo',
 	`created` INT NOT NULL COMMENT 'Người tạo theo audit hiện có',
 	`updated_at` TIMESTAMP NULL DEFAULT NULL COMMENT 'Thời điểm cập nhật',
 	`updated` INT NULL DEFAULT NULL COMMENT 'Người cập nhật theo audit hiện có',
 	PRIMARY KEY (`id`),
-	KEY `idx_red_score_settings_01` (`school_id`, `year`, `evaluate_frame_item_id`, `active`, `sort_no`)
+	KEY `idx_red_score_settings_01` (`school_id`, `year`, `evaluate_frame_item_id`, `setting_status`, `sort_no`)
 ) ENGINE=InnoDB
   DEFAULT CHARSET=utf8mb4
   COLLATE=utf8mb4_general_ci
