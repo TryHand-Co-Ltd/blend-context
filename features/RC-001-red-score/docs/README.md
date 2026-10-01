@@ -23,9 +23,9 @@ Các thay đổi tiếp theo thực hiện trong **v2**. Việc tạo thư mục
 | DDL thiết kế | [SQL chú thích Nhật](v1/database-design.ja.sql) · [SQL chú thích Việt](v1/database-design.sql) | [SQL chú thích Nhật](v2/database-design.ja.sql) · [SQL chú thích Việt](v2/database-design.sql) |
 | Chia việc | [Nhật](v1/split-tasks.ja.md) · [English](v1/split-tasks.en.md) · [Việt](v1/split-tasks.vi.md) | [Nhật](v2/split-tasks.ja.md) · [Việt](v2/split-tasks.vi.md) |
 | Tiêu chí nghiệm thu | [Nhật](v1/acceptance-criteria.ja.md) · [English](v1/acceptance-criteria.en.md) · [Việt](v1/acceptance-criteria.vi.md) | [Nhật](v2/acceptance-criteria.ja.md) · [Việt](v2/acceptance-criteria.vi.md) |
-| Đặc tả kiểm thử | — | [Việt](v2/test-spec/00-overview.vi.md) (thư mục `v2/test-spec/`) |
+| Đặc tả kiểm thử | — | [Việt](v2/test-spec/scope-and-approach.vi.md) (thư mục `v2/test-spec/`) |
 
-**Đặc tả kiểm thử v2** (`v2/test-spec/`, chỉ bản Việt): 208 test case theo đặc tả v2 và tiêu chí nghiệm thu v2, kèm kịch bản, dữ liệu test, hướng dẫn bằng chứng, ma trận truy vết và độ phủ. 11, 12 và `test-case-report.xlsx` (bố cục báo cáo test) được sinh bằng công cụ nội bộ từ 02–08; CSV và Excel dạng bảng không lưu trong repo. Chưa có test nào được chạy. Bắt đầu từ [00-overview.vi.md](v2/test-spec/00-overview.vi.md).
+**Đặc tả kiểm thử v2** (`v2/test-spec/`, chỉ bản Việt): 204 test case theo cấu trúc bốn tài liệu [scope-and-approach.vi.md](v2/test-spec/scope-and-approach.vi.md), [test-cases.vi.md](v2/test-spec/test-cases.vi.md), [test-data.vi.md](v2/test-spec/test-data.vi.md) và [test-case-report.xlsx](v2/test-spec/test-case-report.xlsx). Các file chi tiết cũ được giữ để bảo toàn anchor và được generator dùng làm nguồn tương thích. Chưa có test nào được chạy.
 
 Bản English lịch sử, không cập nhật cùng bộ v2: [chia việc](v1/split-tasks.en.md) và [tiêu chí nghiệm thu](v1/acceptance-criteria.en.md).
 
