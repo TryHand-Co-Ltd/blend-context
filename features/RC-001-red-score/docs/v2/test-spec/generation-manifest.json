@@ -1,7 +1,7 @@
 {
   "generator": "rc001-test-spec-generator@1.0.0",
   "command": "pwsh -File tools/generate-test-spec.ps1 -Mode Generate -SourceRoot .",
-  "generatedAt": "2026-10-02T03:26:46.1561527Z",
+  "generatedAt": "2026-10-02T03:53:43.0082364Z",
   "sourceRoot": "D:\\workspace\\projects\\blend\\Docker\\blend-context\\features\\RC-001-red-score\\docs\\v2\\test-spec",
   "sources": {
     "cases": {
@@ -19,7 +19,7 @@
   },
   "workbook": {
     "path": "test-case-report.xlsx",
-    "sha256": "8C7F4D1DC522D59C85BF122FC7E2A75591D7D838E2058536E783F26FF4390D90"
+    "sha256": "E87892461CAF06B7693B9CF71747C86C86269939BF5BC534EF63DCBFDA89FACD"
   },
   "counts": {
     "cases": 216,

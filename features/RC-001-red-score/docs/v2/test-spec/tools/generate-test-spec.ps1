@@ -80,6 +80,15 @@ try {
     if ($missingInWorkbook.Count -gt 0) { throw "Workbook is missing case IDs: $($missingInWorkbook -join ', ')" }
     if ($extraInWorkbook.Count -gt 0) { throw "Workbook contains unknown case IDs: $($extraInWorkbook -join ', ')" }
     if ($xml -match '08-test-data\.vi\.md|204 case|204/204') { throw 'Workbook contains stale source/count text.' }
+    $ns = New-Object System.Xml.XmlNamespaceManager((New-Object System.Xml.NameTable))
+    $ns.AddNamespace('m', 'http://schemas.openxmlformats.org/spreadsheetml/2006/main')
+    foreach ($sheetPath in (Get-ChildItem -LiteralPath (Join-Path $xmlInfo.Temp 'xl/worksheets') -Filter 'sheet*.xml')) {
+        [xml]$sheet = Get-Content -LiteralPath $sheetPath.FullName -Raw
+        $supplementLabels = @($sheet.SelectNodes('//m:t', $ns) | Where-Object { $_.InnerText -eq '補足（Bổ sung）' })
+        if ($supplementLabels.Count -gt 0) {
+            throw "Workbook contains redundant 補足（Bổ sung） sections in $($sheetPath.Name)."
+        }
+    }
 } finally {
     if (Test-Path $xmlInfo.Temp) { Remove-Item -LiteralPath $xmlInfo.Temp -Recurse -Force }
 }
