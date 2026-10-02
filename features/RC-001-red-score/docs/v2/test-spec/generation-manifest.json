@@ -1,0 +1,29 @@
+{
+  "generator": "rc001-test-spec-generator@1.0.0",
+  "command": "pwsh -File tools/generate-test-spec.ps1 -Mode Generate -SourceRoot .",
+  "generatedAt": "2026-10-02T03:26:46.1561527Z",
+  "sourceRoot": "D:\\workspace\\projects\\blend\\Docker\\blend-context\\features\\RC-001-red-score\\docs\\v2\\test-spec",
+  "sources": {
+    "cases": {
+      "path": "test-cases.vi.md",
+      "sha256": "70AE94C246C62E9B5FC531410FD7C79B0CF884F3B792FADC7C7632A18C51F81B"
+    },
+    "data": {
+      "path": "test-data.vi.md",
+      "sha256": "5DC1FEF139F8022A52510CF853CAFCD2E8866901476C8DF1EFA8DCE4D92F79FC"
+    },
+    "scope": {
+      "path": "scope-and-approach.vi.md",
+      "sha256": "CD140E9955822A3EAB0F8DCC8D91729B0876362FB4B9F137944BFB31415175C8"
+    }
+  },
+  "workbook": {
+    "path": "test-case-report.xlsx",
+    "sha256": "8C7F4D1DC522D59C85BF122FC7E2A75591D7D838E2058536E783F26FF4390D90"
+  },
+  "counts": {
+    "cases": 216,
+    "acceptanceCriteria": 40,
+    "variants": 13
+  }
+}

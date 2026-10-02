@@ -14,12 +14,12 @@ Dữ liệu dùng chung cho mọi test case. Giá trị số trong các case tí
 | Data ID | Field | Value | Type | Purpose | Expected |
 | --- | --- | --- | --- | --- | --- |
 | TD-ENV-01 | Môi trường chạy | Local Docker (`docker-codeigniter`, `docker-mysql`) có build tính năng; hoặc staging được team cho phép ghi | env | Chạy toàn bộ case | Có quyền tạo/xóa dữ liệu test và reset |
-| TD-ENV-01 | Trường test | Trường A (tên giả "Trường THPT Test A"), `school_id` do môi trường cấp | env | Phạm vi trường | Mọi dữ liệu test thuộc trường này |
-| TD-ENV-01 | Năm học | 2026 | env | Phạm vi năm | Mọi dữ liệu test thuộc năm này |
 | TD-ENV-02 | Trường khác | Trường B (tên giả), có ít nhất một mục đánh giá và một quy tắc đỏ | env | Kiểm tra giả mạo ID khác trường | Người dùng trường A không đọc/sửa được |
 | TD-ENV-03 | Truy cập DB | Kết nối MySQL local, chỉ dùng SELECT / SHOW FULL COLUMNS để lấy bằng chứng | env | Bằng chứng dữ liệu | Không cần thông tin kết nối trong tài liệu |
 | TD-ENV-04 | Nguồn snapshot | Dummy data cho bản tổng hợp đã chốt (R18 «đặc tả RC-001 v2» §5.5 «Chọn bản nguồn») cho tới khi [PR #57058](https://github.com/ednity/school-web/pull/57058) «PR thêm trạng thái xác nhận kết quả tổng hợp xếp hạng, còn mở» được tích hợp | env | Case nguồn trung bình | Bằng chứng ghi rõ "dummy data" |
 | TD-ENV-05 | Đường dẫn màn (RSD-TASK «bản chia công việc v2») | Thiết lập nhập điểm（成績入力設定） `/admin/grade_report_setting/manage`; Tổng hợp thành tích（成績集計） `/admin/grade/grade_setting_system/grade_calc`; Đăng ký thành tích（成績登録） `/admin/nb/grade/grade_setting_system/lesson_group/regist/(:num)`; Đăng ký thành tích bằng CSV（成績CSV登録） `/admin/nb/grade/grade_setting_system/lesson_group_csv/regist/(:num)`; Thiết lập điểm tối đa hàng loạt（満点一括設定） `/admin/grade/lesson_group/setting?setting_type=change_max_score`; Trích xuất thành tích（成績抽出） `/admin/nb/grade/grade_setting_system/grade_extraction`; Thiết lập công khai thành tích（成績公開設定） `/admin/grade_report_setting/grade_publish`; Xác nhận thành tích（成績確認） `/student/grade/grade_publish`; Công cụ phiếu điểm（通知表ツール） `/admin/grade_report_setting/report_card` | env | Điều hướng khi chạy case | URL màn đỏ mới và màn liên kết điểm thi chưa chốt/chưa xác minh |
+| TD-ENV-06 | Trường test | Trường A (tên giả "Trường THPT Test A"), `school_id` do môi trường cấp | env | Phạm vi trường | Mọi dữ liệu test thuộc trường này |
+| TD-ENV-07 | Năm học | 2026 | env | Phạm vi năm | Mọi dữ liệu test thuộc năm này |
 
 <a id="roles"></a>
 
@@ -32,10 +32,11 @@ Dữ liệu dùng chung cho mọi test case. Giá trị số trong các case tí
 | TD-ROLE-03 | Người có quyền chạy hàng loạt | Có quyền thực hiện Thực hiện tổng hợp（集計実行） và Thực hiện tính toán tự động（自動算出実行） theo cấu hình hiện hành | role | Chạy lại | Nút chạy dùng được |
 | TD-ROLE-04 | Người sửa được mục nhưng không có quyền chạy | Như TD-ROLE-01 «Giáo viên có quyền sửa mục: Có quyền vào Thiết lập nhập điểm（成績入力設定） và…» nhưng không có quyền chạy hàng loạt | role | QAC «Q&A nghiệp vụ đã xác nhận» Q1 «Ai được thiết lập điều kiện điểm đỏ?» | Không chạy được hàng loạt |
 | TD-ROLE-05 | Học sinh | Học sinh S01 của trường A, có lịch công khai đang mở | role | Xác nhận thành tích（成績確認） | Chỉ xem dữ liệu của chính mình |
-| TD-ROLE-06 | Người dùng trường B | Giáo viên/quản trị của trường B | role | Giả mạo ID | Bị từ chối với dữ liệu trường A |
+| TD-ROLE-06 | Học sinh | Học sinh S06 của trường A, có lịch công khai đang mở cho HR2 | role | Xác nhận thành tích（成績確認） | Chỉ xem dữ liệu của chính mình; dùng cho FUNC-027 và REG-008, không thay bằng tài khoản S01 |
 | TD-ROLE-07 | Người phụ trách đầu ra | Có quyền Trích xuất thành tích（成績抽出）, Thiết lập công khai thành tích（成績公開設定）, Công cụ phiếu điểm（通知表ツール） | role | Ba đầu ra | Mở và lưu được cấu hình đầu ra |
 | TD-ROLE-08 | Phụ huynh | Phụ huynh có quan hệ với S01 ở trường A, lịch công khai đang mở (R18 «đặc tả RC-001 v2» §1.3 «Quyền sử dụng»; AC-G34 «Đúng người, lịch và đầu ra công khai») | role | Xác nhận thành tích（成績確認） phía phụ huynh | Chỉ xem dữ liệu của S01 |
 | TD-ROLE-09 | Giáo viên nhập điểm | Giáo viên phụ trách lớp G-A, G-B, G-C: có quyền Đăng ký thành tích（成績登録）, Đăng ký thành tích bằng CSV（成績CSV登録） và Trích xuất thành tích（成績抽出） của các lớp này | role | Đăng ký điểm, quan sát kết quả xét | Lưu điểm và xem trích xuất được |
+| TD-ROLE-10 | Người dùng trường B | Giáo viên/quản trị của trường B | role | Giả mạo ID | Bị từ chối với dữ liệu trường A |
 
 ## 3. Mục đánh giá và điểm tối đa
 
@@ -80,7 +81,7 @@ Nguồn = Thời kỳ tổng hợp（集計対象時期）+ Thiết lập tổng
 | TD-SRC-03 | Không có tổng hợp | Nguồn chưa từng chạy tổng hợp | source | Thiếu nguồn | Chưa xét được |
 | TD-SRC-04 | Bản chốt thiếu dữ liệu | Snapshot tồn tại nhưng không có dòng cho môn/mục của ô | source | Không fallback | Chưa xét được, không dùng TD-SRC-02 «Bản mới nhất chưa chốt: Tổng hợp chạy sau TD-SRC-01, `A` = 62» |
 | TD-SRC-05 | Tỷ lệ nhóm cùng M | 2 học sinh: 60/100 và 80/100 → `R=70%` | source | Tỷ lệ nhóm (R18 «đặc tả RC-001 v2» §5.3 «Tỷ lệ nhóm») | Khớp `R≥65%` |
-| TD-SRC-06 | Tỷ lệ nhóm khác M | 2 học sinh: 20/50 (lớp dùng M=50) và 80/100 | source | Khác M không gây lỗi dừng | Xử lý không dừng |
+| TD-SRC-06 | Tỷ lệ nhóm khác M | G-A: `10/20`; G-B: `80/100`; học sinh kiểm P1 ở G-B có `M=100` | source | Khác M không gây lỗi dừng; giá trị `R` phải lấy từ snapshot/reader thực tế và ghi trong evidence | Xử lý không dừng; không suy fixture thành yêu cầu tính mới |
 | TD-SRC-07 | Có học sinh bị loại khỏi xếp hạng | 3 học sinh: 60, 40 và 20 (học sinh 20 điểm bị loại khỏi xếp hạng) | source | Mẫu số trung bình (R18 «đặc tả RC-001 v2» §5.5 «Chọn bản nguồn», AC-G14 «Giá trị thô từ cùng tập dữ liệu») | Kỳ vọng: `A=40` (chia số người có điểm, 3); chia số người thuộc xếp hạng (`A=50`) là sai. Trường nào (`examinees`/`student_count`) mang giá trị đúng: kiểm khi tích hợp |
 | TD-SRC-08 | Trung bình bằng 0 | Mọi học sinh trong nhóm có 0 điểm → `A=0` | source | Chia 0 khi chạy | Chưa xét được |
 | TD-SRC-09 | Trung bình cho điểm đơn vị | Điểm đơn vị U1, U2 cùng môn, trung bình khác nhau (U1=40, U2=70) | source | Không gộp đơn vị (nguồn trung bình theo đơn vị chưa tích hợp — R18 «đặc tả RC-001 v2» §13.1 «Điều kiện triển khai và kiểm chứng») | Mỗi đơn vị dùng trung bình riêng: TBD |
@@ -110,16 +111,16 @@ Theo QAC «Q&A nghiệp vụ đã xác nhận» Q32 «Nhóm tham chiếu phía �
 | TD-RULE-03 | Tỷ lệ | Tỷ lệ điểm tối đa（得点率） 30%, không xử lý phần lẻ（しない）, Nhỏ hơn（未満） | rule | Tỷ lệ theo M hiện hành | `T=M×0.3` |
 | TD-RULE-04 | Tỷ lệ làm tròn xuống | Như TD-RULE-03 «Tỷ lệ: Tỷ lệ điểm tối đa（得点率） 30%, không xử lý phần lẻ（しない）, Nhỏ hơn（未満）», xử lý phần lẻ: chữ số thập phân thứ 1（小数第1位）, Làm tròn xuống（切り捨て） | rule | Làm tròn | `T` là số nguyên làm tròn xuống |
 | TD-RULE-05 | Tỷ lệ làm tròn gần nhất | Như TD-RULE-04 «Tỷ lệ làm tròn xuống: Như TD-RULE-03, xử lý phần lẻ: chữ số thập phân…» nhưng Làm tròn gần nhất（四捨五入） | rule | Làm tròn | `T` là số nguyên gần nhất |
-| TD-RULE-06 | Công thức hai dòng | Dòng 1: Trung bình（平均点）÷ Số cố định（固定値）2, chữ số thập phân thứ 1 làm tròn xuống về số nguyên; Dòng 2: Kết quả dòng 1（式の結果 式1）× 0.8, không xử lý phần lẻ; Nhỏ hơn（未満）; nguồn mặc định | rule | Xác nhận thiết kế 30/09, ví dụ `A=49.7` | `T=floor(A÷2)×0.8`; với `A=49.7`, `T=19.2` |
+| TD-RULE-06 | Công thức hai dòng | Dòng 1: Trung bình（平均点）÷ Số cố định（固定値）2, Chữ số thập phân thứ 1（小数第1位）, Làm tròn xuống（切り捨て） về số nguyên; Dòng 2: Kết quả dòng 1（式の結果 式1）× 0.8, Không xử lý phần lẻ（しない）; Nhỏ hơn（未満）; nguồn mặc định | rule | Cấu hình cố định cho TC-RS-CALC-015; không cho tester chọn phương thức khác trong case này | `T=floor(A÷2)×0.8`; với `A=61`, `T=24` |
 | TD-RULE-07 | Cặp phân nhánh | Ưu tiên 1 "Trung bình từ 60": điều kiện `A≥60`, cố định 30 `<`. Ưu tiên 2 "Trung bình dưới 60": `A<60`, công thức `A×0.5` `<` | rule | Phân nhánh bằng nhiều quy tắc (R18 «đặc tả RC-001 v2» §5.2 «Điều kiện dựa trên trung bình») | Chọn đúng nhánh theo A thô |
 | TD-RULE-08 | Cặp cùng áp dụng | Ưu tiên 1: Toàn bộ, cố định 20 `<`; Ưu tiên 2: Toàn bộ, cố định 30 `<` | rule | First match (R18 «đặc tả RC-001 v2» §4.3 «Chọn quy tắc») | Luôn dùng ưu tiên 1 |
 | TD-RULE-09 | Tỷ lệ nhóm | Điều kiện Tỷ lệ điểm của nhóm（集団の得点率） `≥65%`; cố định 70 `<` | rule | Nguồn tỷ lệ nhóm | Học sinh 60 đỏ, 80 không đỏ khi khớp |
 | TD-RULE-10 | Công thức âm | Dòng 1: Trung bình（平均点）− 20; Nhỏ hơn（未満） | rule | Ngưỡng âm (QAC «Q&A nghiệp vụ đã xác nhận» Q25 «Công thức cho ngưỡng âm thì xử lý thế nào?») | Với `A=15`: `T=−5` |
 | TD-RULE-11 | Chia cho trung bình | Dòng 1: Số cố định（固定値）100 ÷ Trung bình（平均点） | rule | Chia 0 khi chạy | Với `A=0`: chưa xét được |
 | TD-RULE-12 | Bộ lọc kết hợp | Giới hạn bằng bộ lọc（特定条件で絞り込む）: Khối（学年） = 1 hoặc 2; Nhóm thành tích（成績グループ） = Nâng cao; cố định 30 `<` | rule | OR trong loại, AND giữa loại | Chỉ học sinh khối 1/2 **và** nhóm Nâng cao |
-| TD-RULE-13 | Cố định chưa có ngưỡng | Chỉ lưu điều kiện áp dụng, chưa lưu ngưỡng | rule | Trạng thái thêm dở (Figma 58:10165 «Figma MW: chương 01 – lối vào, danh sách, xóa thiết lập») | Không tham gia xét (PROPOSED) |
+| TD-RULE-13 | Cố định chưa có ngưỡng | Chỉ lưu điều kiện áp dụng, chưa lưu ngưỡng | rule | Hành vi đã xác nhận theo AC-G04/Q34: hiển thị là chưa thiết lập, không tham gia xét và không hồi sinh sau stale-form; enum/schema biểu diễn trạng thái vẫn PROPOSED | Không tham gia xét; sau xóa và gửi form cũ không xuất hiện lại |
 | TD-RULE-14 | Nhóm tổng hợp hai loại nhóm | Giới hạn bằng bộ lọc（特定条件で絞り込む）: nhóm tổng hợp loại K1 = Nâng cao VÀ loại K2 = X; cố định 30 `<` | rule | AND giữa các loại nhóm theo xác nhận Q35 | P7 thuộc cả hai; P5/P6 chỉ thuộc một loại và không áp dụng |
-| TD-RULE-15 | Hai điều kiện trung bình cùng nguồn | Cùng nguồn `A`: `A≥50` và `A<70`; Nhỏ hơn（未満）; ngưỡng cố định 30 | rule | AND trong một rule theo xác nhận Q35 | A=40/70 không khớp; A=50/60 khớp |
+| TD-RULE-15 | Hai điều kiện cùng rule và phối hợp nguồn | Biến thể A: cùng nguồn `A`, `A≥50` AND `A<70`; biến thể R: `R≥50%` AND `R<70%`; biến thể A+R: `A≥50` AND `R≥50%`; rule cố định `T=70`, dấu `<` | rule | AND trong một rule theo xác nhận Q35; reader/source thực tế là căn cứ, fixture không tạo yêu cầu tính nguồn mới | A: chỉ `50≤A<70`; R: chỉ khi source thực tế nằm trong khoảng; A+R: cả hai đúng mới áp dụng |
 
 ## 7. Cấu hình đầu ra
 

@@ -29,7 +29,7 @@ Tài liệu này mô tả cách kiểm thử chức năng điểm đỏ（赤点
 | Mã nguồn | Tài liệu | Vai trò |
 | --- | --- | --- |
 | QAC Qn | [Q&A đã xác nhận](../../../sources/confirmed-business-qa.vi.md) | Q1 «Ai được thiết lập điều kiện điểm đỏ?»–Q18 «Thiết kế đầy đủ có đồng nghĩa phát hành toàn bộ không?», Q23 «Khi xét tỷ lệ điểm, dùng điểm tối đa nào?»–Q33 «Ba loại nhóm cấu hình có xuất hiện ngoài khối/HR/lớp học không?»: xác nhận nghiệp vụ (Q32 «Nhóm tham chiếu phía điểm đỏ có tuân theo thiết lập tổng hợp hiện hữu không?…», Q33 ngày 28/09: nhóm tham chiếu theo thiết lập tổng hợp hiện hữu, phương án A). Q19 «BLEND hiện giữ giá trị thế nào khi đổi phương thức tính?»–Q22 «Cơ chế công thức và ưu tiên nào đã có để tham chiếu?»: chỉ là bằng chứng hiện trạng code, không phải xác nhận nghiệp vụ |
-| R18 §n | [Đặc tả RC-001 v2](../specification.vi.md) (`docs/v2/`, Draft, commit `bbcd99b`). `R18` là mã gọi ngắn của đặc tả trong bộ test. Bản v1 trong `docs/v1/` giữ để truy vết bản đã gửi review | Oracle chính. Đoạn gắn nhãn **Đề xuất thiết kế**/"Phương án kỹ thuật v2" chỉ tính là PROPOSED |
+| R18 §n | [Đặc tả RC-001 v2](../specification.vi.md) trong `docs/v2/`; dùng bản hiện hành của checkout và revision ghi trong manifest/workbook khi phát hành, không dùng commit lịch sử `bbcd99b` làm baseline. `R18` là mã gọi ngắn của đặc tả trong bộ test. Bản v1 trong `docs/v1/` giữ để truy vết bản đã gửi review | Oracle chính trong phạm vi không mâu thuẫn với CONTEXT/xác nhận mới. Đoạn gắn nhãn **Đề xuất thiết kế**/"Phương án kỹ thuật v2" chỉ tính là PROPOSED |
 | CTX | [CONTEXT RC-001](../../../CONTEXT.md) (28/09/2026, có §9.6 «Ba phản hồi review DB và bài học thiết kế ngày 28/09» ba phản hồi review DB) | Context chuẩn, các khoảng trống tích hợp I01 «Đường ghi điểm»–I12 «Đồng thời và thời điểm nguồn». §9.6 «Ba phản hồi review DB và bài học thiết kế ngày 28/09»: yêu cầu review DB của khách hàng (hiệu ứng theo cấu hình công khai; chống ghi đè/xóa-tạo lại ô) là yêu cầu hành vi; cơ chế v2 là PROPOSED |
 | FIG node | [File Figma của Movitation Works (MW)](https://www.figma.com/design/iAB9nFC3RuqxbLUMsh79jd/%25E8%25B5%25A4%25E7%2582%25B9%25E5%2588%25A4%25E5%25AE%259A%25E5%25AF%25BE%25E5%25BF%259C?node-id=0-1), node `0:1` — nguồn hiện hành (R18 «đặc tả RC-001 v2» §13.2 «Tài liệu liên quan»), đã đối chiếu chỉ đọc ngày 29/09/2026. File cũ [Red-Score-UI-Mockup---Final](https://www.figma.com/design/O2fNFrlnuG8XdQlQIc3H3T/Red-Score-UI-Mockup---Final?node-id=4592-1631) chỉ là lịch sử v1 | Nhãn, bố cục, thông báo. Mọi node trong case là node file MW (`FIG MW 58:…`); mở bằng link file MW với `?node-id=58-…` (đổi `:` thành `-`). Node 45xx–47xx chỉ còn trong ghi chú "file cũ ghi …" để đối chiếu câu chữ cũ. Đặc tả v2 vẫn dẫn link file cũ; tra frame MW tương ứng theo tên chương/frame. Khác biệt chỉ về nhãn/bố cục ghi Notes, không FAIL. Ghi chú 「設計案」 (phương án thiết kế) = PROPOSED. Giá trị mẫu trên hình không phải mặc định sản phẩm |
 | CODE file:hàm | Repo `docker-codeigniter/src`, HEAD `87d5a78d174`, đọc tĩnh trong giai đoạn phân tích (chưa chạy) | Chỉ chứng minh hiện trạng; không thay quyết định nghiệp vụ |
@@ -37,7 +37,7 @@ Tài liệu này mô tả cách kiểm thử chức năng điểm đỏ（赤点
 | RSD-DB §n | [Thiết kế DB v2](../database-design.vi.md) và `database-design.sql` | Thiết kế **đề xuất**, chưa review kỹ thuật, chưa thực thi DDL: tên bảng/cột, mã trạng thái, `reason_code`, giới hạn lưu trữ, cột `red_score_display_type`/`red_score_revision`, cơ chế thế hệ/phiên bản/khóa (§6 «Phương thức xử lý cập nhật đồng thời»), nơi lưu thiết lập đỏ của Trích xuất thành tích（成績抽出） trong JSON `grade_extract_conf.extract_setting` và của Công cụ phiếu điểm（通知表ツール） trong phần lưu bảng/điều kiện hiện có (§5.1 «Thiết lập hiển thị của Trích xuất thành tích（成績抽出）và Công cụ phiếu điểm（通知表ツール）», không thêm cột/bảng) = PROPOSED |
 | RSD-TASK Task n | [Chia công việc v2](../split-tasks.vi.md) | URL màn, điểm nối code (bản repo mô tả theo trách nhiệm xử lý, không ghi đường dẫn file), đường đăng ký được chọn. Đoạn "Đề xuất" = PROPOSED |
 
-Thứ tự khi khác nhau: QAC «Q&A nghiệp vụ đã xác nhận» → R18 «đặc tả RC-001 v2» (phần không phải đề xuất) → RSD-AC «tiêu chí nghiệm thu v2» (tiêu chí) → CTX «context chuẩn điểm đỏ» → RSD-DB «thiết kế DB v2 đề xuất»/RSD-TASK → Figma → code. **Khi Figma khác spec, bộ test không chọn bên**: ghi vào danh sách xung đột kèm câu hỏi cho người phụ trách ([scope-and-approach.vi.md — Xung đột](scope-and-approach.vi.md#conflicts) «Xung đột và khác biệt»); test case liên quan có trạng thái CONFLICT.
+Thứ tự khi khác nhau: **CTX «context chuẩn điểm đỏ» và các xác nhận mới được phép áp dụng** → QAC «Q&A nghiệp vụ đã xác nhận» để truy vết câu trả lời → R18 «đặc tả RC-001 v2» phần không phải đề xuất → RSD-AC «tiêu chí nghiệm thu v2» → RSD-DB «thiết kế DB v2 đề xuất»/RSD-TASK → Figma → code. Context/Q&A mới có thể thay thế baseline cũ; mọi thay thế phải ghi rõ revision/ngày và không biến phần PROPOSED thành CONFIRMED. **Khi Figma khác spec, bộ test không chọn bên**: ghi vào danh sách xung đột kèm câu hỏi cho người phụ trách ([scope-and-approach.vi.md — Xung đột](scope-and-approach.vi.md#conflicts) «Xung đột và khác biệt»); test case liên quan có trạng thái CONFLICT.
 
 ## 3. Nhãn trạng thái của test case
 
@@ -53,7 +53,7 @@ Cột **Status** trong các file test case là **độ chắc chắn của kết
 
 Một case có thể gồm phần CONFIRMED và phần PROPOSED. Khi đó Status ghi nhãn của phần chính; 期待結果（Kết quả mong đợi） ghi rõ phần nào là PROPOSED.
 
-Trạng thái chạy (NOT RUN / PASS / FAIL / BLOCKED / SKIPPED) chỉ nằm ở bảng chạy test ([scope-and-approach.vi.md — Run Log](scope-and-approach.vi.md) «Ghi kết quả», [scope-and-approach.vi.md — Run Log](scope-and-approach.vi.md#run-sheet) «Bảng chạy test»).
+Kết quả chạy (NOT RUN / PASS / FAIL / BLOCKED / SKIPPED) chỉ nằm ở Run Log ([scope-and-approach.vi.md — Run Log](scope-and-approach.vi.md) «Ghi kết quả», [scope-and-approach.vi.md — Run Log](scope-and-approach.vi.md#run-sheet) «Bảng chạy test»).
 
 ## 4. Ưu tiên
 
@@ -131,10 +131,14 @@ Kỹ thuật: phân vùng tương đương + giá trị biên cho input; bảng 
 **Nơi xem kết quả xét** — dùng cho các bước "xem kết quả", "xem Sxx", "xét/chạy lại":
 
 1. **Đỏ / Không đỏ:** mở Trích xuất thành tích（成績抽出） (URL ở TD-ENV-05 «Đường dẫn màn (RSD-TASK): Thiết lập nhập…»), chọn mục và kỳ của case, dùng cấu hình TD-OUT-02 «Trích xuất chỉ ký hiệu: Lọc TẮT» (không lọc; ký hiệu `※` phía trước, `!` phía sau). Ô đỏ hiện `※<điểm>!`; ô không đỏ hiện điểm nguyên trạng. Chỉ xem sau khi lần xét tương ứng đã xong (lưu điểm thành công hoặc nút cam chạy xong).
-2. **Bốn trạng thái không đánh dấu** — Chưa xét được, Không áp dụng, Không có điểm, Chưa từng xét — trên đầu ra trông giống Không đỏ. Khi 期待結果（Kết quả mong đợi） nêu một trong bốn trạng thái này, xác nhận thêm bằng SELECT `red_score_results` theo khóa của ô (TD-ENV-03 «Truy cập DB: Kết nối MySQL local, chỉ dùng SELECT / SHOW FULL COLUMNS…»; ánh xạ mã ở [TC-RS-DATA-003](test-cases.vi.md#tc-rs-data-003) là PROPOSED).
+2. **Bốn trạng thái không đánh dấu** — Chưa xét được, Không áp dụng, Không có điểm, Chưa từng xét — trên đầu ra trông giống Không đỏ. Khi 期待結果（Kết quả mong đợi） nêu một trong bốn trạng thái này, xác nhận thêm bằng SELECT `red_score_results` theo khóa của ô (TD-ENV-03 «Truy cập DB: Kết nối MySQL local, chỉ dùng SELECT / SHOW FULL COLUMNS…»; ánh xạ mã ở [TC-RS-DATA-003](test-cases.vi.md#tc-rs-data-003) là PROPOSED). Trong Run Log/workbook phải ghi đúng một trong các nhãn `Not red`, `Not judged`, `Not applicable`, `No score`, `Never judged`; không dùng một nhãn “PASS/Không đỏ” chung để thay thế trạng thái.
 3. **"Ba đầu ra"** = Trích xuất như mục 1 (hoặc cấu hình trích xuất ghi trong case), màn Xác nhận thành tích（成績確認） của học sinh với TD-OUT-03 «Công khai: Hiệu ứng đỏ: `*` phía trước（前に「*」）», và PDF phiếu điểm với TD-OUT-04 «Phiếu điểm: Dòng Thiết lập điểm đỏ（赤点設定）: Ký tự phía trước（前に任意の文字） `※`».
 
 **Bằng chứng mặc định:** "Ảnh Trích xuất" là ảnh màn Trích xuất thấy tên mục, kỳ, học sinh (che theo [scope-and-approach.vi.md](scope-and-approach.vi.md) «Hướng dẫn thu thập bằng chứng») và giá trị ô; mỗi lần xét hoặc mỗi cấu hình một ảnh. File Excel/PDF thật và ảnh SELECT theo §7.
+
+**Quy ước Run Log và handoff:** mỗi biến thể phải có một dòng riêng với Case ID, Variant ID, fixture/source revision, thời điểm chạy, trạng thái quan sát, đường dẫn evidence và người thực hiện. Workbook chỉ là bản sinh từ ba Markdown cùng revision; khi gửi riêng workbook phải kèm revision/URL của `test-cases.vi.md`, `test-data.vi.md` và `scope-and-approach.vi.md`, không dùng tên file lịch sử đã xóa.
+
+**Variant gate bắt buộc:** Run Log không được ghi PASS cho case đa biến thể nếu thiếu bất kỳ variant bắt buộc nào. Tối thiểu phải có các dòng riêng sau: CALC-015 (`<`, `≤`, reopen/summary); BR-041 (A+A, R+R, A+R, filter positive, filter negative); ERR-011 (mỗi đường cập nhật/ghi đè); VAL-004 (Base, boundary, invalid); và mọi variant được liệt kê trong thân case. `PASS` của case chỉ hợp lệ khi tất cả dòng bắt buộc PASS; nếu thiếu dòng thì ghi `INCOMPLETE/BLOCKED`.
 
 **Tra nhanh mã dữ liệu hay dùng** (định nghĩa đầy đủ ở [test-data.vi.md](test-data.vi.md) «Đặc tả dữ liệu test»):
 
@@ -152,7 +156,7 @@ Kỹ thuật: phân vùng tương đương + giá trị biên cho input; bảng 
 
 **Cách đọc mã trong bộ tài liệu**
 
-- **Test case viết bằng lời.** Điều kiện, Dữ liệu test, Thao tác, Kết quả mong đợi, Bằng chứng cần chụp, Sau khi chạy, Ghi chú và phần hồi quy gọi dữ liệu test, case liên quan, câu hỏi, xung đột… bằng tên, ví dụ “tài khoản giáo viên có quyền sửa mục”, “học sinh S01 (điểm 29)”, “quy tắc “Cố định 30” (dưới 30)”; chi tiết dữ liệu tra theo tên ở [test-data.vi.md](test-data.vi.md). Dòng Requirement ID và dòng Nguồn ghi lời trước, mã trong ngoặc để truy vết. Mã gốc của từng case nằm trong comment ẩn `<!-- Mã truy vết: … -->` dưới dòng Priority (không hiện khi xem Markdown, không có trong Excel/CSV), dùng cho ma trận traceability và coverage; khi thêm/bỏ dữ liệu test, câu hỏi hay case liên quan thì cập nhật comment này.
+- **Test case viết bằng lời.** Điều kiện, Dữ liệu test, Thao tác, Kết quả mong đợi, Bằng chứng cần chụp, Sau khi chạy và Ghi chú, case liên quan, câu hỏi, xung đột… bằng tên, ví dụ “tài khoản giáo viên có quyền sửa mục”, “học sinh S01 (điểm 29)”, “quy tắc “Cố định 30” (dưới 30)”; chi tiết dữ liệu tra theo tên ở [test-data.vi.md](test-data.vi.md). Dòng Requirement ID và dòng Nguồn ghi lời trước, mã trong ngoặc để truy vết. Mã gốc của từng case nằm trong comment ẩn `<!-- Mã truy vết: … -->` dưới dòng Priority (không hiện khi xem Markdown, không có trong Excel/CSV), dùng cho ma trận traceability và coverage; khi thêm/bỏ dữ liệu test, câu hỏi hay case liên quan thì cập nhật comment này.
 - Ngoài thân test case và phần mở đầu của tài liệu, mọi mã vẫn có nội dung ghi ngay sau mã trong ngoặc `« »`. Trong một ô hoặc một dòng, mã lặp lại chỉ ghi nội dung ở lần đầu; dải mã (`TD-STU-01…05`) ghi nhóm và nội dung mã đầu/cuối. Ô đầu của bảng định nghĩa mã không ghi thêm vì cả dòng đã là định nghĩa.
 - **Requirement ID** nằm ở dòng Priority ｜ Status ｜ Requirement ID dưới tiêu đề case: tiêu chí nghiệm thu v2 bằng lời, mã AC-Gnn trong ngoặc; case không có tiêu chí tương ứng ghi mục đặc tả v2 (`đặc tả v2 mục x.y “tiêu đề”`). Ánh xạ đầy đủ ở [scope-and-approach.vi.md — Traceability](scope-and-approach.vi.md) «Ma trận truy vết（Traceability Matrix）».
 - **Nguồn** (dòng `- Nguồn:` trong mục 補足（Bổ sung）; cột Source của CSV): tên tài liệu bằng lời, có link, mã tài liệu trong ngoặc (ví dụ `đặc tả v2 (R18) mục 4.1 “Điểm vào và trạng thái trống”`); câu hỏi Q&A, tiêu chí, node Figma cũng ghi lời trước, mã trong ngoặc. Dấu `;` bắt đầu tài liệu khác. Thứ tự ưu tiên nguồn: [§2](#2-nguồn-làm-chuẩn-và-thứ-tự-ưu-tiên).
@@ -228,6 +232,7 @@ Actual Result phải mô tả điều quan sát được (giá trị, dấu, th�
 ## 6. Bảng chạy test
 
 - Bảng chạy gồm Excel theo bố cục báo cáo test（テスト報告） ([test-case-report.xlsx](test-case-report.xlsx), lưu cùng thư mục này), CSV (để nhập Google Sheets) và Excel dạng bảng (hai loại sau không lưu trong repository). Tất cả được team sinh tự động từ các block case trong test-cases.vi.md; nếu thiết kế sai, sửa file case gốc rồi sinh lại, không sửa tay file Excel trong repository.
+- Entrypoint/version: `tools/generate-test-spec.ps1`, `rc001-test-spec-generator@1.0.0`. Chạy từ thư mục `test-spec`: `pwsh -File tools/generate-test-spec.ps1 -Mode Generate -SourceRoot .`; kiểm tra không ghi file bằng `pwsh -File tools/generate-test-spec.ps1 -Mode Check -SourceRoot .`. Kết quả và SHA nguồn được ghi ở [generation-manifest.json](generation-manifest.json).
 - Cột: Test Case ID, Title, Category, Priority, Status, Requirement ID, Source, Preconditions, Test Data, Steps, Expected Result, Evidence Required, Actual Result, Evidence Link, Bug ID, Tester, Executed At, Notes.
 - Status mặc định NOT RUN. Mức chắc chắn (CONFIRMED/PROPOSED/…) nằm ở đầu Notes dạng `[Certainty: X]`. Với case REG, Notes có thêm Affected Area/Risk/Reason.
 - Khi chạy: điền Status, Actual Result, Evidence Link, Bug ID, Tester, Executed At (định dạng `YYYY-MM-DD HH:MM` kèm múi giờ, ví dụ `+09:00`). Không sửa các cột thiết kế.
@@ -300,8 +305,8 @@ Case được tính cho một mục khi mục đó có trong Requirement ID ho�
 | 11.3 | Lưu và xuất | [TC-RS-FUNC-031](test-cases.vi.md#tc-rs-func-031), [TC-RS-DATA-010](test-cases.vi.md#tc-rs-data-010), [TC-RS-REG-010](test-cases.vi.md#tc-rs-reg-010) | Có (3; 3 chắc chắn) |
 | 12.1 | Dữ liệu cấu hình và kết quả cần quản lý | [TC-RS-DATA-008](test-cases.vi.md#tc-rs-data-008), [TC-RS-DATA-011](test-cases.vi.md#tc-rs-data-011), [TC-RS-DATA-013](test-cases.vi.md#tc-rs-data-013), [TC-RS-ERR-017](test-cases.vi.md#tc-rs-err-017) | Có (4; 2 chắc chắn) |
 | 12.2 | Điểm tích hợp chính | [TC-RS-FUNC-018](test-cases.vi.md#tc-rs-func-018), [TC-RS-FUNC-021](test-cases.vi.md#tc-rs-func-021), [TC-RS-DATA-004](test-cases.vi.md#tc-rs-data-004), [TC-RS-ERR-010](test-cases.vi.md#tc-rs-err-010), [TC-RS-REG-001](test-cases.vi.md#tc-rs-reg-001), [TC-RS-REG-002](test-cases.vi.md#tc-rs-reg-002), [TC-RS-REG-003](test-cases.vi.md#tc-rs-reg-003), [TC-RS-REG-005](test-cases.vi.md#tc-rs-reg-005), [TC-RS-REG-014](test-cases.vi.md#tc-rs-reg-014), [TC-RS-REG-017](test-cases.vi.md#tc-rs-reg-017) | Có (10; 10 chắc chắn) |
-| 12.3 | Không chuyển đổi dữ liệu đỏ cũ | [TC-RS-DATA-011](test-cases.vi.md#tc-rs-data-011) | Có (1; 1 chắc chắn) |
-| 12.4 | Sao chép, năm mới, nhập/xuất và khôi phục | [TC-RS-ERR-015](test-cases.vi.md#tc-rs-err-015) | Có (1; 1 chắc chắn) |
+| 12.3 | Không chuyển đổi dữ liệu đỏ cũ | [TC-RS-DATA-011](test-cases.vi.md#tc-rs-data-011), [TC-RS-DATA-014](test-cases.vi.md#tc-rs-data-014), [TC-RS-DATA-017](test-cases.vi.md#tc-rs-data-017), [TC-RS-DATA-018](test-cases.vi.md#tc-rs-data-018) | Có (4; 4 chắc chắn) |
+| 12.4 | Sao chép, năm mới, nhập/xuất và khôi phục | [TC-RS-ERR-015](test-cases.vi.md#tc-rs-err-015), [TC-RS-DATA-015](test-cases.vi.md#tc-rs-data-015), [TC-RS-DATA-016](test-cases.vi.md#tc-rs-data-016), [TC-RS-DATA-017](test-cases.vi.md#tc-rs-data-017), [TC-RS-DATA-018](test-cases.vi.md#tc-rs-data-018), [TC-RS-DATA-019](test-cases.vi.md#tc-rs-data-019) | Có (6; 6 chắc chắn) |
 
 <a id="uncovered"></a>
 
@@ -309,7 +314,6 @@ Case được tính cho một mục khi mục đó có trong Requirement ID ho�
 
 | Nguồn | Tiêu đề |
 | --- | --- |
-| AC-G38 | Bảo toàn điểm đỏ cũ |
 | Đặc tả v2 mục 1.1 | Mục tiêu |
 | Đặc tả v2 mục 2.1 | Các đại lượng |
 
@@ -329,7 +333,7 @@ Case được tính cho một mục khi mục đó có trong Requirement ID ho�
 | [TC-RS-FUNC-011](test-cases.vi.md#tc-rs-func-011) | A. Functional | CONFIRMED | TBD | — | 5.6, 6.1 | TS-RS-003 «Ngưỡng điểm cố định» |
 | [TC-RS-FUNC-012](test-cases.vi.md#tc-rs-func-012) | A. Functional | CONFIRMED | TBD | AC-G16 «Công thức theo dòng và phần lẻ» | 6.4 | TS-RS-005 «Ngưỡng công thức» |
 | [TC-RS-FUNC-013](test-cases.vi.md#tc-rs-func-013) | A. Functional | CONFIRMED | TBD | — | 6.1 | TS-RS-003 «Ngưỡng điểm cố định» |
-| [TC-RS-FUNC-014](test-cases.vi.md#tc-rs-func-014) | A. Functional | PROPOSED | TBD | — | 4.4 | TS-RS-001 «Quản lý danh sách quy tắc đỏ của một mục» |
+| [TC-RS-FUNC-014](test-cases.vi.md#tc-rs-func-014) | A. Functional | CONFIRMED | Cao | AC-G04 «Lưu và mở lại nhiều thiết lập»; Q34 | 4.4 | TS-RS-001 «Quản lý danh sách quy tắc đỏ của một mục» |
 | [TC-RS-FUNC-015](test-cases.vi.md#tc-rs-func-015) | A. Functional | CONFIRMED | Cao | AC-G25 «Thứ tự đánh giá tương đối» | 7.4 | TS-RS-007 «Nguồn trung bình và tỷ lệ nhóm» |
 | [TC-RS-FUNC-016](test-cases.vi.md#tc-rs-func-016) | A. Functional | CONFIRMED | Cao | AC-G23 «Bao phủ đường đăng ký và chạy lại» | 7.2 | TS-RS-009 «Thời điểm xét và vòng đời kết quả», TS-RS-019 «Luồng đầu–cuối（end-to-end）» |
 | [TC-RS-FUNC-017](test-cases.vi.md#tc-rs-func-017) | A. Functional | CONFIRMED | Cao | AC-G23 «Bao phủ đường đăng ký và chạy lại» | 7.2 | TS-RS-009 «Thời điểm xét và vòng đời kết quả» |
@@ -429,6 +433,18 @@ Case được tính cho một mục khi mục đó có trong Requirement ID ho�
 | [TC-RS-DATA-011](test-cases.vi.md#tc-rs-data-011) | G. Data/Persistence | CONFIRMED | TBD | — | 12.1, 12.3 | TS-RS-016 «Dữ liệu và dữ liệu đỏ cũ» |
 | [TC-RS-DATA-012](test-cases.vi.md#tc-rs-data-012) | G. Data/Persistence | PROPOSED | TBD | — | 10.1 | TS-RS-016 «Dữ liệu và dữ liệu đỏ cũ» |
 | [TC-RS-DATA-013](test-cases.vi.md#tc-rs-data-013) | G. Data/Persistence | PROPOSED | TBD | — | 7.5, 12.1 | TS-RS-016 «Dữ liệu và dữ liệu đỏ cũ» |
+| [TC-RS-FUNC-003](test-cases.vi.md#tc-rs-func-003) | A. Functional | CONFIRMED | Cao | AC-G04, AC-G38 | 4.3, 12.3 | TS-RS-001 «Quản lý danh sách quy tắc đỏ của một mục» |
+| [TC-RS-BR-026](test-cases.vi.md#tc-rs-br-026) | C. Business Rules | CONFIRMED | Cao | AC-G12, AC-G38 | 4.3, 7.1, 12.3 | TS-RS-007 «Nguồn trung bình và tỷ lệ nhóm» |
+| [TC-RS-DATA-006](test-cases.vi.md#tc-rs-data-006) | G. Data/Persistence | CONFIRMED | Cao | AC-G38 | 12.3 | TS-RS-016 «Dữ liệu và dữ liệu đỏ cũ» |
+| [TC-RS-REG-011](test-cases.vi.md#tc-rs-reg-011) | H. Regression | CONFIRMED | Cao | AC-G38 | 12.3 | TS-RS-018 «Hồi quy AutoRating và các luồng hiện có» |
+| [TC-RS-DATA-009](test-cases.vi.md#tc-rs-data-009) | G. Data/Persistence | CONFIRMED | Cao | AC-G38, AC-G39 | 12.3, 12.4 | TS-RS-016 «Dữ liệu và dữ liệu đỏ cũ» |
+| [TC-RS-REG-012](test-cases.vi.md#tc-rs-reg-012) | H. Regression | CONFIRMED | Cao | AC-G38, AC-G39 | 12.3, 12.4 | TS-RS-018 «Hồi quy AutoRating và các luồng hiện có» |
+| [TC-RS-DATA-014](test-cases.vi.md#tc-rs-data-014) | G. Data/Persistence | CONFIRMED | Cao | AC-G38 «Bảo toàn điểm đỏ cũ» | 12.3 | TS-RS-016 «Dữ liệu và dữ liệu đỏ cũ» |
+| [TC-RS-DATA-015](test-cases.vi.md#tc-rs-data-015) | G. Data/Persistence | CONFIRMED | Cao | AC-G38, AC-G39 | 12.4 | TS-RS-016 «Dữ liệu và dữ liệu đỏ cũ» |
+| [TC-RS-DATA-016](test-cases.vi.md#tc-rs-data-016) | G. Data/Persistence | CONFIRMED | Cao | AC-G38, AC-G39 | 12.4 | TS-RS-016 «Dữ liệu và dữ liệu đỏ cũ» |
+| [TC-RS-DATA-017](test-cases.vi.md#tc-rs-data-017) | G. Data/Persistence | CONFIRMED | Cao | AC-G38, AC-G39 | 12.3, 12.4 | TS-RS-016 «Dữ liệu và dữ liệu đỏ cũ» |
+| [TC-RS-DATA-018](test-cases.vi.md#tc-rs-data-018) | G. Data/Persistence | CONFIRMED | Cao | AC-G38, AC-G39 | 12.3, 12.4 | TS-RS-016 «Dữ liệu và dữ liệu đỏ cũ» |
+| [TC-RS-DATA-019](test-cases.vi.md#tc-rs-data-019) | G. Data/Persistence | CONFIRMED | Cao | AC-G38, AC-G39 | 12.3, 12.4 | TS-RS-016 «Dữ liệu và dữ liệu đỏ cũ» |
 | [TC-RS-CALC-001](test-cases.vi.md#tc-rs-calc-001) | D. Calculation | CONFIRMED | Cao | AC-G07 «Biên so sánh và cảnh báo» | 6.1, 6.2 | TS-RS-003 «Ngưỡng điểm cố định» |
 | [TC-RS-CALC-002](test-cases.vi.md#tc-rs-calc-002) | D. Calculation | CONFIRMED | Cao | AC-G07 «Biên so sánh và cảnh báo» | 2.3, 6.1, 6.6 | TS-RS-003 «Ngưỡng điểm cố định» |
 | [TC-RS-CALC-003](test-cases.vi.md#tc-rs-calc-003) | D. Calculation | CONFIRMED | Cao | AC-G11 «Giữ chính xác giá trị» | 6.1, 6.8 | TS-RS-003 «Ngưỡng điểm cố định» |
@@ -467,7 +483,7 @@ Case được tính cho một mục khi mục đó có trong Requirement ID ho�
 | [TC-RS-UI-004](test-cases.vi.md#tc-rs-ui-004) | E. UI/Visual | PROPOSED | TBD | — | 4.2 | TS-RS-001 «Quản lý danh sách quy tắc đỏ của một mục» |
 | [TC-RS-UI-005](test-cases.vi.md#tc-rs-ui-005) | E. UI/Visual | PROPOSED | TBD | — | 4.1 | TS-RS-001 «Quản lý danh sách quy tắc đỏ của một mục» |
 | [TC-RS-UI-006](test-cases.vi.md#tc-rs-ui-006) | E. UI/Visual | PROPOSED | TBD | — | 4.4 | TS-RS-001 «Quản lý danh sách quy tắc đỏ của một mục» |
-| [TC-RS-UI-007](test-cases.vi.md#tc-rs-ui-007) | E. UI/Visual | PROPOSED | TBD | — | 13.1 | TS-RS-001 «Quản lý danh sách quy tắc đỏ của một mục» |
+| [TC-RS-UI-007](test-cases.vi.md#tc-rs-ui-007) | E. UI/Visual | CONFIRMED | Cao | AC-G04 «Lưu và mở lại nhiều thiết lập»; Q34 | 4.4 | TS-RS-001 «Quản lý danh sách quy tắc đỏ của một mục» |
 | [TC-RS-UI-008](test-cases.vi.md#tc-rs-ui-008) | E. UI/Visual | PROPOSED | TBD | — | 5.1 | TS-RS-002 «Điều kiện áp dụng» |
 | [TC-RS-UI-009](test-cases.vi.md#tc-rs-ui-009) | E. UI/Visual | CONFIRMED | TBD | — | 3, 5.4, 5.5 | TS-RS-002 «Điều kiện áp dụng» |
 | [TC-RS-UI-010](test-cases.vi.md#tc-rs-ui-010) | E. UI/Visual | PROPOSED | TBD | — | 5.3 | TS-RS-002 «Điều kiện áp dụng» |
@@ -567,7 +583,7 @@ Các mục `SI-*` bên dưới là chênh lệch giữa code hiện tại và or
 | AC-G01 | Quyền thao tác và phạm vi dữ liệu | [TC-RS-BR-031](test-cases.vi.md#tc-rs-br-031), [TC-RS-BR-032](test-cases.vi.md#tc-rs-br-032), [TC-RS-BR-033](test-cases.vi.md#tc-rs-br-033), [TC-RS-ERR-006](test-cases.vi.md#tc-rs-err-006), [TC-RS-ERR-007](test-cases.vi.md#tc-rs-err-007), [TC-RS-ERR-008](test-cases.vi.md#tc-rs-err-008) | Có (6; 5 chắc chắn) |
 | AC-G02 | Kiểu điểm được hỗ trợ | [TC-RS-FUNC-001](test-cases.vi.md#tc-rs-func-001), [TC-RS-FUNC-002](test-cases.vi.md#tc-rs-func-002), [TC-RS-BR-029](test-cases.vi.md#tc-rs-br-029), [TC-RS-BR-030](test-cases.vi.md#tc-rs-br-030) | Có (4; 4 chắc chắn) |
 | AC-G03 | Nhận diện ô điểm | [TC-RS-DATA-002](test-cases.vi.md#tc-rs-data-002), [TC-RS-BR-030](test-cases.vi.md#tc-rs-br-030), [TC-RS-ERR-015](test-cases.vi.md#tc-rs-err-015), [TC-RS-ERR-011](test-cases.vi.md#tc-rs-err-011) | Có (4; 4 chắc chắn) |
-| AC-G04 | Lưu và mở lại nhiều thiết lập | [TC-RS-FUNC-004](test-cases.vi.md#tc-rs-func-004), [TC-RS-FUNC-005](test-cases.vi.md#tc-rs-func-005), [TC-RS-FUNC-006](test-cases.vi.md#tc-rs-func-006), [TC-RS-FUNC-007](test-cases.vi.md#tc-rs-func-007), [TC-RS-FUNC-014](test-cases.vi.md#tc-rs-func-014), [TC-RS-FUNC-033](test-cases.vi.md#tc-rs-func-033), [TC-RS-DATA-001](test-cases.vi.md#tc-rs-data-001), [TC-RS-VAL-016](test-cases.vi.md#tc-rs-val-016), [TC-RS-UI-003](test-cases.vi.md#tc-rs-ui-003) | Có (9; 8 chắc chắn) |
+| AC-G04 | Lưu và mở lại nhiều thiết lập | [TC-RS-FUNC-004](test-cases.vi.md#tc-rs-func-004), [TC-RS-FUNC-005](test-cases.vi.md#tc-rs-func-005), [TC-RS-FUNC-006](test-cases.vi.md#tc-rs-func-006), [TC-RS-FUNC-007](test-cases.vi.md#tc-rs-func-007), [TC-RS-FUNC-014](test-cases.vi.md#tc-rs-func-014), [TC-RS-FUNC-033](test-cases.vi.md#tc-rs-func-033), [TC-RS-DATA-001](test-cases.vi.md#tc-rs-data-001), [TC-RS-VAL-016](test-cases.vi.md#tc-rs-val-016), [TC-RS-UI-003](test-cases.vi.md#tc-rs-ui-003), [TC-RS-UI-007](test-cases.vi.md#tc-rs-ui-007) | Có (10; 10 chắc chắn) |
 | AC-G05 | Đối tượng áp dụng và nhu cầu nguồn | [TC-RS-FUNC-008](test-cases.vi.md#tc-rs-func-008), [TC-RS-BR-004](test-cases.vi.md#tc-rs-br-004), [TC-RS-BR-005](test-cases.vi.md#tc-rs-br-005), [TC-RS-BR-011](test-cases.vi.md#tc-rs-br-011), [TC-RS-BR-035](test-cases.vi.md#tc-rs-br-035), [TC-RS-BR-041](test-cases.vi.md#tc-rs-br-041), [TC-RS-VAL-015](test-cases.vi.md#tc-rs-val-015), [TC-RS-VAL-024](test-cases.vi.md#tc-rs-val-024) | Có (8; 7 chắc chắn) |
 | AC-G06 | Chọn quy tắc khớp đầu tiên | [TC-RS-BR-001](test-cases.vi.md#tc-rs-br-001), [TC-RS-BR-002](test-cases.vi.md#tc-rs-br-002), [TC-RS-BR-003](test-cases.vi.md#tc-rs-br-003) | Có (3; 3 chắc chắn) |
 | AC-G07 | Biên so sánh và cảnh báo | [TC-RS-CALC-001](test-cases.vi.md#tc-rs-calc-001), [TC-RS-CALC-002](test-cases.vi.md#tc-rs-calc-002), [TC-RS-CALC-018](test-cases.vi.md#tc-rs-calc-018), [TC-RS-VAL-019](test-cases.vi.md#tc-rs-val-019) | Có (4; 4 chắc chắn) |
@@ -601,8 +617,8 @@ Các mục `SI-*` bên dưới là chênh lệch giữa code hiện tại và or
 | AC-G35 | Tùy chọn trên phiếu | [TC-RS-FUNC-029](test-cases.vi.md#tc-rs-func-029), [TC-RS-VAL-018](test-cases.vi.md#tc-rs-val-018), [TC-RS-UI-024](test-cases.vi.md#tc-rs-ui-024) | Có (3; 3 chắc chắn) |
 | AC-G36 | Phiếu dừng ở điều kiện khớp đầu tiên | [TC-RS-FUNC-030](test-cases.vi.md#tc-rs-func-030), [TC-RS-REG-009](test-cases.vi.md#tc-rs-reg-009) | Có (2; 2 chắc chắn) |
 | AC-G37 | Lưu, sao chép và PDF phiếu | [TC-RS-FUNC-031](test-cases.vi.md#tc-rs-func-031), [TC-RS-DATA-010](test-cases.vi.md#tc-rs-data-010), [TC-RS-REG-010](test-cases.vi.md#tc-rs-reg-010) | Có (3; 3 chắc chắn) |
-| AC-G38 | Bảo toàn điểm đỏ cũ | Ngoài phạm vi bộ test red_score mới; không tạo case active để tránh kiểm thử legacy như chức năng mới | N/A — kiểm riêng ở bộ regression legacy khi phạm vi release yêu cầu |
-| AC-G39 | Không dùng lại kết quả cho đối tượng mới | [TC-RS-ERR-015](test-cases.vi.md#tc-rs-err-015) | Có (1; 1 chắc chắn) |
+| AC-G38 | Bảo toàn điểm đỏ cũ | [TC-RS-FUNC-003](test-cases.vi.md#tc-rs-func-003), [TC-RS-DATA-006](test-cases.vi.md#tc-rs-data-006), [TC-RS-REG-011](test-cases.vi.md#tc-rs-reg-011), [TC-RS-DATA-009](test-cases.vi.md#tc-rs-data-009), [TC-RS-REG-012](test-cases.vi.md#tc-rs-reg-012), [TC-RS-DATA-014](test-cases.vi.md#tc-rs-data-014), [TC-RS-DATA-015](test-cases.vi.md#tc-rs-data-015), [TC-RS-DATA-016](test-cases.vi.md#tc-rs-data-016), [TC-RS-DATA-017](test-cases.vi.md#tc-rs-data-017), [TC-RS-DATA-018](test-cases.vi.md#tc-rs-data-018), [TC-RS-DATA-019](test-cases.vi.md#tc-rs-data-019) | Có (11; 11 chắc chắn) |
+| AC-G39 | Không dùng lại kết quả cho đối tượng mới | [TC-RS-REG-012](test-cases.vi.md#tc-rs-reg-012), [TC-RS-DATA-009](test-cases.vi.md#tc-rs-data-009), [TC-RS-ERR-015](test-cases.vi.md#tc-rs-err-015), [TC-RS-DATA-015](test-cases.vi.md#tc-rs-data-015), [TC-RS-DATA-016](test-cases.vi.md#tc-rs-data-016), [TC-RS-DATA-017](test-cases.vi.md#tc-rs-data-017), [TC-RS-DATA-018](test-cases.vi.md#tc-rs-data-018), [TC-RS-DATA-019](test-cases.vi.md#tc-rs-data-019) | Có (8; 8 chắc chắn) |
 | AC-G40 | Phạm vi từng đợt | [TC-RS-FUNC-002](test-cases.vi.md#tc-rs-func-002), [TC-RS-UI-025](test-cases.vi.md#tc-rs-ui-025), [TC-RS-BR-007](test-cases.vi.md#tc-rs-br-007), [TC-RS-BR-009](test-cases.vi.md#tc-rs-br-009) | Có (4; 4 chắc chắn) |
 
 
@@ -614,23 +630,23 @@ Các mục `SI-*` bên dưới là chênh lệch giữa code hiện tại và or
 
 Sinh bằng script. Mọi tỷ lệ đều ghi công thức. Đây là độ phủ **thiết kế** (có case), không phải kết quả chạy.
 
-Tổng số test case: **204**.
+Tổng số test case: **216**.
 
 ## 1. Theo category và trạng thái chắc chắn
 
 | Category | CONFIRMED | IMPLEMENTED | PROPOSED | TBD | CONFLICT | Tổng | Priority Cao | Priority TBD |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| A. Functional | 34 | 0 | 1 | 1 | 0 | 36 | 20 | 16 |
+| A. Functional | 36 | 0 | 0 | 1 | 0 | 37 | 22 | 15 |
 | B. Validation | 15 | 2 | 8 | 0 | 0 | 25 | 3 | 22 |
-| C. Business Rules | 40 | 0 | 0 | 0 | 0 | 40 | 37 | 3 |
+| C. Business Rules | 41 | 0 | 0 | 0 | 0 | 41 | 38 | 3 |
 | D. Calculation | 29 | 0 | 1 | 2 | 0 | 32 | 25 | 7 |
-| E. UI/Visual | 7 | 1 | 16 | 0 | 2 | 26 | 1 | 25 |
+| E. UI/Visual | 8 | 1 | 15 | 0 | 2 | 26 | 2 | 24 |
 | F. State/Error | 15 | 0 | 0 | 4 | 0 | 19 | 12 | 7 |
-| G. Data/Persistence | 8 | 0 | 3 | 0 | 0 | 11 | 2 | 9 |
-| H. Regression | 15 | 0 | 0 | 0 | 0 | 15 | 5 | 10 |
-| **Tổng** | 163 | 3 | 29 | 7 | 2 | 204 | 105 | 99 |
+| G. Data/Persistence | 16 | 0 | 3 | 0 | 0 | 19 | 10 | 9 |
+| H. Regression | 17 | 0 | 0 | 0 | 0 | 17 | 7 | 10 |
+| **Tổng** | 177 | 3 | 27 | 7 | 2 | 216 | 119 | 97 |
 
-Case có kỳ vọng chắc chắn (CONFIRMED + IMPLEMENTED): 166/204. Công thức: số case có Status CONFIRMED hoặc IMPLEMENTED ÷ tổng số case.
+Case có kỳ vọng chắc chắn (CONFIRMED + IMPLEMENTED): 180/216. Công thức: số case có Status CONFIRMED hoặc IMPLEMENTED ÷ tổng số case.
 
 ## 2. Độ phủ yêu cầu
 
@@ -638,8 +654,8 @@ Công thức: **số tiêu chí (hoặc mục đặc tả) có ít nhất 1 test
 
 | Nhóm yêu cầu | Có case | Tổng | Tỷ lệ |
 | --- | --- | --- | --- |
-| Tiêu chí nghiệm thu AC-G01…AC-G40 «tiêu chí nghiệm thu: Quyền thao tác và phạm vi dữ liệu … Phạm vi từng đợt» ([scope-and-approach.vi.md — AC mapping](scope-and-approach.vi.md#ac) «Tiêu chí nghiệm thu（RSD-AC）→ test case») | 39 | 40 | 39/40 = 97.5% |
-| Tiêu chí nghiệm thu có ≥1 case CONFIRMED/IMPLEMENTED | 39 | 40 | 39/40 = 97.5% |
+| Tiêu chí nghiệm thu AC-G01…AC-G40 «tiêu chí nghiệm thu: Quyền thao tác và phạm vi dữ liệu … Phạm vi từng đợt» ([scope-and-approach.vi.md — AC mapping](scope-and-approach.vi.md#ac) «Tiêu chí nghiệm thu（RSD-AC）→ test case») | 40 | 40 | 40/40 = 100% |
+| Tiêu chí nghiệm thu có ≥1 case CONFIRMED/IMPLEMENTED | 40 | 40 | 40/40 = 100% |
 | Mục đặc tả v2, chương 1–12 ([scope-and-approach.vi.md — Coverage](scope-and-approach.vi.md#spec) «Mục đặc tả v2 → test case») | 47 | 49 | 47/49 = 95.9% |
 | Mục đặc tả v2 có ≥1 case CONFIRMED/IMPLEMENTED | 47 | 49 | 47/49 = 95.9% |
 
@@ -703,7 +719,7 @@ Tiêu chí và mục chưa có case: [scope-and-approach.vi.md — Coverage](sco
 | TS-RS-018 | Hồi quy AutoRating và các luồng hiện có | 9 |
 | TS-RS-019 | Luồng đầu–cuối（end-to-end） | 8 |
 
-Case thuộc ít nhất một kịch bản: 204/204 (số case có trong cột Test case của [test-cases.vi.md](test-cases.vi.md) «Kịch bản kiểm thử (Test Scenario)» ÷ tổng số case).
+Case thuộc ít nhất một kịch bản: 216/216 (số case có trong cột Test case của [test-cases.vi.md](test-cases.vi.md) «Kịch bản kiểm thử (Test Scenario)» ÷ tổng số case; kiểm tra lại bằng ID duy nhất khi sinh workbook).
 
 ## 4. Lớp giá trị trong tính toán
 
@@ -733,3 +749,4 @@ Case thuộc ít nhất một kịch bản: 204/204 (số case có trong cột T
 | [test-cases.vi.md](test-cases.vi.md) | 26 |
 | [test-cases.vi.md](test-cases.vi.md) | 19 |
 | [test-cases.vi.md](test-cases.vi.md) | 15 |
+
