@@ -602,7 +602,7 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 **期待結果（Kết quả mong đợi）**
 
 1. Bước 1: S10 có trong danh sách, S03 không.
-2. Bước 2: S10 không thỏa điều kiện đỏ (ô Toán ngoài phạm vi); danh sách rỗng là kết quả hợp lệ.
+2. Bước 2: S10 vẫn có trong danh sách nhờ Ngữ văn 20 Đỏ; không được loại S10 chỉ vì ô Toán ngoài phạm vi.
 3. Bước 3: danh sách không bị lọc theo đỏ (chỉ bật ký hiệu không giới hạn học sinh).
 4. Bước 4: S10 không có trong danh sách; ô đỏ ở thời điểm khác không giúp thỏa điều kiện.
 5. Bước 5: S06 không có trong danh sách; ô đỏ của U1 ngoài phạm vi đơn vị.
@@ -1090,8 +1090,8 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 **期待結果（Kết quả mong đợi）**
 
 1. Biến thể A: P9/P12/P13/P16 không thỏa; P10/P11/P14/P15 thỏa `50≤A<70`; với `T=70`, chỉ học sinh positive có `S=60` bị Đỏ. P17 có `A=NaN`/không hữu hạn: điều kiện nguồn không xác định → Chưa xét được, không xuống rule thấp hơn và không giữ kết quả đỏ cũ.
-2. Biến thể R: chỉ khi snapshot/reader thực tế cho `50%≤R<70%` thì P1 được xét và `S=60<T=70` → Đỏ; không tự tính lại R từ dữ liệu test nếu chưa có source fixture quan sát được.
-3. Biến thể A+R: P1 chỉ được xét khi **cả** `A≥50` và `R≥50%` đúng; thay một điều kiện thành sai → Không áp dụng, dù điều kiện còn lại đúng.
+2. Biến thể R: `R=60%` → thỏa, P1 Đỏ; `R=49.9%` và `R=70%` → Không áp dụng; không tự tính lại R nếu chưa có source fixture quan sát được.
+3. Biến thể A+R: `A=60,R=60%` → thỏa, P1 Đỏ; `A=40,R=60%` và `A=60,R=40%` → Không áp dụng. P1 chỉ được xét khi **cả** điều kiện đúng.
 4. Biến thể bộ lọc: OR chỉ áp dụng trong cùng loại (Khối 1 hoặc 2); nhóm Nâng cao là điều kiện loại khác nên phải AND. Khối 3 hoặc nhóm không đúng → Không áp dụng.
 5. P18 phải tách hai fixture: nếu thiếu `A` thì Chưa xét được; nếu `A` hợp lệ nhưng `S` trống thì Không có điểm. Không diễn giải A+R thành OR, không ghép hai rule riêng bằng AND. Nếu không dựng được NaN qua UI, ghi BLOCKED/NEEDS_EVIDENCE nhưng giữ oracle trên.
 
@@ -1634,7 +1634,7 @@ Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 
 **操作（Thao tác）**
 
-1. Lưu quy tắc theo tỷ lệ điểm của nhóm từ 65% với nguồn là nhóm trên.
+1. Lưu quy tắc theo tỷ lệ điểm của nhóm từ 65% với nguồn là nhóm trên; ghi source snapshot/reader và xác nhận `R=75%` đã được chuẩn bị.
 2. Chạy nút xanh rồi nút cam cho phạm vi.
 3. Xem màn kết quả xử lý và kết quả P1.
 
@@ -4216,8 +4216,8 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 
 **前提条件（Điều kiện trước）**
 
-- Điều kiện: Batch cho khối gồm G-A và G-B; giả lập lỗi ở phần G-B.
-- Dữ liệu test: batch gồm đúng hai phạm vi hợp lệ G-A và G-B; mỗi phạm vi có ít nhất một ô thuộc batch. G-C là fixture ngoài batch chỉ dùng làm control, không được tính vào phạm vi đã/không cập nhật.
+- Điều kiện: Batch dùng `TD-GRP-03`, gồm G-A1 và G-A2 cùng khối 1; giả lập lỗi riêng ở phần G-A2.
+- Dữ liệu test: mỗi G-A1/G-A2 có ít nhất một ô thuộc batch. G-C là fixture ngoài batch chỉ dùng làm control, không được tính vào phạm vi đã/không cập nhật.
 
 **操作（Thao tác）**
 
@@ -4229,7 +4229,7 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 
 **期待結果（Kết quả mong đợi）**
 
-1–2. G-A cập nhật; G-B giữ trạng thái trước lượt. Thông báo cho biết phạm vi đã cập nhật, chưa cập nhật và cần chạy lại; không báo hoàn tất toàn bộ; không suy số lớp đã xử lý thành số ô đã xét. Không hứa rollback toàn lượt. Không tự retry vô hạn.
+1–2. G-A1 cập nhật; G-A2 giữ trạng thái trước lượt. Thông báo cho biết phạm vi đã cập nhật, chưa cập nhật và cần chạy lại; không báo hoàn tất toàn bộ; không suy số lớp đã xử lý thành số ô đã xét. Không hứa rollback toàn lượt. Không tự retry vô hạn. G-C ngoài batch không bị tính vào kết quả.
 
 3–4. G-B được cập nhật; G-A giữ kết quả của bước 1, mỗi ô chỉ có một kết quả hiệu lực, không trùng.
 
@@ -4387,7 +4387,7 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 **操作（Thao tác）**
 
 1. Đăng nhập tài khoản phụ trách đầu ra (trích xuất, công khai, phiếu điểm), chạy Trích xuất thành tích（成績抽出） với cấu hình trích xuất: lọc, ký hiệu “*” phía trước, tô màu, bấm tải Excel.
-2. Chạy một lượt không bật lọc để S03 có mặt trong output; dùng công cụ chặn request được phép trên môi trường test, sửa payload gửi tới `output_excel` theo từng biến thể: (a) giả cờ/dấu/màu đỏ cho S03; (b) đổi giá trị S03; (c) thêm tham số ngưỡng 50; (d) đổi identity trường/năm sang ngoài phạm vi.
+2. Chạy một lượt không bật lọc để S03 có mặt trong output; dùng công cụ chặn request được phép trên môi trường test, ghi rõ identity trường/năm/quyền và sửa payload gửi tới `output_excel` theo từng biến thể: (a) giả cờ/dấu/màu đỏ cho S03; (b) đổi giá trị S03; (c) thêm tham số ngưỡng 50; (d) chèn identity S03 ngoài phạm vi lọc; (e) đổi identity trường/năm sang ngoài phạm vi.
 3. Gửi từng request, mở file Excel nhận được và ghi request/response thực tế.
 
 **期待結果（Kết quả mong đợi）**
@@ -4984,16 +4984,17 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: AC-G38 «Bảo toàn đi
 
 **前提条件（Điều kiện trước）**
 
-- Có cấu hình nguồn, kết quả đỏ của S01 và dữ liệu legacy; có chức năng sao chép cấu hình trong phạm vi đợt.
+- Nguồn: trường A / năm 2026 / mục Toán / nhóm G-A, có rule `<30`, cấu hình legacy `red_score` đang được báo cáo riêng, và S01 có kết quả Đỏ đã chốt. Đích: trường A / năm 2026 / mục Ngữ văn / nhóm G-B, cùng mapping môn/nhóm nhưng identity ô và S01 khác. Có chức năng sao chép cấu hình trong phạm vi đợt.
 
 **操作（Thao tác）**
 
-1. Sao chép cấu hình sang mục/đối tượng đích.
-2. Mở cấu hình và kết quả của đích.
+1. Ghi snapshot trước thao tác: rule, mapping mục/môn/nhóm, legacy và kết quả riêng của S01 ở nguồn.
+2. Sao chép cấu hình sang mục/đối tượng đích; ghi identity nguồn/đích và mapping thực tế.
+3. Mở cấu hình, legacy và kết quả của đích; không dùng dữ liệu nguồn làm baseline cho đích.
 
 **期待結果（Kết quả mong đợi）**
 
-Cấu hình được ánh xạ theo identity đích; không tạo rule từ legacy và không sao chép kết quả đỏ cá nhân của S01.
+Cấu hình `<30` được ánh xạ theo identity đích và legacy vẫn đi theo đường báo cáo cũ (không biến thành rule mới hoặc fallback). Đích không có kết quả đỏ/bản chốt cá nhân của S01; nếu có kết quả thì phải là dữ liệu do identity đích tự tạo sau khi chạy xét.
 
 <a id="tc-rs-data-016"></a>
 
@@ -5003,16 +5004,17 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: AC-G38 «Bảo toàn đi
 
 **前提条件（Điều kiện trước）**
 
-- Năm cũ có bản chốt nguồn, kết quả đỏ và legacy; thao tác tạo/kế thừa cấu hình sang năm mới được bật.
+- Nguồn: trường A / năm 2025 / mục Toán / nhóm G-A có rule `<30`, snapshot nguồn đã chốt, legacy `red_score` và kết quả đỏ của S01. Đích: trường A / năm 2026 / cùng mục và mapping nhóm được phép, chưa từng chạy xét và dùng identity học sinh của năm mới; thao tác tạo/kế thừa cấu hình được bật.
 
 **操作（Thao tác）**
 
-1. Tạo năm mới/kế thừa cấu hình.
-2. Mở kết quả của cùng mục và học sinh ở năm mới trước khi chạy xét.
+1. Chụp riêng cấu hình, snapshot, legacy và kết quả S01 của năm 2025.
+2. Tạo năm 2026/kế thừa cấu hình; kiểm tra mapping mục, môn, nhóm và identity học sinh.
+3. Mở kết quả của năm 2026 trước khi chạy xét, rồi chạy xét riêng ở đích.
 
 **期待結果（Kết quả mong đợi）**
 
-Chỉ cấu hình được ánh xạ theo phạm vi cho phép; không gắn bản chốt, kết quả cá nhân hoặc legacy của năm cũ vào đối tượng năm mới.
+Cấu hình `<30` được kế thừa đúng mapping được phép; legacy vẫn được giữ ở đường tương thích của năm cũ, không được dựng thành rule mới. Trước lần chạy mới, năm 2026 không có snapshot/kết quả cá nhân của S01 năm 2025; sau khi chạy, mọi kết quả chỉ mang identity năm 2026.
 
 <a id="tc-rs-data-017"></a>
 
@@ -5022,16 +5024,17 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: AC-G38 «Bảo toàn đi
 
 **前提条件（Điều kiện trước）**
 
-- Có file xuất cấu hình của trường/năm nguồn, legacy và kết quả đỏ cá nhân; trường/năm đích phù hợp phạm vi nhập.
+- Nguồn: file xuất chỉ gồm cấu hình trường A/năm 2025 cho mục Toán, mapping môn/nhóm, và metadata legacy `red_score`; kết quả đỏ/bản chốt của S01 được tạo riêng để làm dữ liệu âm, không nằm trong phần cấu hình được phép nhập. Đích: trường A/năm 2026, quyền nhập hợp lệ.
 
 **操作（Thao tác）**
 
-1. Xuất cấu hình, sau đó nhập vào trường/năm đích.
-2. Kiểm tra cấu hình, legacy và kết quả của đích.
+1. Ghi manifest file xuất và phân biệt payload cấu hình với payload kết quả cá nhân.
+2. Xuất cấu hình, sau đó nhập vào trường/năm đích.
+3. Kiểm tra mapping mục/môn/nhóm, đường legacy và kết quả của đích.
 
 **期待結果（Kết quả mong đợi）**
 
-Chỉ dữ liệu cấu hình được nhập theo mapping hợp lệ; legacy vẫn dùng đường cũ và không có kết quả cá nhân/bản chốt nguồn được gắn vào đối tượng đích.
+Chỉ payload cấu hình có mapping hợp lệ được nhập; legacy vẫn dùng đường tương thích cũ và không bị biến thành rule mới. Kết quả cá nhân/bản chốt của S01 không được nhập hoặc gắn vào identity đích; dữ liệu phát sinh sau lần chạy ở đích phải có identity đích.
 
 <a id="tc-rs-data-018"></a>
 
@@ -5041,16 +5044,17 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: AC-G38 «Bảo toàn đi
 
 **前提条件（Điều kiện trước）**
 
-- Có bản sao/khôi phục làm thay đổi identity ô hoặc khung; ô cũ có kết quả đỏ và legacy.
+- Nguồn: ô cũ của trường A/năm 2025/mục Toán có rule `<30`, kết quả đỏ đã chốt và legacy. Đích: bản sao/khôi phục tạo identity ô hoặc khung mới, chưa có kết quả; mapping mục/môn/nhóm được ghi trước thao tác.
 
 **操作（Thao tác）**
 
-1. Khôi phục hoặc thay khung theo đường được hỗ trợ.
-2. Kiểm tra ô cũ, ô mới và đầu ra.
+1. Chụp identity, cấu hình, legacy và kết quả của ô cũ.
+2. Khôi phục hoặc thay khung theo đường được hỗ trợ; ghi mapping ô cũ → ô mới.
+3. Kiểm tra ô cũ, ô mới, cấu hình legacy và ba đầu ra.
 
 **期待結果（Kết quả mong đợi）**
 
-Ô mới không nhận kết quả của ô đã mất; legacy không bị chuyển đổi; chỉ cấu hình được mapping hợp lệ mới được giữ.
+Ô mới không nhận snapshot/kết quả cá nhân của ô đã mất; legacy vẫn ở đường tương thích cũ, không bị chuyển đổi thành rule; chỉ cấu hình có mapping hợp lệ mới được giữ. Nếu ô mới được chạy, kết quả phải mang identity ô mới.
 
 <a id="tc-rs-data-019"></a>
 
@@ -5060,16 +5064,17 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: AC-G38 «Bảo toàn đi
 
 **前提条件（Điều kiện trước）**
 
-- Có cấu hình đã đồng bộ từ nguồn sang đích; đích chưa từng chạy xét đỏ.
+- Nguồn: trường A/năm 2025/mục Toán có rule `<30`, legacy, snapshot và kết quả S01. Đích: trường A/năm 2026/mục Toán cùng mapping được phép, chưa từng chạy xét đỏ và không có snapshot/kết quả nguồn.
 
 **操作（Thao tác）**
 
-1. Đồng bộ cấu hình.
-2. Mở kết quả và ba đầu ra trước khi chạy xét, sau đó chạy xét riêng ở đích.
+1. Ghi manifest mapping và snapshot nguồn.
+2. Đồng bộ cấu hình; kiểm tra identity nguồn/đích, legacy và mapping mục/môn/nhóm.
+3. Mở kết quả và ba đầu ra trước khi chạy xét, sau đó chạy xét riêng ở đích.
 
 **期待結果（Kết quả mong đợi）**
 
-Đồng bộ chỉ tạo/cập nhật cấu hình; trước lần chạy mới đích không bị coi là đã xét và không dùng kết quả nguồn. Sau khi chạy, kết quả chỉ thuộc identity đích.
+Đồng bộ chỉ tạo/cập nhật cấu hình; legacy vẫn theo đường tương thích cũ, không trở thành fallback. Trước lần chạy mới đích không bị coi là đã xét và không dùng snapshot/kết quả nguồn. Sau khi chạy, kết quả chỉ thuộc identity đích và mapping đã ghi.
 
 <a id="tc-rs-func-003"></a>
 

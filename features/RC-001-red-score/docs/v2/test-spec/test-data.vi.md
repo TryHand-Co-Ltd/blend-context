@@ -58,6 +58,7 @@ Dữ liệu dùng chung cho mọi test case. Giá trị số trong các case tí
 | Data ID | Field | Value | Type | Purpose | Expected |
 | --- | --- | --- | --- | --- | --- |
 | TD-GRP-01 | Lớp học phần | G-A (Toán I（数学Ⅰ）, khối 1, nhóm thành tích Nâng cao), G-B (Toán I（数学Ⅰ）, khối 2), G-C (Ngữ văn logic（論理国語）, khối 1) | master | Bộ lọc, nhóm tham chiếu | Mỗi lớp có ≥ 2 học sinh |
+| TD-GRP-03 | Batch cùng khối | G-A1 và G-A2, cùng khối 1, mỗi lớp có ít nhất một ô thuộc batch; G-C ngoài batch | master | ERR-003 batch partial | G-A1/G-A2 cùng một phạm vi khối; có thể giả lập lỗi riêng G-A2 |
 | TD-GRP-02 | Lớp chủ nhiệm | HR1 (S01–S05), HR2 (S06–S10) | master | Nhóm tham chiếu ホームルーム (lớp chủ nhiệm; file Figma cũ ghi HR毎) | — |
 | TD-STU-01 | S01 | G-A, HR1; TD-ITEM-01 «Mục số nguyên: Điểm đánh giá（評点）, Nhập số nguyên（数値入力（整数））, M mặc định…» = 29 | score | Đỏ với `<30` | Đỏ |
 | TD-STU-02 | S02 | G-A, HR1; TD-ITEM-01 «Mục số nguyên: Điểm đánh giá（評点）, Nhập số nguyên（数値入力（整数））, M mặc định…» = 30 | score | Biên `S=T` | `<` không đỏ; `≤` đỏ |

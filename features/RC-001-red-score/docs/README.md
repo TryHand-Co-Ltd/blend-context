@@ -25,7 +25,7 @@ Các thay đổi tiếp theo thực hiện trong **v2**. Việc tạo thư mục
 | Tiêu chí nghiệm thu | [Nhật](v1/acceptance-criteria.ja.md) · [English](v1/acceptance-criteria.en.md) · [Việt](v1/acceptance-criteria.vi.md) | [Nhật](v2/acceptance-criteria.ja.md) · [Việt](v2/acceptance-criteria.vi.md) |
 | Đặc tả kiểm thử | — | [Việt](v2/test-spec/scope-and-approach.vi.md) (thư mục `v2/test-spec/`) |
 
-**Đặc tả kiểm thử v2** (`v2/test-spec/`, chỉ bản Việt): 204 test case theo cấu trúc bốn tài liệu [scope-and-approach.vi.md](v2/test-spec/scope-and-approach.vi.md), [test-cases.vi.md](v2/test-spec/test-cases.vi.md), [test-data.vi.md](v2/test-spec/test-data.vi.md) và [test-case-report.xlsx](v2/test-spec/test-case-report.xlsx). Các file chi tiết cũ được giữ để bảo toàn anchor và được generator dùng làm nguồn tương thích. Chưa có test nào được chạy.
+**Đặc tả kiểm thử v2** (`v2/test-spec/`, chỉ bản Việt): 216 test case theo cấu trúc bốn tài liệu [scope-and-approach.vi.md](v2/test-spec/scope-and-approach.vi.md), [test-cases.vi.md](v2/test-spec/test-cases.vi.md), [test-data.vi.md](v2/test-spec/test-data.vi.md) và [test-case-report.xlsx](v2/test-spec/test-case-report.xlsx). Các file chi tiết cũ không còn là nguồn của active suite; generator đọc Markdown v2 và dùng workbook layout shell để dựng lại các bảng `Cases` và `Run Log`. Chưa có test nào được chạy.
 
 Bản English lịch sử, không cập nhật cùng bộ v2: [chia việc](v1/split-tasks.en.md) và [tiêu chí nghiệm thu](v1/acceptance-criteria.en.md).
 

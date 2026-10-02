@@ -1,25 +1,26 @@
 {
-  "generator": "rc001-test-spec-generator@1.0.0",
+  "generator": "rc001-test-spec-generator@1.1.0",
   "command": "pwsh -File tools/generate-test-spec.ps1 -Mode Generate -SourceRoot .",
-  "generatedAt": "2026-10-02T03:53:43.0082364Z",
-  "sourceRoot": "D:\\workspace\\projects\\blend\\Docker\\blend-context\\features\\RC-001-red-score\\docs\\v2\\test-spec",
+  "generatedAt": "2026-10-02T07:08:53.9960318Z",
+  "sourceRoot": ".",
+  "sourceRevision": "1fe808a0f8739aa3ff5e95b42476b68e8cb4f612",
   "sources": {
     "cases": {
       "path": "test-cases.vi.md",
-      "sha256": "70AE94C246C62E9B5FC531410FD7C79B0CF884F3B792FADC7C7632A18C51F81B"
+      "sha256": "CC5DA52FD8C266F67586E927617376C86D3C75B8D21042A1DC3EDAA0B8A9E751"
     },
     "data": {
       "path": "test-data.vi.md",
-      "sha256": "5DC1FEF139F8022A52510CF853CAFCD2E8866901476C8DF1EFA8DCE4D92F79FC"
+      "sha256": "939B02BB066EC47548907DFD8C0584317EEE9CD1933B9B8A71307161FF35BF72"
     },
     "scope": {
       "path": "scope-and-approach.vi.md",
-      "sha256": "CD140E9955822A3EAB0F8DCC8D91729B0876362FB4B9F137944BFB31415175C8"
+      "sha256": "8B5C966C6CEB33716BAA39621155E718E2B02F9012FF7C77B18C4457C1E69ECE"
     }
   },
   "workbook": {
     "path": "test-case-report.xlsx",
-    "sha256": "E87892461CAF06B7693B9CF71747C86C86269939BF5BC534EF63DCBFDA89FACD"
+    "sha256": "19E47C34207D47E130D0F2179864F2AAFA86D59677B9E646D20899E22614059C"
   },
   "counts": {
     "cases": 216,

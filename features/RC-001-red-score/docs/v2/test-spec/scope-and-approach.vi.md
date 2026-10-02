@@ -237,7 +237,7 @@ Actual Result phải mô tả điều quan sát được (giá trị, dấu, th�
 - Status mặc định NOT RUN. Mức chắc chắn (CONFIRMED/PROPOSED/…) nằm ở đầu Notes dạng `[Certainty: X]`. Với case REG, Notes có thêm Affected Area/Risk/Reason.
 - Khi chạy: điền Status, Actual Result, Evidence Link, Bug ID, Tester, Executed At (định dạng `YYYY-MM-DD HH:MM` kèm múi giờ, ví dụ `+09:00`). Không sửa các cột thiết kế.
 - Tester ghi tên hoặc mã người chạy, không ghi thông tin đăng nhập.
-- Bản Excel theo bố cục báo cáo test: mỗi nhóm A–H một sheet; mỗi case gồm tiêu đề, dòng Priority ｜ Status ｜ Requirement ID, 前提条件（Điều kiện trước）, 操作（Thao tác）, 期待結果（Kết quả mong đợi）, 補足（Bổ sung）, 結果（Kết quả）, 証跡（Bằng chứng）. 結果 và 証跡 để trống; khi chạy, sao file ra bản của vòng chạy (không ghi kết quả vào bản trong repository), ghi Status (mục 5) và kết quả quan sát được vào 結果, dán ảnh đã che theo mục 1 vào 証跡. Bản có kết quả lưu ở nơi lưu bằng chứng (mục 4, **TBD**).
+- Bản Excel theo bố cục báo cáo test: mỗi nhóm A–H một sheet; mỗi case gồm tiêu đề, dòng Priority ｜ Status ｜ Requirement ID, 前提条件（Điều kiện trước）, 操作（Thao tác）, 期待結果（Kết quả mong đợi）, 結果（Kết quả）, 証跡（Bằng chứng）. Thông tin nguồn, fixture, reset và variant được giữ trong nội dung case hoặc metadata của bảng `Cases`, không lặp thành section bổ sung. 結果 và 証跡 để trống; khi chạy, sao file ra bản của vòng chạy (không ghi kết quả vào bản trong repository), ghi Status (mục 5) và kết quả quan sát được vào 結果, dán ảnh đã che theo mục 1 vào 証跡. Bản có kết quả lưu ở nơi lưu bằng chứng (mục 4, **TBD**).
 
 
 
@@ -644,9 +644,9 @@ Tổng số test case: **216**.
 | F. State/Error | 15 | 0 | 0 | 4 | 0 | 19 | 12 | 7 |
 | G. Data/Persistence | 16 | 0 | 3 | 0 | 0 | 19 | 10 | 9 |
 | H. Regression | 17 | 0 | 0 | 0 | 0 | 17 | 7 | 10 |
-| **Tổng** | 177 | 3 | 27 | 7 | 2 | 216 | 119 | 97 |
+| **Tổng** | 180 | 3 | 27 | 6 | 0 | 216 | 121 | 95 |
 
-Case có kỳ vọng chắc chắn (CONFIRMED + IMPLEMENTED): 180/216. Công thức: số case có Status CONFIRMED hoặc IMPLEMENTED ÷ tổng số case.
+Case có kỳ vọng chắc chắn (CONFIRMED + IMPLEMENTED): 183/216. Công thức: số case có Status CONFIRMED hoặc IMPLEMENTED ÷ tổng số case.
 
 ## 2. Độ phủ yêu cầu
 
