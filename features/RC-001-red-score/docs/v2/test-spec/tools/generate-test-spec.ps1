@@ -19,7 +19,7 @@ param(
 
 Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
-$GeneratorVersion = 'rc001-test-spec-generator@1.4.1'
+$GeneratorVersion = 'rc001-test-spec-generator@1.4.2'
 
 $SourceRoot = (Resolve-Path $SourceRoot).Path
 $cases = Join-Path $SourceRoot 'test-cases.vi.md'
@@ -272,13 +272,14 @@ function Test-Manifest([string]$ManifestPath,[string]$WorkbookPath,[string]$Sour
     $m=Get-Content -LiteralPath $ManifestPath -Raw | ConvertFrom-Json
     if($m.generator -ne $GeneratorVersion){throw "Manifest generator mismatch: $($m.generator)."}
     if($m.command -ne 'pwsh -File tools/generate-test-spec.ps1 -Mode Generate -SourceRoot .'){throw 'Manifest generation command is missing or stale.'}
-    if($m.sourceRevision -ne (Get-SourceRevision $SourcePath)){throw 'Manifest source revision does not match current HEAD.'}
-    if($m.sourceState -ne (Get-SourceState $SourcePath)){throw 'Manifest source state is stale.'}
+    # Revision/state describe generation; content hashes remain valid after commit.
+    if($m.sourceRevision -notmatch '^(?:[0-9a-f]{40}|working-tree-unresolved)$'){throw 'Manifest generation revision is missing or invalid.'}
+    if($m.sourceState -notin @('clean','working-tree','working-tree-unresolved')){throw 'Manifest generation source state is missing or invalid.'}
     foreach($spec in @(@('cases',$CasesPath),@('data',$DataPath),@('scope',$ScopePath))) {
         $entry=$m.sources.($spec[0])
         if(-not $entry -or $entry.sha256 -ne (Get-NormalizedSha256 $spec[1])){throw "Manifest source hash mismatch: $($spec[0])."}
     }
-    $scriptHash=(Get-FileHash $PSCommandPath -Algorithm SHA256).Hash
+    $scriptHash=Get-NormalizedSha256 $PSCommandPath
     if(-not $m.generatorSource -or $m.generatorSource.sha256 -ne $scriptHash){throw 'Manifest generator source hash is missing or stale.'}
     if($m.workbook.sha256 -ne (Get-FileHash $WorkbookPath -Algorithm SHA256).Hash){throw 'Manifest workbook hash does not match workbook.'}
 }
@@ -417,6 +418,8 @@ function Sync-ScopeMetadata([object[]]$Metadata,[string]$ScopePath) {
         $counts+=@($items.Count,@($items|Where-Object Priority -eq 'Cao').Count,@($items|Where-Object Priority -eq 'TBD').Count)
         $text=[regex]::Replace($text,'(?m)^\| '+[regex]::Escape($category)+' \|[^\r\n]+',('| '+$category+' | '+($counts -join ' | ')+' |'))
     }
+    $certain=@($Metadata|Where-Object Status -in @('CONFIRMED','IMPLEMENTED')).Count
+    $text=[regex]::Replace($text,'(?m)(Case có kỳ vọng chắc chắn \(CONFIRMED \+ IMPLEMENTED\):\s*)\d+/\d+',('${1}'+$certain+'/'+$Metadata.Count))
     [IO.File]::WriteAllText($ScopePath,($text -replace "`r`n","`n"),[Text.UTF8Encoding]::new($false))
 }
 
@@ -524,9 +527,10 @@ function Get-MarkdownCaseMetadata([string]$Path) {
     })
 }
 
-function Test-NegativeSourceContract([string]$Path) {
+function Test-NegativeSourceContract([string]$Path,[string]$ScopePath) {
     $original=Get-Content -LiteralPath $Path -Raw
     $temp=Join-Path ([IO.Path]::GetTempPath()) ('rc001-source-'+[guid]::NewGuid().ToString('N')+'.md')
+    $scopeCopy=$temp+'.scope.md'
     try {
         $mutations=@(
             @(([regex]'(?m)^Run variants:[^\r\n]+\r?\n').Replace($original,'',1),'Run variants declaration missing'),
@@ -539,7 +543,16 @@ function Test-NegativeSourceContract([string]$Path) {
             try { $null=Get-MarkdownCaseMetadata $temp } catch {if($_.Exception.Message -notmatch [regex]::Escape($mutation[1])){throw};$detected=$true}
             if(-not $detected){throw "Negative source contract check failed: $($mutation[1])"}
         }
-    } finally {if(Test-Path -LiteralPath $temp){Remove-Item -LiteralPath $temp -Force}}
+        # A certainty change must synchronize both the tables and the prose ratio.
+        $metadata=@(Get-MarkdownCaseMetadata $Path)
+        $metadata[0].Status=if($metadata[0].Status -in @('CONFIRMED','IMPLEMENTED')){'PROPOSED'}else{'CONFIRMED'}
+        $metadata[0].Priority='TBD'
+        Copy-Item -LiteralPath $ScopePath -Destination $scopeCopy
+        Sync-ScopeMetadata $metadata $scopeCopy
+        Test-ScopeStats $metadata $scopeCopy
+    } finally {
+        foreach($pathToRemove in @($temp,$scopeCopy)){if(Test-Path -LiteralPath $pathToRemove){Remove-Item -LiteralPath $pathToRemove -Force}}
+    }
 }
 
 function Rebuild-WorkbookTables([string]$WorkbookPath, [string]$CasesPath, [string]$DataPath, [string]$SourcePath) {
@@ -658,7 +671,7 @@ function Rebuild-WorkbookTables([string]$WorkbookPath, [string]$CasesPath, [stri
 
 $caseIds = Get-UniqueCaseIds $cases
 $caseMetadata = @(Get-MarkdownCaseMetadata $cases)
-Test-NegativeSourceContract $cases
+Test-NegativeSourceContract $cases $scope
 if ($caseIds.Count -ne 216) { throw "Expected 216 unique Markdown case IDs, found $($caseIds.Count)." }
 $acIds = Get-UniqueAcIds $scope
 $expectedAc = 1..40 | ForEach-Object { 'AC-G{0:D2}' -f $_ }
@@ -737,7 +750,7 @@ if ($Mode -eq 'Generate') {
             data = [ordered]@{ path = 'test-data.vi.md'; sha256 = (Get-NormalizedSha256 $data) }
             scope = [ordered]@{ path = 'scope-and-approach.vi.md'; sha256 = (Get-NormalizedSha256 $scope) }
         }
-        generatorSource = [ordered]@{ path = 'tools/generate-test-spec.ps1'; sha256 = (Get-FileHash $PSCommandPath -Algorithm SHA256).Hash }
+        generatorSource = [ordered]@{ path = 'tools/generate-test-spec.ps1'; sha256 = (Get-NormalizedSha256 $PSCommandPath) }
         workbook = [ordered]@{ path = [IO.Path]::GetFileName($outputFull); sha256 = (Get-FileHash $outputFull -Algorithm SHA256).Hash }
         counts = [ordered]@{ cases = $caseIds.Count; acceptanceCriteria = 40; runRows = $runRowCount }
     }
