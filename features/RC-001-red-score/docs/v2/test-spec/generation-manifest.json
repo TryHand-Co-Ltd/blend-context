@@ -1,30 +1,35 @@
 {
-  "generator": "rc001-test-spec-generator@1.1.0",
+  "generator": "rc001-test-spec-generator@1.4.1",
   "command": "pwsh -File tools/generate-test-spec.ps1 -Mode Generate -SourceRoot .",
-  "generatedAt": "2026-10-02T07:08:53.9960318Z",
+  "generatedAt": "2026-10-03T02:33:48.1344025Z",
   "sourceRoot": ".",
-  "sourceRevision": "1fe808a0f8739aa3ff5e95b42476b68e8cb4f612",
+  "sourceRevision": "fd0bc963c075cb4a8d6846bf210d1761344a1355",
+  "sourceState": "working-tree",
   "sources": {
     "cases": {
       "path": "test-cases.vi.md",
-      "sha256": "CC5DA52FD8C266F67586E927617376C86D3C75B8D21042A1DC3EDAA0B8A9E751"
+      "sha256": "5A172ED696A8DFE8F03EC19E5CED7FA8BF75D6F09B5C5F7E21A8E74DFC1DB138"
     },
     "data": {
       "path": "test-data.vi.md",
-      "sha256": "939B02BB066EC47548907DFD8C0584317EEE9CD1933B9B8A71307161FF35BF72"
+      "sha256": "BE69C6974CBBDEE61E71E7796A9D975C8F22FF411363DE5ECF072C7226047B97"
     },
     "scope": {
       "path": "scope-and-approach.vi.md",
-      "sha256": "8B5C966C6CEB33716BAA39621155E718E2B02F9012FF7C77B18C4457C1E69ECE"
+      "sha256": "C4C57DF8CFF20BCB8E922F3E335C2C5084721BB14365844DB10E945F5782EF0F"
     }
+  },
+  "generatorSource": {
+    "path": "tools/generate-test-spec.ps1",
+    "sha256": "AFF999A72D8443DE517CD0383D6FCA69E2936D5DB8BA58204720A21D17B5CC56"
   },
   "workbook": {
     "path": "test-case-report.xlsx",
-    "sha256": "19E47C34207D47E130D0F2179864F2AAFA86D59677B9E646D20899E22614059C"
+    "sha256": "31F018F57A65BB380509A82DD466E60020AA3AE917E41CB453BF9AB7B3F2106F"
   },
   "counts": {
     "cases": 216,
     "acceptanceCriteria": 40,
-    "variants": 13
+    "runRows": 569
   }
 }

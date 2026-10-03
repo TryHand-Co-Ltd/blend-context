@@ -49,6 +49,8 @@ Case có Status khác CONFIRMED/IMPLEMENTED vẫn chạy; phần chưa chắc ch
 ### TC-RS-FUNC-001 — Hàng Thiết lập điểm đỏ（赤点設定） xuất hiện trong Thiết lập ô nhập（入力欄設定） cho mục điểm số
 
 Priority: TBD ｜ Status: PROPOSED ｜ Requirement ID: đặc tả v2 mục 4.1 “Điểm vào và trạng thái trống”; AC-G02 chỉ xác nhận loại điểm được hỗ trợ
+Priority basis: other
+Run variants: integer; decimal; unit
 
 <!-- Mã truy vết: TD-ROLE-01 «Giáo viên có quyền sửa mục: Có quyền vào Thiết lập nhập điểm（成績入力設定） và…», TD-ITEM-01 «Mục số nguyên: Điểm đánh giá（評点）, Nhập số nguyên（数値入力（整数））, M mặc định…», TD-ITEM-02 «Mục số thập phân: Điểm đánh giá（評点）, Nhập số thập phân（数値入力（小数））, M mặc…», TD-ENV-01 «Môi trường chạy», TD-ENV-06 «Trường test», TD-ENV-07 «Năm học», TD-ITEM-03 «Mục điểm đơn vị: Điểm bài kiểm tra đơn vị（単元テスト点）, M mặc định 100», TC-RS-UI-001 -->
 
@@ -63,6 +65,13 @@ Priority: TBD ｜ Status: PROPOSED ｜ Requirement ID: đặc tả v2 mục 4.1 
 2. Tìm hàng Thiết lập điểm đỏ（赤点設定） ở bảng mục nhập.
 3. Bấm link của hàng này ở cột mục số nguyên (M=100), mục số thập phân (M=100), mục điểm đơn vị (đơn vị U1 có M riêng 40).
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: integer | Mục số nguyên |
+| Run: decimal | Mục thập phân |
+| Run: unit | Mục đơn vị |
+
 **期待結果（Kết quả mong đợi）**
 
 1. Theo Figma MW, hàng Thiết lập điểm đỏ（赤点設定） được đặt giữa hàng Tính tự động（自動計算） và hàng Thiết lập ẩn mục nhập（入力項目の非表示設定）. Đây là oracle UI PROPOSED; nếu bố cục khác, ghi Notes để đối chiếu, không mở bug từ riêng vị trí.
@@ -74,6 +83,8 @@ Priority: TBD ｜ Status: PROPOSED ｜ Requirement ID: đặc tả v2 mục 4.1 
 ### TC-RS-FUNC-002 — Mục kiểu lựa chọn và Đạt/không đạt（合否） không có thao tác tạo quy tắc đỏ có hiệu lực
 
 Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Kiểu điểm được hỗ trợ” (AC-G02 «Kiểu điểm được hỗ trợ»); tiêu chí nghiệm thu “Phạm vi từng đợt” (AC-G40 «Phạm vi từng đợt»)
+Priority basis: other
+Run variants: choice; passfail
 
 Readiness: BLOCKED — cần route/build URL hiện hành để kiểm trực tiếp endpoint; không coi việc chưa biết URL là READY.
 
@@ -90,6 +101,12 @@ Readiness: BLOCKED — cần route/build URL hiện hành để kiểm trực ti
 2. Xem hàng Thiết lập điểm đỏ（赤点設定） ở cột mục kiểu lựa chọn A/B/C, mục Đạt/không đạt（合否）.
 3. Thử mở URL màn danh sách điểm đỏ của mục kiểu lựa chọn A/B/C bằng ID mục (nếu biết URL).
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: choice | Mục lựa chọn, gồm thử URL trực tiếp ở bước 3 |
+| Run: passfail | Mục Đạt/không đạt ở bước 1–2 |
+
 **期待結果（Kết quả mong đợi）**
 
 1. Không có thao tác tạo quy tắc đỏ có hiệu lực cho hai mục này.
@@ -100,6 +117,8 @@ Readiness: BLOCKED — cần route/build URL hiện hành để kiểm trực ti
 ### TC-RS-FUNC-004 — Thêm quy tắc qua Điều kiện áp dụng（適用条件） và Ngưỡng（基準設定） rồi quay lại danh sách
 
 Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Lưu và mở lại nhiều thiết lập” (AC-G04 «Lưu và mở lại nhiều thiết lập»)
+Priority basis: other
+Run variants: Base
 
 <!-- Mã truy vết: TD-ITEM-01 «Mục số nguyên: Điểm đánh giá（評点）, Nhập số nguyên（数値入力（整数））, M mặc định…», TD-RULE-08 «Cặp cùng áp dụng: Ưu tiên 1: Toàn bộ, cố định 20 `<`», TD-ROLE-01 «Giáo viên có quyền sửa mục: Có quyền vào Thiết lập nhập điểm（成績入力設定） và…», TD-RULE-01 «Cố định `<`: Tên "Cố định 30"» -->
 
@@ -115,6 +134,11 @@ Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 3. Mở Ngưỡng, chọn Điểm cố định（固定点数）, nhập 30, chọn Nhỏ hơn（未満）, bấm Cập nhật（更新する）.
 4. Xem danh sách.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: Base | Toàn bộ thủ tục theo đúng thứ tự; các đối chứng cùng fixture được kiểm trong cùng lượt, không bỏ bước |
+
 **期待結果（Kết quả mong đợi）**
 
 1. Sau mỗi lần cập nhật, màn quay về danh sách.
@@ -125,7 +149,9 @@ Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 
 ### TC-RS-FUNC-005 — Nhiều quy tắc hiển thị theo ưu tiên; đổi thứ tự bằng ▲▼ được lưu
 
-Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Lưu và mở lại nhiều thiết lập” (AC-G04 «Lưu và mở lại nhiều thiết lập»)
+Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Lưu và mở lại nhiều thiết lập” (AC-G04 «Lưu và mở lại nhiều thiết lập»)
+Priority basis: lifecycle
+Run variants: Base
 
 <!-- Mã truy vết: TD-ITEM-01 «Mục số nguyên: Điểm đánh giá（評点）, Nhập số nguyên（数値入力（整数））, M mặc định…», TD-RULE-01 «Cố định `<`: Tên "Cố định 30"», TD-RULE-08 «Cặp cùng áp dụng: Ưu tiên 1: Toàn bộ, cố định 20 `<`», TC-RS-BR-015 -->
 
@@ -141,6 +167,11 @@ Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 3. Bấm ▲ ở quy tắc 3.
 4. Đăng xuất, đăng nhập lại, mở danh sách.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: Base | Toàn bộ thủ tục theo đúng thứ tự; các đối chứng cùng fixture được kiểm trong cùng lượt, không bỏ bước |
+
 **期待結果（Kết quả mong đợi）**
 
 1. Sau bước 1 thứ tự là quy tắc 2, quy tắc 1, quy tắc 3 và giữ nguyên sau khi tải lại.
@@ -151,7 +182,9 @@ Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 
 ### TC-RS-FUNC-006 — Xóa một quy tắc có xác nhận; Hủy（キャンセル） giữ nguyên
 
-Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Lưu và mở lại nhiều thiết lập” (AC-G04 «Lưu và mở lại nhiều thiết lập»)
+Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Lưu và mở lại nhiều thiết lập” (AC-G04 «Lưu và mở lại nhiều thiết lập»)
+Priority basis: lifecycle
+Run variants: cancel; delete
 
 <!-- Mã truy vết: TD-ITEM-01 «Mục số nguyên: Điểm đánh giá（評点）, Nhập số nguyên（数値入力（整数））, M mặc định…», TD-RULE-08 «Cặp cùng áp dụng: Ưu tiên 1: Toàn bộ, cố định 20 `<`», TC-RS-BR-019, TC-RS-UI-006 -->
 
@@ -165,6 +198,12 @@ Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 1. Bấm Xóa（削除） ở quy tắc thứ 2, chọn Hủy（キャンセル）.
 2. Bấm Xóa（削除） lại, chọn Xóa（削除する）.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: cancel | Hủy xóa |
+| Run: delete | Xác nhận xóa, dựng lại baseline trước lượt này |
+
 **期待結果（Kết quả mong đợi）**
 
 1. Hộp xác nhận nêu thiết lập sẽ bị xóa và kết quả học sinh chỉ cập nhật ở lần xét tiếp theo.
@@ -176,6 +215,8 @@ Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 ### TC-RS-FUNC-007 — Quay lại（戻る）/hủy chỉnh sửa không lưu dữ liệu đang nhập
 
 Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Lưu và mở lại nhiều thiết lập” (AC-G04 «Lưu và mở lại nhiều thiết lập»)
+Priority basis: other
+Run variants: back-threshold; back-condition
 
 <!-- Mã truy vết: TD-ITEM-01 «Mục số nguyên: Điểm đánh giá（評点）, Nhập số nguyên（数値入力（整数））, M mặc định…», TD-RULE-01 «Cố định `<`: Tên "Cố định 30"» -->
 
@@ -191,6 +232,12 @@ Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 3. Mở Điều kiện áp dụng, đổi tên, bấm Quay lại（戻る）.
 4. Mở lại hai màn.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: back-threshold | Quay lại từ màn ngưỡng |
+| Run: back-condition | Quay lại từ màn điều kiện |
+
 **期待結果（Kết quả mong đợi）**
 
 Danh sách và hai màn vẫn hiện giá trị đã lưu trước đó (30, Nhỏ hơn, tên cũ).
@@ -200,6 +247,8 @@ Danh sách và hai màn vẫn hiện giá trị đã lưu trước đó (30, Nh�
 ### TC-RS-FUNC-008 — Điều kiện áp dụng: Toàn bộ đối tượng hoặc giới hạn bằng bộ lọc kế thừa từ tính tự động
 
 Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Đối tượng áp dụng và nhu cầu nguồn” (AC-G05 «Đối tượng áp dụng và nhu cầu nguồn»)
+Priority basis: other
+Run variants: all; filter
 
 <!-- Mã truy vết: TD-ROLE-01 «Giáo viên có quyền sửa mục: Có quyền vào Thiết lập nhập điểm（成績入力設定） và…», TD-GRP-01 «Lớp học phần: G-A (Toán I（数学Ⅰ）, khối 1, nhóm thành tích Nâng cao), G-B…», TD-RULE-12 «Bộ lọc kết hợp: Giới hạn bằng bộ lọc（特定条件で絞り込む）: Khối（学年） = 1 hoặc 2» -->
 
@@ -215,6 +264,12 @@ Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 3. Chọn Giới hạn bằng bộ lọc（特定条件で絞り込む）, bấm Thêm điều kiện lọc（絞り込み条件を追加）, liệt kê các loại lọc có trong danh sách.
 4. Cấu hình như quy tắc có bộ lọc kết hợp (khối 1 hoặc 2, nhóm Nâng cao), lưu, mở lại.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: all | Toàn bộ đối tượng |
+| Run: filter | Giới hạn bằng bộ lọc |
+
 **期待結果（Kết quả mong đợi）**
 
 1. Hai lựa chọn đối tượng lưu và mở lại đúng.
@@ -226,6 +281,8 @@ Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 ### TC-RS-FUNC-009 — Điều kiện phân nhánh theo Trung bình（平均点） được lưu cùng bộ nguồn
 
 Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Đúng phạm vi tham chiếu” (AC-G12 «Đúng phạm vi tham chiếu»)
+Priority basis: other
+Run variants: below60; from60
 
 <!-- Mã truy vết: TD-ROLE-01 «Giáo viên có quyền sửa mục: Có quyền vào Thiết lập nhập điểm（成績入力設定） và…», TD-RULE-07 «Cặp phân nhánh: Ưu tiên 1 "Trung bình từ 60": điều kiện `A≥60`, cố định…», TD-SRC-02 «Bản mới nhất chưa chốt: Tổng hợp chạy sau TD-SRC-01, `A` = 62» -->
 
@@ -242,6 +299,12 @@ Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 4. Tạo quy tắc thứ hai với mốc 60, dấu Từ mức này trở lên（以上）.
 5. Mở lại cả hai.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: below60 | Điều kiện dưới 60 |
+| Run: from60 | Điều kiện từ 60 |
+
 **期待結果（Kết quả mong đợi）**
 
 1. Cả hai quy tắc lưu được, là hai dòng riêng trong danh sách (không phải một form hai nhánh).
@@ -253,6 +316,8 @@ Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 ### TC-RS-FUNC-010 — Điều kiện Tỷ lệ điểm của nhóm（集団の得点率） được lưu cùng bộ nguồn
 
 Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Đúng phạm vi tham chiếu” (AC-G12 «Đúng phạm vi tham chiếu»)
+Priority basis: other
+Run variants: Base
 
 <!-- Mã truy vết: TD-ROLE-01 «Giáo viên có quyền sửa mục: Có quyền vào Thiết lập nhập điểm（成績入力設定） và…», TD-RULE-09 «Tỷ lệ nhóm: Điều kiện Tỷ lệ điểm của nhóm（集団の得点率） `≥65%`», TC-RS-CALC-025 -->
 
@@ -266,6 +331,11 @@ Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 1. Tạo quy tắc với điều kiện Tỷ lệ điểm của nhóm（集団の得点率）, nguồn mặc định, mốc 65, dấu Từ mức này trở lên（以上）.
 2. Lưu, mở lại.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: Base | Toàn bộ thủ tục theo đúng thứ tự; các đối chứng cùng fixture được kiểm trong cùng lượt, không bỏ bước |
+
 **期待結果（Kết quả mong đợi）**
 
 Lưu và mở lại đúng loại điều kiện, nguồn, mốc 65 và dấu. Không có tùy chọn chọn cách tính A/B.
@@ -275,6 +345,8 @@ Lưu và mở lại đúng loại điều kiện, nguồn, mốc 65 và dấu. K
 ### TC-RS-FUNC-011 — Chọn loại ngưỡng làm thay đổi vùng nhập
 
 Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: đặc tả v2 mục 5.6 “Khi nào không cần nguồn?”, mục 6.1 “Thành phần chung của màn ngưỡng”
+Priority basis: other
+Run variants: fixed; ratio; formula
 
 <!-- Mã truy vết: TC-RS-UI-015 -->
 
@@ -289,6 +361,13 @@ Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: đặc tả v2 mục 5.6
 2. Chọn Tỷ lệ điểm tối đa（得点率）.
 3. Chọn Công thức（計算式）.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: fixed | Chọn cố định |
+| Run: ratio | Chọn tỷ lệ |
+| Run: formula | Chọn công thức |
+
 **期待結果（Kết quả mong đợi）**
 
 1. Cố định: có ô ngưỡng và dấu so sánh; không có vùng nguồn trung bình, không có xử lý phần lẻ.
@@ -299,7 +378,9 @@ Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: đặc tả v2 mục 5.6
 
 ### TC-RS-FUNC-012 — Công thức: thêm/xóa dòng, kết quả dòng cuối là ngưỡng
 
-Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Công thức theo dòng và phần lẻ” (AC-G16 «Công thức theo dòng và phần lẻ»)
+Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Công thức theo dòng và phần lẻ” (AC-G16 «Công thức theo dòng và phần lẻ»)
+Priority basis: result
+Run variants: Base
 
 <!-- Mã truy vết: TD-RULE-06 «Công thức hai dòng: Dòng 1: Trung bình（平均点）÷ Số cố định（固定値）2, chữ số…», TC-RS-CALC-015 -->
 
@@ -314,6 +395,11 @@ Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 2. Mở lại; bấm Thêm công thức（計算式を追加） để có dòng 3, rồi xóa dòng 3, lưu.
 3. Xem tóm tắt ở danh sách.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: Base | Toàn bộ thủ tục theo đúng thứ tự; các đối chứng cùng fixture được kiểm trong cùng lượt, không bỏ bước |
+
 **期待結果（Kết quả mong đợi）**
 
 1. Lưu được 2 dòng; mở lại giữ vế trái, phép toán, vế phải và xử lý phần lẻ từng dòng (chi tiết form là PROPOSED theo thiết kế).
@@ -325,6 +411,8 @@ Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 ### TC-RS-FUNC-013 — Dấu so sánh Nhỏ hơn（未満）/Nhỏ hơn hoặc bằng（以下） được lưu và hiển thị
 
 Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: đặc tả v2 mục 6.1 “Thành phần chung của màn ngưỡng”
+Priority basis: other
+Run variants: lt; le
 
 <!-- Mã truy vết: TD-RULE-01 «Cố định `<`: Tên "Cố định 30"», TD-RULE-02 «Cố định `≤`: Như TD-RULE-01 nhưng Nhỏ hơn hoặc bằng（以下）», TC-RS-CALC-001, TC-RS-UI-012 -->
 
@@ -338,6 +426,12 @@ Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: đặc tả v2 mục 6.1
 1. Đổi dấu của quy tắc “Cố định 30” (dưới 30) sang Nhỏ hơn hoặc bằng（以下）, lưu, mở lại.
 2. Đổi lại Nhỏ hơn（未満）, lưu, mở lại.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: lt | Dấu nhỏ hơn |
+| Run: le | Dấu nhỏ hơn hoặc bằng |
+
 **期待結果（Kết quả mong đợi）**
 
 Dấu đã chọn được lưu, hiển thị đúng ở form và tóm tắt danh sách. Tác động lên kết quả: case “Ngưỡng cố định 30: S = 29 / 30 / 31 với `<` và `≤`”.
@@ -347,35 +441,48 @@ Dấu đã chọn được lưu, hiển thị đúng ở form và tóm tắt dan
 ### TC-RS-FUNC-014 — Quy tắc mới chỉ có điều kiện, chưa có ngưỡng, không tham gia xét
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: đặc tả v2 mục 4.4 “Lưu, đổi thứ tự và xóa”; tiêu chí nghiệm thu “Lưu và mở lại nhiều thiết lập” (AC-G04 «Lưu và mở lại nhiều thiết lập»)
+Priority basis: result
+Run variants: incomplete-excluded; complete-deleted-stale; incomplete-deleted-stale
+Readiness: BLOCKED — cần xác minh form ngưỡng gửi từ tab cũ, đường chạy xét lại và reader cho identity rule/ngưỡng đã dùng; nếu chưa quan sát được rule được chọn thì không suy kết quả từ danh sách UI.
 
 <!-- Mã truy vết: TD-ITEM-01 «Mục số nguyên: Điểm đánh giá（評点）, Nhập số nguyên（数値入力（整数））, M mặc định…», TD-RULE-13 «Cố định chưa có ngưỡng: Chỉ lưu điều kiện áp dụng, chưa lưu ngưỡng», TD-RULE-01 «Cố định `<`: Tên "Cố định 30"», TD-STU-01 «S01: G-A, HR1» -->
 
 **前提条件（Điều kiện trước）**
 
-- Điều kiện: mục số nguyên (M=100) có quy tắc mới chỉ có điều kiện, chưa có ngưỡng ở ưu tiên 1 (Toàn bộ, chưa có ngưỡng) và quy tắc “Cố định 30” (dưới 30) ở ưu tiên 2.
-- Dữ liệu test: mục số nguyên (M=100); quy tắc mới chỉ có điều kiện, chưa có ngưỡng, quy tắc “Cố định 30” (dưới 30), học sinh S01 (điểm 29)
+- Điều kiện chung: trường A/năm 2026, mục số nguyên TD-ITEM-01 (M=100), S01 có điểm 29; giáo viên có quyền sửa rule và chạy xét lại. Hai tab cùng phạm vi mục/kỳ. Mỗi biến thể có bản reset riêng, đúng hai rule Toàn bộ với dấu `<`; ghi identity rule ưu tiên 1 và rule đối chứng ưu tiên 2. Phạm vi trích xuất chỉ gồm ô này để ô đỏ khác không ảnh hưởng bộ lọc.
+- `incomplete-excluded`: rule ưu tiên 1 chỉ lưu điều kiện, chưa có ngưỡng; rule đối chứng ưu tiên 2 có T=30. Đây là fixture TD-RULE-13/TD-RULE-01.
+- `complete-deleted-stale`: rule ưu tiên 1 hoàn chỉnh T=30, rule đối chứng ưu tiên 2 T=20; chạy baseline S01=29 → Đỏ theo rule ưu tiên 1.
+- `incomplete-deleted-stale`: rule ưu tiên 1 chỉ có điều kiện, rule đối chứng ưu tiên 2 T=20; chạy baseline S01=29 → Không đỏ theo rule đối chứng. T=20 là cấu hình riêng của hai biến thể stale-form, không thay TD-RULE-01 dùng chung.
 
 **操作（Thao tác）**
 
-1. Xem danh sách.
-2. Đăng ký điểm S01=29.
-3. Xem kết quả ở trích xuất.
-4. Mở form chỉnh sửa của quy tắc hoàn chỉnh ở một tab, xóa quy tắc đó từ phiên/tab khác, rồi gửi lưu form cũ.
-5. Lặp lại bước 4 với form của quy tắc chỉ có điều kiện, chưa có ngưỡng.
+1. Với `incomplete-excluded`, dựng fixture riêng, xem dòng chưa hoàn chỉnh; đăng ký S01=29 và đọc kết quả, identity rule/ngưỡng đã dùng cùng đầu ra trích xuất.
+2. Với `complete-deleted-stale`, reset và xác nhận baseline Đỏ/T=30. Mở form ngưỡng của rule ưu tiên 1 ở tab A. Xóa đúng rule đó ở tab B, rồi gửi lưu T=30 từ form cũ ở tab A. Reload danh sách và đọc trạng thái rule; trước khi chạy xét lại, đọc điểm/kết quả đã hoàn tất của S01.
+3. Chạy xét lại thành công cho đúng ô của `complete-deleted-stale`; đọc identity rule/ngưỡng được chọn. Chạy trích xuất một lượt tắt lọc để thấy điểm và dấu, một lượt bật lọc đỏ để kiểm membership của S01.
+4. Với `incomplete-deleted-stale`, reset và xác nhận baseline Không đỏ/T=20. Mở form ngưỡng của rule nhập dở ở tab A, nhập T=40 nhưng **chưa lưu**. Xóa đúng rule nhập dở ở tab B, rồi gửi T=40 từ form cũ ở tab A. Reload danh sách và đọc trạng thái rule.
+5. Chạy xét lại thành công cho đúng ô của `incomplete-deleted-stale`; đọc identity rule/ngưỡng và thực hiện hai lượt trích xuất tắt/bật lọc như bước 3. Lưu bằng chứng riêng cho từng biến thể, không dùng kết quả của biến thể trước.
+
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: incomplete-excluded | Nhánh incomplete-excluded trong thủ tục và Expected của case; thực hiện các bước chuẩn bị chung trước nhánh |
+| Run: complete-deleted-stale | Nhánh complete-deleted-stale trong thủ tục và Expected của case; thực hiện các bước chuẩn bị chung trước nhánh |
+| Run: incomplete-deleted-stale | Nhánh incomplete-deleted-stale trong thủ tục và Expected của case; thực hiện các bước chuẩn bị chung trước nhánh |
 
 **期待結果（Kết quả mong đợi）**
 
-1. Dòng quy tắc mới chỉ có điều kiện, chưa có ngưỡng hiện ngưỡng "chưa thiết lập" và thao tác mở màn ngưỡng.
-2. Khi xét, quy tắc mới chỉ có điều kiện, chưa có ngưỡng không được chọn như quy tắc hoàn chỉnh; S01 được xét theo quy tắc “Cố định 30” (dưới 30) → Đỏ.
-3. Không tạo ngưỡng 0 ngầm.
-4. Gửi từ form cũ không làm quy tắc đã xóa sống lại; danh sách và dữ liệu sau reload không chứa quy tắc hoàn chỉnh đã xóa.
-5. Rule chỉ có điều kiện cũng không được hồi sinh hoặc tham gia bộ xét sau thao tác stale-form; nếu hệ thống từ chối do phiên bản cũ thì ghi lỗi xung đột an toàn và giữ trạng thái đã xóa.
+1. `incomplete-excluded`: dòng nhập dở hiện chưa thiết lập và cho mở ngưỡng; không tạo ngưỡng 0 ngầm. Bộ xét chọn đúng rule đối chứng T=30, S01=29 Đỏ; rule nhập dở không tham gia xét.
+2. `complete-deleted-stale`: lưu form cũ không phục hồi rule đã xóa trong danh sách hoặc bộ xét. Trước lần xét lại, S01 vẫn giữ điểm 29 và kết quả Đỏ/T=30 đã hoàn tất. Sau lần xét lại, bộ xét chọn đúng identity rule đối chứng T=20 → **Không đỏ**; lượt tắt lọc hiện 29 không dấu đỏ, lượt bật lọc không có S01.
+3. `incomplete-deleted-stale`: T=40 gửi từ form cũ không làm rule nhập dở đã xóa sống lại hoặc trở thành rule hoàn chỉnh. Sau lần xét lại, bộ xét vẫn chọn đúng rule đối chứng T=20 → **Không đỏ**, điểm 29 giữ nguyên; lượt tắt lọc không có dấu đỏ, lượt bật lọc không có S01. Nếu rule 40 bị phục hồi thì 29<40 sẽ Đỏ, nên không được PASS trường hợp đó dù danh sách đã ẩn rule.
+4. Rule đối chứng giữ nguyên cấu hình/identity ở cả hai biến thể stale-form. Nếu từ chối form cũ, thông báo an toàn; không áp đặt mã HTTP hoặc enum/schema chưa được xác nhận. Thiếu seam gửi form, chạy xét hoặc reader đáng tin thì ghi BLOCKED cho biến thể liên quan.
 
 <a id="tc-rs-func-015"></a>
 
 ### TC-RS-FUNC-015 — Quy trình vận hành dùng trung bình: tắt tự tổng hợp → nút xanh → nút cam
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Thứ tự đánh giá tương đối” (AC-G25 «Thứ tự đánh giá tương đối»)
+Priority basis: result
+Run variants: Base
 
 <!-- Mã truy vết: TD-ITEM-01 «Mục số nguyên: Điểm đánh giá（評点）, Nhập số nguyên（数値入力（整数））, M mặc định…», TD-RULE-07 «Cặp phân nhánh: Ưu tiên 1 "Trung bình từ 60": điều kiện `A≥60`, cố định…», TD-ROLE-03 «Người có quyền chạy hàng loạt: Có quyền thực hiện Thực hiện tổng…», TD-GRP-02 «Lớp chủ nhiệm: HR1 (S01–S05), HR2 (S06–S10)», TD-STU-01 «S01: G-A, HR1», TD-STU-02 «S02: G-A, HR1», TD-STU-03 «S03: G-A, HR1», TD-STU-04 «S04: G-A, HR1», TD-STU-05 «S05: G-A, HR1», AC-G25, TC-RS-BR-034 -->
 
@@ -392,6 +499,11 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 4. Xem kết quả ở ba đầu ra.
 5. Sau bước 3, xem lần chạy tổng hợp gần nhất hiển thị ở Tổng hợp thành tích（成績集計）.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: Base | Toàn bộ thủ tục theo đúng thứ tự; các đối chứng cùng fixture được kiểm trong cùng lượt, không bỏ bước |
+
 **期待結果（Kết quả mong đợi）**
 
 1. Sau bước 2 (chỉ nút xanh), kết quả đỏ chưa thay đổi.
@@ -404,6 +516,8 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 ### TC-RS-FUNC-016 — Đăng ký/sửa điểm trực tiếp ở màn lớp kích hoạt xét
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Bao phủ đường đăng ký và chạy lại” (AC-G23 «Bao phủ đường đăng ký và chạy lại»)
+Priority basis: result
+Run variants: Base
 
 <!-- Mã truy vết: TD-ITEM-01 «Mục số nguyên: Điểm đánh giá（評点）, Nhập số nguyên（数値入力（整数））, M mặc định…», TD-RULE-01 «Cố định `<`: Tên "Cố định 30"», TD-STU-01 «S01: G-A, HR1», TD-STU-03 «S03: G-A, HR1» -->
 
@@ -417,6 +531,11 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 1. Ở màn đăng ký điểm của lớp G-A, nhập S01=29, S03=31, lưu.
 2. Xem trích xuất.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: Base | Toàn bộ thủ tục theo đúng thứ tự; các đối chứng cùng fixture được kiểm trong cùng lượt, không bỏ bước |
+
 **期待結果（Kết quả mong đợi）**
 
 Sau khi lưu thành công: S01 Đỏ, S03 Không đỏ. Đây là đường đăng ký trực tiếp với quy tắc cố định, nên không yêu cầu nguồn trung bình hoặc nút cam; không suy rộng kết luận này cho case dùng trung bình/tỷ lệ nhóm.
@@ -426,6 +545,8 @@ Sau khi lưu thành công: S01 Đỏ, S03 Không đỏ. Đây là đường đă
 ### TC-RS-FUNC-017 — Nhập CSV điểm lớp học phần (NB) kích hoạt xét
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Bao phủ đường đăng ký và chạy lại” (AC-G23 «Bao phủ đường đăng ký và chạy lại»)
+Priority basis: result
+Run variants: auto-on; auto-off
 
 <!-- Mã truy vết: TD-ITEM-01 «Mục số nguyên: Điểm đánh giá（評点）, Nhập số nguyên（数値入力（整数））, M mặc định…», TD-RULE-01 «Cố định `<`: Tên "Cố định 30"», TD-STU-01 «S01: G-A, HR1», AC-G26 «Lưu thành công và thông báo an toàn», AC-G23, TC-RS-FUNC-035 -->
 
@@ -440,6 +561,12 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 2. Xem kết quả ở trích xuất.
 3. Nhập lại CSV với S01=31, xem kết quả.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: auto-on | Trường có tính tự động, thực hiện toàn bộ chuỗi CSV |
+| Run: auto-off | Trường không có tính tự động, cùng chuỗi CSV |
+
 **期待結果（Kết quả mong đợi）**
 
 1–2. Nhập thành công → S01 được xét: Đỏ, ở cả (a) và (b) (không phụ thuộc việc trường có tính tự động).
@@ -453,6 +580,8 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 ### TC-RS-FUNC-018 — Liên kết kết quả chấm bài thi kích hoạt xét
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Bao phủ đường đăng ký và chạy lại” (AC-G23 «Bao phủ đường đăng ký và chạy lại»)
+Priority basis: result
+Run variants: linked; auto-skipped
 
 Readiness: BLOCKED — seam liên kết kết quả chấm với AutoRating và fixture G-C bị bỏ qua phải được team cung cấp/quan sát trước khi chạy; expected vẫn giữ nguyên.
 
@@ -470,6 +599,12 @@ Readiness: BLOCKED — seam liên kết kết quả chấm với AutoRating và 
 3. Xem điểm đã ghi và kết quả đỏ của hai lớp.
 4. (Tùy chọn) Lặp lại với quy tắc cần trung bình.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: linked | Liên kết điểm ở G-A |
+| Run: auto-skipped | Nhánh AutoRating bỏ qua ở G-C |
+
 **期待結果（Kết quả mong đợi）**
 
 1. S01 Đỏ.
@@ -483,6 +618,8 @@ Readiness: BLOCKED — seam liên kết kết quả chấm với AutoRating và 
 ### TC-RS-FUNC-019 — Lưu lựa chọn điểm tối đa của lớp khi đăng ký điểm kích hoạt xét
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Trigger khi đổi điểm tối đa/đơn vị” (AC-G24 «Trigger khi đổi điểm tối đa/đơn vị»)
+Priority basis: result
+Run variants: Base
 
 <!-- Mã truy vết: TD-ITEM-03 «Mục điểm đơn vị: Điểm bài kiểm tra đơn vị（単元テスト点）, M mặc định 100», TD-RULE-03 «Tỷ lệ: Tỷ lệ điểm tối đa（得点率） 30%, không xử lý phần lẻ（しない）, Nhỏ hơn（未満）», TC-RS-ERR-012 -->
 
@@ -496,6 +633,11 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 1. Ở màn đăng ký điểm lớp G-B, chọn lựa chọn lớp M=50 cho U1, lưu.
 2. Xem kết quả S06.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: Base | Toàn bộ thủ tục theo đúng thứ tự; các đối chứng cùng fixture được kiểm trong cùng lượt, không bỏ bước |
+
 **期待結果（Kết quả mong đợi）**
 
 Sau khi lưu thành công: M=50 → T=15 → S06=14 Đỏ.
@@ -505,6 +647,8 @@ Sau khi lưu thành công: M=50 → T=15 → S06=14 Đỏ.
 ### TC-RS-FUNC-020 — Lưu Thiết lập điểm tối đa hàng loạt（満点一括設定） xếp hàng tính toán rồi mới có kết quả mới
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Trigger khi đổi điểm tối đa/đơn vị” (AC-G24 «Trigger khi đổi điểm tối đa/đơn vị»)
+Priority basis: result
+Run variants: Base
 
 <!-- Mã truy vết: TD-ROLE-03 «Người có quyền chạy hàng loạt: Có quyền thực hiện Thực hiện tổng…», TD-RULE-03 «Tỷ lệ: Tỷ lệ điểm tối đa（得点率） 30%, không xử lý phần lẻ（しない）, Nhỏ hơn（未満）», TD-ITEM-03 «Mục điểm đơn vị: Điểm bài kiểm tra đơn vị（単元テスト点）, M mặc định 100» -->
 
@@ -519,6 +663,11 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 2. Ngay sau khi lưu (trước khi batch xong), xem kết quả.
 3. Chờ batch hoàn tất, xem lại.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: Base | Toàn bộ thủ tục theo đúng thứ tự; các đối chứng cùng fixture được kiểm trong cùng lượt, không bỏ bước |
+
 **期待結果（Kết quả mong đợi）**
 
 1. Ngay sau khi lưu: kết quả cũ vẫn hiện; không báo "hoàn tất" khi mới xếp hàng.
@@ -529,6 +678,8 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 ### TC-RS-FUNC-021 — Trường chỉ có quy tắc đỏ (không có tính tự động) vẫn có đường chạy hàng loạt
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Bao phủ đường đăng ký và chạy lại” (AC-G23 «Bao phủ đường đăng ký và chạy lại»)
+Priority basis: result
+Run variants: Base
 
 <!-- Mã truy vết: TD-ITEM-01 «Mục số nguyên: Điểm đánh giá（評点）, Nhập số nguyên（数値入力（整数））, M mặc định…», TD-RULE-01 «Cố định `<`: Tên "Cố định 30"», TD-ROLE-03 «Người có quyền chạy hàng loạt: Có quyền thực hiện Thực hiện tổng…», AC-G23, SI-09 «Đường chạy cho mục chỉ có quy tắc đỏ» -->
 
@@ -543,6 +694,11 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 2. Tìm thao tác Thực hiện tính toán tự động（自動算出実行） cho Khối 1, kỳ 1学期期末 (cuối kỳ học kỳ 1).
 3. Chạy, chờ hoàn tất, xem kết quả.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: Base | Toàn bộ thủ tục theo đúng thứ tự; các đối chứng cùng fixture được kiểm trong cùng lượt, không bỏ bước |
+
 **期待結果（Kết quả mong đợi）**
 
 Chạy được bằng thao tác hàng loạt hiện có (không có chế độ xét đỏ riêng); sau khi chạy, các ô được xét theo quy tắc “Cố định 30” (dưới 30). Nhãn/cách hiện nút cho trường không có tính tự động chưa chốt — không đánh giá phần này.
@@ -551,7 +707,9 @@ Chạy được bằng thao tác hàng loạt hiện có (không có chế độ
 
 ### TC-RS-FUNC-022 — Trích xuất thành tích（成績抽出）: các tùy chọn đỏ được lưu và mở lại đúng
 
-Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Hiển thị ô trích xuất” (AC-G30 «Hiển thị ô trích xuất»)
+Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Hiển thị ô trích xuất” (AC-G30 «Hiển thị ô trích xuất»)
+Priority basis: output
+Run variants: filter-color; prefix-suffix; copy
 
 <!-- Mã truy vết: TD-ITEM-01 «Mục số nguyên: Điểm đánh giá（評点）, Nhập số nguyên（数値入力（整数））, M mặc định…», TD-RULE-01 «Cố định `<`: Tên "Cố định 30"», TD-ROLE-07 «Người phụ trách đầu ra: Có quyền Trích xuất thành tích（成績抽出）, Thiết lập…», TD-OUT-01 «Trích xuất lọc + ký hiệu trước + màu: Lọc học sinh có điểm đỏ（抽出する） BẬT», TD-OUT-02 «Trích xuất chỉ ký hiệu: Lọc TẮT», , TC-RS-UI-020 -->
 
@@ -568,6 +726,13 @@ Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 4. (PROPOSED) Chạy SELECT cột `extract_setting` của dòng `grade_extract_conf` tương ứng mẫu vừa lưu, lọc theo trường/năm test.
 5. (PROPOSED) Nếu màn có chức năng sao chép thiết lập trích xuất hiện có: sao chép mẫu cấu hình trích xuất: lọc, ký hiệu “*” phía trước, tô màu, mở bản sao.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: filter-color | Cấu hình lọc và màu |
+| Run: prefix-suffix | Cấu hình ký hiệu trước/sau |
+| Run: copy | Sao chép cấu hình theo phần đề xuất |
+
 **期待結果（Kết quả mong đợi）**
 
 1. Có bốn tùy chọn độc lập: lọc học sinh có điểm đỏ, ký hiệu phía trước, ký hiệu phía sau, tô màu ô.
@@ -582,6 +747,8 @@ Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 ### TC-RS-FUNC-023 — Trích xuất: lọc giữ học sinh có ít nhất một ô đỏ trong phạm vi đang xét
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Lọc khi trích xuất” (AC-G29 «Lọc khi trích xuất»)
+Priority basis: output
+Run variants: multi-red-scope; one-red-in-scope; no-red-in-scope; filter-off; another-period-only; other-unit-only; after-delete
 
 <!-- Mã truy vết: TD-ITEM-03 «Mục điểm đơn vị: Điểm bài kiểm tra đơn vị（単元テスト点）, M mặc định 100», TD-STU-10 «S10: HR2», TD-STU-03 «S03: G-A, HR1», TD-STU-06 «S06: G-B, HR2», TD-RULE-01 «Cố định `<`: Tên "Cố định 30"», TD-OUT-01 «Trích xuất lọc + ký hiệu trước + màu: Lọc học sinh có điểm đỏ（抽出する） BẬT», TD-OUT-02 «Trích xuất chỉ ký hiệu: Lọc TẮT», AC-G29, TC-RS-ERR-013 -->
 
@@ -599,6 +766,17 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 5. Với cấu hình trích xuất: lọc, ký hiệu “*” phía trước, tô màu và mục điểm đơn vị (đơn vị U1 có M riêng 40): S06 có U1 Đỏ, U2 Không đỏ; chọn phạm vi chỉ U2.
 6. Xóa thành công ô Toán của S10, chạy lại lọc với cả Toán và Ngữ văn.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: multi-red-scope | Bước 1, S10 có hai ô đỏ trong phạm vi |
+| Run: one-red-in-scope | Bước 2, S10 chỉ còn Ngữ văn trong phạm vi |
+| Run: no-red-in-scope | Đối chứng S03 của bước 1, không ô nào đỏ |
+| Run: filter-off | Bước 3, chỉ ký hiệu và tắt lọc |
+| Run: another-period-only | Bước 4, ô đỏ nằm ở thời điểm khác |
+| Run: other-unit-only | Bước 5, chỉ U2 Không đỏ |
+| Run: after-delete | Bước 6 sau baseline bước 1, xóa Toán nhưng giữ Ngữ văn |
+
 **期待結果（Kết quả mong đợi）**
 
 1. Bước 1: S10 có trong danh sách, S03 không.
@@ -613,18 +791,26 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 ### TC-RS-FUNC-024 — Trích xuất: chỉ ô đỏ được thêm ký hiệu/tô màu
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Hiển thị ô trích xuất” (AC-G30 «Hiển thị ô trích xuất»)
+Priority basis: output
+Run variants: prefix-color; prefix-suffix
 
 <!-- Mã truy vết: TC-RS-FUNC-023, TD-STU-10 «S10: HR2», TD-OUT-01 «Trích xuất lọc + ký hiệu trước + màu: Lọc học sinh có điểm đỏ（抽出する） BẬT», TD-OUT-02 «Trích xuất chỉ ký hiệu: Lọc TẮT» -->
 
 **前提条件（Điều kiện trước）**
 
-- Điều kiện: Như case “Trích xuất: lọc giữ học sinh có ít nhất một ô đỏ trong phạm vi đang xét”.
+- Điều kiện: fixture riêng S10, Toán=24 Đỏ và Ngữ văn=70 Không đỏ; ngưỡng cố định 30, dấu nhỏ hơn, M=100 ở cả hai mục. Không kế thừa Ngữ văn=20 của FUNC-023.
 - Dữ liệu test: học sinh S10 (học lớp G-B và G-C), cấu hình trích xuất: lọc, ký hiệu “*” phía trước, tô màu, cấu hình trích xuất chỉ ký hiệu (“※” trước, “!” sau)
 
 **操作（Thao tác）**
 
 1. Chạy trích xuất cấu hình trích xuất: lọc, ký hiệu “*” phía trước, tô màu, xem dòng S10.
 2. Chạy cấu hình trích xuất chỉ ký hiệu (“※” trước, “!” sau), xem dòng S10.
+
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: prefix-color | Ký hiệu trước và màu |
+| Run: prefix-suffix | Ký hiệu trước và sau |
 
 **期待結果（Kết quả mong đợi）**
 
@@ -636,6 +822,8 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 ### TC-RS-FUNC-025 — Trích xuất: file Excel khớp màn hình
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Excel khớp và dùng kết luận server” (AC-G31 «Excel khớp và dùng kết luận server»)
+Priority basis: output
+Run variants: filter-on; filter-off; empty; stale; hidden
 
 <!-- Mã truy vết: TC-RS-FUNC-024, TD-OUT-01 «Trích xuất lọc + ký hiệu trước + màu: Lọc học sinh có điểm đỏ（抽出する） BẬT», TD-OUT-02 «Trích xuất chỉ ký hiệu: Lọc TẮT», TD-STU-05 «S05: G-A, HR1», TD-STU-10 «S10: HR2», TC-RS-BR-010, TC-RS-ERR-014, AC-G31 -->
 
@@ -650,6 +838,15 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 2. Xuất Excel, mở file.
 3. Lặp bước 1–2 với: (a) cấu hình trích xuất chỉ ký hiệu (“※” trước, “!” sau) (lọc đỏ TẮT); (b) phạm vi không có ô đỏ nào (0 kết quả); (c) sau khi một ô Đỏ bị ngừng kết quả cũ (như case “Chưa có kết quả tổng hợp → Chưa xét được, không thay bằng 0 hay nhóm khác”, Chưa xét được); (d) mục có điểm bị ẩn theo thiết lập ẩn mục nhập (như case “Mục bị ẩn theo thiết lập ẩn mục nhập”).
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: filter-on | Lượt ban đầu bật lọc |
+| Run: filter-off | Nhánh a tắt lọc |
+| Run: empty | Nhánh b không có ô đỏ |
+| Run: stale | Nhánh c kết quả không còn hiệu lực |
+| Run: hidden | Nhánh d điểm ẩn |
+
 **期待結果（Kết quả mong đợi）**
 
 1–2. Danh sách học sinh trong Excel giống màn hình (lọc đỏ đang bật). Cùng ô: ký hiệu, màu nền, số liệu, ô trống trong Excel giống màn hình. Ô trống không hiện số 0. Tải Excel không kích hoạt xét.
@@ -661,6 +858,8 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 ### TC-RS-FUNC-026 — Công khai thành tích（成績公開）: ba hiệu ứng đỏ hiển thị đúng ở màn học sinh
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Cấu hình công khai và ẩn điểm” (AC-G32 «Cấu hình công khai và ẩn điểm»)
+Priority basis: output
+Run variants: parentheses; prefix; suffix-reopen; unit-prefix
 
 <!-- Mã truy vết: TD-ITEM-01 «Mục số nguyên: Điểm đánh giá（評点）, Nhập số nguyên（数値入力（整数））, M mặc định…», TD-ITEM-03 «Mục điểm đơn vị: Điểm bài kiểm tra đơn vị（単元テスト点）, M mặc định 100», TD-STU-01 «S01: G-A, HR1», TD-STU-06 «S06: G-B, HR2», TD-ROLE-05 «Học sinh: Học sinh S01 của trường A, có lịch công khai đang mở», TD-ROLE-07 «Người phụ trách đầu ra: Có quyền Trích xuất thành tích（成績抽出）, Thiết lập…», AC-G32, , TC-RS-UI-023 -->
 
@@ -677,6 +876,14 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 4. Mở lại Thiết lập công khai thành tích.
 5. Với mục điểm đơn vị mục điểm đơn vị (đơn vị U1 có M riêng 40) (S06 U1 = 25 Đỏ), chọn `*` phía trước, lưu; đăng nhập S06 xem.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: parentheses | Hiệu ứng ngoặc |
+| Run: prefix | Hiệu ứng phía trước |
+| Run: suffix-reopen | Hiệu ứng phía sau và mở lại |
+| Run: unit-prefix | Điểm đơn vị với hiệu ứng phía trước |
+
 **期待結果（Kết quả mong đợi）**
 
 1–3. Lần lượt `(29)`, `*29`, `29*`. Không có nền màu riêng cho ô đỏ.
@@ -689,6 +896,8 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 ### TC-RS-FUNC-027 — Công khai: kết hợp hiệu ứng Điểm dự kiến（見込点） và điểm đỏ, khử trùng
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Kết hợp hiệu ứng công khai” (AC-G33 «Kết hợp hiệu ứng công khai»)
+Priority basis: output
+Run variants: a; b; c; d; e; f
 
 <!-- Mã truy vết: TD-STU-06 «S06: G-B, HR2», TD-ROLE-06 «Học sinh S06 của trường A, có lịch công khai đang mở cho HR2», SI-03 «Kết hợp hiệu ứng ở công khai» -->
 
@@ -703,6 +912,16 @@ Với mỗi dòng của bảng dưới, cấu hình hiệu ứng dự kiến và
 
 (a) Ngoặc + `*` trước; (b) `*` trước + `*` trước; (c) Ngoặc + Ngoặc; (d) `*` trước + `*` sau; (e) không trang trí + Ngoặc; (f) điểm bị ẩn theo thiết lập hiện có（表示しない） + `*` trước.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: a | Thực hiện tổ hợp (a) |
+| Run: b | Thực hiện tổ hợp (b) |
+| Run: c | Thực hiện tổ hợp (c) |
+| Run: d | Thực hiện tổ hợp (d) |
+| Run: e | Thực hiện tổ hợp (e) |
+| Run: f | Thực hiện tổ hợp (f) |
+
 **期待結果（Kết quả mong đợi）**
 
 (a) `(*24)`; (b) `*24`, không phải `**24`; (c) `(24)`, không phải `((24))`; (d) `*24*`; (e) `(24)`; (f) vẫn ẩn, không hiện số, không để lại riêng dấu `*`.
@@ -712,6 +931,8 @@ Với mỗi dòng của bảng dưới, cấu hình hiệu ứng dự kiến và
 ### TC-RS-FUNC-028 — Công khai: web, API và PDF học sinh dùng cùng kết quả và cùng hiệu ứng
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Đúng người, lịch và đầu ra công khai” (AC-G34 «Đúng người, lịch và đầu ra công khai»)
+Priority basis: output
+Run variants: web; api; pdf
 
 <!-- Mã truy vết: TC-RS-FUNC-026, TD-STU-01 «S01: G-A, HR1», TD-ROLE-05 «Học sinh: Học sinh S01 của trường A, có lịch công khai đang mở» -->
 
@@ -726,6 +947,13 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 2. Gọi API công khai thành tích của S01 bằng phiên học sinh.
 3. Tải PDF công khai của S01.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: web | Màn web |
+| Run: api | Response API |
+| Run: pdf | File PDF |
+
 **期待結果（Kết quả mong đợi）**
 
 Cả ba hiển thị `*29` cho cùng ô; không nền màu.
@@ -735,6 +963,8 @@ Cả ba hiển thị `*29` cho cùng ô; không nền màu.
 ### TC-RS-FUNC-029 — Công cụ phiếu điểm（通知表ツール）: bốn cách hiển thị đỏ trên PDF
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Tùy chọn trên phiếu” (AC-G35 «Tùy chọn trên phiếu»)
+Priority basis: output
+Run variants: unchanged; parentheses; prefix; suffix
 
 <!-- Mã truy vết: TD-STU-01 «S01: G-A, HR1», TD-OUT-04 «Phiếu điểm: Dòng Thiết lập điểm đỏ（赤点設定）: Ký tự phía trước（前に任意の文字） `※`», TD-ROLE-07 «Người phụ trách đầu ra: Có quyền Trích xuất thành tích（成績抽出）, Thiết lập…» -->
 
@@ -749,6 +979,14 @@ Với từng cách hiển thị: chọn ở dòng Thiết lập điểm đỏ（
 
 (a) Nguyên trạng（そのまま表示）; (b) Kèm ngoặc（カッコ付き）; (c) Ký tự phía trước（前に任意の文字） `※`; (d) Ký tự phía sau（後ろに任意の文字） `※`.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: unchanged | Nguyên trạng |
+| Run: parentheses | Kèm ngoặc |
+| Run: prefix | Ký tự phía trước |
+| Run: suffix | Ký tự phía sau |
+
 **期待結果（Kết quả mong đợi）**
 
 (a) `29`; (b) `(29)`; (c) `※29`; (d) `29※`. Không nền màu; ký tự không tràn ô, không mất ký tự, không đổi cấu trúc template.
@@ -758,6 +996,8 @@ Với từng cách hiển thị: chọn ở dòng Thiết lập điểm đỏ（
 ### TC-RS-FUNC-030 — Phiếu điểm: thứ tự điều kiện và dừng ở điều kiện khớp đầu tiên
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Phiếu dừng ở điều kiện khớp đầu tiên” (AC-G36 «Phiếu dừng ở điều kiện khớp đầu tiên»)
+Priority basis: output
+Run variants: a; b; c-hidden; c-slash; d; e; f; g
 
 <!-- Mã truy vết: TD-STU-06 «S06: G-B, HR2», TD-STU-01 «S01: G-A, HR1», TD-STU-05 «S05: G-A, HR1», TD-OUT-04 «Phiếu điểm: Dòng Thiết lập điểm đỏ（赤点設定）: Ký tự phía trước（前に任意の文字） `※`», AC-G36 -->
 
@@ -784,6 +1024,18 @@ Cấu hình hộp tùy chọn theo từng dòng, bấm Cập nhật（更新す�
 
 (g) Tạm gắn thêm cờ Chưa dự thi（未受験） cho S06; Dự kiến = Nguyên trạng, Chưa dự thi = Ẩn（表示しない）; đỏ = `※` trước → xem S06.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: a | Tổ hợp a |
+| Run: b | Tổ hợp b |
+| Run: c-hidden | Tổ hợp c với Ẩn |
+| Run: c-slash | Tổ hợp c với Gạch chéo |
+| Run: d | Tổ hợp d |
+| Run: e | Tổ hợp e |
+| Run: f | Tổ hợp f |
+| Run: g | Tổ hợp g |
+
 **期待結果（Kết quả mong đợi）**
 
 (a) `(24)`, không thêm `※`; (b) `24`, không chuyển xuống điều kiện đỏ; (c) giữ ẩn/gạch chéo, đỏ không làm hiện lại điểm; (d) `※29`; (e) không áp dấu đỏ của kết quả cũ; ô trống hiển thị theo cấu hình ô trống; (f) `(29)`, điều kiện môn cụ thể thắng, không thêm `※`; (g) `24`: Nguyên trạng ở dòng dự kiến dừng xét, không áp lệnh Ẩn của dòng chưa dự thi phía sau.
@@ -792,7 +1044,9 @@ Cấu hình hộp tùy chọn theo từng dòng, bấm Cập nhật（更新す�
 
 ### TC-RS-FUNC-031 — Phiếu điểm: lưu qua Cập nhật（更新する）, mở lại giữ lựa chọn; chỉ dùng điều kiện đỏ vẫn được ghi nhận
 
-Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Lưu, sao chép và PDF phiếu” (AC-G37 «Lưu, sao chép và PDF phiếu»)
+Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Lưu, sao chép và PDF phiếu” (AC-G37 «Lưu, sao chép và PDF phiếu»)
+Priority basis: output
+Run variants: unsaved; saved-pdf
 
 <!-- Mã truy vết: TD-OUT-04 «Phiếu điểm: Dòng Thiết lập điểm đỏ（赤点設定）: Ký tự phía trước（前に任意の文字） `※`», AC-G37, TC-RS-DATA-011 -->
 
@@ -807,6 +1061,12 @@ Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 2. Lặp lại, lần này bấm Cập nhật（更新する）; tải lại, mở hộp.
 3. Xuất PDF.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: unsaved | Bước 1 không cập nhật |
+| Run: saved-pdf | Bước 2–3 lưu, mở lại và PDF |
+
 **期待結果（Kết quả mong đợi）**
 
 1. Không bấm Cập nhật: thay đổi không được lưu (hành vi hiện có).
@@ -818,6 +1078,8 @@ Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 ### TC-RS-FUNC-032 — Ba đầu ra dùng cùng kết quả cho cùng ô
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Kết quả chung và thứ tự cập nhật” (AC-G22 «Kết quả chung và thứ tự cập nhật»)
+Priority basis: output
+Run variants: extract-off; extract-on; publish; report
 
 <!-- Mã truy vết: TD-STU-01 «S01: G-A, HR1», TD-STU-03 «S03: G-A, HR1», TD-STU-05 «S05: G-A, HR1», TD-OUT-01 «Trích xuất lọc + ký hiệu trước + màu: Lọc học sinh có điểm đỏ（抽出する） BẬT», TD-OUT-03 «Công khai: Hiệu ứng đỏ: `*` phía trước（前に「*」）», TD-OUT-04 «Phiếu điểm: Dòng Thiết lập điểm đỏ（赤点設定）: Ký tự phía trước（前に任意の文字） `※`» -->
 
@@ -834,6 +1096,14 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 4. Xuất PDF phiếu điểm của cùng học sinh/kỳ.
 5. Đối chiếu ba output với kết quả đã lưu, không chỉ đối chiếu giao diện; không loại S03/S05 khỏi fixture trước khi kiểm tra.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: extract-off | Bước 1 và 5, không lọc |
+| Run: extract-on | Bước 2 và 5, bật lọc |
+| Run: publish | Bước 3 và 5 |
+| Run: report | Bước 4 và 5 |
+
 **期待結果（Kết quả mong đợi）**
 
 Cả ba đầu ra đều dùng cùng kết quả đã lưu: S01 có dấu đỏ theo cấu hình riêng của từng output; S03 không có dấu đỏ; S05 không bị coi là điểm 0 và không có dấu đỏ. Excel phải giữ nguyên dữ liệu; màn công khai và PDF không được tự chọn lại rule hoặc tính lại ngưỡng. Nếu chạy lại sau khi chỉ xem/xuất, kết quả và bằng chứng phải không đổi.
@@ -843,6 +1113,8 @@ Cả ba đầu ra đều dùng cùng kết quả đã lưu: S01 có dấu đỏ 
 ### TC-RS-FUNC-033 — Đổi tên quy tắc: giữ liên kết, thứ tự và kết quả
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Lưu và mở lại nhiều thiết lập” (AC-G04 «Lưu và mở lại nhiều thiết lập»)
+Priority basis: result
+Run variants: Base
 
 <!-- Mã truy vết: TD-RULE-01 «Cố định `<`: Tên "Cố định 30"», TD-STU-01 «S01: G-A, HR1», AC-G04 -->
 
@@ -857,6 +1129,11 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 2. Xem danh sách và ba đầu ra.
 3. Chạy lại bằng đăng ký điểm S01=29.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: Base | Toàn bộ thủ tục theo đúng thứ tự; các đối chứng cùng fixture được kiểm trong cùng lượt, không bỏ bước |
+
 **期待結果（Kết quả mong đợi）**
 
 1–2. Danh sách hiện tên mới ở cùng vị trí ưu tiên, tóm tắt không đổi; S01 vẫn Đỏ ở ba đầu ra.
@@ -868,6 +1145,8 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 ### TC-RS-FUNC-034 — Nguồn của điều kiện áp dụng và nguồn của công thức lưu độc lập
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Đúng phạm vi tham chiếu” (AC-G12 «Đúng phạm vi tham chiếu»)
+Priority basis: result
+Run variants: Base
 
 <!-- Mã truy vết: AC-G12 -->
 
@@ -883,6 +1162,11 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 3. Chạy nút cam.
 4. Trên form, đổi Thời kỳ tổng hợp（集計対象時期） của nguồn điều kiện sang kỳ mà Thiết lập tổng hợp thứ hạng（順位集計設定） đang chọn vẫn hợp lệ; rồi đổi sang kỳ mà thiết lập đó không còn hợp lệ. Xem các ô chọn phụ thuộc sau mỗi lần đổi.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: Base | Toàn bộ thủ tục theo đúng thứ tự; các đối chứng cùng fixture được kiểm trong cùng lượt, không bỏ bước |
+
 **期待結果（Kết quả mong đợi）**
 
 1. Mỗi phần hiện đúng nguồn của mình (điều kiện: P; công thức: Q).
@@ -895,6 +1179,8 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 ### TC-RS-FUNC-035 — Nhập CSV đăng ký điểm lớp chủ nhiệm hàng loạt（HR成績CSV一括登録） kích hoạt xét
 
 Priority: TBD ｜ Status: TBD ｜ Requirement ID: tiêu chí nghiệm thu “Bao phủ đường đăng ký và chạy lại” (AC-G23 «Bao phủ đường đăng ký và chạy lại»)
+Priority basis: other
+Run variants: auto-on; auto-off
 
 <!-- Mã truy vết: TD-ITEM-01 «Mục số nguyên: Điểm đánh giá（評点）, Nhập số nguyên（数値入力（整数））, M mặc định…», TD-RULE-01 «Cố định `<`: Tên "Cố định 30"», TD-STU-01 «S01: G-A, HR1», SI-10 «Nhập CSV HR ở trường không có AutoRating» -->
 
@@ -908,6 +1194,12 @@ Priority: TBD ｜ Status: TBD ｜ Requirement ID: tiêu chí nghiệm thu “Bao
 1. Nhập CSV đăng ký điểm lớp chủ nhiệm hàng loạt（HR成績CSV一括登録） với S01=28.
 2. Xem kết quả.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: auto-on | Trường có tính tự động |
+| Run: auto-off | Trường không có tính tự động |
+
 **期待結果（Kết quả mong đợi）**
 
 Theo đặc tả v2 mục 7.2 “Bảng sự kiện”: nhập thành công → S01 Đỏ. tài liệu chia công việc v2 chưa đưa đường ghi điểm “HR成績CSV一括登録 (đăng ký điểm hàng loạt bằng CSV)” vào đường được hỗ trợ; code đường ghi điểm “HR成績CSV一括登録 (đăng ký điểm hàng loạt bằng CSV)” chỉ xếp hàng khi trường dùng tính tự động (context điểm đỏ khoảng trống tích hợp “Không có công thức / điểm sửa tay”) — cần xác nhận đường ghi điểm “HR成績CSV一括登録 (đăng ký điểm hàng loạt bằng CSV)” có thuộc đợt không.
@@ -917,6 +1209,8 @@ Theo đặc tả v2 mục 7.2 “Bảng sự kiện”: nhập thành công → 
 ### TC-RS-FUNC-036 — Danh sách nhóm tham chiếu theo thiết lập tổng hợp hiện hữu
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Đúng phạm vi tham chiếu” (AC-G12 «Đúng phạm vi tham chiếu»)
+Priority basis: result
+Run variants: switch-sequence; grade-only; formula-source
 
 <!-- Mã truy vết: TD-POP-01 «Thiết lập tổng hợp X: Thiết lập tổng hợp thứ hạng（順位集計設定）…», TD-POP-03 «Nhóm tổng hợp thứ hạng（順位集計グループ）: "Toán I khối 1+2" gồm lớp G-A và G-B…», TD-POP-04 «Nhóm tổ hợp（組み合わせグループ）: "Tổ hợp Toán" (tên giả) thuộc trường A/2026, đã…», TD-POP-05 «Nhóm môn học（科目グループ）: "Nhóm môn Toán" (tên giả): có cấu hình riêng cho…», TD-ITEM-01 «Mục số nguyên: Điểm đánh giá（評点）, Nhập số nguyên（数値入力（整数））, M mặc định…», TD-POP-02 «X sau khi bật lớp học: Như TD-POP-01 nhưng bật thêm Lớp học（授業）, chạy…», TD-ROLE-01 «Giáo viên có quyền sửa mục: Có quyền vào Thiết lập nhập điểm（成績入力設定） và…», TD-ROLE-03 «Người có quyền chạy hàng loạt: Có quyền thực hiện Thực hiện tổng…», AC-G12 -->
 
@@ -933,6 +1227,13 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 4. Ở trường/năm không có nhóm tổng hợp/tổ hợp/nhóm môn nào được cấu hình và chỉ bật khối: mở danh sách.
 5. Ở nguồn của công thức: lặp thứ tự chọn Thiết lập tổng hợp thứ hạng → Đối tượng tổng hợp, chọn nhóm khác với nguồn điều kiện; lưu, mở lại.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: switch-sequence | Bước 1–3 cùng X theo thứ tự |
+| Run: grade-only | Bước 4 với fixture chỉ khối |
+| Run: formula-source | Bước 5, chuẩn bị nguồn điều kiện trước |
+
 **期待結果（Kết quả mong đợi）**
 
 1. Trong ba loại cơ bản chỉ có Khối（学年） và Lớp chủ nhiệm（ホームルーム）; không có Lớp học（授業）. Có nhóm tổng hợp thứ hạng “Toán I khối 1+2”, nhóm tổ hợp “Tổ hợp Toán”, nhóm môn học “Nhóm môn Toán”, hiển thị bằng tên đã đặt.
@@ -946,6 +1247,8 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 ### TC-RS-FUNC-037 — Công khai: cùng mục dùng hiệu ứng đỏ khác nhau ở hai cấu hình công khai
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Cấu hình công khai và ẩn điểm” (AC-G32 «Cấu hình công khai và ẩn điểm»)
+Priority basis: output
+Run variants: web; api; pdf; copy; item-types; save-failure
 
 <!-- Mã truy vết: TD-ITEM-01 «Mục số nguyên: Điểm đánh giá（評点）, Nhập số nguyên（数値入力（整数））, M mặc định…», TD-OUT-05 «Hai cấu hình công khai cùng mục: Thiết lập công khai thành…», TD-OUT-06 «Công khai có mục thường và đơn vị: Cấu hình X: TD-ITEM-01…», TD-ITEM-03 «Mục điểm đơn vị: Điểm bài kiểm tra đơn vị（単元テスト点）, M mặc định 100», TD-STU-01 «S01: G-A, HR1», TD-ROLE-05 «Học sinh: Học sinh S01 của trường A, có lịch công khai đang mở», TD-ROLE-07 «Người phụ trách đầu ra: Có quyền Trích xuất thành tích（成績抽出）, Thiết lập…», AC-G32, TC-RS-DATA-012 -->
 
@@ -962,6 +1265,16 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 4. Sao chép X thành X' (theo chức năng sao chép cấu hình hiện có); mở X'.
 5. Ở X, mục số nguyên (M=100) (điểm thường（通常）) chọn Ngoặc; mục điểm đơn vị (đơn vị U1 có M riêng 40) (điểm đơn vị（単元）) chọn `*` phía sau; lưu, mở lại.
 6. Ở Y, đổi sang `*` phía sau và giả lập lỗi lưu; mở lại Y.
+
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: web | Bước 1–3 xem X/Y trên web |
+| Run: api | Bước 1–3 đọc API X/Y |
+| Run: pdf | Bước 1–3 PDF X/Y |
+| Run: copy | Bước 4 sau setup X |
+| Run: item-types | Bước 5 |
+| Run: save-failure | Bước 6 sau setup Y |
 
 **期待結果（Kết quả mong đợi）**
 
@@ -980,6 +1293,8 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 ### TC-RS-BR-001 — Chọn quy tắc khớp đầu tiên theo ưu tiên, không lấy ngưỡng nghiêm hơn
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Chọn quy tắc khớp đầu tiên” (AC-G06 «Chọn quy tắc khớp đầu tiên»)
+Priority basis: result
+Run variants: priority20; priority30
 
 <!-- Mã truy vết: TD-ITEM-01 «Mục số nguyên: Điểm đánh giá（評点）, Nhập số nguyên（数値入力（整数））, M mặc định…», TD-RULE-08 «Cặp cùng áp dụng: Ưu tiên 1: Toàn bộ, cố định 20 `<`» -->
 
@@ -994,6 +1309,12 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 2. Đổi thứ tự (ưu tiên 1 là `<30`), bấm chạy lại (đăng ký lại điểm hoặc nút cam).
 3. Xem kết quả sau mỗi lần xét.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: priority20 | Thứ tự ban đầu |
+| Run: priority30 | Đổi thứ tự rồi xét lại |
+
 **期待結果（Kết quả mong đợi）**
 
 1. Lần 1: chọn quy tắc `<20` → Không đỏ.
@@ -1004,6 +1325,8 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 ### TC-RS-BR-002 — Không quy tắc nào khớp khi đủ dữ liệu → Không áp dụng
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Chọn quy tắc khớp đầu tiên” (AC-G06 «Chọn quy tắc khớp đầu tiên»); tiêu chí nghiệm thu “Trạng thái sau lần chạy” (AC-G20 «Trạng thái sau lần chạy»)
+Priority basis: result
+Run variants: Base
 
 <!-- Mã truy vết: TD-ITEM-01 «Mục số nguyên: Điểm đánh giá（評点）, Nhập số nguyên（数値入力（整数））, M mặc định…», TD-RULE-12 «Bộ lọc kết hợp: Giới hạn bằng bộ lọc（特定条件で絞り込む）: Khối（学年） = 1 hoặc 2», TD-STU-07 «S07: G-B, HR2» -->
 
@@ -1017,6 +1340,11 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 1. Đăng ký S07=20.
 2. Xem kết quả ở ba đầu ra.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: Base | Toàn bộ thủ tục theo đúng thứ tự; các đối chứng cùng fixture được kiểm trong cùng lượt, không bỏ bước |
+
 **期待結果（Kết quả mong đợi）**
 
 S07 ở trạng thái Không áp dụng: không có dấu/lọc đỏ; không được coi là "đạt một ngưỡng".
@@ -1026,6 +1354,8 @@ S07 ở trạng thái Không áp dụng: không có dấu/lọc đỏ; không đ
 ### TC-RS-BR-003 — Ưu tiên 1 khớp nhưng thiếu dữ liệu → Chưa xét được, không chuyển xuống ưu tiên 2
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Chọn quy tắc khớp đầu tiên” (AC-G06 «Chọn quy tắc khớp đầu tiên»)
+Priority basis: result
+Run variants: divide-zero; missing-average; filter-miss
 
 <!-- Mã truy vết: TD-RULE-11 «Chia cho trung bình: Dòng 1: Số cố định（固定値）100 ÷ Trung bình（平均点）», TD-SRC-08 «Trung bình bằng 0: Mọi học sinh trong nhóm có 0 điểm → `A=0`», TD-RULE-01 «Cố định `<`: Tên "Cố định 30"», TD-SRC-03 «Không có tổng hợp: Nguồn chưa từng chạy tổng hợp», TD-STU-01 «S01: G-A, HR1» -->
 
@@ -1037,6 +1367,13 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 **操作（Thao tác）**
 
 Với từng cấu hình (A), (B), (C): đăng ký S01=29, xem kết quả.
+
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: divide-zero | Fixture A chia 0 |
+| Run: missing-average | Fixture B thiếu trung bình |
+| Run: filter-miss | Fixture C không khớp lọc |
 
 **期待結果（Kết quả mong đợi）**
 
@@ -1051,6 +1388,8 @@ Với từng cấu hình (A), (B), (C): đăng ký S01=29, xem kết quả.
 ### TC-RS-BR-004 — Kết hợp bộ lọc: HOẶC trong cùng loại, VÀ giữa các loại
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Đối tượng áp dụng và nhu cầu nguồn” (AC-G05 «Đối tượng áp dụng và nhu cầu nguồn»)
+Priority basis: result
+Run variants: Base
 
 <!-- Mã truy vết: TD-ITEM-01 «Mục số nguyên: Điểm đánh giá（評点）, Nhập số nguyên（数値入力（整数））, M mặc định…», TD-RULE-12 «Bộ lọc kết hợp: Giới hạn bằng bộ lọc（特定条件で絞り込む）: Khối（学年） = 1 hoặc 2» -->
 
@@ -1064,6 +1403,11 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 1. Đăng ký điểm 20 cho P1–P4.
 2. Xem kết quả.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: Base | Toàn bộ thủ tục theo đúng thứ tự; các đối chứng cùng fixture được kiểm trong cùng lượt, không bỏ bước |
+
 **期待結果（Kết quả mong đợi）**
 
 P1, P2: Đỏ. P3, P4: Không áp dụng.
@@ -1073,33 +1417,67 @@ P1, P2: Đỏ. P3, P4: Không áp dụng.
 ### TC-RS-BR-041 — Điều kiện trung bình cùng nguồn kết hợp AND
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Đối tượng áp dụng và nhu cầu nguồn” (AC-G05 «Đối tượng áp dụng và nhu cầu nguồn»)
+Priority basis: result
+Run variants: A-P9; A-P10; A-P11; A-P12; A-P13; A-P14; A-P15; A-P16; RR-60; RR-49.9; RR-70; AR-60-60; AR-40-60; AR-60-40; FILTER-POS; FILTER-GRADE-NEG; FILTER-GROUP-NEG; P17-A-NAN; P19-A-INFINITY; P18-A-EMPTY; P18-S-EMPTY; reopen-summary
 
-<!-- Mã truy vết: TD-RULE-15 «Hai điều kiện trung bình cùng nguồn: Cùng nguồn `A`: `A≥50` và `A<70`», AC-G05 -->
+Readiness: BLOCKED — snapshot/reader cho A (P9–P16), R, A+R và membership bộ lọc chưa được provision/quan sát; chỉ PASS biến thể có mapping và evidence reader đúng fixture.
+
+<!-- Mã truy vết: TD-RULE-15 «Hai điều kiện trung bình cùng nguồn: Cùng nguồn `A`: `A≥50` và `A<70`», TD-SRC-11…TD-SRC-24 «Fixture nguồn có mapping riêng cho A, R và A+R», TD-SRC-26…TD-SRC-29 «Fixture P17/P18/P19 chứng minh trạng thái nguồn/điểm», TD-GRP-04/06 «Fixture bộ lọc và trạng thái BR-041», AC-G05 -->
 
 **前提条件（Điều kiện trước）**
 
 - Điều kiện: mỗi biến thể chỉ thay một nhóm điều kiện, cùng rule và cùng đối tượng áp dụng; ngưỡng cố định `T=70`, dấu `<`, P1 có `S=60` và thuộc phạm vi áp dụng.
-- Dữ liệu test: (A) cùng nguồn `A`: `A≥50` AND `A<70`; P9 `A=40`, P10 `A=50`, P11 `A=60`, P12 `A=70`, P13 `A=49.9`, P14 `A=50.0`, P15 `A=69.9`, P16 `A=70.0`. (R) cùng nguồn tỷ lệ nhóm `R`: `R≥50%` AND `R<70%`, snapshot cho `R=60%`. (A+R) `A≥50` AND `R≥50%`, cùng một fixture có `A=60`, `R=60%`. (Bộ lọc) Khối 1 hoặc 2 AND nhóm Nâng cao; biến thể âm thay một điều kiện bằng Khối 3 hoặc nhóm khác. P17: fixture nguồn đã khớp bộ lọc nhưng reader trả `A=NaN`/`Infinity`, S=60, có rule thấp hơn cố định 30 để kiểm không fallback. P18a: bộ lọc khớp, `A` thiếu/null, S=60. P18b: bộ lọc khớp, `A=60`, S để trống. P17/P18 chỉ là control trạng thái, không dùng để suy ra quy tắc AND.
+- Dữ liệu test: (A) điều kiện cùng nguồn `A≥50` AND `A<70`; mỗi P9–P16 là một lượt độc lập, reset/configure nguồn theo đúng fixture TD-SRC-17…24, không dùng chung một snapshot cho các giá trị khác nhau. (R) dùng snapshot TD-SRC-11/12/13; (A+R) dùng identity/snapshot riêng TD-SRC-14/15/16. Đây là fixture cần provision/quan sát, chưa phải dữ liệu đã có. (Bộ lọc) TD-GRP-04 có ba identity với reader/snapshot riêng nhưng cùng `A=60`, `R=60%`, `S=60`, rule `A≥50 AND R≥50%`, `T=70`, dấu `<`; positive khớp khối 1 và Nâng cao, hai negative chỉ sai khối hoặc chỉ sai nhóm. Phải ghi identity và giá trị reader từng lượt, không thay A/R khi đổi bộ lọc. Trạng thái dùng riêng TD-SRC-26…29: P17 có A=NaN, P19 có A=Infinity, P18-A-EMPTY có A thiếu/null và S=25, P18-S-EMPTY có A=60 và S không có điểm. P17/P18-A/P19 dùng rule ưu tiên thấp hơn `T=30`, `S=25` để phát hiện fallback. Không gộp thiếu A với thiếu điểm S và không tái sử dụng fixture giữa các lượt.
 
 **操作（Thao tác）**
 
-1. Lưu và chạy lần lượt các biến thể A, R, A+R và bộ lọc; ghi source snapshot/reader và giá trị thực tế đã dùng cho `A`/`R`.
-2. Với biến thể A, chạy xét P9–P16; với các biến thể còn lại, chạy P1 và các học sinh positive/negative tương ứng.
-3. Mở lại từng rule và kiểm tra các điều kiện vẫn thuộc cùng rule, đúng source và không bị đổi thành OR.
+1. Lưu rule A+A. Với từng variant A-P9…A-P16, reset fixture, chọn đúng TD-SRC tương ứng, ghi identity nhóm/snapshot và xác nhận reader trả đúng A trước khi xét.
+2. Lưu và chạy riêng RR-60/RR-49.9/RR-70 theo TD-SRC-11…13 và AR-60-60/AR-40-60/AR-60-40 theo TD-SRC-14…16; không dùng snapshot của variant trước.
+3. Chạy riêng FILTER-POS, FILTER-GRADE-NEG và FILTER-GROUP-NEG với TD-GRP-04; mỗi lượt chỉ một predicate lọc âm tính.
+4. Chạy P17-A-NAN, P19-A-INFINITY, P18-A-EMPTY và P18-S-EMPTY trên TD-SRC-26…29/fixture nguồn riêng; ghi trạng thái reader và kiểm tra không fallback.
+5. Mở lại từng rule và kiểm tra các điều kiện vẫn thuộc cùng rule, đúng source và không bị đổi thành OR.
+
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: A-P9 | Nhánh A-P9 trong thủ tục và Expected của case; thực hiện các bước chuẩn bị chung trước nhánh |
+| Run: A-P10 | Nhánh A-P10 trong thủ tục và Expected của case; thực hiện các bước chuẩn bị chung trước nhánh |
+| Run: A-P11 | Nhánh A-P11 trong thủ tục và Expected của case; thực hiện các bước chuẩn bị chung trước nhánh |
+| Run: A-P12 | Nhánh A-P12 trong thủ tục và Expected của case; thực hiện các bước chuẩn bị chung trước nhánh |
+| Run: A-P13 | Nhánh A-P13 trong thủ tục và Expected của case; thực hiện các bước chuẩn bị chung trước nhánh |
+| Run: A-P14 | Nhánh A-P14 trong thủ tục và Expected của case; thực hiện các bước chuẩn bị chung trước nhánh |
+| Run: A-P15 | Nhánh A-P15 trong thủ tục và Expected của case; thực hiện các bước chuẩn bị chung trước nhánh |
+| Run: A-P16 | Nhánh A-P16 trong thủ tục và Expected của case; thực hiện các bước chuẩn bị chung trước nhánh |
+| Run: RR-60 | Nhánh RR-60 trong thủ tục và Expected của case; thực hiện các bước chuẩn bị chung trước nhánh |
+| Run: RR-49.9 | Nhánh RR-49.9 trong thủ tục và Expected của case; thực hiện các bước chuẩn bị chung trước nhánh |
+| Run: RR-70 | Nhánh RR-70 trong thủ tục và Expected của case; thực hiện các bước chuẩn bị chung trước nhánh |
+| Run: AR-60-60 | Nhánh AR-60-60 trong thủ tục và Expected của case; thực hiện các bước chuẩn bị chung trước nhánh |
+| Run: AR-40-60 | Nhánh AR-40-60 trong thủ tục và Expected của case; thực hiện các bước chuẩn bị chung trước nhánh |
+| Run: AR-60-40 | Nhánh AR-60-40 trong thủ tục và Expected của case; thực hiện các bước chuẩn bị chung trước nhánh |
+| Run: FILTER-POS | Nhánh FILTER-POS trong thủ tục và Expected của case; thực hiện các bước chuẩn bị chung trước nhánh |
+| Run: FILTER-GRADE-NEG | Nhánh FILTER-GRADE-NEG trong thủ tục và Expected của case; thực hiện các bước chuẩn bị chung trước nhánh |
+| Run: FILTER-GROUP-NEG | Nhánh FILTER-GROUP-NEG trong thủ tục và Expected của case; thực hiện các bước chuẩn bị chung trước nhánh |
+| Run: P17-A-NAN | Nhánh P17-A-NAN trong thủ tục và Expected của case; thực hiện các bước chuẩn bị chung trước nhánh |
+| Run: P19-A-INFINITY | Nhánh P19-A-INFINITY trong thủ tục và Expected của case; thực hiện các bước chuẩn bị chung trước nhánh |
+| Run: P18-A-EMPTY | Nhánh P18-A-EMPTY trong thủ tục và Expected của case; thực hiện các bước chuẩn bị chung trước nhánh |
+| Run: P18-S-EMPTY | Nhánh P18-S-EMPTY trong thủ tục và Expected của case; thực hiện các bước chuẩn bị chung trước nhánh |
+| Run: reopen-summary | Bước 5 sau từng cấu hình ở bước 1–4, giữ source và phép AND khi mở lại; positive A+A đã nằm ở A-P10/P11/P14/P15, không tạo lượt AA-POS không có fixture riêng |
 
 **期待結果（Kết quả mong đợi）**
 
-1. Biến thể A: P9/P12/P13/P16 không thỏa; P10/P11/P14/P15 thỏa `50≤A<70`; với `T=70`, chỉ học sinh positive có `S=60` bị Đỏ. P17 có `A=NaN`/không hữu hạn: điều kiện nguồn không xác định → Chưa xét được, không xuống rule thấp hơn và không giữ kết quả đỏ cũ.
+1. Biến thể A: P9/P12/P13/P16 không thỏa; P10/P11/P14/P15 thỏa `50≤A<70`; với `T=70`, chỉ học sinh positive có `S=60` bị Đỏ. Mỗi kết quả chỉ hợp lệ khi source identity/reader evidence khớp TD-SRC tương ứng.
 2. Biến thể R: `R=60%` → thỏa, P1 Đỏ; `R=49.9%` và `R=70%` → Không áp dụng; không tự tính lại R nếu chưa có source fixture quan sát được.
 3. Biến thể A+R: `A=60,R=60%` → thỏa, P1 Đỏ; `A=40,R=60%` và `A=60,R=40%` → Không áp dụng. P1 chỉ được xét khi **cả** điều kiện đúng.
-4. Biến thể bộ lọc: OR chỉ áp dụng trong cùng loại (Khối 1 hoặc 2); nhóm Nâng cao là điều kiện loại khác nên phải AND. Khối 3 hoặc nhóm không đúng → Không áp dụng.
-5. P18 phải tách hai fixture: nếu thiếu `A` thì Chưa xét được; nếu `A` hợp lệ nhưng `S` trống thì Không có điểm. Không diễn giải A+R thành OR, không ghép hai rule riêng bằng AND. Nếu không dựng được NaN qua UI, ghi BLOCKED/NEEDS_EVIDENCE nhưng giữ oracle trên.
+4. Với cả ba lượt đã xác nhận reader `A=60`, `R=60%`, `S=60`: FILTER-POS khớp tất cả điều kiện nên Đỏ (`60<70`); FILTER-GRADE-NEG chỉ sai khối và FILTER-GROUP-NEG chỉ sai nhóm nên đều Không áp dụng, không có dấu đỏ. OR chỉ áp dụng trong cùng loại (Khối 1 hoặc 2); nhóm Nâng cao là điều kiện loại khác nên phải AND.
+5. P17-A-NAN, P19-A-INFINITY và P18-A-EMPTY đều Chưa xét được, không xuống rule thấp hơn dù `S=25<T=30`, và không giữ kết quả đỏ cũ. P18-S-EMPTY có A hợp lệ nhưng điểm học sinh trống nên Không có điểm. Bằng chứng phải cho thấy source A, S và trạng thái kết quả riêng; không thay Chưa xét được bằng Không áp dụng. Không diễn giải A+R thành OR, không ghép hai rule riêng bằng AND. Nếu không dựng được giá trị qua reader/UI, biến thể tương ứng BLOCKED/NEEDS_EVIDENCE nhưng giữ oracle trên.
 
 <a id="tc-rs-br-005"></a>
 
 ### TC-RS-BR-005 — Toàn bộ đối tượng（全員が対象） không vượt phạm vi mục, trường, năm
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Đối tượng áp dụng và nhu cầu nguồn” (AC-G05 «Đối tượng áp dụng và nhu cầu nguồn»)
+Priority basis: result
+Run variants: Base
 
 <!-- Mã truy vết: TD-ITEM-01 «Mục số nguyên: Điểm đánh giá（評点）, Nhập số nguyên（数値入力（整数））, M mặc định…», TD-RULE-01 «Cố định `<`: Tên "Cố định 30"», TD-ENV-02 «Trường khác: Trường B (tên giả), có ít nhất một mục đánh giá và một quy…», TD-ITEM-02 «Mục số thập phân: Điểm đánh giá（評点）, Nhập số thập phân（数値入力（小数））, M mặc…», TD-STU-09 «S09: G-B, HR2» -->
 
@@ -1113,6 +1491,11 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 1. Chạy xét hàng loạt cho trường A.
 2. Xem kết quả S09 ở mục số thập phân (M=100) và dữ liệu trường B.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: Base | Toàn bộ thủ tục theo đúng thứ tự; các đối chứng cùng fixture được kiểm trong cùng lượt, không bỏ bước |
+
 **期待結果（Kết quả mong đợi）**
 
 Chỉ ô của mục số nguyên (M=100) trong trường A năm 2026 được xét. S09 ở mục số thập phân (M=100) và học sinh trường B không bị ảnh hưởng.
@@ -1122,6 +1505,8 @@ Chỉ ô của mục số nguyên (M=100) trong trường A năm 2026 được x
 ### TC-RS-BR-006 — Nhóm tham chiếu tách khỏi đối tượng áp dụng và danh sách đang lọc ở đầu ra
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Đúng phạm vi tham chiếu” (AC-G12 «Đúng phạm vi tham chiếu»)
+Priority basis: result
+Run variants: Base
 
 <!-- Mã truy vết: TD-GRP-01 «Lớp học phần: G-A (Toán I（数学Ⅰ）, khối 1, nhóm thành tích Nâng cao), G-B…» -->
 
@@ -1136,6 +1521,11 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 2. Chạy trích xuất chỉ lọc lớp G-A.
 3. Chạy lại xét.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: Base | Toàn bộ thủ tục theo đúng thứ tự; các đối chứng cùng fixture được kiểm trong cùng lượt, không bỏ bước |
+
 **期待結果（Kết quả mong đợi）**
 
 Kết quả vẫn dùng `T=25` (từ `A=50` của cả nhóm). Lọc lớp ở đầu ra hoặc đối tượng chỉ G-A không làm trung bình thành 40 (`T=20`).
@@ -1145,6 +1535,8 @@ Kết quả vẫn dùng `T=25` (từ `A=50` của cả nhóm). Lọc lớp ở �
 ### TC-RS-BR-007 — Nguồn: bản đã chốt được ưu tiên hơn tổng hợp mới hơn
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Ưu tiên bản chốt và xử lý thiếu nguồn” (AC-G13 «Ưu tiên bản chốt và xử lý thiếu nguồn»); tiêu chí nghiệm thu “Phạm vi từng đợt” (AC-G40 «Phạm vi từng đợt»)
+Priority basis: result
+Run variants: Base
 
 <!-- Mã truy vết: TD-SRC-01 «Bản đã chốt: Snapshot của nguồn mặc định, `A` thô = 49.99…», TD-SRC-02 «Bản mới nhất chưa chốt: Tổng hợp chạy sau TD-SRC-01, `A` = 62», TD-ITEM-01 «Mục số nguyên: Điểm đánh giá（評点）, Nhập số nguyên（数値入力（整数））, M mặc định…», TD-RULE-07 «Cặp phân nhánh: Ưu tiên 1 "Trung bình từ 60": điều kiện `A≥60`, cố định…», TD-ENV-04 «Nguồn snapshot: Dummy data cho bản tổng hợp đã chốt (R18 §5.5) cho tới…», AC-G13, AC-G40 -->
 
@@ -1158,6 +1550,11 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 1. Chạy nút cam.
 2. Xem kết quả.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: Base | Toàn bộ thủ tục theo đúng thứ tự; các đối chứng cùng fixture được kiểm trong cùng lượt, không bỏ bước |
+
 **期待結果（Kết quả mong đợi）**
 
 Dùng `A=49.99` → nhánh ưu tiên 2 (`A<60`), `T=24.995` → điểm 24 Đỏ, điểm 26 Không đỏ. Không dùng `A=62` (sẽ vào nhánh `A≥60`, `T=30`, điểm 26 Đỏ).
@@ -1167,6 +1564,8 @@ Dùng `A=49.99` → nhánh ưu tiên 2 (`A<60`), `T=24.995` → điểm 24 Đỏ
 ### TC-RS-BR-008 — Nguồn: chưa có bản chốt → dùng tổng hợp hoàn tất mới nhất cùng phạm vi
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Ưu tiên bản chốt và xử lý thiếu nguồn” (AC-G13 «Ưu tiên bản chốt và xử lý thiếu nguồn»)
+Priority basis: result
+Run variants: completed; running; failed
 
 <!-- Mã truy vết: TD-SRC-02 «Bản mới nhất chưa chốt: Tổng hợp chạy sau TD-SRC-01, `A` = 62», TD-RULE-07 «Cặp phân nhánh: Ưu tiên 1 "Trung bình từ 60": điều kiện `A≥60`, cố định…», AC-G13 -->
 
@@ -1181,6 +1580,13 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 2. Xem kết quả học sinh điểm 26 và 29.
 3. Bắt đầu một lượt tổng hợp mới cùng phạm vi sau bản tổng hợp mới nhất chưa chốt (trung bình 62) nhưng chưa hoàn tất (đang chạy hoặc thất bại); chạy lại nút cam.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: completed | Bản mới nhất hoàn tất |
+| Run: running | Bản mới đang chạy |
+| Run: failed | Bản mới thất bại |
+
 **期待結果（Kết quả mong đợi）**
 
 1–2. Dùng `A=62` (mới nhất, cùng kỳ) → nhánh `A≥60`, `T=30` → 26 và 29 Đỏ. Không dùng bản cũ hơn hoặc bản khác kỳ.
@@ -1192,6 +1598,8 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 ### TC-RS-BR-009 — Nguồn: bản đã chốt thiếu dữ liệu → Chưa xét được, không chuyển sang bản thường
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Ưu tiên bản chốt và xử lý thiếu nguồn” (AC-G13 «Ưu tiên bản chốt và xử lý thiếu nguồn»); tiêu chí nghiệm thu “Phạm vi từng đợt” (AC-G40 «Phạm vi từng đợt»)
+Priority basis: result
+Run variants: Base
 
 <!-- Mã truy vết: TD-SRC-04 «Bản chốt thiếu dữ liệu: Snapshot tồn tại nhưng không có dòng cho…», TD-SRC-02 «Bản mới nhất chưa chốt: Tổng hợp chạy sau TD-SRC-01, `A` = 62», TD-RULE-07 «Cặp phân nhánh: Ưu tiên 1 "Trung bình từ 60": điều kiện `A≥60`, cố định…», TD-ENV-04 «Nguồn snapshot: Dummy data cho bản tổng hợp đã chốt (R18 §5.5) cho tới…», AC-G13, AC-G40 -->
 
@@ -1205,6 +1613,11 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 1. Chạy nút cam.
 2. Xem kết quả và ba đầu ra.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: Base | Toàn bộ thủ tục theo đúng thứ tự; các đối chứng cùng fixture được kiểm trong cùng lượt, không bỏ bước |
+
 **期待結果（Kết quả mong đợi）**
 
 Chưa xét được; ngừng dùng dấu/lọc đỏ cũ; điểm giữ nguyên. Không dùng bản tổng hợp mới nhất chưa chốt (trung bình 62) hay bản khác kỳ.
@@ -1214,6 +1627,8 @@ Chưa xét được; ngừng dùng dấu/lọc đỏ cũ; điểm giữ nguyên.
 ### TC-RS-BR-010 — Chưa có kết quả tổng hợp → Chưa xét được, không thay bằng 0 hay nhóm khác
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Ưu tiên bản chốt và xử lý thiếu nguồn” (AC-G13 «Ưu tiên bản chốt và xử lý thiếu nguồn»)
+Priority basis: result
+Run variants: Base
 
 <!-- Mã truy vết: TD-SRC-03 «Không có tổng hợp: Nguồn chưa từng chạy tổng hợp» -->
 
@@ -1227,6 +1642,11 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 1. Chạy nút cam.
 2. Xem kết quả.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: Base | Toàn bộ thủ tục theo đúng thứ tự; các đối chứng cùng fixture được kiểm trong cùng lượt, không bỏ bước |
+
 **期待結果（Kết quả mong đợi）**
 
 Chưa xét được; `A` không bị coi là 0 (nếu coi 0 thì `T=0`, mọi điểm dương Không đỏ); không dùng nhóm khác; ngừng dấu đỏ cũ.
@@ -1236,6 +1656,8 @@ Chưa xét được; `A` không bị coi là 0 (nếu coi 0 thì `T=0`, mọi đ
 ### TC-RS-BR-011 — Nguồn chỉ cần khi quy tắc đọc trung bình/tỷ lệ nhóm
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Đối tượng áp dụng và nhu cầu nguồn” (AC-G05 «Đối tượng áp dụng và nhu cầu nguồn»)
+Priority basis: result
+Run variants: fixed; ratio; average-condition
 
 <!-- Mã truy vết: TD-SRC-03 «Không có tổng hợp: Nguồn chưa từng chạy tổng hợp», TD-RULE-01 «Cố định `<`: Tên "Cố định 30"», TD-RULE-03 «Tỷ lệ: Tỷ lệ điểm tối đa（得点率） 30%, không xử lý phần lẻ（しない）, Nhỏ hơn（未満）», TD-STU-01 «S01: G-A, HR1» -->
 
@@ -1250,6 +1672,13 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 2. Chỉ có quy tắc tỷ lệ 30%: đăng ký S01=29.
 3. Chỉ có quy tắc "cố định 30 `<`, điều kiện `A≥60`": đăng ký S01=29.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: fixed | Ngưỡng cố định |
+| Run: ratio | Ngưỡng tỷ lệ |
+| Run: average-condition | Điều kiện trung bình |
+
 **期待結果（Kết quả mong đợi）**
 
 1. Đỏ (không cần nguồn).
@@ -1261,6 +1690,8 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 ### TC-RS-BR-012 — Điểm được xét là điểm cuối đã lưu (dự kiến, sửa tay, sau giới hạn miền điểm)
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Dùng điểm cuối cùng” (AC-G19 «Dùng điểm cuối cùng»)
+Priority basis: result
+Run variants: projected; manual; clamp-lt; clamp-le
 
 <!-- Mã truy vết: TD-ITEM-01 «Mục số nguyên: Điểm đánh giá（評点）, Nhập số nguyên（数値入力（整数））, M mặc định…», TD-RULE-01 «Cố định `<`: Tên "Cố định 30"», TD-ITEM-10 «Mục có tính tự động: TD-ITEM-01 có thêm quy tắc tính tự…», TD-STU-06 «S06: G-B, HR2», TD-STU-08 «S08: G-B, HR2» -->
 
@@ -1277,6 +1708,14 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 
 (c) Tạo dữ liệu mà phép tính cho 120 nhưng điểm lưu hợp lệ là 100; áp quy tắc cố định 100 `<` và 100 `≤`.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: projected | Điểm dự kiến 24 |
+| Run: manual | Chuỗi sửa tay 28 thành 35 |
+| Run: clamp-lt | Điểm sau chặn 100 với nhỏ hơn |
+| Run: clamp-le | Điểm sau chặn 100 với nhỏ hơn hoặc bằng |
+
 **期待結果（Kết quả mong đợi）**
 
 (a) Đỏ.
@@ -1290,6 +1729,8 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 ### TC-RS-BR-013 — Cờ Chưa dự thi（未受験） không loại điểm số khỏi xét
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Dùng điểm cuối cùng” (AC-G19 «Dùng điểm cuối cùng»)
+Priority basis: result
+Run variants: notexam35; notexam25; ranking-excluded
 
 <!-- Mã truy vết: TD-RULE-01 «Cố định `<`: Tên "Cố định 30"», TD-STU-07 «S07: G-B, HR2», TD-STU-09 «S09: G-B, HR2», TD-ITEM-02 «Mục số thập phân: Điểm đánh giá（評点）, Nhập số thập phân（数値入力（小数））, M mặc…», AC-G19, TC-RS-CALC-026 -->
 
@@ -1304,6 +1745,13 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 2. Sửa S07=25, giữ cờ.
 3. Đăng ký điểm 29.5 cho S09 (học sinh bị loại khỏi xếp hạng); chạy nút xanh rồi nút cam.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: notexam35 | Cờ chưa dự thi với điểm 35 |
+| Run: notexam25 | Cờ chưa dự thi với điểm 25 |
+| Run: ranking-excluded | Loại khỏi xếp hạng với điểm 29.5 |
+
 **期待結果（Kết quả mong đợi）**
 
 1. Được xét → Không đỏ.
@@ -1315,6 +1763,8 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 ### TC-RS-BR-014 — Ô trống không bị coi là 0 (trạng thái Không có điểm)
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Dùng điểm cuối cùng” (AC-G19 «Dùng điểm cuối cùng»)
+Priority basis: result
+Run variants: fixed30-lt; fixed0-le
 
 <!-- Mã truy vết: TD-RULE-01 «Cố định `<`: Tên "Cố định 30"», TD-RULE-02 «Cố định `≤`: Như TD-RULE-01 nhưng Nhỏ hơn hoặc bằng（以下）», TD-STU-05 «S05: G-A, HR1», TD-STU-04 «S04: G-A, HR1» -->
 
@@ -1328,6 +1778,12 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 1. Với quy tắc “Cố định 30” (dưới 30): đăng ký S04=0, để S05 trống.
 2. Đổi thành quy tắc cố định 0 `≤`, chạy lại.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: fixed30-lt | Ngưỡng 30 nhỏ hơn, kiểm cả trống và 0 |
+| Run: fixed0-le | Ngưỡng 0 nhỏ hơn hoặc bằng, kiểm cả trống và 0 |
+
 **期待結果（Kết quả mong đợi）**
 
 1. S04 Đỏ (0 hợp lệ là số); S05 Không có điểm, không dấu đỏ.
@@ -1338,6 +1794,8 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 ### TC-RS-BR-015 — Lưu cấu hình không xét; kết quả trước giữ tới lần chạy lại
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Giữ kết quả trước khi chạy lại” (AC-G21 «Giữ kết quả trước khi chạy lại và xóa rule cuối»)
+Priority basis: result
+Run variants: Base
 
 <!-- Mã truy vết: TD-RULE-01 «Cố định `<`: Tên "Cố định 30"», AC-G21 -->
 
@@ -1354,6 +1812,11 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 4. Chỉ đổi dấu (`<35` → `≤35`), lưu, xem lại. Nếu công thức thuộc đợt phát hành: chỉ đổi công thức của một quy tắc công thức, lưu, xem lại.
 5. Chạy lại (đăng ký lại điểm S03 hoặc nút cam), xem ba đầu ra.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: Base | Toàn bộ thủ tục theo đúng thứ tự; các đối chứng cùng fixture được kiểm trong cùng lượt, không bỏ bước |
+
 **期待結果（Kết quả mong đợi）**
 
 1. Sau lưu: không báo "đã cập nhật điểm đỏ học sinh"; có hướng dẫn chạy lại.
@@ -1367,6 +1830,8 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 ### TC-RS-BR-016 — Sửa điểm 29 → 40 được lưu và xét trong cùng lượt
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Lưu thành công và thông báo an toàn” (AC-G26 «Lưu thành công và thông báo an toàn»)
+Priority basis: result
+Run variants: Base
 
 <!-- Mã truy vết: TD-RULE-01 «Cố định `<`: Tên "Cố định 30"», TD-STU-01 «S01: G-A, HR1» -->
 
@@ -1380,6 +1845,11 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 1. Sửa S01 thành 40, lưu thành công.
 2. Xem ba đầu ra ngay sau đó.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: Base | Toàn bộ thủ tục theo đúng thứ tự; các đối chứng cùng fixture được kiểm trong cùng lượt, không bỏ bước |
+
 **期待結果（Kết quả mong đợi）**
 
 S01 Không đỏ; không cần bật một chế độ thủ công/tự động riêng.
@@ -1389,6 +1859,8 @@ S01 Không đỏ; không cần bật một chế độ thủ công/tự động 
 ### TC-RS-BR-017 — Chạy lại không tạo được ngưỡng hợp lệ → Chưa xét được, ngừng kết quả cũ, giữ điểm
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Trạng thái sau lần chạy” (AC-G20 «Trạng thái sau lần chạy»)
+Priority basis: result
+Run variants: invalid-M; missing-source; invalid-formula
 
 <!-- Mã truy vết: TD-SRC-02 «Bản mới nhất chưa chốt: Tổng hợp chạy sau TD-SRC-01, `A` = 62», TD-ITEM-08 «M không hợp lệ: Mục số có M hiệu lực = 0 (nếu cấu hình được) hoặc không…», TD-RULE-11 «Chia cho trung bình: Dòng 1: Số cố định（固定値）100 ÷ Trung bình（平均点）», TD-STU-01 «S01: G-A, HR1», TD-SRC-03 «Không có tổng hợp: Nguồn chưa từng chạy tổng hợp» -->
 
@@ -1404,6 +1876,13 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 3. Khôi phục/rebuild baseline S01=29 Đỏ; tạo biến thể (c) bằng quy tắc công thức 100 ÷ trung bình với `A=0`, rồi chạy lại.
 4. Sau mỗi biến thể: xem ba đầu ra và điểm S01.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: invalid-M | Nhánh invalid-M trong thủ tục và Expected của case; thực hiện các bước chuẩn bị chung trước nhánh |
+| Run: missing-source | Nhánh missing-source trong thủ tục và Expected của case; thực hiện các bước chuẩn bị chung trước nhánh |
+| Run: invalid-formula | Nhánh invalid-formula trong thủ tục và Expected của case; thực hiện các bước chuẩn bị chung trước nhánh |
+
 **期待結果（Kết quả mong đợi）**
 
 Mỗi biến thể: trạng thái Chưa xét được; dấu/lọc đỏ cũ ngừng ở cả ba đầu ra; điểm S01 vẫn 29; không đi xuống quy tắc thấp hơn; không bật lại ngưỡng cũ `red_score`.
@@ -1413,6 +1892,8 @@ Mỗi biến thể: trạng thái Chưa xét được; dấu/lọc đỏ cũ ng�
 ### TC-RS-BR-018 — Đổi phạm vi làm ô không còn quy tắc áp dụng: giữ khi chưa chạy; chạy lại → Không áp dụng
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Giữ kết quả trước khi chạy lại” (AC-G21 «Giữ kết quả trước khi chạy lại và xóa rule cuối»)
+Priority basis: result
+Run variants: Base
 
 <!-- Mã truy vết: TD-STU-01 «S01: G-A, HR1» -->
 
@@ -1426,6 +1907,11 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 1. Đổi bộ lọc sang lớp G-B, lưu. Xem đầu ra.
 2. Chạy lại. Xem đầu ra.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: Base | Toàn bộ thủ tục theo đúng thứ tự; các đối chứng cùng fixture được kiểm trong cùng lượt, không bỏ bước |
+
 **期待結果（Kết quả mong đợi）**
 
 1. S01 vẫn Đỏ (kết quả trước).
@@ -1436,6 +1922,8 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 ### TC-RS-BR-019 — Xóa quy tắc cuối: giữ kết quả tới lần chạy lại; chạy lại → Không áp dụng
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Giữ kết quả trước khi chạy lại” (AC-G21 «Giữ kết quả trước khi chạy lại và xóa rule cuối»)
+Priority basis: result
+Run variants: registration; batch
 
 <!-- Mã truy vết: TD-ITEM-01 «Mục số nguyên: Điểm đánh giá（評点）, Nhập số nguyên（数値入力（整数））, M mặc định…», TD-RULE-01 «Cố định `<`: Tên "Cố định 30"», TD-OUT-01 «Trích xuất lọc + ký hiệu trước + màu: Lọc học sinh có điểm đỏ（抽出する） BẬT», TD-OUT-04 «Phiếu điểm: Dòng Thiết lập điểm đỏ（赤点設定）: Ký tự phía trước（前に任意の文字） `※`», TD-STU-01 «S01: G-A, HR1», TD-OUT-03 «Công khai: Hiệu ứng đỏ: `*` phía trước（前に「*」）», TC-RS-FUNC-021 -->
 
@@ -1451,6 +1939,12 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 3. Chạy lại bằng đăng ký điểm lớp G-A hoặc chạy hàng loạt.
 4. Xem ba đầu ra và cấu hình trình bày đầu ra.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: registration | Chạy lại bằng đăng ký điểm |
+| Run: batch | Chạy lại bằng nút cam, reset baseline trước lượt này |
+
 **期待結果（Kết quả mong đợi）**
 
 1–2. Danh sách rỗng nhưng S01 vẫn hiện dấu đỏ/thỏa lọc ở ba đầu ra.
@@ -1462,6 +1956,8 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 ### TC-RS-BR-020 — Xóa điểm thành trống → Không có điểm, bỏ dấu đỏ cũ
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Dùng điểm cuối cùng” (AC-G19 «Dùng điểm cuối cùng»)
+Priority basis: result
+Run variants: Base
 
 <!-- Mã truy vết: TD-STU-01 «S01: G-A, HR1», TD-OUT-01 «Trích xuất lọc + ký hiệu trước + màu: Lọc học sinh có điểm đỏ（抽出する） BẬT» -->
 
@@ -1475,6 +1971,11 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 1. Xóa điểm S01 thành trống, lưu.
 2. Xem ba đầu ra, chạy trích xuất có lọc đỏ.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: Base | Toàn bộ thủ tục theo đúng thứ tự; các đối chứng cùng fixture được kiểm trong cùng lượt, không bỏ bước |
+
 **期待結果（Kết quả mong đợi）**
 
 S01 Không có điểm; không còn dấu đỏ; không thỏa lọc đỏ nhờ ô này. Không cần chờ chạy lại.
@@ -1484,6 +1985,8 @@ S01 Không có điểm; không còn dấu đỏ; không thỏa lọc đỏ nhờ
 ### TC-RS-BR-021 — Tổng hợp lại hoặc đổi nhóm tham chiếu không tự xét lại
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Thứ tự đánh giá tương đối” (AC-G25 «Thứ tự đánh giá tương đối»)
+Priority basis: result
+Run variants: Base
 
 <!-- Mã truy vết: TD-SRC-02 «Bản mới nhất chưa chốt: Tổng hợp chạy sau TD-SRC-01, `A` = 62», TC-RS-BR-007 -->
 
@@ -1498,6 +2001,11 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 2. Xem kết quả học sinh 24.
 3. Bấm Thực hiện tính toán tự động（自動算出実行）, xem lại.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: Base | Toàn bộ thủ tục theo đúng thứ tự; các đối chứng cùng fixture được kiểm trong cùng lượt, không bỏ bước |
+
 **期待結果（Kết quả mong đợi）**
 
 1–2. Vẫn Đỏ theo kết quả trước (không tự xét lại).
@@ -1509,6 +2017,8 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 ### TC-RS-BR-022 — Đổi M ở Thiết lập điểm tối đa（満点設定） hoặc Giá trị tối đa（最大値） không tự xét lại
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Trigger khi đổi điểm tối đa/đơn vị” (AC-G24 «Trigger khi đổi điểm tối đa/đơn vị»)
+Priority basis: result
+Run variants: Base
 
 <!-- Mã truy vết: TD-ITEM-01 «Mục số nguyên: Điểm đánh giá（評点）, Nhập số nguyên（数値入力（整数））, M mặc định…», TD-RULE-03 «Tỷ lệ: Tỷ lệ điểm tối đa（得点率） 30%, không xử lý phần lẻ（しない）, Nhỏ hơn（未満）» -->
 
@@ -1523,6 +2033,11 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 2. Lưu một định nghĩa lựa chọn ở Thiết lập điểm tối đa（満点設定） (`/admin/grade_report_setting/manage/detail/option/register/change_max_score`) (chưa gán cho lớp). Xem kết quả.
 3. Đăng ký lại điểm S03. Xem kết quả.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: Base | Toàn bộ thủ tục theo đúng thứ tự; các đối chứng cùng fixture được kiểm trong cùng lượt, không bỏ bước |
+
 **期待結果（Kết quả mong đợi）**
 
 1–2. S03 vẫn Không đỏ (kết quả trước).
@@ -1534,6 +2049,8 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 ### TC-RS-BR-023 — Nút xanh Thực hiện tổng hợp（集計実行） không xét điểm đỏ
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Thứ tự đánh giá tương đối” (AC-G25 «Thứ tự đánh giá tương đối»)
+Priority basis: result
+Run variants: Base
 
 <!-- Mã truy vết: TD-RULE-01 «Cố định `<`: Tên "Cố định 30"» -->
 
@@ -1547,6 +2064,11 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 1. Bấm Thực hiện tổng hợp（集計実行）, chờ hoàn tất.
 2. Xem kết quả S03.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: Base | Toàn bộ thủ tục theo đúng thứ tự; các đối chứng cùng fixture được kiểm trong cùng lượt, không bỏ bước |
+
 **期待結果（Kết quả mong đợi）**
 
 S03 vẫn Không đỏ.
@@ -1556,6 +2078,8 @@ S03 vẫn Không đỏ.
 ### TC-RS-BR-024 — Xem, xuất, công khai, in lại không kích hoạt xét
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Xem/xuất không tự xét” (AC-G28 «Xem/xuất không tự xét»)
+Priority basis: result
+Run variants: extract; excel; publish-web; publish-pdf; report
 
 <!-- Mã truy vết: TC-RS-BR-015, TD-OUT-01 «Trích xuất lọc + ký hiệu trước + màu: Lọc học sinh có điểm đỏ（抽出する） BẬT», TD-OUT-03 «Công khai: Hiệu ứng đỏ: `*` phía trước（前に「*」）», TD-OUT-04 «Phiếu điểm: Dòng Thiết lập điểm đỏ（赤点設定）: Ký tự phía trước（前に任意の文字） `※`», AC-G28 -->
 
@@ -1570,6 +2094,15 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 2. Mở màn công khai học sinh, tải PDF công khai.
 3. Xuất PDF phiếu.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: extract | Trích xuất màn |
+| Run: excel | File Excel |
+| Run: publish-web | Màn công khai |
+| Run: publish-pdf | PDF công khai |
+| Run: report | Phiếu điểm |
+
 **期待結果（Kết quả mong đợi）**
 
 S03 vẫn Không đỏ ở mọi đầu ra; không có lượt xét mới (thời điểm kết quả không đổi); không có lượt tổng hợp mới (lượt/thời điểm tổng hợp mới nhất không đổi).
@@ -1579,6 +2112,8 @@ S03 vẫn Không đỏ ở mọi đầu ra; không có lượt xét mới (thờ
 ### TC-RS-BR-025 — Đầu ra không bị chặn vì chưa có hoặc chưa xét được kết quả đỏ
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Xem/xuất không tự xét” (AC-G28 «Xem/xuất không tự xét»)
+Priority basis: result
+Run variants: extract; excel; publish; report
 
 <!-- Mã truy vết: TD-OUT-01 «Trích xuất lọc + ký hiệu trước + màu: Lọc học sinh có điểm đỏ（抽出する） BẬT», TD-OUT-03 «Công khai: Hiệu ứng đỏ: `*` phía trước（前に「*」）», TD-OUT-04 «Phiếu điểm: Dòng Thiết lập điểm đỏ（赤点設定）: Ký tự phía trước（前に任意の文字） `※`» -->
 
@@ -1593,6 +2128,14 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 2. Công khai cho học sinh, xem màn học sinh.
 3. Xuất PDF phiếu.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: extract | Trích xuất |
+| Run: excel | Excel |
+| Run: publish | Công khai |
+| Run: report | Phiếu điểm |
+
 **期待結果（Kết quả mong đợi）**
 
 Mọi thao tác hoàn tất bình thường; ô chưa có kết quả không có dấu đỏ và hiển thị theo thiết lập hiện hữu. Quyền, lịch công khai, điều kiện ẩn hiện có vẫn giữ.
@@ -1602,6 +2145,8 @@ Mọi thao tác hoàn tất bình thường; ô chưa có kết quả không có
 ### TC-RS-BR-027 — Chạy lại nhiều lần cho cùng kết quả, không nhân đôi dấu
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Kết quả chung và thứ tự cập nhật” (AC-G22 «Kết quả chung và thứ tự cập nhật»)
+Priority basis: result
+Run variants: Base
 
 <!-- Mã truy vết: TD-RULE-01 «Cố định `<`: Tên "Cố định 30"», TD-OUT-02 «Trích xuất chỉ ký hiệu: Lọc TẮT», TD-STU-01 «S01: G-A, HR1» -->
 
@@ -1615,6 +2160,11 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 1. Chạy nút cam 3 lần liên tiếp (chờ mỗi lần hoàn tất).
 2. Xem trích xuất; SELECT số kết quả hiện hành của ô S01 (khi có schema).
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: Base | Toàn bộ thủ tục theo đúng thứ tự; các đối chứng cùng fixture được kiểm trong cùng lượt, không bỏ bước |
+
 **期待結果（Kết quả mong đợi）**
 
 Ô S01 hiện `※29!` (không `※※29!!`); chỉ một kết quả hiện hành cho ô.
@@ -1623,7 +2173,9 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 
 ### TC-RS-BR-028 — Nhóm tham chiếu có lớp khác M không gây lỗi dừng xử lý
 
-Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Kế thừa tỷ lệ nhóm” (AC-G15 «Kế thừa tỷ lệ nhóm»)
+Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Kế thừa tỷ lệ nhóm” (AC-G15 «Kế thừa tỷ lệ nhóm»)
+Priority basis: result
+Run variants: Base
 
 <!-- Mã truy vết: TD-SRC-06 «Tỷ lệ nhóm khác M: 2 học sinh: 20/50 (lớp dùng M=50) và 80/100», TD-RULE-09 «Tỷ lệ nhóm: Điều kiện Tỷ lệ điểm của nhóm（集団の得点率） `≥65%`», AC-G15, TC-RS-CALC-024 -->
 
@@ -1638,6 +2190,11 @@ Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 2. Chạy nút xanh rồi nút cam cho phạm vi.
 3. Xem màn kết quả xử lý và kết quả P1.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: Base | Toàn bộ thủ tục theo đúng thứ tự; các đối chứng cùng fixture được kiểm trong cùng lượt, không bỏ bước |
+
 **期待結果（Kết quả mong đợi）**
 
 1. Lưu được; không bị chặn vì nhóm có lớp khác M.
@@ -1649,6 +2206,8 @@ Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 ### TC-RS-BR-029 — Mục lựa chọn không được xét, nhưng bộ lọc theo lựa chọn vẫn dùng để chọn đối tượng
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Kiểu điểm được hỗ trợ” (AC-G02 «Kiểu điểm được hỗ trợ»)
+Priority basis: result
+Run variants: Base
 
 <!-- Mã truy vết: TD-ITEM-04 «Mục lựa chọn: Kiểu lựa chọn（選択肢型） A/B/C», TD-ITEM-01 «Mục số nguyên: Điểm đánh giá（評点）, Nhập số nguyên（数値入力（整数））, M mặc định…», TD-RULE-01 «Cố định `<`: Tên "Cố định 30"» -->
 
@@ -1662,6 +2221,11 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 1. Tạo quy tắc cho mục số nguyên (M=100) với bộ lọc theo lựa chọn（選択肢型） mục kiểu lựa chọn A/B/C = B, cố định 30 `<`.
 2. Đăng ký S01=29, S02=29.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: Base | Toàn bộ thủ tục theo đúng thứ tự; các đối chứng cùng fixture được kiểm trong cùng lượt, không bỏ bước |
+
 **期待結果（Kết quả mong đợi）**
 
 S01 Đỏ (thuộc đối tượng); S02 Không áp dụng. Không có ô nào của mục kiểu lựa chọn A/B/C được xét đỏ.
@@ -1671,6 +2235,8 @@ S01 Đỏ (thuộc đối tượng); S02 Không áp dụng. Không có ô nào c
 ### TC-RS-BR-030 — Ô điểm đơn vị được xét riêng theo từng đơn vị
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Kiểu điểm được hỗ trợ” (AC-G02 «Kiểu điểm được hỗ trợ»); tiêu chí nghiệm thu “Nhận diện ô điểm” (AC-G03 «Nhận diện ô điểm»)
+Priority basis: result
+Run variants: Base
 
 <!-- Mã truy vết: TD-ITEM-03 «Mục điểm đơn vị: Điểm bài kiểm tra đơn vị（単元テスト点）, M mặc định 100», TD-RULE-01 «Cố định `<`: Tên "Cố định 30"», TC-RS-CALC-011, TC-RS-CALC-027 -->
 
@@ -1684,6 +2250,11 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 1. Đăng ký điểm U1, U2 của S06.
 2. Xem ba đầu ra ở phạm vi đơn vị.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: Base | Toàn bộ thủ tục theo đúng thứ tự; các đối chứng cùng fixture được kiểm trong cùng lượt, không bỏ bước |
+
 **期待結果（Kết quả mong đợi）**
 
 U1 Đỏ, U2 Không đỏ; dấu chỉ ở ô U1. Hai đơn vị không bị gộp thành một ô.
@@ -1693,6 +2264,8 @@ U1 Đỏ, U2 Không đỏ; dấu chỉ ở ô U1. Hai đơn vị không bị g�
 ### TC-RS-BR-031 — Giáo viên có quyền sửa mục cấu hình được quy tắc đỏ
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Quyền thao tác và phạm vi dữ liệu” (AC-G01 «Quyền thao tác và phạm vi dữ liệu»)
+Priority basis: authorization
+Run variants: add; condition; threshold; reorder; delete
 
 <!-- Mã truy vết: TD-ROLE-01 «Giáo viên có quyền sửa mục: Có quyền vào Thiết lập nhập điểm（成績入力設定） và…», TD-ITEM-01 «Mục số nguyên: Điểm đánh giá（評点）, Nhập số nguyên（数値入力（整数））, M mặc định…» -->
 
@@ -1705,6 +2278,15 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 
 Thêm, sửa điều kiện, sửa ngưỡng, đổi thứ tự, xóa một quy tắc của mục số nguyên (M=100).
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: add | Thử thêm |
+| Run: condition | Thử sửa điều kiện |
+| Run: threshold | Thử sửa ngưỡng |
+| Run: reorder | Thử đổi thứ tự |
+| Run: delete | Thử xóa |
+
 **期待結果（Kết quả mong đợi）**
 
 Mọi thao tác thành công.
@@ -1714,6 +2296,8 @@ Mọi thao tác thành công.
 ### TC-RS-BR-032 — Vào được màn nhưng không có quyền sửa mục → không sửa được quy tắc của mục đó
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Quyền thao tác và phạm vi dữ liệu” (AC-G01 «Quyền thao tác và phạm vi dữ liệu»)
+Priority basis: authorization
+Run variants: Base
 
 <!-- Mã truy vết: TD-ROLE-02 «Giáo viên không có quyền sửa mục: Vào được Thiết lập nhập…», TD-ITEM-06 «Mục chỉ nội bộ: Mục số có cờ chỉ dành nội bộ（`mw_only_flg`）», TC-RS-ERR-006 -->
 
@@ -1727,6 +2311,11 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 1. Mở Thiết lập ô nhập（入力欄設定）.
 2. Thử mở và sửa quy tắc của mục chỉ dành nội bộ.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: Base | Toàn bộ thủ tục theo đúng thứ tự; các đối chứng cùng fixture được kiểm trong cùng lượt, không bỏ bước |
+
 **期待結果（Kết quả mong đợi）**
 
 Không có thao tác sửa/thêm/xóa cho mục chỉ dành nội bộ trên màn, hoặc lưu bị từ chối. Quy tắc không đổi.
@@ -1736,6 +2325,8 @@ Không có thao tác sửa/thêm/xóa cho mục chỉ dành nội bộ trên mà
 ### TC-RS-BR-033 — Quyền sửa mục không tự cấp quyền chạy hàng loạt
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Quyền thao tác và phạm vi dữ liệu” (AC-G01 «Quyền thao tác và phạm vi dữ liệu»)
+Priority basis: authorization
+Run variants: Base
 
 <!-- Mã truy vết: TD-ROLE-04 «Người sửa được mục nhưng không có quyền chạy: Như TD-ROLE-01 nhưng…», TC-RS-ERR-008 -->
 
@@ -1749,6 +2340,11 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 1. Sửa một quy tắc (thành công).
 2. Mở Tổng hợp thành tích（成績集計）, thử chạy tính toán hàng loạt.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: Base | Toàn bộ thủ tục theo đúng thứ tự; các đối chứng cùng fixture được kiểm trong cùng lượt, không bỏ bước |
+
 **期待結果（Kết quả mong đợi）**
 
 Không chạy được hàng loạt (thao tác không có hoặc bị từ chối theo quyền hiện hành).
@@ -1758,6 +2354,8 @@ Không chạy được hàng loạt (thao tác không có hoặc bị từ chố
 ### TC-RS-BR-034 — Bật tự tổng hợp khi đăng ký: hệ thống không chặn; quy tắc độc lập với trung bình vẫn xét
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Bao phủ đường đăng ký và chạy lại” (AC-G23 «Bao phủ đường đăng ký và chạy lại»)
+Priority basis: result
+Run variants: Base
 
 <!-- Mã truy vết: TD-ITEM-01 «Mục số nguyên: Điểm đánh giá（評点）, Nhập số nguyên（数値入力（整数））, M mặc định…», TD-RULE-01 «Cố định `<`: Tên "Cố định 30"», TD-ITEM-02 «Mục số thập phân: Điểm đánh giá（評点）, Nhập số thập phân（数値入力（小数））, M mặc…», TD-STU-01 «S01: G-A, HR1», TD-STU-09 «S09: G-B, HR2» -->
 
@@ -1771,6 +2369,11 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 1. Lưu quy tắc công thức (không bị chặn vì tự tổng hợp đang bật).
 2. Đặt tự tổng hợp = Không thực hiện（実行しない）, đăng ký S01=29.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: Base | Toàn bộ thủ tục theo đúng thứ tự; các đối chứng cùng fixture được kiểm trong cùng lượt, không bỏ bước |
+
 **期待結果（Kết quả mong đợi）**
 
 1. Lưu được; không có ràng buộc hệ thống buộc tắt.
@@ -1781,6 +2384,8 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 ### TC-RS-BR-035 — Bộ lọc nhóm tổng hợp khác loại phải kết hợp VÀ
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Đối tượng áp dụng và nhu cầu nguồn” (AC-G05 «Đối tượng áp dụng và nhu cầu nguồn»)
+Priority basis: result
+Run variants: Base
 
 <!-- Mã truy vết: TD-RULE-14 «Nhóm tổng hợp hai loại nhóm: Giới hạn bằng bộ lọc（特定条件で絞り込む）: nhóm tổng…» -->
 
@@ -1795,6 +2400,11 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 2. Xem kết quả.
 3. Mở lại quy tắc.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: Base | Toàn bộ thủ tục theo đúng thứ tự; các đối chứng cùng fixture được kiểm trong cùng lượt, không bỏ bước |
+
 **期待結果（Kết quả mong đợi）**
 
 1–2. Chỉ P7 thỏa cả hai loại nhóm và được xét → Đỏ. P5, P6, P8: Không áp dụng.
@@ -1805,7 +2415,9 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 
 ### TC-RS-BR-036 — Cùng lượt đăng ký: ô thiếu nguồn chưa xét được, ô ngưỡng cố định vẫn được xét
 
-Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Bao phủ đường đăng ký và chạy lại” (AC-G23 «Bao phủ đường đăng ký và chạy lại»)
+Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Bao phủ đường đăng ký và chạy lại” (AC-G23 «Bao phủ đường đăng ký và chạy lại»)
+Priority basis: result
+Run variants: Base
 
 <!-- Mã truy vết: TD-ITEM-01 «Mục số nguyên: Điểm đánh giá（評点）, Nhập số nguyên（数値入力（整数））, M mặc định…», TD-RULE-06 «Công thức hai dòng: Dòng 1: Trung bình（平均点）÷ Số cố định（固定値）2, chữ số…», TD-SRC-03 «Không có tổng hợp: Nguồn chưa từng chạy tổng hợp», TD-RULE-01 «Cố định `<`: Tên "Cố định 30"», TD-ITEM-02 «Mục số thập phân: Điểm đánh giá（評点）, Nhập số thập phân（数値入力（小数））, M mặc…», TD-GRP-01 «Lớp học phần: G-A (Toán I（数学Ⅰ）, khối 1, nhóm thành tích Nâng cao), G-B…», TD-STU-01 «S01: G-A, HR1», AC-G23, TC-RS-BR-010 -->
 
@@ -1819,6 +2431,11 @@ Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 1. Trong cùng một lượt đăng ký điểm của lớp G-A, lưu S01: mục số nguyên (M=100) = 29, mục số thập phân (M=100) = 29.5.
 2. Xem kết quả hai ô và thông báo.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: Base | Toàn bộ thủ tục theo đúng thứ tự; các đối chứng cùng fixture được kiểm trong cùng lượt, không bỏ bước |
+
 **期待結果（Kết quả mong đợi）**
 
 1. Lượt lưu không dừng hay báo lỗi chung vì ô mục số nguyên (M=100) thiếu nguồn.
@@ -1829,7 +2446,9 @@ Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 
 ### TC-RS-BR-037 — Xóa hoặc thôi dùng điểm đơn vị thì ngừng kết quả đỏ cũ của ô đó
 
-Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Trigger khi đổi điểm tối đa/đơn vị” (AC-G24 «Trigger khi đổi điểm tối đa/đơn vị»)
+Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Trigger khi đổi điểm tối đa/đơn vị” (AC-G24 «Trigger khi đổi điểm tối đa/đơn vị»)
+Priority basis: lifecycle
+Run variants: delete-unit; disable-unit
 
 <!-- Mã truy vết: TD-ITEM-03 «Mục điểm đơn vị: Điểm bài kiểm tra đơn vị（単元テスト点）, M mặc định 100», TD-RULE-01 «Cố định `<`: Tên "Cố định 30"», TC-RS-BR-030, TD-GRP-01 «Lớp học phần: G-A (Toán I（数学Ⅰ）, khối 1, nhóm thành tích Nâng cao), G-B…», TD-STU-06 «S06: G-B, HR2», AC-G24 -->
 
@@ -1845,6 +2464,12 @@ Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 3. Khôi phục/rebuild fixture U1 Đỏ, U2 Không đỏ; biến thể (b): thôi dùng đơn vị U1 cho lớp G-B theo thao tác hiện có (nếu màn hỗ trợ), rồi đăng ký lại hoặc chạy nút cam cho G-B.
 4. Xem ba đầu ra và bộ lọc đỏ của trích xuất.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: delete-unit | Nhánh delete-unit trong thủ tục và Expected của case; thực hiện các bước chuẩn bị chung trước nhánh |
+| Run: disable-unit | Nhánh disable-unit trong thủ tục và Expected của case; thực hiện các bước chuẩn bị chung trước nhánh |
+
 **期待結果（Kết quả mong đợi）**
 
 1. Mỗi biến thể dùng fixture độc lập. Sau (a) hoặc (b), ô U1 của S06 trong fixture tương ứng không còn dấu đỏ ở ba đầu ra; bộ lọc đỏ không giữ S06 chỉ vì U1 cũ.
@@ -1855,6 +2480,8 @@ Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 ### TC-RS-BR-038 — Nhóm lớp học（授業）: dùng kết quả tổng hợp của đúng lớp chứa ô đang xét
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Đúng phạm vi tham chiếu” (AC-G12 «Đúng phạm vi tham chiếu»)
+Priority basis: result
+Run variants: Base
 
 <!-- Mã truy vết: TD-POP-02 «X sau khi bật lớp học: Như TD-POP-01 nhưng bật thêm Lớp học（授業）, chạy…», TD-ITEM-01 «Mục số nguyên: Điểm đánh giá（評点）, Nhập số nguyên（数値入力（整数））, M mặc định…», TD-POP-06 «Học sinh học hai lớp cùng môn: S11 (tên giả, HR1) học cả G-A và G-D…», AC-G12 -->
 
@@ -1868,6 +2495,11 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 1. Chạy nút cam cho G-A và G-D.
 2. Xem kết quả hai ô của S11 trên trích xuất.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: Base | Toàn bộ thủ tục theo đúng thứ tự; các đối chứng cùng fixture được kiểm trong cùng lượt, không bỏ bước |
+
 **期待結果（Kết quả mong đợi）**
 
 - Ô ở G-A: `T=40×0.5=20` → 25 Không đỏ.
@@ -1879,6 +2511,8 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 ### TC-RS-BR-039 — Nhóm môn học（科目グループ）: dùng cấu hình riêng của môn hoặc default đã lưu; thiếu/sai thì Chưa xét được
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Đúng phạm vi tham chiếu” (AC-G12 «Đúng phạm vi tham chiếu»); tiêu chí nghiệm thu “Ưu tiên bản chốt và xử lý thiếu nguồn” (AC-G13 «Ưu tiên bản chốt và xử lý thiếu nguồn»)
+Priority basis: result
+Run variants: private; default; default-missing; default-invalid
 
 <!-- Mã truy vết: TD-POP-05 «Nhóm môn học（科目グループ）: "Nhóm môn Toán" (tên giả): có cấu hình riêng cho…», TD-ITEM-01 «Mục số nguyên: Điểm đánh giá（評点）, Nhập số nguyên（数値入力（整数））, M mặc định…», AC-G12 -->
 
@@ -1893,6 +2527,14 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 2. Xóa cấu hình riêng của Toán I (để môn rơi về default); chạy lại; xem.
 3. Làm default thiếu hoặc trỏ tới cấu hình không hợp lệ (biến thể (b) của nhóm môn học “Nhóm môn Toán”); chạy lại; xem trạng thái và thông báo.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: private | Nguồn riêng |
+| Run: default | Nguồn mặc định |
+| Run: default-missing | Nguồn mặc định thiếu |
+| Run: default-invalid | Nguồn mặc định không hợp lệ |
+
 **期待結果（Kết quả mong đợi）**
 
 1. Dùng kết quả của nhóm theo cấu hình riêng của Toán I.
@@ -1904,6 +2546,8 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 ### TC-RS-BR-040 — Loại nhóm được bật nhưng chưa có kết quả, hoặc tham chiếu đã lưu không còn hợp lệ → Chưa xét được, không tự đổi nhóm
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Ưu tiên bản chốt và xử lý thiếu nguồn” (AC-G13 «Ưu tiên bản chốt và xử lý thiếu nguồn»); tiêu chí nghiệm thu “Giữ kết quả trước khi chạy lại” (AC-G21 «Giữ kết quả trước khi chạy lại và xóa rule cuối»)
+Priority basis: result
+Run variants: missing-source; disabled-group; deleted-group
 
 <!-- Mã truy vết: TD-ITEM-01 «Mục số nguyên: Điểm đánh giá（評点）, Nhập số nguyên（数値入力（整数））, M mặc định…», TD-POP-02 «X sau khi bật lớp học: Như TD-POP-01 nhưng bật thêm Lớp học（授業）, chạy…», TD-POP-03 «Nhóm tổng hợp thứ hạng（順位集計グループ）: "Toán I khối 1+2" gồm lớp G-A và G-B…», TD-STU-01 «S01: G-A, HR1», AC-G13, AC-G21 -->
 
@@ -1918,6 +2562,13 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 2. (b) Quy tắc đang dùng X / Lớp học: tắt công tắc Lớp học（授業） của trường/năm; mở danh sách quy tắc và xem S01 (chưa chạy).
 3. Chạy nút cam; xem S01.
 4. (c) Xóa nhóm nhóm tổng hợp thứ hạng “Toán I khối 1+2” đang được quy tắc khác tham chiếu; chạy nút cam; xem ô dùng quy tắc đó.
+
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: missing-source | Nguồn mới thiếu |
+| Run: disabled-group | Nhóm bị tắt |
+| Run: deleted-group | Nhóm bị xóa |
 
 **期待結果（Kết quả mong đợi）**
 
@@ -1935,6 +2586,8 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 ### TC-RS-VAL-001 — Điểm cố định: biên −1 / 0 / 100 / 101 với M=100
 
 Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Điểm cố định” (AC-G08 «Điểm cố định»)
+Priority basis: other
+Run variants: negative; zero; maximum; above
 
 <!-- Mã truy vết: TD-ITEM-01 «Mục số nguyên: Điểm đánh giá（評点）, Nhập số nguyên（数値入力（整数））, M mặc định…», TC-RS-UI-017 -->
 
@@ -1947,6 +2600,14 @@ Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 
 Lần lượt nhập Điểm cố định（固定点数）= −1, 0, 100, 101 và bấm Cập nhật（更新する）.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: negative | N=-1 |
+| Run: zero | N=0 |
+| Run: maximum | N=100 |
+| Run: above | N=101 |
+
 **期待結果（Kết quả mong đợi）**
 
 −1: không lưu được, có lỗi. 0: lưu được. 100: lưu được. 101: không lưu được, có lỗi vượt M. Khi lỗi, cấu hình đã lưu trước đó không đổi.
@@ -1956,6 +2617,8 @@ Lần lượt nhập Điểm cố định（固定点数）= −1, 0, 100, 101 v
 ### TC-RS-VAL-002 — Điểm cố định phải ≤ M của mọi đối tượng (M=20 và M=100)
 
 Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Điểm cố định” (AC-G08 «Điểm cố định»)
+Priority basis: other
+Run variants: all30; all20; gb30
 
 <!-- Mã truy vết: TD-ITEM-07 «Mục khác M theo lớp: Mục số M mặc định 100», SI-02 «Phân giải M» -->
 
@@ -1970,6 +2633,13 @@ Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 2. Toàn bộ đối tượng, N=20, Lưu.
 3. Lọc chỉ lớp G-B, N=30, Lưu.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: all30 | Toàn bộ N=30 |
+| Run: all20 | Toàn bộ N=20 |
+| Run: gb30 | Chỉ G-B N=30 |
+
 **期待結果（Kết quả mong đợi）**
 
 1. Không lưu được (G-A M=20).
@@ -1981,6 +2651,8 @@ Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 ### TC-RS-VAL-003 — Mở rộng phạm vi sau khi lưu: kiểm lại ngưỡng cố định với M của đối tượng mới
 
 Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Điểm cố định” (AC-G08 «Điểm cố định»)
+Priority basis: other
+Run variants: Base
 
 <!-- Mã truy vết: TD-ITEM-07 «Mục khác M theo lớp: Mục số M mặc định 100» -->
 
@@ -1993,6 +2665,11 @@ Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 
 Sửa bộ lọc thành G-A hoặc G-B (giữ N=30), bấm Lưu.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: Base | Toàn bộ thủ tục theo đúng thứ tự; các đối chứng cùng fixture được kiểm trong cùng lượt, không bỏ bước |
+
 **期待結果（Kết quả mong đợi）**
 
 Không lưu được vì G-A có M=20; cấu hình cũ (chỉ G-B) giữ nguyên.
@@ -2002,6 +2679,8 @@ Không lưu được vì G-A có M=20; cấu hình cũ (chỉ G-B) giữ nguyên
 ### TC-RS-VAL-004 — Ngưỡng cố định/tỷ lệ trống hoặc không phải số
 
 Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Giữ chính xác giá trị” (AC-G11 «Giữ chính xác giá trị»)
+Priority basis: other
+Run variants: fixed-empty; fixed-abc; fixed-3O; fixed-fullwidth; ratio-empty; ratio-abc; ratio-3O; ratio-fullwidth
 
 <!-- Mã truy vết: TD-ITEM-01 «Mục số nguyên: Điểm đánh giá（評点）, Nhập số nguyên（数値入力（整数））, M mặc định…» -->
 
@@ -2014,6 +2693,18 @@ Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 
 Với loại Điểm cố định（固定点数） rồi Tỷ lệ điểm tối đa（得点率）: nhập từng giá trị, bấm Lưu.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: fixed-empty | Cố định với trống |
+| Run: fixed-abc | Cố định với abc |
+| Run: fixed-3O | Cố định với 3O |
+| Run: fixed-fullwidth | Cố định với chữ số toàn chiều rộng, phần TBD giữ BLOCKED |
+| Run: ratio-empty | Tỷ lệ với trống |
+| Run: ratio-abc | Tỷ lệ với abc |
+| Run: ratio-3O | Tỷ lệ với 3O |
+| Run: ratio-fullwidth | Tỷ lệ với chữ số toàn chiều rộng, phần TBD giữ BLOCKED |
+
 **期待結果（Kết quả mong đợi）**
 
 Trống, `abc`, `3O`: không lưu được, có lỗi. `３０`: xử lý theo quy ước nhập số hiện hành của BLEND (TBD — có thể chuẩn hóa thành 30 hoặc báo lỗi).
@@ -2023,6 +2714,8 @@ Trống, `abc`, `3O`: không lưu được, có lỗi. `３０`: xử lý theo q
 ### TC-RS-VAL-005 — Điểm cố định thập phân
 
 Priority: TBD ｜ Status: PROPOSED ｜ Requirement ID: tiêu chí nghiệm thu “Giữ chính xác giá trị” (AC-G11 «Giữ chính xác giá trị»)
+Priority basis: other
+Run variants: d1; d2; d3; d4
 
 <!-- Mã truy vết: TD-ITEM-02 «Mục số thập phân: Điểm đánh giá（評点）, Nhập số thập phân（数値入力（小数））, M mặc…» -->
 
@@ -2035,6 +2728,14 @@ Priority: TBD ｜ Status: PROPOSED ｜ Requirement ID: tiêu chí nghiệm thu �
 
 Nhập từng giá trị, Lưu, mở lại.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: d1 | 29.5 |
+| Run: d2 | 29.55 |
+| Run: d3 | 29.555 |
+| Run: d4 | 29.5555 |
+
 **期待結果（Kết quả mong đợi）**
 
 Đề xuất (thiết kế DB v2 mục 4.2 “Xử lý phần lẻ và miền lưu trữ”): 29.5, 29.55, 29.555 lưu và mở lại đúng; 29.5555 bị từ chối, không tự cắt/làm tròn. Tối thiểu (CONFIRMED, đặc tả v2 mục 6.8 “Yêu cầu độ chính xác”): không được âm thầm làm tròn/cắt giá trị mà không báo.
@@ -2044,6 +2745,8 @@ Nhập từng giá trị, Lưu, mở lại.
 ### TC-RS-VAL-006 — Tỷ lệ N: biên −1 / 0 / 100 / 101
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Tỷ lệ điểm tối đa” (AC-G10 «Tỷ lệ điểm tối đa»)
+Priority basis: result
+Run variants: negative; zero; hundred; above; decimal; long-decimal
 
 <!-- Mã truy vết: TD-ITEM-01 «Mục số nguyên: Điểm đánh giá（評点）, Nhập số nguyên（数値入力（整数））, M mặc định…» -->
 
@@ -2056,6 +2759,16 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 
 Nhập từng giá trị, Lưu.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: negative | -1 |
+| Run: zero | 0 |
+| Run: hundred | 100 |
+| Run: above | 101 |
+| Run: decimal | 30.5 |
+| Run: long-decimal | 30.5555 |
+
 **期待結果（Kết quả mong đợi）**
 
 −1 và 101: không lưu được. 0 và 100: lưu được. 30.5 lưu được, 30.5555 bị từ chối (PROPOSED, thiết kế DB v2 mục 4.2 “Xử lý phần lẻ và miền lưu trữ”).
@@ -2065,6 +2778,8 @@ Nhập từng giá trị, Lưu.
 ### TC-RS-VAL-007 — Xử lý phần lẻ: bắt buộc chọn cách làm tròn; p = 0 / 1 / 9 / 10; lần đầu p=1
 
 Priority: TBD ｜ Status: PROPOSED ｜ Requirement ID: đặc tả v2 mục 6.5 “Xử lý phần lẻ”, mục 6.8 “Yêu cầu độ chính xác”
+Priority basis: other
+Run variants: default; missing-method; p0; p1; p9; p10
 
 <!-- Mã truy vết: TD-ITEM-01 «Mục số nguyên: Điểm đánh giá（評点）, Nhập số nguyên（数値入力（整数））, M mặc định…» -->
 
@@ -2079,6 +2794,16 @@ Priority: TBD ｜ Status: PROPOSED ｜ Requirement ID: đặc tả v2 mục 6.5 
 2. Không chọn cách làm tròn, Lưu.
 3. Chọn Làm tròn xuống（切り捨て） với p=0, 1, 9, 10; Lưu từng lần.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: default | Giá trị mặc định p=1 |
+| Run: missing-method | Thiếu phương thức |
+| Run: p0 | p=0 |
+| Run: p1 | p=1 |
+| Run: p9 | p=9 |
+| Run: p10 | p=10 |
+
 **期待結果（Kết quả mong đợi）**
 
 1. p hiển thị 1.
@@ -2090,6 +2815,8 @@ Priority: TBD ｜ Status: PROPOSED ｜ Requirement ID: đặc tả v2 mục 6.5 
 ### TC-RS-VAL-008 — Công thức phải có ít nhất một dòng
 
 Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Kiểm công thức khi lưu” (AC-G17 «Kiểm công thức khi lưu»)
+Priority basis: other
+Run variants: Base
 
 <!-- Mã truy vết: — -->
 
@@ -2102,6 +2829,11 @@ Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 
 Xóa hết các dòng công thức (nếu UI cho phép), bấm Lưu.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: Base | Toàn bộ thủ tục theo đúng thứ tự; các đối chứng cùng fixture được kiểm trong cùng lượt, không bỏ bước |
+
 **期待結果（Kết quả mong đợi）**
 
 Không lưu được (hoặc UI không cho xóa dòng cuối).
@@ -2111,6 +2843,8 @@ Không lưu được (hoặc UI không cho xóa dòng cuối).
 ### TC-RS-VAL-009 — Chia cho số cố định 0 không lưu được
 
 Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Kiểm công thức khi lưu” (AC-G17 «Kiểm công thức khi lưu»)
+Priority basis: other
+Run variants: zero; decimal-zero
 
 <!-- Mã truy vết: TC-RS-UI-017, TC-RS-CALC-021 -->
 
@@ -2123,6 +2857,12 @@ Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 
 Nhập công thức, Lưu.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: zero | Chia 0 |
+| Run: decimal-zero | Chia 0.0 |
+
 **期待結果（Kết quả mong đợi）**
 
 Không lưu được; lỗi chỉ rõ dòng/vế phải.
@@ -2132,6 +2872,8 @@ Không lưu được; lỗi chỉ rõ dòng/vế phải.
 ### TC-RS-VAL-010 — Toán hạng trống hoặc không phải số
 
 Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Kiểm công thức khi lưu” (AC-G17 «Kiểm công thức khi lưu»)
+Priority basis: other
+Run variants: empty; text; operator
 
 <!-- Mã truy vết: — -->
 
@@ -2144,6 +2886,13 @@ Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 
 Nhập từng biến thể, Lưu.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: empty | Trống toán hạng |
+| Run: text | Toán hạng không phải số |
+| Run: operator | Thiếu phép toán |
+
 **期待結果（Kết quả mong đợi）**
 
 Không lưu được; lỗi chỉ ra dòng thiếu.
@@ -2153,6 +2902,8 @@ Không lưu được; lỗi chỉ ra dòng thiếu.
 ### TC-RS-VAL-011 — Kết quả phép tính（式の結果） chỉ tham chiếu dòng phía trước
 
 Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Kiểm công thức khi lưu” (AC-G17 «Kiểm công thức khi lưu»)
+Priority basis: other
+Run variants: first; self; forward; backward
 
 <!-- Mã truy vết: AC-G17 -->
 
@@ -2165,6 +2916,14 @@ Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 
 Thử từng biến thể, bấm Lưu.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: first | Tham chiếu dòng đầu |
+| Run: self | Tham chiếu chính dòng |
+| Run: forward | Tham chiếu dòng sau |
+| Run: backward | Tham chiếu dòng trước |
+
 **期待結果（Kết quả mong đợi）**
 
 (a), (b), (c): không chọn được hoặc không lưu được.
@@ -2176,6 +2935,8 @@ Thử từng biến thể, bấm Lưu.
 ### TC-RS-VAL-012 — Xóa/đổi thứ tự dòng không tự nối lại tham chiếu
 
 Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Kiểm công thức khi lưu” (AC-G17 «Kiểm công thức khi lưu»)
+Priority basis: other
+Run variants: delete; reorder
 
 <!-- Mã truy vết: AC-G17 -->
 
@@ -2189,6 +2950,12 @@ Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 1. Xóa dòng 2, bấm Lưu.
 2. Tạo lại công thức 3 dòng như điều kiện đầu; đổi thứ tự để dòng 3 lên vị trí 2, bấm Lưu.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: delete | Xóa dòng được tham chiếu |
+| Run: reorder | Đổi thứ tự dòng được tham chiếu |
+
 **期待結果（Kết quả mong đợi）**
 
 1. Dòng 3 báo tham chiếu không hợp lệ hoặc buộc chọn lại; không âm thầm trỏ sang dòng 1.
@@ -2199,6 +2966,8 @@ Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 ### TC-RS-VAL-013 — Số cố định trong công thức không bị giới hạn 0–100
 
 Priority: TBD ｜ Status: PROPOSED ｜ Requirement ID: đặc tả v2 mục 6.4 “Công thức dùng trung bình”, mục 6.8 “Yêu cầu độ chính xác”
+Priority basis: other
+Run variants: times150; times05; minus150
 
 <!-- Mã truy vết: — -->
 
@@ -2211,6 +2980,13 @@ Priority: TBD ｜ Status: PROPOSED ｜ Requirement ID: đặc tả v2 mục 6.4 
 
 Nhập từng công thức, Lưu.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: times150 | Nhân 150 |
+| Run: times05 | Nhân 0.5 |
+| Run: minus150 | Trừ 150 |
+
 **期待結果（Kết quả mong đợi）**
 
 Lưu được (không áp giới hạn 0–100 hay 0–M cho toán hạng).
@@ -2220,6 +2996,8 @@ Lưu được (không áp giới hạn 0–100 hay 0–M cho toán hạng).
 ### TC-RS-VAL-014 — Tên thiết lập: bắt buộc, độ dài, trùng tên
 
 Priority: TBD ｜ Status: PROPOSED ｜ Requirement ID: đặc tả v2 mục 4.2 “Nội dung một dòng”, mục 5.1 “Đối tượng áp dụng”
+Priority basis: other
+Run variants: empty; space; len255; len256; padded255; duplicate
 
 <!-- Mã truy vết: — -->
 
@@ -2233,6 +3011,16 @@ Priority: TBD ｜ Status: PROPOSED ｜ Requirement ID: đặc tả v2 mục 4.2 
 1. Nhập từng giá trị, Lưu, mở lại.
 2. Tạo quy tắc thứ hai trùng tên quy tắc thứ nhất, Lưu.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: empty | Tên trống |
+| Run: space | Chỉ khoảng trắng |
+| Run: len255 | 255 ký tự |
+| Run: len256 | 256 ký tự |
+| Run: padded255 | 255 ký tự kèm khoảng trắng |
+| Run: duplicate | Trùng tên |
+
 **期待結果（Kết quả mong đợi）**
 
 1. Trống/chỉ khoảng trắng: không lưu được. 255 ký tự: lưu được, mở lại đủ. 256 ký tự: bị từ chối, không tự cắt. 255 ký tự kèm khoảng trắng đầu/cuối: lưu được, tên lưu đã bỏ khoảng trắng đầu/cuối (đủ 255 ký tự).
@@ -2243,6 +3031,8 @@ Priority: TBD ｜ Status: PROPOSED ｜ Requirement ID: đặc tả v2 mục 4.2 
 ### TC-RS-VAL-015 — Chọn giới hạn bằng bộ lọc nhưng không có bộ lọc nào
 
 Priority: TBD ｜ Status: PROPOSED ｜ Requirement ID: tiêu chí nghiệm thu “Đối tượng áp dụng và nhu cầu nguồn” (AC-G05 «Đối tượng áp dụng và nhu cầu nguồn»)
+Priority basis: other
+Run variants: Base
 
 <!-- Mã truy vết: — -->
 
@@ -2255,6 +3045,11 @@ Priority: TBD ｜ Status: PROPOSED ｜ Requirement ID: tiêu chí nghiệm thu �
 
 Chọn giới hạn bằng bộ lọc, không chọn điều kiện, Lưu.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: Base | Toàn bộ thủ tục theo đúng thứ tự; các đối chứng cùng fixture được kiểm trong cùng lượt, không bỏ bước |
+
 **期待結果（Kết quả mong đợi）**
 
 Không lưu được; có thông báo lỗi. Câu chữ thông báo không phải must-pass (Figma chưa có).
@@ -2264,6 +3059,8 @@ Không lưu được; có thông báo lỗi. Câu chữ thông báo không phả
 ### TC-RS-VAL-016 — Lỗi khi lưu không làm mất cấu hình/kết quả đã lưu
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Lưu và mở lại nhiều thiết lập” (AC-G04 «Lưu và mở lại nhiều thiết lập»)
+Priority basis: result
+Run variants: Base
 
 <!-- Mã truy vết: TD-RULE-01 «Cố định `<`: Tên "Cố định 30"» -->
 
@@ -2277,6 +3074,11 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 1. Mở quy tắc “Cố định 30” (dưới 30), đổi N=101, Lưu (lỗi).
 2. Quay lại danh sách, xem ba đầu ra.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: Base | Toàn bộ thủ tục theo đúng thứ tự; các đối chứng cùng fixture được kiểm trong cùng lượt, không bỏ bước |
+
 **期待結果（Kết quả mong đợi）**
 
 Cấu hình vẫn 30; S01 vẫn Đỏ. Giá trị vừa nhập có được giữ trên form hay không: PROPOSED (không must-pass).
@@ -2286,6 +3088,8 @@ Cấu hình vẫn 30; S01 vẫn Đỏ. Giá trị vừa nhập có được gi�
 ### TC-RS-VAL-017 — Trích xuất: bật ký hiệu thì bắt buộc nhập ký hiệu
 
 Priority: TBD ｜ Status: IMPLEMENTED ｜ Requirement ID: tiêu chí nghiệm thu “Hiển thị ô trích xuất” (AC-G30 «Hiển thị ô trích xuất»)
+Priority basis: other
+Run variants: prefix; suffix
 
 <!-- Mã truy vết: TD-ROLE-07 «Người phụ trách đầu ra: Có quyền Trích xuất thành tích（成績抽出）, Thiết lập…»,  -->
 
@@ -2298,6 +3102,12 @@ Priority: TBD ｜ Status: IMPLEMENTED ｜ Requirement ID: tiêu chí nghiệm th
 
 Chạy trích xuất với từng biến thể.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: prefix | Ký hiệu trước trống |
+| Run: suffix | Ký hiệu sau trống |
+
 **期待結果（Kết quả mong đợi）**
 
 Có lỗi yêu cầu nhập ký hiệu; không chạy trích xuất.
@@ -2307,6 +3117,8 @@ Có lỗi yêu cầu nhập ký hiệu; không chạy trích xuất.
 ### TC-RS-VAL-018 — Phiếu điểm: chỉ bắt buộc ký tự khi chọn phía trước/phía sau
 
 Priority: TBD ｜ Status: IMPLEMENTED ｜ Requirement ID: tiêu chí nghiệm thu “Tùy chọn trên phiếu” (AC-G35 «Tùy chọn trên phiếu»)
+Priority basis: other
+Run variants: unchanged; parentheses; prefix; suffix
 
 <!-- Mã truy vết: — -->
 
@@ -2319,6 +3131,14 @@ Priority: TBD ｜ Status: IMPLEMENTED ｜ Requirement ID: tiêu chí nghiệm th
 
 Chọn từng lựa chọn ở dòng Thiết lập điểm đỏ（赤点設定）, bấm Cập nhật（更新する）.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: unchanged | Nguyên trạng |
+| Run: parentheses | Kèm ngoặc |
+| Run: prefix | Ký tự trước trống |
+| Run: suffix | Ký tự sau trống |
+
 **期待結果（Kết quả mong đợi）**
 
 Nguyên trạng, Kèm ngoặc: không hiện ô ký tự, lưu được. Phía trước/sau để trống: không lưu được.
@@ -2328,6 +3148,8 @@ Nguyên trạng, Kèm ngoặc: không hiện ô ký tự, lưu được. Phía t
 ### TC-RS-VAL-019 — Cảnh báo ngưỡng biên không chặn lưu
 
 Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Biên so sánh và cảnh báo” (AC-G07 «Biên so sánh và cảnh báo»)
+Priority basis: other
+Run variants: fixed0-lt; fixed0-le; fixed100-lt; fixed100-le; ratio0; ratio100; ratio04
 
 <!-- Mã truy vết: TD-ITEM-01 «Mục số nguyên: Điểm đánh giá（評点）, Nhập số nguyên（数値入力（整数））, M mặc định…», AC-G07 -->
 
@@ -2340,6 +3162,17 @@ Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 
 Nhập từng giá trị, Lưu, mở lại.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: fixed0-lt | Cố định 0 nhỏ hơn |
+| Run: fixed0-le | Cố định 0 nhỏ hơn hoặc bằng |
+| Run: fixed100-lt | Cố định 100 nhỏ hơn |
+| Run: fixed100-le | Cố định 100 nhỏ hơn hoặc bằng |
+| Run: ratio0 | Tỷ lệ 0, dấu nhỏ hơn, không xử lý phần lẻ: T=0, có cảnh báo |
+| Run: ratio100 | Tỷ lệ 100, dấu nhỏ hơn hoặc bằng, không xử lý phần lẻ: T=100, có cảnh báo |
+| Run: ratio04 | Tỷ lệ 0.4, dấu nhỏ hơn, làm tròn gần nhất p=1: T=0, có cảnh báo |
+
 **期待結果（Kết quả mong đợi）**
 
 1. Cảnh báo theo `T` cuối và dấu: `<0` (không ai đỏ) và `≤100` (mọi điểm hợp lệ đỏ) phải có cảnh báo; các tổ hợp biên khác theo thiết kế.
@@ -2351,6 +3184,8 @@ Nhập từng giá trị, Lưu, mở lại.
 ### TC-RS-VAL-020 — Kết quả công thức âm hoặc vượt M không phải lỗi lưu
 
 Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Ngưỡng âm” (AC-G18 «Ngưỡng âm»)
+Priority basis: other
+Run variants: minus20; times3
 
 <!-- Mã truy vết: TD-RULE-10 «Công thức âm: Dòng 1: Trung bình（平均点）− 20», TC-RS-CALC-017, TC-RS-CALC-018 -->
 
@@ -2363,6 +3198,12 @@ Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 
 Lưu từng công thức.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: minus20 | Trừ 20 |
+| Run: times3 | Nhân 3 |
+
 **期待結果（Kết quả mong đợi）**
 
 Lưu được; không kiểm `0≤T≤M` tại lúc lưu cho công thức.
@@ -2372,6 +3213,8 @@ Lưu được; không kiểm `0≤T≤M` tại lúc lưu cho công thức.
 ### TC-RS-VAL-021 — Đổi loại ngưỡng trong cùng phiên sửa
 
 Priority: TBD ｜ Status: PROPOSED ｜ Requirement ID: đặc tả v2 mục 6.7 “Đổi loại ngưỡng và đổi toán hạng”
+Priority basis: other
+Run variants: Base
 
 <!-- Mã truy vết: TD-RULE-01 «Cố định `<`: Tên "Cố định 30"» -->
 
@@ -2388,6 +3231,11 @@ Priority: TBD ｜ Status: PROPOSED ｜ Requirement ID: đặc tả v2 mục 6.7 
 4. Đổi sang Tỷ lệ, nhập 50, bấm Hủy; mở lại.
 5. (Khi có schema) Lưu quy tắc Tỷ lệ 40 có bật xử lý phần lẻ; đổi sang Cố định 30, Lưu, SELECT; đổi sang Công thức `A×0.5`, Lưu, SELECT.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: Base | Toàn bộ thủ tục theo đúng thứ tự; các đối chứng cùng fixture được kiểm trong cùng lượt, không bỏ bước |
+
 **期待結果（Kết quả mong đợi）**
 
 1. (PROPOSED) Trong phiên: ô Cố định vẫn 30; quay lại Tỷ lệ vẫn thấy 40.
@@ -2401,6 +3249,8 @@ Priority: TBD ｜ Status: PROPOSED ｜ Requirement ID: đặc tả v2 mục 6.7 
 ### TC-RS-VAL-022 — Giá trị điều kiện phân nhánh (trung bình/tỷ lệ nhóm)
 
 Priority: TBD ｜ Status: PROPOSED ｜ Requirement ID: đặc tả v2 mục 5.2 “Điều kiện dựa trên trung bình”
+Priority basis: other
+Run variants: avg-empty; avg-negative; avg101; avg605; avg-long; ratio-negative; ratio0; ratio100; ratio101
 
 <!-- Mã truy vết: — -->
 
@@ -2413,6 +3263,19 @@ Priority: TBD ｜ Status: PROPOSED ｜ Requirement ID: đặc tả v2 mục 5.2 
 
 Nhập từng giá trị, Lưu.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: avg-empty | Trung bình trống |
+| Run: avg-negative | Trung bình -1 |
+| Run: avg101 | Trung bình 101 |
+| Run: avg605 | Trung bình 60.5 |
+| Run: avg-long | Trung bình 60.123456789 |
+| Run: ratio-negative | Tỷ lệ -1 |
+| Run: ratio0 | Tỷ lệ 0 |
+| Run: ratio100 | Tỷ lệ 100 |
+| Run: ratio101 | Tỷ lệ 101 |
+
 **期待結果（Kết quả mong đợi）**
 
 Đề xuất (thiết kế DB v2): trống → không lưu được (điều kiện chưa đủ); 60.5 lưu được; 60.123456789 (9 chữ số lẻ) bị từ chối; tỷ lệ nhóm 0 và 100 lưu được, −1 và 101 bị từ chối. Trung bình −1 và 101: thiết kế DB v2 không nêu miền — TBD, ghi hành vi thực tế.
@@ -2422,6 +3285,8 @@ Nhập từng giá trị, Lưu.
 ### TC-RS-VAL-023 — Giới hạn công thức: 20/21 dòng và số chữ số của số cố định
 
 Priority: TBD ｜ Status: PROPOSED ｜ Requirement ID: tiêu chí nghiệm thu “Giữ chính xác giá trị” (AC-G11 «Giữ chính xác giá trị»)
+Priority basis: other
+Run variants: lines20; lines21; constant; integer-overflow; fraction-overflow
 
 <!-- Mã truy vết: TC-RS-ERR-009, AC-G11, SI-06 «Giới hạn giá trị ở server», TC-RS-DATA-001 -->
 
@@ -2433,6 +3298,15 @@ Priority: TBD ｜ Status: PROPOSED ｜ Requirement ID: tiêu chí nghiệm thu �
 **操作（Thao tác）**
 
 Nhập từng cấu hình, Lưu, mở lại.
+
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: lines20 | 20 dòng |
+| Run: lines21 | 21 dòng |
+| Run: constant | Hằng số cực lớn |
+| Run: integer-overflow | Vượt phần nguyên |
+| Run: fraction-overflow | Vượt phần thập phân |
 
 **期待結果（Kết quả mong đợi）**
 
@@ -2451,6 +3325,8 @@ Gửi trực tiếp request vượt giới hạn cũng bị server từ chối (
 ### TC-RS-VAL-024 — Quy tắc dùng trung bình/tỷ lệ nhóm không lưu được khi thiếu nguồn
 
 Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Đối tượng áp dụng và nhu cầu nguồn” (AC-G05 «Đối tượng áp dụng và nhu cầu nguồn»)
+Priority basis: other
+Run variants: condition-period; condition-setting; condition-group; condition-all; ratio-all; formula-all
 
 <!-- Mã truy vết: TD-ITEM-01 «Mục số nguyên: Điểm đánh giá（評点）, Nhập số nguyên（数値入力（整数））, M mặc định…», AC-G05, TC-RS-BR-011 -->
 
@@ -2463,6 +3339,16 @@ Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 
 Nhập từng biến thể, bấm Lưu; mở lại danh sách.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: condition-period | Điều kiện trung bình thiếu kỳ |
+| Run: condition-setting | Điều kiện trung bình thiếu thiết lập |
+| Run: condition-group | Điều kiện trung bình thiếu nhóm |
+| Run: condition-all | Điều kiện trung bình thiếu toàn bộ |
+| Run: ratio-all | Điều kiện tỷ lệ thiếu nguồn |
+| Run: formula-all | Công thức thiếu nguồn |
+
 **期待結果（Kết quả mong đợi）**
 
 Cả ba biến thể không lưu được; có thông báo thiếu nguồn. Không lưu quy tắc với điều kiện bị bỏ đi hoặc nguồn trống; danh sách quy tắc không đổi.
@@ -2472,6 +3358,8 @@ Cả ba biến thể không lưu được; có thông báo thiếu nguồn. Khô
 ### TC-RS-VAL-025 — Server từ chối lưu nhóm tham chiếu không khả dụng hoặc ngoài trường/năm
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Đúng phạm vi tham chiếu” (AC-G12 «Đúng phạm vi tham chiếu»)
+Priority basis: authorization
+Run variants: condition-disabled; condition-school; condition-year; condition-missing; formula-disabled; formula-school; formula-year; formula-missing
 
 <!-- Mã truy vết: TD-POP-01 «Thiết lập tổng hợp X: Thiết lập tổng hợp thứ hạng（順位集計設定）…», TD-ENV-02 «Trường khác: Trường B (tên giả), có ít nhất một mục đánh giá và một quy…», TD-ITEM-01 «Mục số nguyên: Điểm đánh giá（評点）, Nhập số nguyên（数値入力（整数））, M mặc định…», TD-ROLE-01 «Giáo viên có quyền sửa mục: Có quyền vào Thiết lập nhập điểm（成績入力設定） và…», AC-G12 -->
 
@@ -2488,6 +3376,18 @@ Gửi request lưu quy tắc có nguồn (điều kiện hoặc công thức) v�
 3. Nhóm tổng hợp mang ID của năm học khác.
 4. Nhóm môn học（科目グループ） có ID không tồn tại.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: condition-disabled | Điều kiện nhóm tắt |
+| Run: condition-school | Điều kiện sai trường |
+| Run: condition-year | Điều kiện sai năm |
+| Run: condition-missing | Điều kiện nhóm không tồn tại |
+| Run: formula-disabled | Công thức nhóm tắt |
+| Run: formula-school | Công thức sai trường |
+| Run: formula-year | Công thức sai năm |
+| Run: formula-missing | Công thức nhóm không tồn tại |
+
 **期待結果（Kết quả mong đợi）**
 
 Cả bốn biến thể bị từ chối; không lưu quy tắc; danh sách quy tắc không đổi; không trả về tên/dữ liệu của trường hay năm khác.
@@ -2501,6 +3401,8 @@ Cả bốn biến thể bị từ chối; không lưu quy tắc; danh sách quy 
 ### TC-RS-DATA-001 — Cấu hình lưu và mở lại đầy đủ, không cắt/làm tròn âm thầm
 
 Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Lưu và mở lại nhiều thiết lập” (AC-G04 «Lưu và mở lại nhiều thiết lập»); tiêu chí nghiệm thu “Giữ chính xác giá trị” (AC-G11 «Giữ chính xác giá trị»)
+Priority basis: other
+Run variants: fixed; ratio; formula; filter
 
 <!-- Mã truy vết: TD-ITEM-02 «Mục số thập phân: Điểm đánh giá（評点）, Nhập số thập phân（数値入力（小数））, M mặc…», TD-RULE-01 «Cố định `<`: Tên "Cố định 30"», TD-RULE-04 «Tỷ lệ làm tròn xuống: Như TD-RULE-03, xử lý phần lẻ: chữ số thập phân…», TD-RULE-06 «Công thức hai dòng: Dòng 1: Trung bình（平均点）÷ Số cố định（固定値）2, chữ số…», TD-RULE-12 «Bộ lọc kết hợp: Giới hạn bằng bộ lọc（特定条件で絞り込む）: Khối（学年） = 1 hoặc 2» -->
 
@@ -2515,6 +3417,14 @@ Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 2. Tải lại trang, mở từng quy tắc.
 3. SELECT cấu hình (khi có schema).
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: fixed | Cố định 29.5 |
+| Run: ratio | Tỷ lệ 30 phần trăm cắt xuống |
+| Run: formula | Công thức hai dòng |
+| Run: filter | Bộ lọc kết hợp |
+
 **期待結果（Kết quả mong đợi）**
 
 Mọi trường (tên, phạm vi, bộ lọc, điều kiện, loại, N, p, cách làm tròn, toán hạng, so sánh, thứ tự) trùng giá trị đã nhập.
@@ -2523,7 +3433,9 @@ Mọi trường (tên, phạm vi, bộ lọc, điều kiện, loại, N, p, các
 
 ### TC-RS-DATA-002 — Kết quả lưu theo định danh ô; mỗi ô chỉ một kết quả hiện hành
 
-Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Nhận diện ô điểm” (AC-G03 «Nhận diện ô điểm»)
+Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Nhận diện ô điểm” (AC-G03 «Nhận diện ô điểm»)
+Priority basis: lifecycle
+Run variants: Base
 
 <!-- Mã truy vết: TD-ITEM-01 «Mục số nguyên: Điểm đánh giá（評点）, Nhập số nguyên（数値入力（整数））, M mặc định…», TD-ITEM-03 «Mục điểm đơn vị: Điểm bài kiểm tra đơn vị（単元テスト点）, M mặc định 100», TD-STU-01 «S01: G-A, HR1», TD-RULE-01 «Cố định `<`: Tên "Cố định 30"», AC-G03 -->
 
@@ -2540,6 +3452,11 @@ Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 4. Chuẩn bị hai mục cùng tên Điểm đánh giá（評点） ở hai kỳ khác nhau; chỉ mục kỳ 1 có quy tắc “Cố định 30” (dưới 30). Đăng ký S01 = 25 ở cả hai mục, xem đầu ra và SELECT.
 5. Đổi tên mục kỳ 1 và đổi thứ tự cột mục trên khung đánh giá (nếu màn hỗ trợ); xem đầu ra và SELECT lại, chưa chạy xét.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: Base | Toàn bộ thủ tục theo đúng thứ tự; các đối chứng cùng fixture được kiểm trong cùng lượt, không bỏ bước |
+
 **期待結果（Kết quả mong đợi）**
 
 1–3. Mỗi ô (trường, năm, mục trên khung đánh giá — gồm kỳ/thời điểm, lớp, học sinh, đơn vị) có đúng một dòng hiện hành; U1/U2 của S06 là hai dòng; ô điểm thường có `tangen_id=0`. Chạy lại không tạo dòng thứ hai.
@@ -2551,7 +3468,9 @@ Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 
 ### TC-RS-DATA-003 — Sáu trạng thái phân biệt được khi lưu
 
-Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Trạng thái sau lần chạy” (AC-G20 «Trạng thái sau lần chạy»)
+Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Trạng thái sau lần chạy” (AC-G20 «Trạng thái sau lần chạy»)
+Priority basis: lifecycle
+Run variants: Base
 
 <!-- Mã truy vết: TC-RS-BR-010, TC-RS-BR-002, TD-RULE-01 «Cố định `<`: Tên "Cố định 30"», TD-STU-01 «S01: G-A, HR1», TD-STU-03 «S03: G-A, HR1», TD-STU-05 «S05: G-A, HR1», TC-RS-BR-017, TC-RS-BR-003, AC-G20 -->
 
@@ -2565,6 +3484,11 @@ Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 1. SELECT `judgment_status`, `is_red`, `red_score_setting_id`, `reason_code` của các ô.
 2. Đổi ngưỡng quy tắc “Cố định 30” (dưới 30) thành 35 (chỉ lưu), SELECT lại ô S03.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: Base | Toàn bộ thủ tục theo đúng thứ tự; các đối chứng cùng fixture được kiểm trong cùng lượt, không bỏ bước |
+
 **期待結果（Kết quả mong đợi）**
 
 1. Sáu trạng thái phân biệt được, không gộp Chưa xét được với Không áp dụng hay Không đỏ. Việc dùng cột, mã số, `reason_code` hoặc `red_score_setting_id` cụ thể là phần thiết kế DB cần đối chiếu khi schema được chốt; không dùng mapping đề xuất làm business oracle. Bất kể cách lưu, kết quả quan sát phải phân biệt rõ sáu trạng thái và trạng thái Đang chờ chạy lại.
@@ -2575,6 +3499,8 @@ Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 ### TC-RS-DATA-004 — Xóa quy tắc không xóa dây chuyền kết quả hay điểm
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: đặc tả v2 mục 4.1 “Điểm vào và trạng thái trống”, mục 12.2 “Điểm tích hợp chính”
+Priority basis: lifecycle
+Run variants: Base
 
 <!-- Mã truy vết: TD-RULE-01 «Cố định `<`: Tên "Cố định 30"», TD-STU-01 «S01: G-A, HR1» -->
 
@@ -2588,6 +3514,11 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: đặc tả v2 mục 4.1
 1. Xóa quy tắc “Cố định 30” (dưới 30).
 2. SELECT kết quả và điểm của S01.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: Base | Toàn bộ thủ tục theo đúng thứ tự; các đối chứng cùng fixture được kiểm trong cùng lượt, không bỏ bước |
+
 **期待結果（Kết quả mong đợi）**
 
 Kết quả S01 vẫn còn; điểm 29 giữ nguyên.
@@ -2596,7 +3527,9 @@ Kết quả S01 vẫn còn; điểm 29 giữ nguyên.
 
 ### TC-RS-DATA-005 — Xét điểm đỏ không ghi đè điểm học sinh
 
-Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: đặc tả v2 mục 6.4 “Công thức dùng trung bình”, mục 7.1 “Trình tự cho một ô”
+Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: đặc tả v2 mục 6.4 “Công thức dùng trung bình”, mục 7.1 “Trình tự cho một ô”
+Priority basis: lifecycle
+Run variants: Base
 
 <!-- Mã truy vết: TD-STU-01 «S01: G-A, HR1», TD-STU-02 «S02: G-A, HR1», TD-STU-03 «S03: G-A, HR1», TD-STU-04 «S04: G-A, HR1», TD-STU-05 «S05: G-A, HR1», TD-STU-06 «S06: G-B, HR2», TD-STU-07 «S07: G-B, HR2», TD-STU-08 «S08: G-B, HR2», TD-STU-09 «S09: G-B, HR2», TD-RULE-06 «Công thức hai dòng: Dòng 1: Trung bình（平均点）÷ Số cố định（固定値）2, chữ số…» -->
 
@@ -2611,6 +3544,11 @@ Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: đặc tả v2 mục 6.4
 2. Chạy nút cam.
 3. SELECT điểm sau.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: Base | Toàn bộ thủ tục theo đúng thứ tự; các đối chứng cùng fixture được kiểm trong cùng lượt, không bỏ bước |
+
 **期待結果（Kết quả mong đợi）**
 
 Mọi điểm giữ nguyên (kể cả S09=29.5).
@@ -2619,7 +3557,9 @@ Mọi điểm giữ nguyên (kể cả S09=29.5).
 
 ### TC-RS-DATA-007 — Cấu hình trình bày ở từng đầu ra lưu riêng, không làm đổi quy tắc/kết quả
 
-Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: đặc tả v2 mục 9.1 “Thiết lập”, mục 10.1 “Phạm vi và tùy chọn”, mục 11.1 “Tùy chọn hiển thị đỏ”
+Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: đặc tả v2 mục 9.1 “Thiết lập”, mục 10.1 “Phạm vi và tùy chọn”, mục 11.1 “Tùy chọn hiển thị đỏ”
+Priority basis: lifecycle
+Run variants: extract; publish; report
 
 <!-- Mã truy vết: TD-OUT-01 «Trích xuất lọc + ký hiệu trước + màu: Lọc học sinh có điểm đỏ（抽出する） BẬT», TD-OUT-03 «Công khai: Hiệu ứng đỏ: `*` phía trước（前に「*」）», TD-OUT-04 «Phiếu điểm: Dòng Thiết lập điểm đỏ（赤点設定）: Ký tự phía trước（前に任意の文字） `※`» -->
 
@@ -2633,6 +3573,13 @@ Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: đặc tả v2 mục 9.1
 1. Đổi từng cấu hình đầu ra, lưu.
 2. Kiểm quy tắc và kết quả xét.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: extract | Cấu hình trích xuất |
+| Run: publish | Cấu hình công khai |
+| Run: report | Cấu hình phiếu điểm |
+
 **期待結果（Kết quả mong đợi）**
 
 Quy tắc và kết quả không đổi; cấu hình mỗi đầu ra độc lập (đổi công khai không đổi trích xuất).
@@ -2642,6 +3589,8 @@ Quy tắc và kết quả không đổi; cấu hình mỗi đầu ra độc lậ
 ### TC-RS-DATA-008 — Lưu thông tin giải thích kết quả
 
 Priority: TBD ｜ Status: PROPOSED ｜ Requirement ID: đặc tả v2 mục 12.1 “Dữ liệu cấu hình và kết quả cần quản lý”
+Priority basis: other
+Run variants: Base
 
 <!-- Mã truy vết: TD-RULE-03 «Tỷ lệ: Tỷ lệ điểm tối đa（得点率） 30%, không xử lý phần lẻ（しない）, Nhỏ hơn（未満）», TD-RULE-06 «Công thức hai dòng: Dòng 1: Trung bình（平均点）÷ Số cố định（固定値）2, chữ số…», TD-STU-01 «S01: G-A, HR1», TC-RS-BR-019 -->
 
@@ -2655,6 +3604,11 @@ Priority: TBD ｜ Status: PROPOSED ｜ Requirement ID: đặc tả v2 mục 12.1
 1. SELECT `red_score_setting_id`, `reason_code`, `judgment_context`, `judged_at` của ô Đỏ (S01), ô Chưa xét được, ô Không áp dụng, ô chưa từng xét, ô Tỷ lệ và ô có nguồn.
 2. Làm ô S01 chuyển từ Đỏ sang Không áp dụng (như case “Xóa quy tắc cuối: giữ kết quả tới lần chạy lại; chạy lại → Không áp dụng”), SELECT lại.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: Base | Toàn bộ thủ tục theo đúng thứ tự; các đối chứng cùng fixture được kiểm trong cùng lượt, không bỏ bước |
+
 **期待結果（Kết quả mong đợi）**
 
 1. Ô Đỏ: có quy tắc được chọn; `judgment_context` có `score`="29", `threshold` dạng tử/mẫu (30/1), `compare_type`=1, `sources` rỗng với quy tắc cố định. Ô Chưa xét được: có `reason_code` (ví dụ `source_missing`). `judged_at` có giá trị cho cả ô Chưa xét được và Không áp dụng; NULL ở ô chưa từng xét. Ô có điểm hợp lệ: `judgment_context` có `grade_id` (ID dòng điểm nguồn). Ô Tỷ lệ: `judgment_context` có `maximum`. Ô có nguồn: `sources[]` có `usage`, `kind`, `reference`, `population_key`; với nhóm môn học（科目グループ） có thêm `resolved_population_type`/`resolved_population_ref_id` nhưng vẫn giữ loại/ID đã chọn. Không có tên học sinh, thông tin liên hệ hay câu lỗi SQL.
@@ -2665,6 +3619,8 @@ Priority: TBD ｜ Status: PROPOSED ｜ Requirement ID: đặc tả v2 mục 12.1
 ### TC-RS-DATA-010 — Sao chép mẫu phiếu điểm giữ lựa chọn hiển thị đỏ
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Lưu, sao chép và PDF phiếu” (AC-G37 «Lưu, sao chép và PDF phiếu»)
+Priority basis: output
+Run variants: template-a; template-b
 
 <!-- Mã truy vết: TD-OUT-04 «Phiếu điểm: Dòng Thiết lập điểm đỏ（赤点設定）: Ký tự phía trước（前に任意の文字） `※`», AC-G37, SI-04 «Sao chép mẫu phiếu điểm» -->
 
@@ -2679,6 +3635,12 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 2. Mở dòng Thiết lập điểm đỏ（赤点設定） ở từng bản sao.
 3. Xuất PDF bản sao với S01.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: template-a | Sao chép và xuất mẫu A |
+| Run: template-b | Sao chép và xuất mẫu B |
+
 **期待結果（Kết quả mong đợi）**
 
 1–2. Bản sao giữ lựa chọn Ký tự phía trước（前に任意の文字） `※`; mẫu chỉ dùng điều kiện đỏ vẫn còn hiệu lực.
@@ -2690,6 +3652,8 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 ### TC-RS-DATA-011 — Bảng/cột mới theo quy tắc schema của BLEND
 
 Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: đặc tả v2 mục 12.1 “Dữ liệu cấu hình và kết quả cần quản lý”, mục 12.3 “Không chuyển đổi dữ liệu đỏ cũ”
+Priority basis: other
+Run variants: Base
 
 <!-- Mã truy vết: TD-ENV-03 «Truy cập DB: Kết nối MySQL local, chỉ dùng SELECT / SHOW FULL COLUMNS…» -->
 
@@ -2703,6 +3667,11 @@ Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: đặc tả v2 mục 12.
 1. `SHOW CREATE TABLE` và `SHOW FULL COLUMNS` cho `red_score_settings`, `red_score_results`.
 2. `SHOW CREATE TABLE` cho `grade_publish_conf_grade_items` và `grade_evaluate_frame_items`; so với bản trước migration (hoặc DDL gốc trong source).
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: Base | Toàn bộ thủ tục theo đúng thứ tự; các đối chứng cùng fixture được kiểm trong cùng lượt, không bỏ bước |
+
 **期待結果（Kết quả mong đợi）**
 
 1. Có phạm vi trường/năm, cột audit và comment theo quy tắc schema hiện hành. Đối chiếu thêm với thiết kế (PROPOSED): InnoDB, `utf8mb4`/`utf8mb4_general_ci`, không khai báo foreign key, có `idx_red_score_settings_01`, `uk_red_score_results_01`, `idx_red_score_results_01`, `setting_status` mặc định 0 và phân biệt rõ trạng thái 0/1/2; `red_score_results` có thêm `cell_generation`, `write_version` (mặc định 0), `judged_version`, `rule_revision` (cho phép NULL); bảng/cột cũ (`red_score`, `changed_red_score`) không đổi.
@@ -2713,6 +3682,8 @@ Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: đặc tả v2 mục 12.
 ### TC-RS-DATA-012 — Lưu, đọc lại và sao chép hiệu ứng đỏ theo dòng mục của cấu hình công khai
 
 Priority: TBD ｜ Status: PROPOSED ｜ Requirement ID: đặc tả v2 mục 10.1 “Phạm vi và tùy chọn”
+Priority basis: other
+Run variants: read-copy; invalid-enum; foreign-school
 
 <!-- Mã truy vết: TD-OUT-05 «Hai cấu hình công khai cùng mục: Thiết lập công khai thành…», TD-OUT-06 «Công khai có mục thường và đơn vị: Cấu hình X: TD-ITEM-01…», TD-ENV-03 «Truy cập DB: Kết nối MySQL local, chỉ dùng SELECT / SHOW FULL COLUMNS…», TD-ROLE-07 «Người phụ trách đầu ra: Có quyền Trích xuất thành tích（成績抽出）, Thiết lập…», TD-ROLE-10 «Người dùng trường B: Giáo viên/quản trị của trường B», TD-ENV-02 «Trường khác: Trường B (tên giả), có ít nhất một mục đánh giá và một quy…», TD-ITEM-01 «Mục số nguyên: Điểm đánh giá（評点）, Nhập số nguyên（数値入力（整数））, M mặc định…», TC-RS-FUNC-037 -->
 
@@ -2728,6 +3699,13 @@ Priority: TBD ｜ Status: PROPOSED ｜ Requirement ID: đặc tả v2 mục 10.1
 3. Sao chép X; SELECT dòng của bản sao.
 4. Gửi request lưu với `red_score_display_type`=4, và với ID cấu hình công khai của trường B (tài khoản của trường B / trường B (trường khác)).
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: read-copy | Bước 1–3 đọc cấu hình cũ và sao chép |
+| Run: invalid-enum | Bước 4 giá trị 4 |
+| Run: foreign-school | Bước 4 ID trường B |
+
 **期待結果（Kết quả mong đợi）**
 
 1. X: 1 (ngoặc) ở dòng mục số nguyên (M=100); Y: 2 (`*` trước); dòng thường/đơn vị tách theo `tangen_flg`. Không có cột hiệu ứng trong bảng kết quả của học sinh.
@@ -2740,8 +3718,12 @@ Priority: TBD ｜ Status: PROPOSED ｜ Requirement ID: đặc tả v2 mục 10.1
 ### TC-RS-DATA-013 — Phiên bản quy tắc, dòng điều khiển và thế hệ ô được cập nhật đúng sự kiện
 
 Priority: TBD ｜ Status: PROPOSED ｜ Requirement ID: đặc tả v2 mục 7.5 “Phạm vi một lượt và thứ tự hoàn tất”, mục 12.1 “Dữ liệu cấu hình và kết quả cần quản lý”
+Priority basis: other
+Run variants: revision; delete-last-rule; reservation; cell-generation
 
 <!-- Mã truy vết: TD-ITEM-01 «Mục số nguyên: Điểm đánh giá（評点）, Nhập số nguyên（数値入力（整数））, M mặc định…», TD-RULE-01 «Cố định `<`: Tên "Cố định 30"», TD-RULE-08 «Cặp cùng áp dụng: Ưu tiên 1: Toàn bộ, cố định 20 `<`», TD-STU-01 «S01: G-A, HR1», TD-STU-02 «S02: G-A, HR1», TD-ENV-03 «Truy cập DB: Kết nối MySQL local, chỉ dùng SELECT / SHOW FULL COLUMNS…», TC-RS-ERR-011, TC-RS-BR-019 -->
+
+Các nhánh tạo lại và ghi đồng thời cũ thuộc ERR-015/ERR-011; case này chỉ ghi nhận bốn chuỗi fixture A–D bên dưới, không tuyên bố đã kiểm concurrency.
 
 **前提条件（Điều kiện trước）**
 
@@ -2755,6 +3737,14 @@ Priority: TBD ｜ Status: PROPOSED ｜ Requirement ID: đặc tả v2 mục 7.5 
 3. Chuỗi xóa cuối độc lập trên fixture B: tạo S01=29 Đỏ, xóa tới quy tắc cuối, rồi chạy lại; không dùng kết quả của chuỗi revision A làm baseline.
 4. Chuỗi reservation độc lập trên fixture C: đặt batch S01 nhưng chưa hoàn tất, SELECT S01; chỉ đánh giá trạng thái theo R18 §7.5/§8.2, không mặc định payload cũ được giữ.
 5. Chuỗi cell-generation độc lập trên fixture D: lưu điểm S02 lần đầu, rồi xóa trống ô S01; SELECT từng ô.
+
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: revision | Bước 1–2 fixture A, SELECT sau từng sự kiện |
+| Run: delete-last-rule | Bước 1 và 3 fixture B độc lập |
+| Run: reservation | Bước 1 và 4 fixture C độc lập |
+| Run: cell-generation | Bước 1 và 5 fixture D độc lập |
 
 **期待結果（Kết quả mong đợi）**
 
@@ -2770,6 +3760,8 @@ Priority: TBD ｜ Status: PROPOSED ｜ Requirement ID: đặc tả v2 mục 7.5 
 ### TC-RS-CALC-001 — Ngưỡng cố định 30: S = 29 / 30 / 31 với `<` và `≤`
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Biên so sánh và cảnh báo” (AC-G07 «Biên so sánh và cảnh báo»)
+Priority basis: result
+Run variants: lt; le
 
 <!-- Mã truy vết: TD-ITEM-01 «Mục số nguyên: Điểm đánh giá（評点）, Nhập số nguyên（数値入力（整数））, M mặc định…», TD-RULE-01 «Cố định `<`: Tên "Cố định 30"», TD-RULE-02 «Cố định `≤`: Như TD-RULE-01 nhưng Nhỏ hơn hoặc bằng（以下）», TD-STU-01 «S01: G-A, HR1», TD-STU-02 «S02: G-A, HR1», TD-STU-03 «S03: G-A, HR1» -->
 
@@ -2783,6 +3775,12 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 1. Chỉ có quy tắc “Cố định 30” (dưới 30) (`T=30`, `<`): đăng ký S01=29, S02=30, S03=31.
 2. Đổi thành quy tắc cố định 30 với Nhỏ hơn hoặc bằng（以下） (`≤`), chạy lại.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: lt | Ngưỡng 30, dấu nhỏ hơn, cả ba điểm |
+| Run: le | Ngưỡng 30, dấu nhỏ hơn hoặc bằng, cả ba điểm |
+
 **期待結果（Kết quả mong đợi）**
 
 Bước 1: 29 Đỏ; 30 Không đỏ; 31 Không đỏ.
@@ -2794,6 +3792,8 @@ Bước 2: 29 Đỏ; 30 Đỏ; 31 Không đỏ.
 ### TC-RS-CALC-002 — Điểm 0 với ngưỡng 0 và 30
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Biên so sánh và cảnh báo” (AC-G07 «Biên so sánh và cảnh báo»)
+Priority basis: result
+Run variants: zero-lt; zero-le; thirty-lt
 
 <!-- Mã truy vết: TD-ITEM-01 «Mục số nguyên: Điểm đánh giá（評点）, Nhập số nguyên（数値入力（整数））, M mặc định…», TD-STU-04 «S04: G-A, HR1» -->
 
@@ -2805,6 +3805,13 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 **操作（Thao tác）**
 
 Với từng cấu hình: cố định 0 `<`, cố định 0 `≤`, cố định 30 `<`: chạy lại, xem S04.
+
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: zero-lt | Ngưỡng 0 nhỏ hơn |
+| Run: zero-le | Ngưỡng 0 nhỏ hơn hoặc bằng |
+| Run: thirty-lt | Ngưỡng 30 nhỏ hơn |
 
 **期待結果（Kết quả mong đợi）**
 
@@ -2819,6 +3826,8 @@ Với từng cấu hình: cố định 0 `<`, cố định 0 `≤`, cố định
 ### TC-RS-CALC-003 — Điểm thập phân sát ngưỡng
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Giữ chính xác giá trị” (AC-G11 «Giữ chính xác giá trị»)
+Priority basis: result
+Run variants: lt; le
 
 <!-- Mã truy vết: TD-ITEM-02 «Mục số thập phân: Điểm đánh giá（評点）, Nhập số thập phân（数値入力（小数））, M mặc…» -->
 
@@ -2831,6 +3840,12 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 
 Đăng ký bốn học sinh với các điểm trên; xét với `<` rồi `≤`.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: lt | Dấu nhỏ hơn, cả bốn điểm |
+| Run: le | Dấu nhỏ hơn hoặc bằng, cả bốn điểm |
+
 **期待結果（Kết quả mong đợi）**
 
 `<`: 29.5 Đỏ; 29.9 Đỏ; 30.0 Không đỏ; 30.01 Không đỏ.
@@ -2842,6 +3857,8 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 ### TC-RS-CALC-004 — Ngưỡng cố định giữ `T=N` khi M đổi về sau
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Điểm cố định” (AC-G08 «Điểm cố định»)
+Priority basis: result
+Run variants: Base
 
 <!-- Mã truy vết: TD-RULE-01 «Cố định `<`: Tên "Cố định 30"», TD-ITEM-01 «Mục số nguyên: Điểm đánh giá（評点）, Nhập số nguyên（数値入力（整数））, M mặc định…» -->
 
@@ -2855,6 +3872,11 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 1. Đăng ký hai học sinh S=15 và S=20.
 2. Mở lại quy tắc.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: Base | Toàn bộ thủ tục theo đúng thứ tự; các đối chứng cùng fixture được kiểm trong cùng lượt, không bỏ bước |
+
 **期待結果（Kết quả mong đợi）**
 
 1. `T=30` → 15 Đỏ; 20 Đỏ. Không chuyển thành Chưa xét được; không tự đổi `T` thành 20 hoặc `M×30%`.
@@ -2865,6 +3887,8 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 ### TC-RS-CALC-005 — Tỷ lệ 30% với M=100
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Tỷ lệ điểm tối đa” (AC-G10 «Tỷ lệ điểm tối đa»)
+Priority basis: result
+Run variants: lt; le
 
 <!-- Mã truy vết: TD-ITEM-01 «Mục số nguyên: Điểm đánh giá（評点）, Nhập số nguyên（数値入力（整数））, M mặc định…», TD-RULE-03 «Tỷ lệ: Tỷ lệ điểm tối đa（得点率） 30%, không xử lý phần lẻ（しない）, Nhỏ hơn（未満）», TD-STU-01 «S01: G-A, HR1», TD-STU-02 «S02: G-A, HR1», TD-STU-03 «S03: G-A, HR1» -->
 
@@ -2876,6 +3900,12 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 **操作（Thao tác）**
 
 Đăng ký 29, 30, 31; xét với `<` rồi `≤`.
+
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: lt | Dấu nhỏ hơn |
+| Run: le | Dấu nhỏ hơn hoặc bằng |
 
 **期待結果（Kết quả mong đợi）**
 
@@ -2890,6 +3920,8 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 ### TC-RS-CALC-006 — Tỷ lệ cho ngưỡng lẻ: M=45, N=30 → T=13.5
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Tỷ lệ điểm tối đa” (AC-G10 «Tỷ lệ điểm tối đa»)
+Priority basis: result
+Run variants: lt; le
 
 <!-- Mã truy vết: TD-ITEM-02 «Mục số thập phân: Điểm đánh giá（評点）, Nhập số thập phân（数値入力（小数））, M mặc…», TD-RULE-03 «Tỷ lệ: Tỷ lệ điểm tối đa（得点率） 30%, không xử lý phần lẻ（しない）, Nhỏ hơn（未満）» -->
 
@@ -2901,6 +3933,12 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 **操作（Thao tác）**
 
 Đăng ký ba điểm; xét với `<` rồi `≤`.
+
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: lt | Dấu nhỏ hơn |
+| Run: le | Dấu nhỏ hơn hoặc bằng |
 
 **期待結果（Kết quả mong đợi）**
 
@@ -2915,6 +3953,8 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 ### TC-RS-CALC-007 — Tỷ lệ có xử lý phần lẻ: xuống / gần nhất / lên tại p1
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Tỷ lệ điểm tối đa” (AC-G10 «Tỷ lệ điểm tối đa»)
+Priority basis: result
+Run variants: m45-none; m45-down; m45-nearest; m45-up; m47-none; m47-down; m47-nearest; m47-up
 
 <!-- Mã truy vết: TD-ITEM-02 «Mục số thập phân: Điểm đánh giá（評点）, Nhập số thập phân（数値入力（小数））, M mặc…» -->
 
@@ -2927,6 +3967,18 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 
 Với (a) và (b): xét với Không xử lý（しない）, xuống p1, gần nhất p1, lên p1.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: m45-none | M45 không làm tròn |
+| Run: m45-down | M45 cắt xuống |
+| Run: m45-nearest | M45 làm tròn gần nhất |
+| Run: m45-up | M45 làm tròn lên |
+| Run: m47-none | M47 không làm tròn |
+| Run: m47-down | M47 cắt xuống |
+| Run: m47-nearest | M47 làm tròn gần nhất |
+| Run: m47-up | M47 làm tròn lên |
+
 **期待結果（Kết quả mong đợi）**
 
 (a) Không xử lý `T=13.5` → Đỏ; xuống `T=13` → Không đỏ; gần nhất `T=14` → Đỏ; lên `T=14` → Đỏ.
@@ -2938,6 +3990,8 @@ Với (a) và (b): xét với Không xử lý（しない）, xuống p1, gần 
 ### TC-RS-CALC-008 — Ví dụ đặc tả v2: M=75, N=30, S=22.2
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Tỷ lệ điểm tối đa” (AC-G10 «Tỷ lệ điểm tối đa»)
+Priority basis: result
+Run variants: none; down
 
 <!-- Mã truy vết: TD-ITEM-02 «Mục số thập phân: Điểm đánh giá（評点）, Nhập số thập phân（数値入力（小数））, M mặc…» -->
 
@@ -2950,6 +4004,12 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 
 Xét với Không xử lý, rồi xuống p1.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: none | Không xử lý phần lẻ |
+| Run: down | Cắt xuống |
+
 **期待結果（Kết quả mong đợi）**
 
 Không xử lý: `T=22.5` → Đỏ.
@@ -2961,6 +4021,8 @@ Xuống p1: `T=22` → Không đỏ.
 ### TC-RS-CALC-009 — Tỷ lệ biên N=0 và N=100
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Tỷ lệ điểm tối đa” (AC-G10 «Tỷ lệ điểm tối đa»)
+Priority basis: result
+Run variants: zero-lt; zero-le; hundred-lt; hundred-le
 
 <!-- Mã truy vết: TD-ITEM-01 «Mục số nguyên: Điểm đánh giá（評点）, Nhập số nguyên（数値入力（整数））, M mặc định…» -->
 
@@ -2973,6 +4035,14 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 
 Xét từng cấu hình với `<` và `≤`.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: zero-lt | N0 nhỏ hơn |
+| Run: zero-le | N0 nhỏ hơn hoặc bằng |
+| Run: hundred-lt | N100 nhỏ hơn |
+| Run: hundred-le | N100 nhỏ hơn hoặc bằng |
+
 **期待結果（Kết quả mong đợi）**
 
 N=0 (`T=0`): S=0 `<` Không đỏ; `≤` Đỏ.
@@ -2984,6 +4054,8 @@ N=100 (`T=100`): S=99 `<` Đỏ; S=100 `<` Không đỏ; S=100 `≤` Đỏ.
 ### TC-RS-CALC-010 — Tỷ lệ với M = 0, M < 0 hoặc không xác định → Chưa xét được; cố định vẫn xét
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Tỷ lệ điểm tối đa” (AC-G10 «Tỷ lệ điểm tối đa»)
+Priority basis: result
+Run variants: ratio-zero; ratio-negative; ratio-missing; fixed-zero
 
 <!-- Mã truy vết: TD-ITEM-08 «M không hợp lệ: Mục số có M hiệu lực = 0 (nếu cấu hình được) hoặc không…», TD-RULE-03 «Tỷ lệ: Tỷ lệ điểm tối đa（得点率） 30%, không xử lý phần lẻ（しない）, Nhỏ hơn（未満）», TD-RULE-01 «Cố định `<`: Tên "Cố định 30"» -->
 
@@ -2997,6 +4069,14 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 1. Chỉ có quy tắc tỷ lệ 30% (30%): chạy lại với M=0, M=−10, M không xác định.
 2. Chỉ có quy tắc “Cố định 30” (dưới 30) (cố định 30) trên cùng mục, M=0: chạy lại.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: ratio-zero | Tỷ lệ M0 |
+| Run: ratio-negative | Tỷ lệ M âm |
+| Run: ratio-missing | Tỷ lệ M không xác định |
+| Run: fixed-zero | Cố định với M0 |
+
 **期待結果（Kết quả mong đợi）**
 
 1. Cả ba: Chưa xét được; ngừng kết quả cũ; không dùng M=100.
@@ -3007,6 +4087,8 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 ### TC-RS-CALC-011 — Phân giải M: mặc định → đơn vị → lựa chọn lớp
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Điểm tối đa hiện hành” (AC-G09 «Điểm tối đa hiện hành»)
+Priority basis: result
+Run variants: resolution; unassigned; actual80
 
 <!-- Mã truy vết: TD-ITEM-03 «Mục điểm đơn vị: Điểm bài kiểm tra đơn vị（単元テスト点）, M mặc định 100», AC-G09, SI-02 «Phân giải M», SI-14 «Phân giải M ở CSV HR» -->
 
@@ -3021,6 +4103,13 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 2. Tạo thêm một định nghĩa lựa chọn M=20 ở Thiết lập điểm tối đa（満点設定） nhưng không gán cho G-B; đăng ký lại S06 U1.
 3. Chuẩn bị G-B sao cho điểm cao nhất thực tế của U2 là 80 và nhóm tổng hợp chứa lớp có M khác (tổng điểm tối đa nhóm khác 100); đăng ký lại S06 U2 = 29.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: resolution | Lượt đầu theo các M hợp lệ |
+| Run: unassigned | Không chọn định nghĩa |
+| Run: actual80 | Bước 3, điểm học sinh cao nhất thực tế là 80 nhưng M vẫn 100; không đổi M thành 80 |
+
 **期待結果（Kết quả mong đợi）**
 
 1. S01 U1: `M=50`, `T=15` → Đỏ. S06 U1: `M=40`, `T=12` → Không đỏ. S06 U2: `M=100`, `T=30` → Đỏ.
@@ -3032,6 +4121,8 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 ### TC-RS-CALC-012 — Tỷ lệ dùng M hiện hành, không dùng M của bản tổng hợp đã chốt
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Điểm tối đa hiện hành” (AC-G09 «Điểm tối đa hiện hành»)
+Priority basis: result
+Run variants: Base
 
 <!-- Mã truy vết: TD-ITEM-01 «Mục số nguyên: Điểm đánh giá（評点）, Nhập số nguyên（数値入力（整数））, M mặc định…», TD-RULE-03 «Tỷ lệ: Tỷ lệ điểm tối đa（得点率） 30%, không xử lý phần lẻ（しない）, Nhỏ hơn（未満）», TD-SRC-01 «Bản đã chốt: Snapshot của nguồn mặc định, `A` thô = 49.99…» -->
 
@@ -3044,6 +4135,11 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 
 Đăng ký S=20, xem kết quả.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: Base | Toàn bộ thủ tục theo đúng thứ tự; các đối chứng cùng fixture được kiểm trong cùng lượt, không bỏ bước |
+
 **期待結果（Kết quả mong đợi）**
 
 `T=50×30/100=15` → `20<15` sai → Không đỏ. (Nếu dùng M=100 của bản chốt: `T=30` → Đỏ — sai.)
@@ -3053,6 +4149,8 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 ### TC-RS-CALC-013 — Công thức một dòng với A=50
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Công thức theo dòng và phần lẻ” (AC-G16 «Công thức theo dòng và phần lẻ»)
+Priority basis: result
+Run variants: multiply; subtract; add
 
 <!-- Mã truy vết: — -->
 
@@ -3064,6 +4162,13 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 **操作（Thao tác）**
 
 Với từng công thức, chạy nút cam, xem kết quả.
+
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: multiply | Nhân 0.5 |
+| Run: subtract | Trừ 20 |
+| Run: add | Cộng 5 |
 
 **期待結果（Kết quả mong đợi）**
 
@@ -3077,7 +4182,9 @@ Với từng công thức, chạy nút cam, xem kết quả.
 
 ### TC-RS-CALC-014 — Làm tròn theo từng dòng: A=49.7
 
-Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Công thức theo dòng và phần lẻ” (AC-G16 «Công thức theo dòng và phần lẻ»)
+Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Công thức theo dòng và phần lẻ” (AC-G16 «Công thức theo dòng và phần lẻ»)
+Priority basis: result
+Run variants: Base
 
 <!-- Mã truy vết: AC-G16 -->
 
@@ -3091,6 +4198,11 @@ Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 1. Lưu đúng cấu hình: dòng 1 bật xử lý phần lẻ, vị trí 1, làm tròn xuống; dòng 2 không xử lý.
 2. Chạy xét với `S=19.1` và `S=19.2`.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: Base | Toàn bộ thủ tục theo đúng thứ tự; các đối chứng cùng fixture được kiểm trong cùng lượt, không bỏ bước |
+
 **期待結果（Kết quả mong đợi）**
 
 1. `24.85→24`; `T=24×0.8=19.2`.
@@ -3101,27 +4213,38 @@ Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 
 ### TC-RS-CALC-015 — Công thức hai dòng theo Figma: (A÷2)×0.8, dòng 1 làm tròn xuống
 
-Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Công thức theo dòng và phần lẻ” (AC-G16 «Công thức theo dòng và phần lẻ»)
+Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Công thức theo dòng và phần lẻ” (AC-G16 «Công thức theo dòng và phần lẻ»)
+Priority basis: result
+Run variants: less-than; less-or-equal; reopen-summary
 
-<!-- Mã truy vết: TD-RULE-06 «Công thức hai dòng: Dòng 1: Trung bình（平均点）÷ Số cố định（固定値）2, chữ số…», AC-G16 -->
+Readiness: BLOCKED — cần provision TD-GRP-05/TD-SRC-25 và xác nhận reader trả A=61; oracle đã cố định, không đổi theo kết quả chạy.
+
+<!-- Mã truy vết: TD-RULE-06 «Công thức hai dòng: Dòng 1: Trung bình（平均点）÷ Số cố định（固定値）2, chữ số…», TD-GRP-05, TD-SRC-25, AC-G16 -->
 
 **前提条件（Điều kiện trước）**
 
-- Điều kiện: giáo viên có quyền sửa thiết lập; mục có `M (điểm tối đa)=100`; kỳ kiểm tra có nguồn trung bình `A=61`; chưa có kết quả đỏ cũ. S01/S09/S10 phải nằm trong cùng fixture áp dụng, không suy ra từ tên nhóm G-A/G-B.
-- Dữ liệu test: S01 có `S (điểm học sinh)=23.9`, S09 có `S=24`, S10 có `S=24.4`; quy tắc hai dòng `(A÷2)×0.8`.
+- Điều kiện: giáo viên có quyền sửa thiết lập; dùng mục số thập phân TD-ITEM-02 (`M=100`) trong lớp fixture duy nhất TD-GRP-05; ba học sinh C15-P1/P2/P3 cùng thuộc phạm vi rule và nguồn trung bình TD-SRC-25; chưa có kết quả đỏ cũ.
+- Dữ liệu test: C15-P1 có `S=23.9`, C15-P2 có `S=24`, C15-P3 có `S=24.4`; nguồn reader phải trả `A=61`; quy tắc hai dòng `(A÷2)×0.8`.
 
 **操作（Thao tác）**
 
 1. Tạo dòng 1 `A÷2`; chọn **chữ số thập phân thứ 1（小数第1位）** và **Làm tròn xuống（切り捨て）**, tức kết quả dòng 1 được đưa về số nguyên. Tạo dòng 2 `kết quả dòng trước×0.8` và chọn **không xử lý phần lẻ（しない）**.
-2. Lưu và chạy nút cam cho phạm vi fixture chứa S01/S09/S10, rồi chạy hai biến thể dấu `<` và `≤` với cùng hai dòng công thức; không đổi phương thức làm tròn giữa các biến thể.
-3. Mở lại cấu hình và đối chiếu kết quả của S01, S09, S10.
+2. Xác nhận TD-SRC-25/reader trả `A=61`; chạy trong đúng lớp TD-GRP-05 với C15-P1/P2/P3 cho hai biến thể dấu `<` và `≤`, không đổi nguồn hoặc cách làm tròn.
+3. Mở lại cấu hình và đối chiếu kết quả của C15-P1/P2/P3.
+
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: less-than | Nhánh less-than trong thủ tục và Expected của case; thực hiện các bước chuẩn bị chung trước nhánh |
+| Run: less-or-equal | Nhánh less-or-equal trong thủ tục và Expected của case; thực hiện các bước chuẩn bị chung trước nhánh |
+| Run: reopen-summary | Nhánh reopen-summary trong thủ tục và Expected của case; thực hiện các bước chuẩn bị chung trước nhánh |
 
 **期待結果（Kết quả mong đợi）**
 
 Dòng 1 `61÷2=30.5` làm tròn xuống thành `30`; dòng 2 `30×0.8=24`, nên oracle cố định là `T=24`.
 
-- Với dấu `<`: S01=`23.9` Đỏ; S09=`24` **Không đỏ**; S10=`24.4` **Không đỏ**.
-- Với dấu `≤`: S01=`23.9` Đỏ; S09=`24` Đỏ; S10=`24.4` **Không đỏ**.
+- Với dấu `<`: C15-P1=`23.9` Đỏ; C15-P2=`24` **Không đỏ**; C15-P3=`24.4` **Không đỏ**.
+- Với dấu `≤`: C15-P1=`23.9` Đỏ; C15-P2=`24` Đỏ; C15-P3=`24.4` **Không đỏ**.
 
 Mở lại cấu hình và phần tóm tắt phải giữ đúng vị trí làm tròn xuống ở dòng 1, không được thay expected theo kết quả thực tế hoặc ghi đè oracle trong evidence. Phương thức không làm tròn dòng 1 là biến thể riêng, không thuộc case này.
 
@@ -3130,6 +4253,8 @@ Mở lại cấu hình và phần tóm tắt phải giữ đúng vị trí làm 
 ### TC-RS-CALC-016 — Ngưỡng âm: A=15, A−20 → T=−5
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Ngưỡng âm” (AC-G18 «Ngưỡng âm»)
+Priority basis: result
+Run variants: zero-lt; zero-le; negative-lt; negative-le
 
 <!-- Mã truy vết: TD-RULE-10 «Công thức âm: Dòng 1: Trung bình（平均点）− 20», TD-ITEM-09 «Mục cho phép điểm âm: Mục số có miền điểm cho phép số âm…» -->
 
@@ -3144,6 +4269,14 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 
 (b) Xét −6, −5 với `<` và `≤`.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: zero-lt | Ngưỡng 0 nhỏ hơn |
+| Run: zero-le | Ngưỡng 0 nhỏ hơn hoặc bằng |
+| Run: negative-lt | Ngưỡng âm nhỏ hơn |
+| Run: negative-le | Ngưỡng âm nhỏ hơn hoặc bằng |
+
 **期待結果（Kết quả mong đợi）**
 
 (a) `T=−5`: `<` Không đỏ; `≤` Không đỏ (nếu hệ thống ép `T` về 0 thì `≤` sẽ Đỏ — sai).
@@ -3155,6 +4288,8 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 ### TC-RS-CALC-017 — Ngưỡng công thức vượt M vẫn hợp lệ
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Công thức theo dòng và phần lẻ” (AC-G16 «Công thức theo dòng và phần lẻ»)
+Priority basis: result
+Run variants: Base
 
 <!-- Mã truy vết: TD-ITEM-01 «Mục số nguyên: Điểm đánh giá（評点）, Nhập số nguyên（数値入力（整数））, M mặc định…» -->
 
@@ -3167,6 +4302,11 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 
 Chạy nút cam; xem kết quả.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: Base | Toàn bộ thủ tục theo đúng thứ tự; các đối chứng cùng fixture được kiểm trong cùng lượt, không bỏ bước |
+
 **期待結果（Kết quả mong đợi）**
 
 `T=120`; `100<120` → Đỏ. Không bị Chưa xét được, không ép `T` về 100.
@@ -3176,6 +4316,8 @@ Chạy nút cam; xem kết quả.
 ### TC-RS-CALC-018 — Công thức A−0 cho ngưỡng bằng A
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Biên so sánh và cảnh báo” (AC-G07 «Biên so sánh và cảnh báo»)
+Priority basis: result
+Run variants: Base
 
 <!-- Mã truy vết: — -->
 
@@ -3189,6 +4331,11 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 1. Lưu công thức (quan sát cảnh báo).
 2. Chạy nút cam.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: Base | Toàn bộ thủ tục theo đúng thứ tự; các đối chứng cùng fixture được kiểm trong cùng lượt, không bỏ bước |
+
 **期待結果（Kết quả mong đợi）**
 
 1. Có cảnh báo giúp hiểu ngưỡng là A (câu chữ TBD), vẫn lưu được.
@@ -3199,6 +4346,8 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 ### TC-RS-CALC-019 — Định nghĩa phương thức làm tròn, số âm và p=9
 
 Priority: TBD ｜ Status: TBD ｜ Requirement ID: tiêu chí nghiệm thu “Công thức theo dòng và phần lẻ” (AC-G16 «Công thức theo dòng và phần lẻ»)
+Priority basis: other
+Run variants: positive-none; positive-down; positive-nearest; negative-up; negative-down; negative-nearest; half-positive; half-negative; half-up; half-down; decimal-nearest; decimal-up; p3; p9-nearest; p9-down
 
 Readiness: BLOCKED — p=9 và miền số âm còn là phạm vi đề xuất; chỉ chạy khi phạm vi được xác nhận.
 
@@ -3214,6 +4363,25 @@ Readiness: BLOCKED — p=9 và miền số âm còn là phạm vi đề xuất; 
 1. Với từng dòng của Expected Result: đặt `A` (nguồn dummy, dữ liệu giả cho bản tổng hợp đã chốt), chọn xử lý phần lẻ.
 2. Chạy lại (nút cam).
 3. Đọc `T` qua thông tin giải thích (case “Lưu thông tin giải thích kết quả”) hoặc qua kết quả xét với S sát ngưỡng.
+
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: positive-none | 29.7 không xử lý |
+| Run: positive-down | 29.7 xuống p1 |
+| Run: positive-nearest | 29.75 gần nhất p2 |
+| Run: negative-up | -5.2 lên p1 |
+| Run: negative-down | -5.2 xuống p1 |
+| Run: negative-nearest | -5.5 gần nhất p1 |
+| Run: half-positive | 12.5 gần nhất p1 |
+| Run: half-negative | -12.5 gần nhất p1 |
+| Run: half-up | -12.5 lên p1 |
+| Run: half-down | -12.5 xuống p1 |
+| Run: decimal-nearest | 12.345 gần nhất p2 |
+| Run: decimal-up | 12.345 lên p2 |
+| Run: p3 | 2.675 gần nhất p3 |
+| Run: p9-nearest | 1.123456789 gần nhất p9 |
+| Run: p9-down | 1.123456789 xuống p9 |
 
 **期待結果（Kết quả mong đợi）**
 
@@ -3244,6 +4412,8 @@ Các phép thử có fixture/source được quan sát dùng expected dưới đ
 ### TC-RS-CALC-020 — Làm tròn ngưỡng, không làm tròn điểm học sinh
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Công thức theo dòng và phần lẻ” (AC-G16 «Công thức theo dòng và phần lẻ»)
+Priority basis: result
+Run variants: down; nearest
 
 <!-- Mã truy vết: TD-ITEM-02 «Mục số thập phân: Điểm đánh giá（評点）, Nhập số thập phân（数値入力（小数））, M mặc…» -->
 
@@ -3258,6 +4428,12 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 
 (b) Gần nhất p1.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: down | Cắt xuống |
+| Run: nearest | Làm tròn gần nhất |
+
 **期待結果（Kết quả mong đợi）**
 
 (a) `T=29`; `29.5<29` sai → Không đỏ. (Nếu làm tròn S thành 29 và giữ `T=29.7` → Đỏ — sai.)
@@ -3271,6 +4447,8 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 ### TC-RS-CALC-021 — Chia 0 phát sinh khi chạy → Chưa xét được
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: đặc tả v2 mục 6.4 “Công thức dùng trung bình”, mục 8.3 “Không tạo được ngưỡng hợp lệ”
+Priority basis: result
+Run variants: a0; a4; a3
 
 <!-- Mã truy vết: TD-RULE-11 «Chia cho trung bình: Dòng 1: Số cố định（固定値）100 ÷ Trung bình（平均点）», TD-ITEM-02 «Mục số thập phân: Điểm đánh giá（評点）, Nhập số thập phân（数値入力（小数））, M mặc…», TD-SRC-08 «Trung bình bằng 0: Mọi học sinh trong nhóm có 0 điểm → `A=0`» -->
 
@@ -3282,6 +4460,13 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: đặc tả v2 mục 6.4
 **操作（Thao tác）**
 
 Chạy nút cam cho từng nguồn.
+
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: a0 | A0 |
+| Run: a4 | A4 |
+| Run: a3 | A3 |
 
 **期待結果（Kết quả mong đợi）**
 
@@ -3296,6 +4481,8 @@ Chạy nút cam cho từng nguồn.
 ### TC-RS-CALC-022 — Phân nhánh theo trung bình: A = 40 / 50 / 49.99 (dùng A trước làm tròn)
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Giá trị thô từ cùng tập dữ liệu” (AC-G14 «Giá trị thô từ cùng tập dữ liệu»)
+Priority basis: result
+Run variants: a40; a50; a4999-none; a4999-round
 
 <!-- Mã truy vết: TD-ITEM-02 «Mục số thập phân: Điểm đánh giá（評点）, Nhập số thập phân（数値入力（小数））, M mặc…», TD-SRC-01 «Bản đã chốt: Snapshot của nguồn mặc định, `A` thô = 49.99…» -->
 
@@ -3308,6 +4495,14 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 
 1. Với từng nguồn, chạy nút cam, xem kết quả.
 2. Với `A=49.99`: bật gần nhất p1 cho dòng `A×0.5`, chạy lại.
+
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: a40 | A40 |
+| Run: a50 | A50 |
+| Run: a4999-none | A49.99 không làm tròn |
+| Run: a4999-round | A49.99 có làm tròn |
 
 **期待結果（Kết quả mong đợi）**
 
@@ -3324,6 +4519,8 @@ Bước 2: `T=25`, vẫn ưu tiên 2: 24.99 Đỏ; 29 Không đỏ.
 ### TC-RS-CALC-023 — Biên nhánh A=60.00 và A=59.96
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Giá trị thô từ cùng tập dữ liệu” (AC-G14 «Giá trị thô từ cùng tập dữ liệu»)
+Priority basis: result
+Run variants: a60; a5996
 
 <!-- Mã truy vết: TD-ITEM-02 «Mục số thập phân: Điểm đánh giá（評点）, Nhập số thập phân（数値入力（小数））, M mặc…», TD-SRC-10 «A = 60 và 59.96: Hai nguồn riêng: `A`=60.00 và `A`=59.96 (hiển thị 60.0)» -->
 
@@ -3336,6 +4533,12 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 
 Chạy nút cam với từng nguồn.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: a60 | A60 |
+| Run: a5996 | A59.96 |
+
 **期待結果（Kết quả mong đợi）**
 
 `A=60.00` → ưu tiên 1, `T=25`: 27 Không đỏ.
@@ -3347,6 +4550,8 @@ Chạy nút cam với từng nguồn.
 ### TC-RS-CALC-024 — Tỷ lệ nhóm R = 70% khớp điều kiện ≥ 65%
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Kế thừa tỷ lệ nhóm” (AC-G15 «Kế thừa tỷ lệ nhóm»)
+Priority basis: result
+Run variants: r70; r60
 
 <!-- Mã truy vết: TD-RULE-09 «Tỷ lệ nhóm: Điều kiện Tỷ lệ điểm của nhóm（集団の得点率） `≥65%`», TD-SRC-05 «Tỷ lệ nhóm cùng M: 2 học sinh: 60/100 và 80/100 → `R=70%`» -->
 
@@ -3359,6 +4564,12 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 
 Chạy nút xanh rồi nút cam cho từng nguồn.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: r70 | R70 |
+| Run: r60 | R60 |
+
 **期待結果（Kết quả mong đợi）**
 
 (a) `R=140/200×100=70%` → khớp; `T=70`: 60 Đỏ; 70 Không đỏ; 80 Không đỏ.
@@ -3370,6 +4581,8 @@ Chạy nút xanh rồi nút cam cho từng nguồn.
 ### TC-RS-CALC-025 — Tỷ lệ nhóm 64.99% (hiển thị 65.0) không khớp ≥ 65%
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Giá trị thô từ cùng tập dữ liệu” (AC-G14 «Giá trị thô từ cùng tập dữ liệu»)
+Priority basis: result
+Run variants: r6499; r65
 
 Readiness: BLOCKED — cần seam/fixture cho phép quan sát R thô 64.99; nếu chỉ trả 65.0 đã làm tròn thì không được PASS.
 
@@ -3384,6 +4597,12 @@ Readiness: BLOCKED — cần seam/fixture cho phép quan sát R thô 64.99; nế
 
 Chạy nút xanh rồi nút cam cho từng nguồn.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: r6499 | R64.99 |
+| Run: r65 | R65 |
+
 **期待結果（Kết quả mong đợi）**
 
 (a) `R` thô = `64.99%` không khớp `≥65%` → Không áp dụng. Nếu seam chỉ cung cấp `65.0%` đã làm tròn, case bị BLOCKED/NEEDS_EVIDENCE vì thiếu dữ liệu nguồn, không được đổi oracle thành khớp.
@@ -3394,7 +4613,9 @@ Chạy nút xanh rồi nút cam cho từng nguồn.
 
 ### TC-RS-CALC-026 — Mẫu số trung bình khi có học sinh bị loại khỏi xếp hạng
 
-Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Giá trị thô từ cùng tập dữ liệu” (AC-G14 «Giá trị thô từ cùng tập dữ liệu»)
+Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Giá trị thô từ cùng tập dữ liệu” (AC-G14 «Giá trị thô từ cùng tập dữ liệu»)
+Priority basis: result
+Run variants: Base
 
 <!-- Mã truy vết: TD-SRC-07 «Có học sinh bị loại khỏi xếp hạng: 3 học sinh: 60, 40 và 20…», AC-G14, SI-07 «Mẫu số trung bình» -->
 
@@ -3407,6 +4628,11 @@ Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 
 Chạy nút xanh rồi nút cam; ghi `A` đọc được.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: Base | Toàn bộ thủ tục theo đúng thứ tự; các đối chứng cùng fixture được kiểm trong cùng lượt, không bỏ bước |
+
 **期待結果（Kết quả mong đợi）**
 
 `A = (60+40+20)/3 = 40` (mẫu số là số người có điểm của cùng bản) → `T=20` → S=22 Không đỏ. Nếu hệ thống dùng số người thuộc xếp hạng (`A=100/2=50`, `T=25` → Đỏ) là sai.
@@ -3415,7 +4641,11 @@ Chạy nút xanh rồi nút cam; ghi `A` đọc được.
 
 ### TC-RS-CALC-027 — Trung bình riêng cho từng đơn vị
 
-Priority: TBD ｜ Status: TBD ｜ Requirement ID: đặc tả v2 mục 5.5 “Chọn bản nguồn”
+Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: đặc tả v2 mục 5.5 “Chọn bản nguồn”
+Priority basis: result
+Run variants: Base
+
+Readiness: BLOCKED — TD-SRC-09 chưa được tích hợp/quan sát qua reader; expected U1/U2 đã cố định nhưng không PASS nếu chưa chứng minh được nguồn riêng.
 
 <!-- Mã truy vết: TD-ITEM-03 «Mục điểm đơn vị: Điểm bài kiểm tra đơn vị（単元テスト点）, M mặc định 100», TD-SRC-09 «Trung bình cho điểm đơn vị: Điểm đơn vị U1, U2 cùng môn, trung bình…», SI-08 «Trung bình cho điểm đơn vị» -->
 
@@ -3428,6 +4658,11 @@ Priority: TBD ｜ Status: TBD ｜ Requirement ID: đặc tả v2 mục 5.5 “Ch
 
 Chạy nút xanh rồi nút cam.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: Base | Toàn bộ thủ tục theo đúng thứ tự; các đối chứng cùng fixture được kiểm trong cùng lượt, không bỏ bước |
+
 **期待結果（Kết quả mong đợi）**
 
 Kỳ vọng theo đặc tả v2: U1 `T=20` → 25 Không đỏ; U2 `T=35` → 30 Đỏ. Nguồn trung bình theo đơn vị chưa tích hợp (đặc tả v2 mục 13.1): nếu không tách được thì ghi nhận, không đánh PASS.
@@ -3437,6 +4672,8 @@ Kỳ vọng theo đặc tả v2: U1 `T=20` → 25 Không đỏ; U2 `T=35` → 30
 ### TC-RS-CALC-028 — Không sai kết quả do sai số dấu phẩy động
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Giữ chính xác giá trị” (AC-G11 «Giữ chính xác giá trị»)
+Priority basis: result
+Run variants: multiply-lt; multiply-le; add-lt; add-le
 
 <!-- Mã truy vết: TD-ITEM-02 «Mục số thập phân: Điểm đánh giá（評点）, Nhập số thập phân（数値入力（小数））, M mặc…» -->
 
@@ -3449,6 +4686,14 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 
 Xét với `<` và `≤`.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: multiply-lt | A1.1 nhân 3 nhỏ hơn |
+| Run: multiply-le | A1.1 nhân 3 nhỏ hơn hoặc bằng |
+| Run: add-lt | A0.1 cộng 0.2 nhỏ hơn |
+| Run: add-le | A0.1 cộng 0.2 nhỏ hơn hoặc bằng |
+
 **期待結果（Kết quả mong đợi）**
 
 (a) `T=3.3`: `<` Không đỏ; `≤` Đỏ.
@@ -3460,6 +4705,8 @@ Xét với `<` và `≤`.
 ### TC-RS-CALC-029 — Tràn số không tạo kết luận đỏ/không đỏ
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Giữ chính xác giá trị” (AC-G11 «Giữ chính xác giá trị»)
+Priority basis: result
+Run variants: constant; divisor; overflow
 
 <!-- Mã truy vết: — -->
 
@@ -3473,6 +4720,13 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 1. Nhập (a), Lưu.
 2. Nhập (b), Lưu, chạy nút cam.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: constant | Hằng số cực lớn |
+| Run: divisor | Số chia cực nhỏ |
+| Run: overflow | Tràn trong lúc tính |
+
 **期待結果（Kết quả mong đợi）**
 
 1. (a) vượt giới hạn nhập đề xuất (9 chữ số nguyên, 8 chữ số lẻ) → bị từ chối khi lưu, không tự cắt số.
@@ -3483,6 +4737,8 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 ### TC-RS-CALC-030 — Công thức cho T=0; ô trống vẫn là Không có điểm
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: đặc tả v2 mục 2.3 “Điểm được đưa vào xét”, mục 6.6 “Ngưỡng âm và cảnh báo biên”
+Priority basis: result
+Run variants: lt; le
 
 <!-- Mã truy vết: TD-STU-04 «S04: G-A, HR1», TD-STU-05 «S05: G-A, HR1» -->
 
@@ -3495,6 +4751,12 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: đặc tả v2 mục 2.3
 
 Xét với `<` rồi `≤`.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: lt | Dấu nhỏ hơn |
+| Run: le | Dấu nhỏ hơn hoặc bằng |
+
 **期待結果（Kết quả mong đợi）**
 
 `T=0`. `<`: S04 Không đỏ. `≤`: S04 Đỏ. S05: Không có điểm ở cả hai (không bị coi là 0).
@@ -3504,6 +4766,8 @@ Xét với `<` rồi `≤`.
 ### TC-RS-CALC-031 — Nguồn không có mẫu số hợp lệ (tổng điểm tối đa 0, số người có điểm 0) → Chưa xét được
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Giá trị thô từ cùng tập dữ liệu” (AC-G14 «Giá trị thô từ cùng tập dữ liệu»)
+Priority basis: result
+Run variants: zero-maximum; zero-count
 
 <!-- Mã truy vết: TD-RULE-09 «Tỷ lệ nhóm: Điều kiện Tỷ lệ điểm của nhóm（集団の得点率） `≥65%`», AC-G14 -->
 
@@ -3515,6 +4779,12 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 **操作（Thao tác）**
 
 Với từng nguồn: chạy nút xanh (nếu cần) rồi nút cam; xem kết quả S01.
+
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: zero-maximum | Tổng điểm tối đa bằng 0 |
+| Run: zero-count | Số người bằng 0 |
 
 **期待結果（Kết quả mong đợi）**
 
@@ -3528,7 +4798,9 @@ Cả hai: ngừng dấu đỏ cũ; không lấy nguồn khác.
 
 ### TC-RS-CALC-032 — Tỷ lệ nhóm: tử số và mẫu số lấy cùng tập đóng góp
 
-Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Giá trị thô từ cùng tập dữ liệu” (AC-G14 «Giá trị thô từ cùng tập dữ liệu»)
+Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Giá trị thô từ cùng tập dữ liệu” (AC-G14 «Giá trị thô từ cùng tập dữ liệu»)
+Priority basis: result
+Run variants: Base
 
 <!-- Mã truy vết: TD-RULE-09 «Tỷ lệ nhóm: Điều kiện Tỷ lệ điểm của nhóm（集団の得点率） `≥65%`», AC-G14 -->
 
@@ -3542,6 +4814,11 @@ Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 1. Chạy nút xanh; ghi tổng điểm và tổng điểm tối đa hiển thị ở kết quả tổng hợp.
 2. Chạy nút cam; xem kết quả S=60.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: Base | Toàn bộ thủ tục theo đúng thứ tự; các đối chứng cùng fixture được kiểm trong cùng lượt, không bỏ bước |
+
 **期待結果（Kết quả mong đợi）**
 
 1. Tổng điểm và tổng điểm tối đa lấy cùng tập học sinh có điểm theo cấu hình tổng hợp.
@@ -3552,6 +4829,8 @@ Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 ### TC-RS-UI-001 — Nhãn trạng thái ở hàng Thiết lập điểm đỏ（赤点設定） trong Thiết lập ô nhập（入力欄設定）
 
 Priority: TBD ｜ Status: PROPOSED ｜ Requirement ID: đặc tả v2 mục 4.1 “Điểm vào và trạng thái trống”
+Priority basis: other
+Run variants: Base
 
 <!-- Mã truy vết: TD-ITEM-01 «Mục số nguyên: Điểm đánh giá（評点）, Nhập số nguyên（数値入力（整数））, M mặc định…», TD-ITEM-02 «Mục số thập phân: Điểm đánh giá（評点）, Nhập số thập phân（数値入力（小数））, M mặc…», TD-ITEM-04 «Mục lựa chọn: Kiểu lựa chọn（選択肢型） A/B/C», TD-ROLE-01 «Giáo viên có quyền sửa mục: Có quyền vào Thiết lập nhập điểm（成績入力設定） và…» -->
 
@@ -3565,6 +4844,11 @@ Priority: TBD ｜ Status: PROPOSED ｜ Requirement ID: đặc tả v2 mục 4.1 
 1. Mở Thiết lập ô nhập（入力欄設定）.
 2. Ghi lại nhãn/ký hiệu ở hàng Thiết lập điểm đỏ（赤点設定） cho từng cột mục.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: Base | Toàn bộ thủ tục theo đúng thứ tự; các đối chứng cùng fixture được kiểm trong cùng lượt, không bỏ bước |
+
 **期待結果（Kết quả mong đợi）**
 
 Mục chưa có quy tắc và mục đã có quy tắc được phân biệt được; mục lựa chọn không có thao tác mở thiết lập (đặc tả v2 mục 4.1 “Điểm vào và trạng thái trống”).
@@ -3576,6 +4860,8 @@ Nhãn cụ thể theo Figma (PROPOSED): [設定する] (thiết lập) / 編集 
 ### TC-RS-UI-002 — Cấu trúc màn danh sách Thiết lập điểm đỏ（赤点設定）
 
 Priority: TBD ｜ Status: PROPOSED ｜ Requirement ID: đặc tả v2 mục 4.1 “Điểm vào và trạng thái trống”, mục 4.2 “Nội dung một dòng”
+Priority basis: other
+Run variants: Base
 
 <!-- Mã truy vết: TD-ITEM-01 «Mục số nguyên: Điểm đánh giá（評点）, Nhập số nguyên（数値入力（整数））, M mặc định…», TD-RULE-07 «Cặp phân nhánh: Ưu tiên 1 "Trung bình từ 60": điều kiện `A≥60`, cố định…», TD-ENV-05 «Đường dẫn màn (RSD-TASK): Thiết lập nhập…» -->
 
@@ -3589,6 +4875,11 @@ Priority: TBD ｜ Status: PROPOSED ｜ Requirement ID: đặc tả v2 mục 4.1 
 1. Mở Thiết lập nhập điểm（成績入力設定） (URL ở đường dẫn các màn liên quan) → Thiết lập ô nhập（入力欄設定） của kỳ Cuối kỳ học kỳ 1（1学期期末）.
 2. Ở hàng Thiết lập điểm đỏ（赤点設定） của cột mục số nguyên (M=100), bấm nút mở thiết lập (Figma: 編集 (sửa)).
 3. Trên màn danh sách, đối chiếu lần lượt các mục a–g ở Expected Result.
+
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: Base | Toàn bộ thủ tục theo đúng thứ tự; các đối chứng cùng fixture được kiểm trong cùng lượt, không bỏ bước |
 
 **期待結果（Kết quả mong đợi）**
 
@@ -3611,6 +4902,8 @@ g. Câu cuối trang 「設定を変更した場合は、成績登録または�
 ### TC-RS-UI-003 — Định dạng tiêu đề màn danh sách
 
 Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Lưu và mở lại nhiều thiết lập” (AC-G04 «Lưu và mở lại nhiều thiết lập»)
+Priority basis: other
+Run variants: Base
 
 <!-- Mã truy vết: TD-ITEM-02 «Mục số thập phân: Điểm đánh giá（評点）, Nhập số thập phân（数値入力（小数））, M mặc…», AC-G04 -->
 
@@ -3623,6 +4916,11 @@ Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 
 Mở màn danh sách của mục số thập phân (M=100), đọc tiêu đề.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: Base | Toàn bộ thủ tục theo đúng thứ tự; các đối chứng cùng fixture được kiểm trong cùng lượt, không bỏ bước |
+
 **期待結果（Kết quả mong đợi）**
 
 Theo tiêu chí nghiệm thu “Lưu và mở lại nhiều thiết lập”: màn danh sách thể hiện kỳ Cuối kỳ học kỳ 1（1学期期末）, tên mục, kiểu nhập Nhập số – thập phân（数値入力・小数） và Thiết lập điểm đỏ（赤点設定）.
@@ -3634,6 +4932,8 @@ Theo tiêu chí nghiệm thu “Lưu và mở lại nhiều thiết lập”: m�
 ### TC-RS-UI-004 — Tóm tắt điều kiện và ngưỡng trên từng dòng danh sách
 
 Priority: TBD ｜ Status: PROPOSED ｜ Requirement ID: đặc tả v2 mục 4.2 “Nội dung một dòng”
+Priority basis: other
+Run variants: Base
 
 <!-- Mã truy vết: TD-ITEM-01 «Mục số nguyên: Điểm đánh giá（評点）, Nhập số nguyên（数値入力（整数））, M mặc định…», TD-RULE-07 «Cặp phân nhánh: Ưu tiên 1 "Trung bình từ 60": điều kiện `A≥60`, cố định…», TD-RULE-06 «Công thức hai dòng: Dòng 1: Trung bình（平均点）÷ Số cố định（固定値）2, chữ số…» -->
 
@@ -3646,6 +4946,11 @@ Priority: TBD ｜ Status: PROPOSED ｜ Requirement ID: đặc tả v2 mục 4.2 
 
 Xem cột Điều kiện áp dụng（適用条件） và Ngưỡng đỏ（赤点の基準） của từng dòng.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: Base | Toàn bộ thủ tục theo đúng thứ tự; các đối chứng cùng fixture được kiểm trong cùng lượt, không bỏ bước |
+
 **期待結果（Kết quả mong đợi）**
 
 Mỗi dòng cho biết môn/nguồn/mốc của điều kiện, loại ngưỡng, giá trị, dấu so sánh; dòng công thức cho thấy các dòng tính và xử lý phần lẻ. Định dạng theo Figma (đề xuất).
@@ -3655,6 +4960,8 @@ Mỗi dòng cho biết môn/nguồn/mốc của điều kiện, loại ngưỡng
 ### TC-RS-UI-005 — Trạng thái danh sách trống
 
 Priority: TBD ｜ Status: PROPOSED ｜ Requirement ID: đặc tả v2 mục 4.1 “Điểm vào và trạng thái trống”
+Priority basis: other
+Run variants: Base
 
 <!-- Mã truy vết: TD-ITEM-01 «Mục số nguyên: Điểm đánh giá（評点）, Nhập số nguyên（数値入力（整数））, M mặc định…» -->
 
@@ -3667,6 +4974,11 @@ Priority: TBD ｜ Status: PROPOSED ｜ Requirement ID: đặc tả v2 mục 4.1 
 
 Mở danh sách.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: Base | Toàn bộ thủ tục theo đúng thứ tự; các đối chứng cùng fixture được kiểm trong cùng lượt, không bỏ bước |
+
 **期待結果（Kết quả mong đợi）**
 
 Hiển thị câu báo không có thiết lập và nút thêm; không có dòng mẫu.
@@ -3676,6 +4988,8 @@ Hiển thị câu báo không có thiết lập và nút thêm; không có dòng
 ### TC-RS-UI-006 — Hộp xác nhận khi xóa quy tắc cuối
 
 Priority: TBD ｜ Status: PROPOSED ｜ Requirement ID: đặc tả v2 mục 4.4 “Lưu, đổi thứ tự và xóa”
+Priority basis: other
+Run variants: Base
 
 <!-- Mã truy vết: TD-ITEM-01 «Mục số nguyên: Điểm đánh giá（評点）, Nhập số nguyên（数値入力（整数））, M mặc định…», TD-RULE-01 «Cố định `<`: Tên "Cố định 30"», TC-RS-BR-019 -->
 
@@ -3688,6 +5002,11 @@ Priority: TBD ｜ Status: PROPOSED ｜ Requirement ID: đặc tả v2 mục 4.4 
 
 Bấm Xóa（削除） ở dòng duy nhất.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: Base | Toàn bộ thủ tục theo đúng thứ tự; các đối chứng cùng fixture được kiểm trong cùng lượt, không bỏ bước |
+
 **期待結果（Kết quả mong đợi）**
 
 Hộp xác nhận nêu đây là thiết lập cuối, kết quả trước còn dùng tới lần chạy lại, điểm được giữ; có Hủy và Xóa.
@@ -3697,28 +5016,42 @@ Hộp xác nhận nêu đây là thiết lập cuối, kết quả trước còn
 ### TC-RS-UI-007 — Dòng quy tắc mới chỉ có điều kiện, chưa có ngưỡng
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: đặc tả v2 mục 4.4 “Lưu, đổi thứ tự và xóa”; AC-G04 «Lưu và mở lại nhiều thiết lập»
+Priority basis: result
+Run variants: incomplete-row; incomplete-deleted-stale
+Readiness: BLOCKED — cần xác minh form ngưỡng cũ và đường chạy/đọc kết quả cho fixture bên dưới; không coi việc dòng biến mất khỏi danh sách là bằng chứng bộ xét đã loại rule.
 
 <!-- Mã truy vết: TD-RULE-13 «Cố định chưa có ngưỡng: Chỉ lưu điều kiện áp dụng, chưa lưu ngưỡng», TC-RS-FUNC-014 -->
 
 **前提条件（Điều kiện trước）**
 
-- Điều kiện: quy tắc mới chỉ có điều kiện, chưa có ngưỡng vừa lưu điều kiện; hành vi không tham gia xét và không hồi sinh sau stale-form là nghĩa vụ đã xác nhận. Cách biểu diễn enum/schema vẫn là PROPOSED.
-- Dữ liệu test: quy tắc mới chỉ có điều kiện, chưa có ngưỡng
+- Điều kiện: trường A/năm 2026, mục số nguyên TD-ITEM-01 (M=100), S01=29; giáo viên có quyền sửa và chạy xét. Rule ưu tiên 1 chỉ lưu điều kiện Toàn bộ, chưa có ngưỡng; rule đối chứng ưu tiên 2 Toàn bộ, T=20, dấu `<`. Ghi identity hai rule và dựng lại fixture trước mỗi biến thể; baseline sau xét là Không đỏ theo rule đối chứng. Cách biểu diễn enum/schema vẫn là PROPOSED.
+- Dữ liệu test: form ngưỡng ở tab A sẽ nhập T=40 nhưng chưa lưu; tab B dùng để xóa rule nhập dở. Phạm vi trích xuất chỉ có ô S01=29 này. Đây là fixture của `FUNC-014/incomplete-deleted-stale`, không thay ngưỡng 30 dùng chung.
 
 **操作（Thao tác）**
 
-1. Quay về danh sách, xem dòng.
-2. Mở form của dòng này ở một tab; xóa dòng từ tab khác; gửi lưu tab cũ.
+1. Với `incomplete-row`, quay về danh sách, xem dòng nhập dở và thao tác mở thiết lập ngưỡng; chạy xét và đọc rule đối chứng T=20 đã dùng cho S01.
+2. Với `incomplete-deleted-stale`, reset fixture và xác nhận baseline Không đỏ/T=20. Mở form ngưỡng của rule nhập dở ở tab A, nhập T=40 nhưng chưa lưu; xóa rule đó ở tab B rồi gửi lưu tab A. Reload danh sách và đọc trạng thái rule.
+3. Chạy xét lại thành công; đọc identity rule/ngưỡng đã dùng và trích xuất S01 một lượt tắt lọc, một lượt bật lọc đỏ. Ghi kết quả riêng cho hai biến thể.
+
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: incomplete-row | Nhánh incomplete-row trong thủ tục và Expected của case; thực hiện các bước chuẩn bị chung trước nhánh |
+| Run: incomplete-deleted-stale | Nhánh incomplete-deleted-stale trong thủ tục và Expected của case; thực hiện các bước chuẩn bị chung trước nhánh |
 
 **期待結果（Kết quả mong đợi）**
 
-Dòng hiển thị chưa có ngưỡng, có link mở thiết lập ngưỡng và câu báo không dùng để xét. Sau thao tác stale-form, dòng đã xóa không xuất hiện lại và không được đưa vào bộ xét. Nếu schema dùng enum/trạng thái riêng, đó chỉ là cách hiện thực đề xuất; oracle bắt buộc là hành vi này.
+1. `incomplete-row`: dòng hiển thị chưa có ngưỡng, có link mở thiết lập ngưỡng và câu báo không dùng để xét. Bộ xét chọn rule đối chứng T=20, S01=29 Không đỏ; không tạo ngưỡng 0 ngầm.
+2. `incomplete-deleted-stale`: dòng đã xóa không xuất hiện lại; gửi T=40 từ form cũ không phục hồi rule trong bộ xét. Sau lần xét lại, identity rule đối chứng và T=20 giữ đúng, S01=29 **Không đỏ**. Lượt tắt lọc hiện 29 không dấu đỏ; lượt bật lọc không có S01. Nếu rule 40 bị phục hồi thì 29<40 sẽ Đỏ và biến thể phải FAIL.
+3. Schema/enum là cách hiện thực đề xuất. Nếu chưa xác minh được form cũ, đường chạy xét hoặc reader rule/ngưỡng thì giữ biến thể BLOCKED, không suy PASS chỉ từ danh sách.
 
 <a id="tc-rs-ui-008"></a>
 
 ### TC-RS-UI-008 — Màn Điều kiện áp dụng（適用条件設定）: bố cục và chuyển Toàn bộ/Bộ lọc
 
 Priority: TBD ｜ Status: PROPOSED ｜ Requirement ID: đặc tả v2 mục 5.1 “Đối tượng áp dụng”
+Priority basis: other
+Run variants: Base
 
 <!-- Mã truy vết: TD-ITEM-02 «Mục số thập phân: Điểm đánh giá（評点）, Nhập số thập phân（数値入力（小数））, M mặc…» -->
 
@@ -3733,6 +5066,11 @@ Priority: TBD ｜ Status: PROPOSED ｜ Requirement ID: đặc tả v2 mục 5.1 
 2. Chọn Toàn bộ đối tượng（全員が対象）.
 3. Chọn Giới hạn bằng bộ lọc（特定条件で絞り込む）, thêm hai điều kiện cùng loại và hai điều kiện khác loại.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: Base | Toàn bộ thủ tục theo đúng thứ tự; các đối chứng cùng fixture được kiểm trong cùng lượt, không bỏ bước |
+
 **期待結果（Kết quả mong đợi）**
 
 1. Có các phần tử như Source.
@@ -3744,6 +5082,8 @@ Priority: TBD ｜ Status: PROPOSED ｜ Requirement ID: đặc tả v2 mục 5.1 
 ### TC-RS-UI-009 — Khối điều kiện Trung bình（平均点） và nguồn tham chiếu, không có ô chọn "kết quả tổng hợp dùng để tham chiếu"
 
 Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: đặc tả v2 mục 3 “Bản đồ màn hình và luồng thao tác”, mục 5.4 “Bộ thông tin nguồn”, mục 5.5 “Chọn bản nguồn”
+Priority basis: other
+Run variants: Base
 
 <!-- Mã truy vết: — -->
 
@@ -3756,6 +5096,11 @@ Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: đặc tả v2 mục 3 �
 
 Thêm điều kiện Trung bình（平均点）, xem các ô.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: Base | Toàn bộ thủ tục theo đúng thứ tự; các đối chứng cùng fixture được kiểm trong cùng lượt, không bỏ bước |
+
 **期待結果（Kết quả mong đợi）**
 
 CONFIRMED: có ba ô nguồn (thời kỳ, thiết lập tổng hợp thứ hạng, nhóm tham chiếu); **không** có ô chọn kết quả tổng hợp cụ thể/bản chốt.
@@ -3767,6 +5112,8 @@ PROPOSED: câu mục tham chiếu, bố cục ô mốc + đơn vị 点 (điểm
 ### TC-RS-UI-010 — Khối điều kiện Tỷ lệ điểm của nhóm（集団の得点率）
 
 Priority: TBD ｜ Status: PROPOSED ｜ Requirement ID: đặc tả v2 mục 5.3 “Tỷ lệ nhóm — kế thừa kết quả tổng hợp thứ hạng hiện có”
+Priority basis: other
+Run variants: Base
 
 <!-- Mã truy vết: — -->
 
@@ -3779,6 +5126,11 @@ Priority: TBD ｜ Status: PROPOSED ｜ Requirement ID: đặc tả v2 mục 5.3 
 
 Thêm điều kiện Tỷ lệ điểm của nhóm（集団の得点率）.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: Base | Toàn bộ thủ tục theo đúng thứ tự; các đối chứng cùng fixture được kiểm trong cùng lượt, không bỏ bước |
+
 **期待結果（Kết quả mong đợi）**
 
 Có ba ô nguồn như UI-009, ô mốc với đơn vị %, dấu so sánh. Không có tùy chọn cách tính A/B (Q&A nghiệp vụ đã xác nhận câu “Tỷ lệ nhóm có cần xử lý riêng khi các lớp khác điểm tối đa không?” — CONFIRMED).
@@ -3788,6 +5140,8 @@ Có ba ô nguồn như UI-009, ô mốc với đơn vị %, dấu so sánh. Khô
 ### TC-RS-UI-011 — Màn Ngưỡng（基準設定）: ba loại, dấu so sánh và câu giải thích đổi theo dấu
 
 Priority: TBD ｜ Status: PROPOSED ｜ Requirement ID: đặc tả v2 mục 6.1 “Thành phần chung của màn ngưỡng”
+Priority basis: other
+Run variants: lt; le
 
 <!-- Mã truy vết: — -->
 
@@ -3801,6 +5155,12 @@ Priority: TBD ｜ Status: PROPOSED ｜ Requirement ID: đặc tả v2 mục 6.1 
 1. Xem ba lựa chọn loại.
 2. Đổi Dấu so sánh（比較条件） giữa Nhỏ hơn（未満） và Nhỏ hơn hoặc bằng（以下）.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: lt | Dấu nhỏ hơn |
+| Run: le | Dấu nhỏ hơn hoặc bằng |
+
 **期待結果（Kết quả mong đợi）**
 
 1. Có Điểm cố định（固定点数）, Tỷ lệ điểm tối đa（得点率）, Công thức（計算式） (theo phạm vi phát hành — xem UI-025).
@@ -3811,6 +5171,8 @@ Priority: TBD ｜ Status: PROPOSED ｜ Requirement ID: đặc tả v2 mục 6.1 
 ### TC-RS-UI-012 — Mặc định khi tạo quy tắc mới
 
 Priority: TBD ｜ Status: PROPOSED ｜ Requirement ID: đặc tả v2 mục 6.1 “Thành phần chung của màn ngưỡng”
+Priority basis: other
+Run variants: Base
 
 <!-- Mã truy vết: — -->
 
@@ -3823,6 +5185,11 @@ Priority: TBD ｜ Status: PROPOSED ｜ Requirement ID: đặc tả v2 mục 6.1 
 
 Quan sát giá trị ban đầu.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: Base | Toàn bộ thủ tục theo đúng thứ tự; các đối chứng cùng fixture được kiểm trong cùng lượt, không bỏ bước |
+
 **期待結果（Kết quả mong đợi）**
 
 Loại = Điểm cố định（固定点数）; dấu = Nhỏ hơn（未満）; ô Điểm chuẩn（基準点） trống; tỷ lệ/công thức (nếu mở) mặc định Không xử lý phần lẻ（しない）.
@@ -3834,6 +5201,8 @@ Quy tắc mới được thêm ở cuối danh sách (PROPOSED).
 ### TC-RS-UI-013 — Ngưỡng cố định không hiển thị nguồn trung bình
 
 Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: đặc tả v2 mục 5.6 “Khi nào không cần nguồn?”
+Priority basis: other
+Run variants: Base
 
 <!-- Mã truy vết: — -->
 
@@ -3846,6 +5215,11 @@ Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: đặc tả v2 mục 5.6
 
 Xem màn.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: Base | Toàn bộ thủ tục theo đúng thứ tự; các đối chứng cùng fixture được kiểm trong cùng lượt, không bỏ bước |
+
 **期待結果（Kết quả mong đợi）**
 
 CONFIRMED: không có khối Trung bình tham chiếu（参照する平均点）; lưu không yêu cầu chọn nguồn.
@@ -3857,6 +5231,8 @@ PROPOSED: ô Điểm chuẩn（基準点） + đơn vị 点 (điểm), câu 「
 ### TC-RS-UI-014 — Màn Tỷ lệ điểm tối đa（得点率）: mô tả M và xử lý phần lẻ
 
 Priority: TBD ｜ Status: PROPOSED ｜ Requirement ID: đặc tả v2 mục 5.6 “Khi nào không cần nguồn?”, mục 6.3 “Tỷ lệ điểm tối đa”, mục 6.5 “Xử lý phần lẻ”
+Priority basis: other
+Run variants: Base
 
 <!-- Mã truy vết: TD-ITEM-01 «Mục số nguyên: Điểm đánh giá（評点）, Nhập số nguyên（数値入力（整数））, M mặc định…» -->
 
@@ -3870,6 +5246,11 @@ Priority: TBD ｜ Status: PROPOSED ｜ Requirement ID: đặc tả v2 mục 5.6 
 1. Xem màn.
 2. Chọn Có（する） ở Xử lý phần lẻ.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: Base | Toàn bộ thủ tục theo đúng thứ tự; các đối chứng cùng fixture được kiểm trong cùng lượt, không bỏ bước |
+
 **期待結果（Kết quả mong đợi）**
 
 Không có khối nguồn trung bình (đặc tả v2 mục 5.6 “Khi nào không cần nguồn?”); Xử lý phần lẻ có Không（しない）/Có（する）, mặc định Không; khi Có thì hiện ô vị trí chữ số và phương thức.
@@ -3881,6 +5262,8 @@ Mô tả M theo Figma (PROPOSED): câu chung 「対象の授業・時期・単�
 ### TC-RS-UI-015 — Màn Công thức: thứ tự khối nguồn trung bình và dòng công thức
 
 Priority: TBD ｜ Status: PROPOSED ｜ Requirement ID: đặc tả v2 mục 5.6 “Khi nào không cần nguồn?”, mục 6.4 “Công thức dùng trung bình”
+Priority basis: other
+Run variants: Base
 
 <!-- Mã truy vết: — -->
 
@@ -3893,6 +5276,11 @@ Priority: TBD ｜ Status: PROPOSED ｜ Requirement ID: đặc tả v2 mục 5.6 
 
 Ghi lại thứ tự các khối từ trên xuống.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: Base | Toàn bộ thủ tục theo đúng thứ tự; các đối chứng cùng fixture được kiểm trong cùng lượt, không bỏ bước |
+
 **期待結果（Kết quả mong đợi）**
 
 Khối nguồn chỉ hiện với Công thức, không hiện với cố định/tỷ lệ (đặc tả v2 mục 5.6 “Khi nào không cần nguồn?”).
@@ -3904,6 +5292,8 @@ Thứ tự khối theo Figma (PROPOSED): khối Trung bình tham chiếu（参�
 ### TC-RS-UI-016 — Bảng dòng công thức
 
 Priority: TBD ｜ Status: PROPOSED ｜ Requirement ID: đặc tả v2 mục 6.4 “Công thức dùng trung bình”
+Priority basis: other
+Run variants: Base
 
 <!-- Mã truy vết: TD-RULE-06 «Công thức hai dòng: Dòng 1: Trung bình（平均点）÷ Số cố định（固定値）2, chữ số…» -->
 
@@ -3917,6 +5307,11 @@ Priority: TBD ｜ Status: PROPOSED ｜ Requirement ID: đặc tả v2 mục 6.4 
 1. Nhập quy tắc công thức hai dòng (trung bình ÷ 2 × 0.8).
 2. Thêm/xóa dòng.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: Base | Toàn bộ thủ tục theo đúng thứ tự; các đối chứng cùng fixture được kiểm trong cùng lượt, không bỏ bước |
+
 **期待結果（Kết quả mong đợi）**
 
 Có đủ cột; chọn Kết quả phép tính（式の結果） thì hiện ô chọn dòng; mỗi dòng có Xử lý phần lẻ riêng; thêm/xóa dòng được; có câu dòng cuối là ngưỡng.
@@ -3926,6 +5321,8 @@ Có đủ cột; chọn Kết quả phép tính（式の結果） thì hiện ô
 ### TC-RS-UI-017 — Thông báo lỗi vượt điểm tối đa và chia 0
 
 Priority: TBD ｜ Status: PROPOSED ｜ Requirement ID: đặc tả v2 mục 8.4 “Lỗi kỹ thuật và thông báo”
+Priority basis: other
+Run variants: maximum; divide-zero
 
 <!-- Mã truy vết: TD-ITEM-01 «Mục số nguyên: Điểm đánh giá（評点）, Nhập số nguyên（数値入力（整数））, M mặc định…», TC-RS-VAL-001, TC-RS-VAL-009 -->
 
@@ -3939,6 +5336,12 @@ Priority: TBD ｜ Status: PROPOSED ｜ Requirement ID: đặc tả v2 mục 8.4 
 1. Lưu N=120.
 2. Lưu công thức chia 0.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: maximum | N120 |
+| Run: divide-zero | Công thức chia 0 |
+
 **期待結果（Kết quả mong đợi）**
 
 1. Không lưu được. Đầu vùng nhập có 「基準点が対象の満点を超えています。対象の満点以下の値を入力してください。」 (điểm chuẩn vượt điểm tối đa của đối tượng; hãy nhập giá trị không vượt điểm tối đa); tại ô Điểm chuẩn（基準点） có 「対象の満点（100点）以下の値を入力してください。」 và dòng 「対象の満点：100点」 (điểm tối đa của đối tượng: 100); giá trị 120 còn giữ.
@@ -3949,6 +5352,8 @@ Priority: TBD ｜ Status: PROPOSED ｜ Requirement ID: đặc tả v2 mục 8.4 
 ### TC-RS-UI-018 — Màn Tổng hợp thành tích（成績集計）: nút xanh/cam và lần chạy trước
 
 Priority: TBD ｜ Status: IMPLEMENTED ｜ Requirement ID: đặc tả v2 mục 7.2 “Bảng sự kiện”
+Priority basis: other
+Run variants: Base
 
 <!-- Mã truy vết: TD-ROLE-03 «Người có quyền chạy hàng loạt: Có quyền thực hiện Thực hiện tổng…», TC-RS-FUNC-021 -->
 
@@ -3961,6 +5366,11 @@ Priority: TBD ｜ Status: IMPLEMENTED ｜ Requirement ID: đặc tả v2 mục 7
 
 Mở Tổng hợp thành tích（成績集計）.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: Base | Toàn bộ thủ tục theo đúng thứ tự; các đối chứng cùng fixture được kiểm trong cùng lượt, không bỏ bước |
+
 **期待結果（Kết quả mong đợi）**
 
 Mỗi khối có Thực hiện tổng hợp（集計実行） và Thực hiện tính toán tự động（自動算出実行） kèm thời điểm chạy trước, như màn hiện có.
@@ -3970,6 +5380,8 @@ Mỗi khối có Thực hiện tổng hợp（集計実行） và Thực hiện 
 ### TC-RS-UI-019 — Thông báo kết quả sau khi chạy: hoàn tất, chưa xét được, thất bại một phần
 
 Priority: TBD ｜ Status: PROPOSED ｜ Requirement ID: tiêu chí nghiệm thu “Lưu thành công và thông báo an toàn” (AC-G26 «Lưu thành công và thông báo an toàn»)
+Priority basis: other
+Run variants: missing; partial
 
 <!-- Mã truy vết: TC-RS-BR-010, TC-RS-ERR-003, TD-SRC-03 «Không có tổng hợp: Nguồn chưa từng chạy tổng hợp», TC-RS-ERR-002 -->
 
@@ -3983,6 +5395,12 @@ Priority: TBD ｜ Status: PROPOSED ｜ Requirement ID: tiêu chí nghiệm thu �
 1. Chạy nút cam khi thiếu nguồn.
 2. Chạy khi có lỗi một phần (theo cách giả lập được team dev cho phép).
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: missing | Thiếu nguồn |
+| Run: partial | Lỗi một phần |
+
 **期待結果（Kết quả mong đợi）**
 
 1. Thông báo hoàn tất nêu có mục chưa xét được, phạm vi và lý do, và kết quả trước không còn dùng.
@@ -3992,7 +5410,9 @@ Priority: TBD ｜ Status: PROPOSED ｜ Requirement ID: tiêu chí nghiệm thu �
 
 ### TC-RS-UI-020 — Trích xuất: vị trí và nhãn tùy chọn đỏ
 
-Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: đặc tả v2 mục 9.1 “Thiết lập”
+Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: đặc tả v2 mục 9.1 “Thiết lập”
+Priority basis: output
+Run variants: Base
 
 <!-- Mã truy vết: TD-ROLE-07 «Người phụ trách đầu ra: Có quyền Trích xuất thành tích（成績抽出）, Thiết lập…», TD-ITEM-01 «Mục số nguyên: Điểm đánh giá（評点）, Nhập số nguyên（数値入力（整数））, M mặc định…», TD-OUT-01 «Trích xuất lọc + ký hiệu trước + màu: Lọc học sinh có điểm đỏ（抽出する） BẬT»,  -->
 
@@ -4006,6 +5426,11 @@ Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: đặc tả v2 mục 9.1
 1. Mở Trích xuất thành tích（成績抽出）→ Thiết lập mục hiển thị（表示項目設定）→ chi tiết mục Điểm đánh giá（評点） kỳ Cuối kỳ học kỳ 1（1学期期末）.
 2. Ghi lại vị trí và nhãn các tùy chọn đỏ.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: Base | Toàn bộ thủ tục theo đúng thứ tự; các đối chứng cùng fixture được kiểm trong cùng lượt, không bỏ bước |
+
 **期待結果（Kết quả mong đợi）**
 
 Theo specification v2 mục 9.1, có bốn tùy chọn độc lập: lọc học sinh có điểm đỏ, ký hiệu phía trước, ký hiệu phía sau và tô màu ô; màu chỉ chọn từ bảng màu hiện có. Vị trí và nhãn cụ thể trên UI theo Figma chỉ là tham khảo, không thay đổi oracle nghiệp vụ.
@@ -4017,6 +5442,8 @@ Không đánh giá nhãn/vị trí cụ thể của Figma như một oracle riê
 ### TC-RS-UI-021 — Trích xuất: kết quả 0 học sinh và hiển thị ô đỏ số thập phân
 
 Priority: TBD ｜ Status: PROPOSED ｜ Requirement ID: tiêu chí nghiệm thu “Lọc khi trích xuất” (AC-G29 «Lọc khi trích xuất»)
+Priority basis: other
+Run variants: empty; decimal
 
 <!-- Mã truy vết: TD-OUT-01 «Trích xuất lọc + ký hiệu trước + màu: Lọc học sinh có điểm đỏ（抽出する） BẬT» -->
 
@@ -4029,6 +5456,12 @@ Priority: TBD ｜ Status: PROPOSED ｜ Requirement ID: tiêu chí nghiệm thu �
 
 Chạy trích xuất cho (a), (b).
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: empty | Fixture a không ô đỏ |
+| Run: decimal | Fixture b điểm thập phân 23.9 |
+
 **期待結果（Kết quả mong đợi）**
 
 (a) Không lỗi; hiện thông báo không có học sinh khớp.
@@ -4039,7 +5472,9 @@ Chạy trích xuất cho (a), (b).
 
 ### TC-RS-UI-022 — Công khai: dòng cách hiển thị đỏ theo mục có thiết lập, kể cả khi 0 học sinh đỏ hoặc vừa xóa thiết lập cuối
 
-Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Cấu hình công khai và ẩn điểm” (AC-G32 «Cấu hình công khai và ẩn điểm»)
+Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Cấu hình công khai và ẩn điểm” (AC-G32 «Cấu hình công khai và ẩn điểm»)
+Priority basis: output
+Run variants: Base
 
 <!-- Mã truy vết: TD-ITEM-01 «Mục số nguyên: Điểm đánh giá（評点）, Nhập số nguyên（数値入力（整数））, M mặc định…», TD-ROLE-07 «Người phụ trách đầu ra: Có quyền Trích xuất thành tích（成績抽出）, Thiết lập…», TD-RULE-01 «Cố định `<`: Tên "Cố định 30"», TC-RS-BR-019 -->
 
@@ -4054,6 +5489,11 @@ Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 2. Ở dòng của Điểm đánh giá（評点）, chọn `*` phía trước, bấm Đăng ký（登録する）.
 3. Xóa quy tắc cuối của mục số nguyên (M=100) (chỉ còn quy tắc “Cố định 30” (dưới 30) thì xóa quy tắc “Cố định 30” (dưới 30)), **không** chạy lại; mở lại khung Thành tích（成績）.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: Base | Toàn bộ thủ tục theo đúng thứ tự; các đối chứng cùng fixture được kiểm trong cùng lượt, không bỏ bước |
+
 **期待結果（Kết quả mong đợi）**
 
 1. Mục Điểm đánh giá（評点） có dòng cách hiển thị đỏ dù 0 học sinh đỏ; mục Tri thức – kỹ năng（知識・技能） không có dòng.
@@ -4064,7 +5504,9 @@ Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 
 ### TC-RS-UI-023 — Công khai: danh sách tùy chọn hiển thị đỏ
 
-Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: đặc tả v2 mục 10.1 “Phạm vi và tùy chọn”
+Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: đặc tả v2 mục 10.1 “Phạm vi và tùy chọn”
+Priority basis: output
+Run variants: Base
 
 <!-- Mã truy vết:  -->
 
@@ -4077,6 +5519,11 @@ Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: đặc tả v2 mục 10.
 
 Mở danh sách chọn của dòng đỏ.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: Base | Toàn bộ thủ tục theo đúng thứ tự; các đối chứng cùng fixture được kiểm trong cùng lượt, không bỏ bước |
+
 **期待結果（Kết quả mong đợi）**
 
 Theo specification v2 mục 10.1 và Q&A Q16, danh sách chỉ có Kèm ngoặc, `*` phía trước và `*` phía sau; không có ô chữ tự do và không có màu nền riêng. Không đưa tùy chọn Nguyên trạng（そのまま表示） vào oracle vì không thuộc danh sách đã chốt trong specification/Q&A.
@@ -4085,7 +5532,9 @@ Theo specification v2 mục 10.1 và Q&A Q16, danh sách chỉ có Kèm ngoặc,
 
 ### TC-RS-UI-024 — Phiếu điểm: hộp Thiết lập hiển thị tùy chọn mục đăng ký điểm（成績登録項目オプション表示設定）
 
-Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Tùy chọn trên phiếu” (AC-G35 «Tùy chọn trên phiếu»)
+Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Tùy chọn trên phiếu” (AC-G35 «Tùy chọn trên phiếu»)
+Priority basis: output
+Run variants: Base
 
 <!-- Mã truy vết: TD-ROLE-07 «Người phụ trách đầu ra: Có quyền Trích xuất thành tích（成績抽出）, Thiết lập…», TD-OUT-04 «Phiếu điểm: Dòng Thiết lập điểm đỏ（赤点設定）: Ký tự phía trước（前に任意の文字） `※`» -->
 
@@ -4099,6 +5548,11 @@ Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 1. Mở hộp tùy chọn của ô, chọn Thiết lập（設定する）.
 2. Ghi lại thứ tự dòng và các lựa chọn của dòng Thiết lập điểm đỏ（赤点設定）.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: Base | Toàn bộ thủ tục theo đúng thứ tự; các đối chứng cùng fixture được kiểm trong cùng lượt, không bỏ bước |
+
 **期待結果（Kết quả mong đợi）**
 
 CONFIRMED: dòng đỏ nằm sau các dòng checkbox và trước Trường hợp ô trống（空欄の場合）; lựa chọn của dòng đỏ là Nguyên trạng（そのまま表示）, Kèm ngoặc（カッコ付き）, Ký tự phía trước（前に任意の文字）, Ký tự phía sau（後ろに任意の文字）; không có Ẩn（表示しない）/Gạch chéo（斜線）.
@@ -4110,6 +5564,8 @@ PROPOSED: nhãn dòng 「赤点設定」 (thiết lập điểm đỏ) và câu 
 ### TC-RS-UI-026 — Bộ chọn hiệu ứng đỏ của điểm thường và điểm đơn vị hiển thị độc lập
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Cấu hình công khai và ẩn điểm” (AC-G32 «Cấu hình công khai và ẩn điểm»)
+Priority basis: output
+Run variants: Base
 
 <!-- Mã truy vết: Q38, AC-G32 -->
 
@@ -4124,6 +5580,11 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 2. Kiểm tra panel điểm thường và panel điểm đơn vị.
 3. Chọn hiệu ứng khác nhau cho hai panel, lưu, đóng và mở lại.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: Base | Toàn bộ thủ tục theo đúng thứ tự; các đối chứng cùng fixture được kiểm trong cùng lượt, không bỏ bước |
+
 **期待結果（Kết quả mong đợi）**
 
 1. Cả hai panel đều hiển thị bộ chọn tương ứng; panel điểm đơn vị không bị nền hoặc lớp khác che.
@@ -4135,6 +5596,8 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 ### TC-RS-UI-025 — Loại ngưỡng/điều kiện chưa thuộc phạm vi phát hành không hiện như đang hoạt động
 
 Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Phạm vi từng đợt” (AC-G40 «Phạm vi từng đợt»)
+Priority basis: other
+Run variants: Base
 
 <!-- Mã truy vết: — -->
 
@@ -4149,6 +5612,11 @@ Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 2. Mở màn Ngưỡng đỏ（赤点の基準）, xem các loại ngưỡng.
 3. Với loại không có trong danh sách phát hành (ví dụ Công thức（計算式）, điều kiện Trung bình（平均点））: nếu chọn được thì thử Lưu.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: Base | Toàn bộ thủ tục theo đúng thứ tự; các đối chứng cùng fixture được kiểm trong cùng lượt, không bỏ bước |
+
 **期待結果（Kết quả mong đợi）**
 
 Loại ngoài phạm vi không hiện như lựa chọn dùng được; không lưu được cấu hình dùng loại đó.
@@ -4158,6 +5626,8 @@ Loại ngoài phạm vi không hiện như lựa chọn dùng được; không l
 ### TC-RS-ERR-001 — Hiển thị theo từng trạng thái kết quả ở ba đầu ra
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Trạng thái sau lần chạy” (AC-G20 «Trạng thái sau lần chạy»)
+Priority basis: lifecycle
+Run variants: extract; publish; report
 
 <!-- Mã truy vết: TD-ITEM-01 «Mục số nguyên: Điểm đánh giá（評点）, Nhập số nguyên（数値入力（整数））, M mặc định…», TC-RS-BR-010, TC-RS-BR-002, TD-OUT-01 «Trích xuất lọc + ký hiệu trước + màu: Lọc học sinh có điểm đỏ（抽出する） BẬT», TD-OUT-03 «Công khai: Hiệu ứng đỏ: `*` phía trước（前に「*」）», TD-OUT-04 «Phiếu điểm: Dòng Thiết lập điểm đỏ（赤点設定）: Ký tự phía trước（前に任意の文字） `※`» -->
 
@@ -4172,6 +5642,13 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 2. Xem màn học sinh công khai.
 3. Xuất PDF phiếu.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: extract | Trích xuất cả bảy trạng thái không lọc |
+| Run: publish | Công khai cả bảy trạng thái |
+| Run: report | Phiếu điểm cả bảy trạng thái |
+
 **期待結果（Kết quả mong đợi）**
 
 Chỉ ô (1) và (7) có dấu đỏ và làm học sinh thỏa lọc đỏ. Ô (2)–(6) không có dấu đỏ, không thỏa lọc; (3), (4), (5) không được hiển thị như "đạt". Ba đầu ra cho cùng kết luận.
@@ -4181,65 +5658,96 @@ Chỉ ô (1) và (7) có dấu đỏ và làm học sinh thỏa lọc đỏ. Ô 
 ### TC-RS-ERR-002 — Lỗi kỹ thuật khi lưu kết quả khác với Chưa xét được; không báo thành công giả
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Lưu thành công và thông báo an toàn” (AC-G26 «Lưu thành công và thông báo an toàn»)
+Priority basis: lifecycle
+Run variants: direct-success-delete; csv-success-delete; linked-success-delete; direct-delete-save-failure; csv-delete-save-failure; linked-delete-save-failure; direct-delete-result-write-failure; csv-delete-result-write-failure; linked-delete-result-write-failure; direct-edit-save-failure; csv-edit-save-failure; linked-edit-save-failure; direct-edit-result-write-failure; csv-edit-result-write-failure; linked-edit-result-write-failure
+Readiness: BLOCKED — chưa xác minh được seam gây lỗi lưu điểm và lỗi ghi kết quả riêng cho đăng ký trực tiếp, CSV và liên kết điểm thi, cũng như ranh giới giao dịch/đọc lại của từng đường; các nhánh lỗi không được suy thành rollback/Chưa xét được.
 
 <!-- Mã truy vết: TD-ITEM-01 «Mục số nguyên: Điểm đánh giá（評点）, Nhập số nguyên（数値入力（整数））, M mặc định…», TD-STU-01 «S01: G-A, HR1», TD-RULE-01 «Cố định `<`: Tên "Cố định 30"», AC-G26 -->
 
 **前提条件（Điều kiện trước）**
 
-- Điều kiện: fixture có S01 Đỏ ở hai ô trong cùng phạm vi; có cách gây lỗi ghi kết quả trong lượt đăng ký và lỗi lưu điểm. Có file CSV điểm và bài thi đã chấm liên kết tới mục số nguyên (M=100) cho G-A.
-- Dữ liệu test: học sinh S01 (hai ô đỏ, Toán 24 và Ngữ văn 20); mục số nguyên (M=100); quy tắc “Cố định 30” (dưới 30)
+- Điều kiện: chuẩn bị bản reset **độc lập cho từng biến thể và từng đường** nhập trực tiếp, Đăng ký thành tích bằng CSV（成績CSV登録） và liên kết điểm thi. Mỗi bản có điểm Toán 24 đang Đỏ, Ngữ văn 20 đang Đỏ và bằng chứng điểm/kết quả trước thao tác; file CSV và bài thi đã chấm phải ánh xạ tới đúng ô Toán của S01 (M=100). Chuẩn bị hai seam lỗi riêng trên từng đường, cho cả xóa và sửa nếu build hỗ trợ: lỗi lưu điểm và lỗi ghi kết quả đỏ; ghi thời điểm lỗi và ranh giới giao dịch thực tế. Chưa có seam/đường đọc đáng tin thì giữ biến thể tương ứng BLOCKED.
+- Dữ liệu test: S01, Toán 24 → sửa thành 35 (không đỏ nếu xét thành công), Ngữ văn 20 giữ nguyên; rule “Cố định 30” với dấu `<`. Biến thể xóa dùng cùng điểm ban đầu nhưng bản reset khác biến thể sửa.
 
 **操作（Thao tác）**
 
-1. Đường (a) nhập trực tiếp ở màn đăng ký điểm của lớp: xóa điểm đỏ Toán của fixture có hai ô đỏ trong khi giả lập lỗi ghi kết quả.
-2. Đường (b) Đăng ký thành tích bằng CSV（成績CSV登録）: xóa cùng ô trong khi giả lập lỗi ghi kết quả.
-3. Đường (c) liên kết điểm thi: xóa cùng ô qua đường liên kết trong khi giả lập lỗi ghi kết quả.
-4. Với một đường bất kỳ, bắt đầu lại từ fixture có hai ô đỏ và giả lập lỗi ngay ở bước lưu xóa (xóa không được lưu).
-5. Sau mỗi bước, xem thông báo, điểm và ba đầu ra.
+1. Với `*-success-delete`, dùng ba bản reset riêng và xóa ô Toán lần lượt bằng nhập trực tiếp, Đăng ký thành tích bằng CSV（成績CSV登録） và liên kết điểm thi; không giả lập lỗi.
+2. Với `*-delete-save-failure`, reset trước từng lượt, xóa ô Toán qua đúng đường tương ứng và gây lỗi **lưu điểm**. Với `*-delete-result-write-failure`, dùng ba bản reset khác, xóa ô Toán nhưng gây lỗi **ghi kết quả đỏ** sau đường xử lý điểm. Mỗi biến thể có Run ID, baseline, response và đọc lại riêng; không dùng kết quả của lỗi lưu điểm làm baseline cho lỗi ghi kết quả.
+3. Với `*-edit-save-failure`, reset trước từng lượt, sửa Toán 24→35 qua từng đường và gây lỗi **lưu điểm**. Với `*-edit-result-write-failure`, dùng các bản reset khác, sửa cùng giá trị nhưng gây lỗi **ghi kết quả đỏ** sau đường xử lý điểm. Không dùng trạng thái từ biến thể xóa làm baseline sửa.
+4. Sau mỗi biến thể, đọc lại điểm và kết quả đỏ của đúng ô Toán, ô Ngữ văn không đích và ba đầu ra; lưu thông báo, trạng thái giao dịch/response và identity để đối chiếu. Không dùng thông báo thành công hay một dấu UI làm bằng chứng duy nhất cho ghi điểm/kết quả.
+
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: direct-success-delete | Nhánh direct-success-delete trong thủ tục và Expected của case; thực hiện các bước chuẩn bị chung trước nhánh |
+| Run: csv-success-delete | Nhánh csv-success-delete trong thủ tục và Expected của case; thực hiện các bước chuẩn bị chung trước nhánh |
+| Run: linked-success-delete | Nhánh linked-success-delete trong thủ tục và Expected của case; thực hiện các bước chuẩn bị chung trước nhánh |
+| Run: direct-delete-save-failure | Nhánh direct-delete-save-failure trong thủ tục và Expected của case; thực hiện các bước chuẩn bị chung trước nhánh |
+| Run: csv-delete-save-failure | Nhánh csv-delete-save-failure trong thủ tục và Expected của case; thực hiện các bước chuẩn bị chung trước nhánh |
+| Run: linked-delete-save-failure | Nhánh linked-delete-save-failure trong thủ tục và Expected của case; thực hiện các bước chuẩn bị chung trước nhánh |
+| Run: direct-delete-result-write-failure | Nhánh direct-delete-result-write-failure trong thủ tục và Expected của case; thực hiện các bước chuẩn bị chung trước nhánh |
+| Run: csv-delete-result-write-failure | Nhánh csv-delete-result-write-failure trong thủ tục và Expected của case; thực hiện các bước chuẩn bị chung trước nhánh |
+| Run: linked-delete-result-write-failure | Nhánh linked-delete-result-write-failure trong thủ tục và Expected của case; thực hiện các bước chuẩn bị chung trước nhánh |
+| Run: direct-edit-save-failure | Nhánh direct-edit-save-failure trong thủ tục và Expected của case; thực hiện các bước chuẩn bị chung trước nhánh |
+| Run: csv-edit-save-failure | Nhánh csv-edit-save-failure trong thủ tục và Expected của case; thực hiện các bước chuẩn bị chung trước nhánh |
+| Run: linked-edit-save-failure | Nhánh linked-edit-save-failure trong thủ tục và Expected của case; thực hiện các bước chuẩn bị chung trước nhánh |
+| Run: direct-edit-result-write-failure | Nhánh direct-edit-result-write-failure trong thủ tục và Expected của case; thực hiện các bước chuẩn bị chung trước nhánh |
+| Run: csv-edit-result-write-failure | Nhánh csv-edit-result-write-failure trong thủ tục và Expected của case; thực hiện các bước chuẩn bị chung trước nhánh |
+| Run: linked-edit-result-write-failure | Nhánh linked-edit-result-write-failure trong thủ tục và Expected của case; thực hiện các bước chuẩn bị chung trước nhánh |
 
 **期待結果（Kết quả mong đợi）**
 
-1. Màn đăng ký trực tiếp: xóa Toán thành công; Toán không còn điểm/dấu đỏ, Ngữ văn vẫn Đỏ và S01 vẫn qua bộ lọc nhờ Ngữ văn.
-2. CSV: cùng expected như bước 1; mapping đúng ô Toán, không xóa nhầm Ngữ văn.
-3. Liên kết điểm thi: cùng expected như bước 1; kết quả/điểm của ô Toán nhất quán theo ranh giới giao dịch.
-
-4. Với mỗi đường được chọn để giả lập lỗi lưu xóa: điểm Toán và kết quả Đỏ trước vẫn còn hiệu lực; Ngữ văn vẫn Đỏ; không báo đã xóa hoặc xét thành công và không ghi Chưa xét được.
-5. Thông báo không chứa lỗi SQL, stack trace hay dữ liệu học sinh ngoài quyền.
+1. Mỗi đường xóa thành công chỉ xóa điểm/kết quả Toán của identity đích; Ngữ văn vẫn Đỏ và S01 vẫn qua bộ lọc nhờ Ngữ văn. CSV phải ánh xạ đúng ô.
+2. Với `*-delete-save-failure`, không báo đã xóa/xét thành công; đối chiếu điểm và kết quả Toán với baseline 24/Đỏ. Với `*-delete-result-write-failure`, cũng không báo thành công giả và phải phân biệt điểm đã bị xóa hay chưa theo ranh giới giao dịch thực tế; không tự coi ô là trống/Chưa xét được hoặc mặc định rollback. Đọc lại điểm, kết quả và trạng thái giao dịch của **từng** biến thể; nếu ranh giới commit hoặc trạng thái nhất quán chưa quan sát được thì giữ đúng biến thể BLOCKED, ghi giá trị thực tế của hai ô và không sửa oracle theo kết quả chạy.
+3. Với lỗi **sửa điểm 24→35**, không báo đã sửa và xét thành công giả. Lỗi lưu điểm phải được đối chiếu với điểm/kết quả trước đó; lỗi ghi kết quả phải phân biệt điểm đã lưu hay chưa theo ranh giới giao dịch hiện có. Không trình bày kết quả cũ Đỏ như kết luận mới đã hoàn tất cho điểm 35, cũng không tự đánh dấu Chưa xét được do lỗi kỹ thuật. Nếu ranh giới ghi/đọc hoặc trạng thái nhất quán chưa quan sát được, giữ đúng biến thể BLOCKED và ghi giá trị thực tế của cả hai ô thay vì tự đổi oracle thành PASS.
+4. Ngữ văn 20 và kết quả Đỏ của ô không đích giữ nguyên ở mọi lượt. Thông báo thất bại không chứa lỗi SQL, stack trace hay dữ liệu ngoài quyền.
 
 <a id="tc-rs-err-003"></a>
 
 ### TC-RS-ERR-003 — Batch hoàn tất một phần: báo đúng phạm vi đã/không cập nhật
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Batch hoàn tất một phần” (AC-G27 «Batch hoàn tất một phần»)
+Priority basis: lifecycle
+Run variants: partial-G-A2-failure; retry-G-A2-only; concurrent-score-write
+Readiness: BLOCKED — TD-GRP-03, identity học sinh theo từng lớp và seam giả lập lỗi G-A2 chưa được provision/quan sát; không suy ra kết quả batch từ dữ liệu master.
 
-<!-- Mã truy vết: TD-GRP-01 «Lớp học phần: G-A (Toán I（数学Ⅰ）, khối 1, nhóm thành tích Nâng cao), G-B…», AC-G27 -->
+<!-- Mã truy vết: TD-GRP-03 «Fixture batch cùng khối (cần provision)», AC-G27 -->
 
 **前提条件（Điều kiện trước）**
 
-- Điều kiện: Batch dùng `TD-GRP-03`, gồm G-A1 và G-A2 cùng khối 1; giả lập lỗi riêng ở phần G-A2.
-- Dữ liệu test: mỗi G-A1/G-A2 có ít nhất một ô thuộc batch. G-C là fixture ngoài batch chỉ dùng làm control, không được tính vào phạm vi đã/không cập nhật.
+- Điều kiện: Batch dùng `TD-GRP-03`: BATCH-GA1 và BATCH-GA2 cùng khối 1; giả lập lỗi riêng ở BATCH-GA2.
+- Dữ liệu test: BATCH-S01 thuộc BATCH-GA1, BATCH-S02 thuộc BATCH-GA2, BATCH-S03 thuộc BATCH-GC ngoài batch; mỗi học sinh có identity ô điểm fixture riêng. Không dùng S01/G-A hoặc lớp master làm bằng chứng nếu chưa chứng minh mapping.
 
 **操作（Thao tác）**
 
 1. Chạy nút cam cho khối.
 2. Xem thông báo và kết quả từng lớp.
-3. Gỡ giả lập lỗi, chạy lại nút cam chỉ cho phạm vi G-B.
+3. Gỡ giả lập lỗi, chạy lại nút cam chỉ cho phạm vi BATCH-GA2.
 4. Xem kết quả hai lớp.
-5. Chạy nút cam cho G-A; khi chưa xong, giáo viên sửa và lưu điểm S01. Chờ batch xong, xem thông báo/tiến độ và kết quả S01.
+5. Chạy nút cam cho BATCH-GA1; khi chưa xong, giáo viên sửa và lưu điểm BATCH-S01. Chờ batch xong, xem thông báo/tiến độ và kết quả BATCH-S01.
+
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: partial-G-A2-failure | Nhánh partial-G-A2-failure trong thủ tục và Expected của case; thực hiện các bước chuẩn bị chung trước nhánh |
+| Run: retry-G-A2-only | Nhánh retry-G-A2-only trong thủ tục và Expected của case; thực hiện các bước chuẩn bị chung trước nhánh |
+| Run: concurrent-score-write | Nhánh concurrent-score-write trong thủ tục và Expected của case; thực hiện các bước chuẩn bị chung trước nhánh |
 
 **期待結果（Kết quả mong đợi）**
 
 1–2. G-A1 cập nhật; G-A2 giữ trạng thái trước lượt. Thông báo cho biết phạm vi đã cập nhật, chưa cập nhật và cần chạy lại; không báo hoàn tất toàn bộ; không suy số lớp đã xử lý thành số ô đã xét. Không hứa rollback toàn lượt. Không tự retry vô hạn. G-C ngoài batch không bị tính vào kết quả.
 
-3–4. G-B được cập nhật; G-A giữ kết quả của bước 1, mỗi ô chỉ có một kết quả hiệu lực, không trùng.
+3–4. BATCH-GA2 được cập nhật; BATCH-GA1 giữ kết quả của bước 1, mỗi ô chỉ có một kết quả hiệu lực, không trùng.
 
-5. Phần của S01 trong lượt batch (đã bị lần lưu mới thay thế) không được tính là cập nhật thành công, cũng không được tính là Chưa xét được; S01 giữ kết quả của lần lưu mới. (PROPOSED theo thiết kế DB v2 mục 6.3 “Xóa/tạo lại, nguồn tham chiếu và lỗi”) Tiến độ ghi phần này là `superseded`; deadlock/timeout rollback toàn transaction đó và chỉ retry hữu hạn theo job hiện có.
+5. Phần của BATCH-S01 trong lượt batch (đã bị lần lưu mới thay thế) không được tính là cập nhật thành công, cũng không được tính là Chưa xét được; BATCH-S01 giữ kết quả của lần lưu mới. (PROPOSED theo thiết kế DB v2 mục 6.3 “Xóa/tạo lại, nguồn tham chiếu và lỗi”) Tiến độ ghi phần này là `superseded`; deadlock/timeout rollback toàn transaction đó và chỉ retry hữu hạn theo job hiện có.
 
 <a id="tc-rs-err-004"></a>
 
 ### TC-RS-ERR-004 — Đã xếp hàng không phải đã hoàn tất; bấm chạy trùng
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Batch hoàn tất một phần” (AC-G27 «Batch hoàn tất một phần»)
+Priority basis: lifecycle
+Run variants: Base
 
 <!-- Mã truy vết: TD-ROLE-03 «Người có quyền chạy hàng loạt: Có quyền thực hiện Thực hiện tổng…», TD-RULE-01 «Cố định `<`: Tên "Cố định 30"» -->
 
@@ -4254,6 +5762,11 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 2. Bấm lại lần nữa khi lượt đầu chưa xong.
 3. Sau khi xong, xem kết quả.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: Base | Toàn bộ thủ tục theo đúng thứ tự; các đối chứng cùng fixture được kiểm trong cùng lượt, không bỏ bước |
+
 **期待結果（Kết quả mong đợi）**
 
 1. Nếu xử lý chạy nền: thông báo là đã nhận/xếp hàng, không phải đã hoàn tất; kết quả chưa đổi cho tới khi xử lý xong.
@@ -4264,7 +5777,9 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 
 ### TC-RS-ERR-005 — Thông báo lỗi không lộ SQL, stack trace hoặc dữ liệu ngoài quyền
 
-Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Lưu thành công và thông báo an toàn” (AC-G26 «Lưu thành công và thông báo an toàn»)
+Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Lưu thành công và thông báo an toàn” (AC-G26 «Lưu thành công và thông báo an toàn»)
+Priority basis: authorization
+Run variants: save-error; batch-error; permission-error; input-error
 
 <!-- Mã truy vết: — -->
 
@@ -4277,6 +5792,14 @@ Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 
 Thu thập mọi thông báo lỗi hiển thị cho người dùng trong các case trên.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: save-error | Lỗi lưu theo ERR-002 |
+| Run: batch-error | Lỗi batch theo ERR-003 |
+| Run: permission-error | Lỗi quyền theo ERR-006 |
+| Run: input-error | Lỗi dữ liệu theo ERR-009 |
+
 **期待結果（Kết quả mong đợi）**
 
 Không có câu SQL, stack trace, đường dẫn file server hoặc tên/điểm học sinh ngoài quyền người thao tác.
@@ -4286,6 +5809,8 @@ Không có câu SQL, stack trace, đường dẫn file server hoặc tên/điể
 ### TC-RS-ERR-006 — Gửi request lưu quy tắc trực tiếp khi không có quyền sửa mục
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Quyền thao tác và phạm vi dữ liệu” (AC-G01 «Quyền thao tác và phạm vi dữ liệu»)
+Priority basis: authorization
+Run variants: save; delete; reorder
 
 <!-- Mã truy vết: TD-ROLE-02 «Giáo viên không có quyền sửa mục: Vào được Thiết lập nhập…», TD-ITEM-06 «Mục chỉ nội bộ: Mục số có cờ chỉ dành nội bộ（`mw_only_flg`）», TD-ROLE-01 «Giáo viên có quyền sửa mục: Có quyền vào Thiết lập nhập điểm（成績入力設定） và…» -->
 
@@ -4298,6 +5823,13 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 
 Dùng phiên tài khoản giáo viên không có quyền sửa mục gửi lại các request POST lưu, xóa, đổi thứ tự quy tắc của mục chỉ dành nội bộ.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: save | Gửi lưu |
+| Run: delete | Gửi xóa |
+| Run: reorder | Gửi đổi thứ tự |
+
 **期待結果（Kết quả mong đợi）**
 
 Mọi request bị từ chối; cấu hình không đổi; không có lượt xét phát sinh.
@@ -4307,6 +5839,8 @@ Mọi request bị từ chối; cấu hình không đổi; không có lượt x�
 ### TC-RS-ERR-007 — Giả mạo ID khác trường/năm hoặc nguồn không được phép
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Quyền thao tác và phạm vi dữ liệu” (AC-G01 «Quyền thao tác và phạm vi dữ liệu»)
+Priority basis: authorization
+Run variants: read-school; save-school; delete-school; source-school; source-year; class-school; class-year; group-school; group-year; unit-school; unit-year
 
 <!-- Mã truy vết: TD-ROLE-10 «Người dùng trường B: Giáo viên/quản trị của trường B», TD-ROLE-01 «Giáo viên có quyền sửa mục: Có quyền vào Thiết lập nhập điểm（成績入力設定） và…», TD-ENV-02 «Trường khác: Trường B (tên giả), có ít nhất một mục đánh giá và một quy…», AC-G01 -->
 
@@ -4321,6 +5855,21 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 2. tài khoản giáo viên có quyền sửa mục lưu quy tắc của trường A nhưng sửa request để nguồn tổng hợp trỏ tới thiết lập tổng hợp của trường B hoặc năm 2025.
 3. tài khoản giáo viên có quyền sửa mục lưu quy tắc của trường A nhưng sửa request: ID lớp/nhóm trong bộ lọc và ID đơn vị thuộc trường B hoặc năm 2025.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: read-school | Đọc mục trường khác |
+| Run: save-school | Lưu mục trường khác |
+| Run: delete-school | Xóa mục trường khác |
+| Run: source-school | Nguồn trường khác |
+| Run: source-year | Nguồn năm khác |
+| Run: class-school | Lớp trường khác |
+| Run: class-year | Lớp năm khác |
+| Run: group-school | Nhóm trường khác |
+| Run: group-year | Nhóm năm khác |
+| Run: unit-school | Đơn vị trường khác |
+| Run: unit-year | Đơn vị năm khác |
+
 **期待結果（Kết quả mong đợi）**
 
 1. Bị từ chối, không đọc được dữ liệu trường A.
@@ -4334,6 +5883,8 @@ Sau cả ba bước: cấu hình, điểm và kết quả đỏ của trường 
 ### TC-RS-ERR-008 — Gọi trực tiếp request chạy tính toán hàng loạt khi không có quyền chạy
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Quyền thao tác và phạm vi dữ liệu” (AC-G01 «Quyền thao tác và phạm vi dữ liệu»)
+Priority basis: authorization
+Run variants: Base
 
 <!-- Mã truy vết: TD-ROLE-04 «Người sửa được mục nhưng không có quyền chạy: Như TD-ROLE-01 nhưng…», TD-ROLE-03 «Người có quyền chạy hàng loạt: Có quyền thực hiện Thực hiện tổng…», SI-05 «Quyền chạy hàng loạt» -->
 
@@ -4346,6 +5897,11 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 
 Dùng phiên tài khoản sửa được mục nhưng không có quyền chạy hàng loạt gửi request chạy tính toán hàng loạt cho khối 1.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: Base | Toàn bộ thủ tục theo đúng thứ tự; các đối chứng cùng fixture được kiểm trong cùng lượt, không bỏ bước |
+
 **期待結果（Kết quả mong đợi）**
 
 Kỳ vọng theo đặc tả v2: bị từ chối, không xếp hàng/không xét. Nếu chưa xác định được route hoặc seam request ở build đang kiểm, ghi BLOCKED/NEEDS_EVIDENCE thay vì READY; không biến việc thiếu URL thành kết quả đạt.
@@ -4355,6 +5911,8 @@ Kỳ vọng theo đặc tả v2: bị từ chối, không xếp hàng/không xé
 ### TC-RS-ERR-009 — Server kiểm miền giá trị khi bỏ qua kiểm tra phía trình duyệt
 
 Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Giữ chính xác giá trị” (AC-G11 «Giữ chính xác giá trị»); tiêu chí nghiệm thu “Công thức theo dòng và phần lẻ” (AC-G16 «Công thức theo dòng và phần lẻ»)
+Priority basis: other
+Run variants: above; negative; ratio-above; divide-zero; nan; infinity; exponent; empty; power; max; expression; null; empty-string; object; unknown-key; arrays
 
 <!-- Mã truy vết: TD-ROLE-01 «Giáo viên có quyền sửa mục: Có quyền vào Thiết lập nhập điểm（成績入力設定） và…», AC-G11, AC-G16, SI-06 «Giới hạn giá trị ở server» -->
 
@@ -4367,6 +5925,26 @@ Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 
 Sửa request (bỏ kiểm tra JS) và gửi từng giá trị.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: above | N101 |
+| Run: negative | N âm |
+| Run: ratio-above | Tỷ lệ 101 |
+| Run: divide-zero | Chia 0 |
+| Run: nan | NaN |
+| Run: infinity | Infinity |
+| Run: exponent | 1e400 |
+| Run: empty | N trống |
+| Run: power | Phép toán mũ |
+| Run: max | Hàm max |
+| Run: expression | Biểu thức tự do |
+| Run: null | JSON null |
+| Run: empty-string | Chuỗi rỗng |
+| Run: object | Object rỗng |
+| Run: unknown-key | Khóa không biết |
+| Run: arrays | Mảng rỗng |
+
 **期待結果（Kết quả mong đợi）**
 
 Mọi giá trị trên bị server từ chối; cấu hình đã lưu không đổi. Công thức chỉ nhận các dòng với phép toán và toán hạng được hỗ trợ; không lưu biểu thức tự do.
@@ -4376,29 +5954,46 @@ Mọi giá trị trên bị server từ chối; cấu hình đã lưu không đ�
 ### TC-RS-ERR-010 — Server không tin cờ đỏ hoặc ngưỡng do trình duyệt gửi lên
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Excel khớp và dùng kết luận server” (AC-G31 «Excel khớp và dùng kết luận server»)
+Priority basis: authorization
+Run variants: forged-red-flag; forged-prefix; forged-color; forged-score; forged-threshold; out-of-scope-student; out-of-scope-school; out-of-scope-year
+Readiness: BLOCKED — chưa xác minh build/endpoint hỗ trợ các payload adversarial; không coi biến thể không được endpoint nhận là đã kiểm chứng.
 
 <!-- Mã truy vết: TD-OUT-01 «Trích xuất lọc + ký hiệu trước + màu: Lọc học sinh có điểm đỏ（抽出する） BẬT», TD-STU-03 «S03: G-A, HR1», TD-ROLE-07 «Người phụ trách đầu ra: Có quyền Trích xuất thành tích（成績抽出）, Thiết lập…», AC-G31 -->
 
 **前提条件（Điều kiện trước）**
 
-- Điều kiện: S03=31 Không đỏ; cấu hình trích xuất: lọc, ký hiệu “*” phía trước, tô màu.
-- Dữ liệu test: cấu hình trích xuất: lọc, ký hiệu “*” phía trước, tô màu; học sinh S03 (điểm 31)
+- Điều kiện: S03 của trường A/năm 2026 có điểm server `31`, quy tắc `<30`, kết luận Không đỏ; S01=29 Đỏ là control trong bộ lọc. Cấu hình trích xuất gồm lọc học sinh có điểm đỏ, ký hiệu “*” phía trước và tô màu. Ghi identity trường/năm/mục của S03, S01 và một trường B/năm khác ngoài quyền tài khoản; endpoint/field thực tế chỉ dùng sau khi được xác minh, chưa giả định `output_excel` nhận mọi field.
+- Dữ liệu test: lượt không lọc chứa S03=31 không dấu/màu đỏ; lượt có lọc chỉ chứa S01, loại S03. Các request sửa độc lập từ baseline tương ứng, không sửa dữ liệu server.
 
 **操作（Thao tác）**
 
-1. Đăng nhập tài khoản phụ trách đầu ra (trích xuất, công khai, phiếu điểm), chạy Trích xuất thành tích（成績抽出） với cấu hình trích xuất: lọc, ký hiệu “*” phía trước, tô màu, bấm tải Excel.
-2. Chạy một lượt không bật lọc để S03 có mặt trong output; dùng công cụ chặn request được phép trên môi trường test, ghi rõ identity trường/năm/quyền và sửa payload gửi tới `output_excel` theo từng biến thể: (a) giả cờ/dấu/màu đỏ cho S03; (b) đổi giá trị S03; (c) thêm tham số ngưỡng 50; (d) chèn identity S03 ngoài phạm vi lọc; (e) đổi identity trường/năm sang ngoài phạm vi.
-3. Gửi từng request, mở file Excel nhận được và ghi request/response thực tế.
+1. Đăng nhập tài khoản phụ trách đầu ra; chụp request/response hợp lệ và file Trích xuất thành tích（成績抽出） không lọc: S03=31 Không đỏ. Chụp riêng lượt bật lọc: S01 có mặt, S03 vắng mặt. Ghi endpoint, field được chấp nhận, identity trường/năm/mục và quyền thật trước khi sửa request.
+2. Từ **request không lọc**, gửi từng payload độc lập nếu endpoint nhận field đó: (a) gán S03 cờ đỏ/dấu `*`/màu đỏ; (b) gán điểm S03=10 thay vì điểm server 31; (c) gán ngưỡng 50 thay vì ngưỡng server 30. Không thay đồng thời các field giữa các biến thể.
+3. Từ **request có lọc**, chèn identity S03 (Không đỏ) vào danh sách được yêu cầu, giữ bộ lọc bật. Từ request hợp lệ riêng, sửa identity sang trường B hoặc năm ngoài quyền. Gửi từng request, lưu payload/response và file Excel nếu có.
+
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: forged-red-flag | Bước 2a chỉ sửa cờ đỏ của S03 |
+| Run: forged-prefix | Bước 2a chỉ sửa dấu trước thành * cho S03 |
+| Run: forged-color | Bước 2a chỉ sửa màu đỏ cho S03 |
+| Run: forged-score | Bước 2b chỉ sửa điểm thành 10 |
+| Run: forged-threshold | Bước 2c chỉ sửa ngưỡng thành 50 |
+| Run: out-of-scope-student | Bước 3 chèn S03 vào lượt có lọc |
+| Run: out-of-scope-school | Bước 3 identity trường B ngoài quyền, giữ năm hợp lệ |
+| Run: out-of-scope-year | Bước 3 identity năm ngoài quyền, giữ trường A |
 
 **期待結果（Kết quả mong đợi）**
 
-Server bỏ qua cờ đỏ, dấu/màu, giá trị và ngưỡng giả; Excel vẫn dựa trên kết luận server. S03 vẫn Không đỏ và không bị thay giá trị. Identity ngoài phạm vi bị từ chối hoặc không trả dữ liệu. Nếu endpoint không nhận một field giả cụ thể, ghi NOT_APPLICABLE cho đúng biến thể đó, nhưng phải giữ ít nhất một payload giả mạo thực sự được endpoint hỗ trợ.
+Ở các biến thể không lọc, server từ chối payload giả hoặc Excel vẫn cho S03=31, Không đỏ, không có `*`/màu đỏ; điểm 10, ngưỡng 50 và cờ giả không đổi kết luận server. Ở request **có lọc**, S03 không được đưa vào Excel dù identity được chèn vào payload; S01 vẫn có mặt. Request trường/năm ngoài quyền bị từ chối hoặc không trả dữ liệu ngoài quyền. Nếu endpoint không nhận field giả, ghi rõ biến thể chưa kiểm được/BLOCKED và seam cần kiểm; không dùng NOT_APPLICABLE để suy rằng nghĩa vụ server đã PASS. Chỉ đánh PASS từng biến thể khi có payload thật được endpoint xử lý cùng response/file và dữ liệu tin cậy đối chiếu.
 
 <a id="tc-rs-err-011"></a>
 
 ### TC-RS-ERR-011 — Lượt cũ hoàn tất muộn không ghi đè kết quả của điểm/cấu hình mới hơn
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Nhận diện ô điểm” (AC-G03 «Nhận diện ô điểm»); tiêu chí nghiệm thu “Đúng phạm vi tham chiếu” (AC-G12 «Đúng phạm vi tham chiếu»); tiêu chí nghiệm thu “Giữ kết quả trước khi chạy lại” (AC-G21 «Giữ kết quả trước khi chạy lại và xóa rule cuối»); tiêu chí nghiệm thu “Kết quả chung và thứ tự cập nhật” (AC-G22 «Kết quả chung và thứ tự cập nhật»)
+Priority basis: lifecycle
+Run variants: score-update; rule-update; aggregation-snapshot-update; edit-away-and-back; delete-and-recreate; rule-update-without-score-write
 
 <!-- Mã truy vết: TD-RULE-01 «Cố định `<`: Tên "Cố định 30"», TD-RULE-07 «Cặp phân nhánh: Ưu tiên 1 "Trung bình từ 60": điều kiện `A≥60`, cố định…», TD-STU-01 «S01: G-A, HR1», AC-G21, AC-G22, AC-G12, AC-G03 -->
 
@@ -4417,6 +6012,16 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 6. Lặp bước 5 nhưng thay bằng: xóa trống ô S01 và lưu, rồi nhập lại 29 và lưu.
 7. S01 = 40 (Không đỏ). Bắt đầu batch; khi chưa xong, chỉ đổi ngưỡng quy tắc “Cố định 30” (dưới 30) thành 45 và lưu, không đăng ký lại điểm. Chờ batch cũ xong, xem S01; sau đó chạy lại batch và xem S01.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: score-update | Nhánh score-update trong thủ tục và Expected của case; thực hiện các bước chuẩn bị chung trước nhánh |
+| Run: rule-update | Nhánh rule-update trong thủ tục và Expected của case; thực hiện các bước chuẩn bị chung trước nhánh |
+| Run: aggregation-snapshot-update | Nhánh aggregation-snapshot-update trong thủ tục và Expected của case; thực hiện các bước chuẩn bị chung trước nhánh |
+| Run: edit-away-and-back | Nhánh edit-away-and-back trong thủ tục và Expected của case; thực hiện các bước chuẩn bị chung trước nhánh |
+| Run: delete-and-recreate | Nhánh delete-and-recreate trong thủ tục và Expected của case; thực hiện các bước chuẩn bị chung trước nhánh |
+| Run: rule-update-without-score-write | Nhánh rule-update-without-score-write trong thủ tục và Expected của case; thực hiện các bước chuẩn bị chung trước nhánh |
+
 **期待結果（Kết quả mong đợi）**
 
 1–2. S01 = 40 và Không đỏ; batch cũ không ghi lại kết quả Đỏ của điểm 29.
@@ -4432,6 +6037,8 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 ### TC-RS-ERR-012 — Nhập CSV lựa chọn điểm tối đa của lớp
 
 Priority: TBD ｜ Status: TBD ｜ Requirement ID: tiêu chí nghiệm thu “Trigger khi đổi điểm tối đa/đơn vị” (AC-G24 «Trigger khi đổi điểm tối đa/đơn vị»)
+Priority basis: other
+Run variants: Base
 
 <!-- Mã truy vết: TD-ITEM-03 «Mục điểm đơn vị: Điểm bài kiểm tra đơn vị（単元テスト点）, M mặc định 100», TD-RULE-03 «Tỷ lệ: Tỷ lệ điểm tối đa（得点率） 30%, không xử lý phần lẻ（しない）, Nhỏ hơn（未満）», SI-01 «CSV lựa chọn điểm tối đa của lớp» -->
 
@@ -4445,6 +6052,11 @@ Priority: TBD ｜ Status: TBD ｜ Requirement ID: tiêu chí nghiệm thu “Tri
 1. Nhập CSV lựa chọn điểm tối đa.
 2. Xem kết quả S06 U1.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: Base | Toàn bộ thủ tục theo đúng thứ tự; các đối chứng cùng fixture được kiểm trong cùng lượt, không bỏ bước |
+
 **期待結果（Kết quả mong đợi）**
 
 TBD (chưa chốt): có cần xét lại ngay (`T=15` → Đỏ) hay giữ kết quả trước tới lần chạy lại. Ghi hành vi thực tế.
@@ -4454,6 +6066,8 @@ TBD (chưa chốt): có cần xét lại ngay (`T=15` → Đỏ) hay giữ kết
 ### TC-RS-ERR-013 — Trích xuất: ô vừa thỏa điều kiện màu khác vừa là ô đỏ
 
 Priority: TBD ｜ Status: TBD ｜ Requirement ID: tiêu chí nghiệm thu “Hiển thị ô trích xuất” (AC-G30 «Hiển thị ô trích xuất»)
+Priority basis: other
+Run variants: Base
 
 <!-- Mã truy vết: TD-STU-01 «S01: G-A, HR1», SI-12 «Trùng màu ở trích xuất» -->
 
@@ -4466,6 +6080,11 @@ Priority: TBD ｜ Status: TBD ｜ Requirement ID: tiêu chí nghiệm thu “Hi�
 
 Chạy trích xuất, xuất Excel.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: Base | Toàn bộ thủ tục theo đúng thứ tự; các đối chứng cùng fixture được kiểm trong cùng lượt, không bỏ bước |
+
 **期待結果（Kết quả mong đợi）**
 
 TBD (chưa chốt) cho màu cuối. CONFIRMED phần không tranh chấp: điều kiện Khoảng điểm vẫn giữ nghĩa cũ; màn hình và Excel cho cùng kết quả.
@@ -4475,6 +6094,8 @@ TBD (chưa chốt) cho màu cuối. CONFIRMED phần không tranh chấp: điề
 ### TC-RS-ERR-014 — Mục bị ẩn theo thiết lập ẩn mục nhập
 
 Priority: TBD ｜ Status: TBD ｜ Requirement ID: tiêu chí nghiệm thu “Cấu hình công khai và ẩn điểm” (AC-G32 «Cấu hình công khai và ẩn điểm»)
+Priority basis: other
+Run variants: extract; publish; report
 
 <!-- Mã truy vết: TD-ITEM-01 «Mục số nguyên: Điểm đánh giá（評点）, Nhập số nguyên（数値入力（整数））, M mặc định…», TD-STU-06 «S06: G-B, HR2», TC-RS-FUNC-027 -->
 
@@ -4487,6 +6108,13 @@ Priority: TBD ｜ Status: TBD ｜ Requirement ID: tiêu chí nghiệm thu “C�
 
 Chạy xét; xem ba đầu ra cho S06.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: extract | Trích xuất |
+| Run: publish | Công khai |
+| Run: report | Phiếu điểm |
+
 **期待結果（Kết quả mong đợi）**
 
 Có xét hay không: TBD (chưa chốt). CONFIRMED phần không tranh chấp: không đầu ra nào làm hiện lại điểm đang bị ẩn.
@@ -4496,6 +6124,8 @@ Có xét hay không: TBD (chưa chốt). CONFIRMED phần không tranh chấp: k
 ### TC-RS-ERR-015 — Bản ghi điểm bị xóa rồi tạo lại không kế thừa kết quả cũ
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Nhận diện ô điểm” (AC-G03 «Nhận diện ô điểm»); tiêu chí nghiệm thu “Không dùng lại kết quả cho đối tượng mới” (AC-G39 «Không dùng lại kết quả cho đối tượng mới»)
+Priority basis: lifecycle
+Run variants: recreate35; same29; old-batch
 
 <!-- Mã truy vết: TD-ITEM-03 «Mục điểm đơn vị: Điểm bài kiểm tra đơn vị（単元テスト点）, M mặc định 100», AC-G03 -->
 
@@ -4512,6 +6142,13 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 4. Đưa ô về Đỏ (nhập 29, lưu). Xóa ô (hoặc xóa mềm theo thao tác hiện có), rồi kích hoạt lại/tạo lại ô với **cùng giá trị 29** nhưng không qua đường xét (nếu có thao tác như vậy, ví dụ khôi phục); xem đầu ra. Sau đó đăng ký lại điểm và xem.
 5. Bắt đầu batch cho lớp khi ô đang Đỏ; khi batch chưa xong, xóa ô rồi tạo lại và nhập 35. Chờ batch cũ xong, xem đầu ra và SELECT.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: recreate35 | Bước 1–3 xóa rồi tạo lại 35 |
+| Run: same29 | Bước 4 xóa rồi khôi phục cùng 29 |
+| Run: old-batch | Bước 5 batch cũ sau tạo lại |
+
 **期待結果（Kết quả mong đợi）**
 
 Sau bước 1: không còn dấu đỏ của ô cũ. Sau bước 2: ô mới được xét theo 35 → Không đỏ; không mang kết quả Đỏ cũ.
@@ -4524,6 +6161,8 @@ Sau bước 1: không còn dấu đỏ của ô cũ. Sau bước 2: ô mới đ�
 ### TC-RS-ERR-016 — Chưa xét được: sửa nguồn nhưng chỉ lưu cấu hình vẫn chưa có kết luận; xét lại mới có
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Trạng thái sau lần chạy” (AC-G20 «Trạng thái sau lần chạy»)
+Priority basis: lifecycle
+Run variants: Base
 
 <!-- Mã truy vết: TC-RS-BR-010, TD-STU-01 «S01: G-A, HR1», TD-SRC-02 «Bản mới nhất chưa chốt: Tổng hợp chạy sau TD-SRC-01, `A` = 62» -->
 
@@ -4537,6 +6176,11 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 1. Chạy Thực hiện tổng hợp（集計実行） cho nguồn để có `A=62`; mở lại và lưu thiết lập quy tắc (không đổi nội dung). Xem đầu ra.
 2. Chạy nút cam. Xem đầu ra.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: Base | Toàn bộ thủ tục theo đúng thứ tự; các đối chứng cùng fixture được kiểm trong cùng lượt, không bỏ bước |
+
 **期待結果（Kết quả mong đợi）**
 
 1. Vẫn Chưa xét được; không có dấu đỏ.
@@ -4546,7 +6190,9 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 
 ### TC-RS-ERR-017 — Tên quy tắc và ký hiệu hiển thị như chữ, không bị thực thi
 
-Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Lưu thành công và thông báo an toàn” (AC-G26 «Lưu thành công và thông báo an toàn»)
+Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Lưu thành công và thông báo an toàn” (AC-G26 «Lưu thành công và thông báo an toàn»)
+Priority basis: output
+Run variants: rule-name; extract; report
 
 <!-- Mã truy vết: TD-ROLE-01 «Giáo viên có quyền sửa mục: Có quyền vào Thiết lập nhập điểm（成績入力設定） và…», TD-ROLE-07 «Người phụ trách đầu ra: Có quyền Trích xuất thành tích（成績抽出）, Thiết lập…», TD-STU-01 «S01: G-A, HR1», AC-G26 -->
 
@@ -4560,6 +6206,13 @@ Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 1. Lưu quy tắc với tên trên; xem danh sách, form sửa, hộp xác nhận xóa, thông báo sau chạy.
 2. Lưu ký hiệu/ký tự trên ở trích xuất và phiếu điểm; xem màn, Excel, PDF.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: rule-name | Bước 1 các nơi hiển thị tên |
+| Run: extract | Bước 2 màn trích xuất và Excel |
+| Run: report | Bước 2 PDF phiếu |
+
 **期待結果（Kết quả mong đợi）**
 
 Chuỗi hiển thị đúng như đã nhập dưới dạng chữ; không có hộp alert, không đổi định dạng HTML. Trích xuất và Excel: ô S01 là `<29`; PDF phiếu: `&29`.
@@ -4569,6 +6222,8 @@ Chuỗi hiển thị đúng như đã nhập dưới dạng chữ; không có h�
 ### TC-RS-ERR-018 — Hai lượt xét lần đầu đồng thời hoặc gửi lại thao tác hoàn tất chỉ tạo một kết quả
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Kết quả chung và thứ tự cập nhật” (AC-G22 «Kết quả chung và thứ tự cập nhật»)
+Priority basis: lifecycle
+Run variants: concurrent; replay-form; replay-job
 
 <!-- Mã truy vết: TD-ITEM-01 «Mục số nguyên: Điểm đánh giá（評点）, Nhập số nguyên（数値入力（整数））, M mặc định…», TD-RULE-01 «Cố định `<`: Tên "Cố định 30"», TD-STU-01 «S01: G-A, HR1», TD-ROLE-03 «Người có quyền chạy hàng loạt: Có quyền thực hiện Thực hiện tổng…», TD-ROLE-09 «Giáo viên nhập điểm: Giáo viên phụ trách lớp G-A, G-B, G-C: có quyền…», AC-G22 -->
 
@@ -4583,6 +6238,13 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 2. Xem kết quả S01 ở ba đầu ra; SELECT dòng kết quả của ô.
 3. Lặp lại thao tác hoàn tất lần nữa với cùng dữ liệu (gửi lại form đăng ký, hoặc chạy lại job của cùng lượt nếu môi trường cho phép); xem lại và SELECT.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: concurrent | Bước 1–2 hai lượt lần đầu |
+| Run: replay-form | Bước 3 gửi lại form sau baseline bước 1–2 |
+| Run: replay-job | Bước 3 chạy lại job cùng lượt nếu có seam, không có seam thì BLOCKED |
+
 **期待結果（Kết quả mong đợi）**
 
 1–2. S01 Đỏ; ô có đúng một kết quả hiện hành; ký hiệu đỏ không bị nhân đôi ở đầu ra (không có `**29`, `((29))`).
@@ -4593,6 +6255,8 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 ### TC-RS-ERR-019 — Đăng ký lần đầu đồng thời hai mục khác nhau của cùng học sinh giữ đủ cả hai
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Kết quả chung và thứ tự cập nhật” (AC-G22 «Kết quả chung và thứ tự cập nhật»)
+Priority basis: lifecycle
+Run variants: Base
 
 <!-- Mã truy vết: TD-ITEM-01 «Mục số nguyên: Điểm đánh giá（評点）, Nhập số nguyên（数値入力（整数））, M mặc định…», TD-RULE-01 «Cố định `<`: Tên "Cố định 30"», TD-STU-01 «S01: G-A, HR1», TD-ROLE-09 «Giáo viên nhập điểm: Giáo viên phụ trách lớp G-A, G-B, G-C: có quyền…», AC-G22 -->
 
@@ -4606,6 +6270,11 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 1. Hai phiên cùng lúc: phiên 1 lưu S01 = 29 cho mục số nguyên (M=100); phiên 2 lưu S01 = 45 cho mục thứ hai.
 2. Mở lại Đăng ký thành tích（成績登録）; xem trích xuất; SELECT dòng điểm của S01 (trường/năm/học sinh/lớp/kỳ/đơn vị) và dòng kết quả của hai ô.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: Base | Toàn bộ thủ tục theo đúng thứ tự; các đối chứng cùng fixture được kiểm trong cùng lượt, không bỏ bước |
+
 **期待結果（Kết quả mong đợi）**
 
 - Cả hai điểm được giữ: mục số nguyên (M=100) = 29 (Đỏ), mục thứ hai = 45 (Không đỏ).
@@ -4615,7 +6284,9 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 
 ### TC-RS-REG-001 — Điểm do tính tự động（自動計算） tạo ra không đổi khi có quy tắc đỏ
 
-Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: đặc tả v2 mục 7.1 “Trình tự cho một ô”, mục 12.2 “Điểm tích hợp chính”
+Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: đặc tả v2 mục 7.1 “Trình tự cho một ô”, mục 12.2 “Điểm tích hợp chính”
+Priority basis: result
+Run variants: Base
 
 <!-- Mã truy vết: TD-ITEM-10 «Mục có tính tự động: TD-ITEM-01 có thêm quy tắc tính tự…», TD-RULE-01 «Cố định `<`: Tên "Cố định 30"» -->
 
@@ -4629,6 +6300,11 @@ Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: đặc tả v2 mục 7.1
 1. Chạy nút cam cho khối 1.
 2. So điểm của mục số nguyên có thêm tính tự động với baseline.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: Base | Toàn bộ thủ tục theo đúng thứ tự; các đối chứng cùng fixture được kiểm trong cùng lượt, không bỏ bước |
+
 **期待結果（Kết quả mong đợi）**
 
 Mọi điểm tự động bằng baseline; chỉ có thêm kết quả đỏ.
@@ -4638,6 +6314,8 @@ Mọi điểm tự động bằng baseline; chỉ có thêm kết quả đỏ.
 ### TC-RS-REG-002 — Quy tắc đỏ không kế thừa hành vi "không khớp thì ghi NULL" của AutoRating
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: đặc tả v2 mục 12.2 “Điểm tích hợp chính”
+Priority basis: result
+Run variants: Base
 
 <!-- Mã truy vết: TD-ITEM-01 «Mục số nguyên: Điểm đánh giá（評点）, Nhập số nguyên（数値入力（整数））, M mặc định…», TD-RULE-12 «Bộ lọc kết hợp: Giới hạn bằng bộ lọc（特定条件で絞り込む）: Khối（学年） = 1 hoặc 2», TC-RS-BR-002, TD-STU-07 «S07: G-B, HR2», SI-11 «Không có quy tắc khớp» -->
 
@@ -4651,6 +6329,11 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: đặc tả v2 mục 12.
 1. Đăng ký S07=20; chạy nút cam.
 2. Xem điểm S07 trên màn nhập điểm và DB.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: Base | Toàn bộ thủ tục theo đúng thứ tự; các đối chứng cùng fixture được kiểm trong cùng lượt, không bỏ bước |
+
 **期待結果（Kết quả mong đợi）**
 
 Điểm S07 vẫn 20 (không bị xóa/NULL); kết quả là Không áp dụng.
@@ -4660,6 +6343,8 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: đặc tả v2 mục 12.
 ### TC-RS-REG-003 — Ô nhập tay được AutoRating bỏ qua vẫn giữ giá trị tay và vẫn được xét đỏ
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Dùng điểm cuối cùng” (AC-G19 «Dùng điểm cuối cùng»)
+Priority basis: result
+Run variants: Base
 
 <!-- Mã truy vết: TD-ITEM-10 «Mục có tính tự động: TD-ITEM-01 có thêm quy tắc tính tự…», TD-RULE-01 «Cố định `<`: Tên "Cố định 30"», TD-STU-08 «S08: G-B, HR2» -->
 
@@ -4673,6 +6358,11 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 1. Lưu S08=28 bằng nhập tay; chạy nút cam.
 2. Xem điểm và kết quả đỏ.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: Base | Toàn bộ thủ tục theo đúng thứ tự; các đối chứng cùng fixture được kiểm trong cùng lượt, không bỏ bước |
+
 **期待結果（Kết quả mong đợi）**
 
 Điểm S08 vẫn 28 (không bị AutoRating ghi đè); S08 Đỏ.
@@ -4682,6 +6372,8 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 ### TC-RS-REG-004 — Nút cam/nút xanh của trường đang dùng AutoRating hoạt động như trước
 
 Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: đặc tả v2 mục 1.3 “Quyền sử dụng”, mục 7.4 “Quy trình vận hành khi dùng trung bình/tỷ lệ nhóm”
+Priority basis: other
+Run variants: orange; green
 
 <!-- Mã truy vết: TD-ROLE-03 «Người có quyền chạy hàng loạt: Có quyền thực hiện Thực hiện tổng…», TD-ITEM-10 «Mục có tính tự động: TD-ITEM-01 có thêm quy tắc tính tự…», TC-RS-FUNC-021 -->
 
@@ -4695,6 +6387,12 @@ Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: đặc tả v2 mục 1.3
 1. Mở màn, chọn cùng phạm vi như baseline.
 2. Chạy nút cam rồi nút xanh.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: orange | Nút cam |
+| Run: green | Nút xanh |
+
 **期待結果（Kết quả mong đợi）**
 
 Nút hiện, phạm vi chọn và danh sách lớp xếp hàng như baseline; AutoRating tính như baseline (REG-001).
@@ -4704,6 +6402,8 @@ Nút hiện, phạm vi chọn và danh sách lớp xếp hàng như baseline; Au
 ### TC-RS-REG-005 — Kết quả tổng hợp thứ hạng（順位集計） không đổi khi có quy tắc đỏ đọc nguồn
 
 Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: đặc tả v2 mục 5.5 “Chọn bản nguồn”, mục 7.4 “Quy trình vận hành khi dùng trung bình/tỷ lệ nhóm”, mục 12.2 “Điểm tích hợp chính”
+Priority basis: other
+Run variants: Base
 
 <!-- Mã truy vết: TD-RULE-07 «Cặp phân nhánh: Ưu tiên 1 "Trung bình từ 60": điều kiện `A≥60`, cố định…», TD-RULE-09 «Tỷ lệ nhóm: Điều kiện Tỷ lệ điểm của nhóm（集団の得点率） `≥65%`», TC-RS-BR-023 -->
 
@@ -4717,6 +6417,11 @@ Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: đặc tả v2 mục 5.5
 1. Chạy nút xanh rồi nút cam cho khối 1.
 2. So trung bình, thứ hạng, số người với baseline.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: Base | Toàn bộ thủ tục theo đúng thứ tự; các đối chứng cùng fixture được kiểm trong cùng lượt, không bỏ bước |
+
 **期待結果（Kết quả mong đợi）**
 
 Trung bình, thứ hạng, số người bằng baseline; nút cam không ghi lại kết quả tổng hợp.
@@ -4725,7 +6430,9 @@ Trung bình, thứ hạng, số người bằng baseline; nút cam không ghi l�
 
 ### TC-RS-REG-006 — Trích xuất: mẫu hiện có không cấu hình đỏ cho kết quả như trước
 
-Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: đặc tả v2 mục 9.1 “Thiết lập”, mục 9.2 “Kết quả và ví dụ”, mục 9.3 “Xuất file”
+Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: đặc tả v2 mục 9.1 “Thiết lập”, mục 9.2 “Kết quả và ví dụ”, mục 9.3 “Xuất file”
+Priority basis: output
+Run variants: color; filter; symbol; defaults
 
 <!-- Mã truy vết: TD-RULE-01 «Cố định `<`: Tên "Cố định 30"», TD-STU-01 «S01: G-A, HR1», TD-STU-02 «S02: G-A, HR1», TD-STU-03 «S03: G-A, HR1», TD-STU-04 «S04: G-A, HR1», TD-STU-05 «S05: G-A, HR1», TD-STU-06 «S06: G-B, HR2», TD-STU-07 «S07: G-B, HR2», TD-STU-08 «S08: G-B, HR2», TD-STU-09 «S09: G-B, HR2», TD-STU-10 «S10: HR2» -->
 
@@ -4739,6 +6446,14 @@ Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: đặc tả v2 mục 9.1
 1. Chạy lại ba mẫu, xuất Excel, so với baseline.
 2. Mở màn tạo mẫu trích xuất mới, Thiết lập công khai thành tích（成績公開設定） chưa từng lưu hiệu ứng đỏ, và dòng Thiết lập điểm đỏ（赤点設定） của một bảng phiếu điểm mới.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: color | Mẫu tô màu |
+| Run: filter | Mẫu lọc |
+| Run: symbol | Mẫu ký hiệu |
+| Run: defaults | Bước 2 các cấu hình mới, phần đề xuất |
+
 **期待結果（Kết quả mong đợi）**
 
 1. Danh sách học sinh, giá trị, ký hiệu, màu và định dạng Excel bằng baseline (mẫu chưa bật tùy chọn đỏ).
@@ -4749,6 +6464,8 @@ Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: đặc tả v2 mục 9.1
 ### TC-RS-REG-007 — Công khai: hiệu ứng Điểm dự kiến（見込点） và thiết lập khác được giữ
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Kết hợp hiệu ứng công khai” (AC-G33 «Kết hợp hiệu ứng công khai»)
+Priority basis: result
+Run variants: Base
 
 <!-- Mã truy vết: TD-OUT-03 «Công khai: Hiệu ứng đỏ: `*` phía trước（前に「*」）», TD-STU-06 «S06: G-B, HR2», TC-RS-BR-010 -->
 
@@ -4763,6 +6480,11 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 2. Làm S06 chuyển Chưa xét được (như case “Chưa có kết quả tổng hợp → Chưa xét được, không thay bằng 0 hay nhóm khác”), xem lại.
 3. Xóa quy tắc cuối, mở Thiết lập công khai thành tích（成績公開設定）.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: Base | Toàn bộ thủ tục theo đúng thứ tự; các đối chứng cùng fixture được kiểm trong cùng lượt, không bỏ bước |
+
 **期待結果（Kết quả mong đợi）**
 
 1. Học sinh Không đỏ hiển thị như baseline (ngoặc dự kiến).
@@ -4774,6 +6496,8 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 ### TC-RS-REG-008 — Công khai: điểm ẩn, lịch và đối tượng công khai được giữ
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Cấu hình công khai và ẩn điểm” (AC-G32 «Cấu hình công khai và ẩn điểm»)
+Priority basis: output
+Run variants: web-open; api-open; pdf-open; web-closed; api-closed; pdf-closed
 
 Readiness: READY — fixture role S06 được provision riêng cho case này.
 
@@ -4782,12 +6506,22 @@ Readiness: READY — fixture role S06 được provision riêng cho case này.
 **前提条件（Điều kiện trước）**
 
 - Điều kiện: S06 Đỏ, mục đặt Không hiển thị（表示しない） cho điểm dự kiến; lịch công khai đang mở cho HR2; một lịch đã đóng.
-- Dữ liệu test: học sinh S06 (điểm dự kiến 24), tài khoản học sinh S06; TD-ROLE-05 của fixture này phải được provision cho S06.
+- Dữ liệu test: học sinh S06 (điểm dự kiến 24), tài khoản học sinh S06 theo TD-ROLE-06; TD-ROLE-05 thuộc S01 và không dùng cho case này.
 
 **操作（Thao tác）**
 
 1. Xem màn học sinh, API, PDF của S06.
 2. Xem khi lịch đóng.
+
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: web-open | Màn web lịch mở |
+| Run: api-open | API lịch mở |
+| Run: pdf-open | PDF lịch mở |
+| Run: web-closed | Màn web lịch đóng |
+| Run: api-closed | API lịch đóng |
+| Run: pdf-closed | PDF lịch đóng |
 
 **期待結果（Kết quả mong đợi）**
 
@@ -4798,7 +6532,9 @@ Readiness: READY — fixture role S06 được provision riêng cho case này.
 
 ### TC-RS-REG-009 — Phiếu điểm: các điều kiện hiển thị hiện có giữ hành vi
 
-Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Phiếu dừng ở điều kiện khớp đầu tiên” (AC-G36 «Phiếu dừng ở điều kiện khớp đầu tiên»)
+Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Phiếu dừng ở điều kiện khớp đầu tiên” (AC-G36 «Phiếu dừng ở điều kiện khớp đầu tiên»)
+Priority basis: output
+Run variants: subject-empty; notexam-hidden
 
 <!-- Mã truy vết: TD-RULE-01 «Cố định `<`: Tên "Cố định 30"», TD-STU-05 «S05: G-A, HR1», TD-STU-07 «S07: G-B, HR2» -->
 
@@ -4811,6 +6547,12 @@ Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 
 Xuất PDF hai bảng, so với baseline.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: subject-empty | Bảng a môn cụ thể và ô trống |
+| Run: notexam-hidden | Bảng b chưa dự thi và ẩn |
+
 **期待結果（Kết quả mong đợi）**
 
 PDF bằng baseline (cùng ký hiệu, ô ẩn, ô trống).
@@ -4819,7 +6561,9 @@ PDF bằng baseline (cùng ký hiệu, ô ẩn, ô trống).
 
 ### TC-RS-REG-010 — PDF phiếu: bố cục template không đổi khi có dấu đỏ
 
-Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Lưu, sao chép và PDF phiếu” (AC-G37 «Lưu, sao chép và PDF phiếu»)
+Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Lưu, sao chép và PDF phiếu” (AC-G37 «Lưu, sao chép và PDF phiếu»)
+Priority basis: output
+Run variants: Base
 
 <!-- Mã truy vết: TD-OUT-04 «Phiếu điểm: Dòng Thiết lập điểm đỏ（赤点設定）: Ký tự phía trước（前に任意の文字） `※`», TD-STU-01 «S01: G-A, HR1», TD-STU-09 «S09: G-B, HR2» -->
 
@@ -4832,6 +6576,11 @@ Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 
 Xuất PDF; so với baseline.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: Base | Toàn bộ thủ tục theo đúng thứ tự; các đối chứng cùng fixture được kiểm trong cùng lượt, không bỏ bước |
+
 **期待結果（Kết quả mong đợi）**
 
 Dấu hiển thị đủ trong ô; không mất ký tự, không nền đỏ; các phần khác bằng baseline.
@@ -4841,6 +6590,8 @@ Dấu hiển thị đủ trong ô; không mất ký tự, không nền đỏ; c�
 ### TC-RS-REG-013 — Các màn điểm tối đa lưu và xếp hàng như trước
 
 Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Trigger khi đổi điểm tối đa/đơn vị” (AC-G24 «Trigger khi đổi điểm tối đa/đơn vị»)
+Priority basis: other
+Run variants: definition; maximum; batch
 
 <!-- Mã truy vết: TD-ITEM-03 «Mục điểm đơn vị: Điểm bài kiểm tra đơn vị（単元テスト点）, M mặc định 100», TD-RULE-03 «Tỷ lệ: Tỷ lệ điểm tối đa（得点率） 30%, không xử lý phần lẻ（しない）, Nhỏ hơn（未満）», TC-RS-BR-022, TC-RS-FUNC-020 -->
 
@@ -4855,6 +6606,13 @@ Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 2. Đổi Giá trị tối đa（最大値）, lưu, mở lại.
 3. Lưu ở Thiết lập điểm tối đa hàng loạt（満点一括設定） lựa chọn M=50 cho G-B; xem danh sách job.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: definition | Đổi định nghĩa M |
+| Run: maximum | Đổi Giá trị tối đa |
+| Run: batch | Lưu điểm tối đa hàng loạt |
+
 **期待結果（Kết quả mong đợi）**
 
 Giá trị lưu, thông báo và danh sách job (lớp/kỳ được xếp hàng) bằng baseline.
@@ -4864,6 +6622,8 @@ Giá trị lưu, thông báo và danh sách job (lớp/kỳ được xếp hàng
 ### TC-RS-REG-014 — Batch không phát sinh truy vấn theo từng ô（N+1）
 
 Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: đặc tả v2 mục 12.2 “Điểm tích hợp chính”
+Priority basis: other
+Run variants: size10; size100
 
 <!-- Mã truy vết: TD-ENV-01 «Môi trường chạy», TD-ENV-06 «Trường test», TD-ENV-07 «Năm học» -->
 
@@ -4876,6 +6636,12 @@ Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: đặc tả v2 mục 12.
 
 Chạy batch với từng cỡ dữ liệu; đếm truy vấn liên quan đến quy tắc/nguồn/kết quả đỏ.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: size10 | Cỡ 10 học sinh |
+| Run: size100 | Cỡ 100 học sinh, đối chiếu log cả hai cỡ |
+
 **期待結果（Kết quả mong đợi）**
 
 Số truy vấn đọc quy tắc/nguồn/M không tăng tuyến tính theo số ô. Thời gian chạy chỉ ghi lại để so, không có ngưỡng pass/fail (tài liệu chưa đặt ngưỡng).
@@ -4885,6 +6651,8 @@ Số truy vấn đọc quy tắc/nguồn/M không tăng tuyến tính theo số 
 ### TC-RS-REG-015 — Quyền học sinh/phụ huynh giữ nguyên
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu “Đúng người, lịch và đầu ra công khai” (AC-G34 «Đúng người, lịch và đầu ra công khai»)
+Priority basis: authorization
+Run variants: student; parent
 
 <!-- Mã truy vết: TD-ROLE-05 «Học sinh: Học sinh S01 của trường A, có lịch công khai đang mở», TD-ROLE-08 «Phụ huynh: Phụ huynh có quan hệ với S01 ở trường A, lịch công khai đang…», AC-G34 -->
 
@@ -4901,6 +6669,12 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 4. Đăng nhập phụ huynh của S01, xem màn và PDF công khai.
 5. Đổi ID học sinh trong URL/request API sang S02.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: student | Bước 1–3 tài khoản học sinh |
+| Run: parent | Bước 4–5 tài khoản phụ huynh |
+
 **期待結果（Kết quả mong đợi）**
 
 1. Chỉ thấy dữ liệu S01.
@@ -4913,7 +6687,9 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: tiêu chí nghiệm thu 
 
 ### TC-RS-REG-016 — Đăng ký điểm: xử lý điểm liên quan và giao dịch giữ như trước
 
-Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: đặc tả v2 mục 7.5 “Phạm vi một lượt và thứ tự hoàn tất”, mục 8.4 “Lỗi kỹ thuật và thông báo”
+Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: đặc tả v2 mục 7.5 “Phạm vi một lượt và thứ tự hoàn tất”, mục 8.4 “Lỗi kỹ thuật và thông báo”
+Priority basis: result
+Run variants: direct; csv; hr-csv
 
 <!-- Mã truy vết: TD-ITEM-10 «Mục có tính tự động: TD-ITEM-01 có thêm quy tắc tính tự…», TD-RULE-01 «Cố định `<`: Tên "Cố định 30"», TD-ITEM-01 «Mục số nguyên: Điểm đánh giá（評点）, Nhập số nguyên（数値入力（整数））, M mặc định…» -->
 
@@ -4928,6 +6704,13 @@ Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: đặc tả v2 mục 7.5
 2. So điểm môn chính, điểm quan điểm được sao chép và tín chỉ với baseline.
 3. Xem kết quả đỏ của ô môn chính và ô nhận điểm sao chép; chọn dữ liệu sao cho giá trị trung gian (trước bước môn chính/phụ hoặc sao chép) và giá trị cuối nằm khác phía ngưỡng 30.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: direct | Màn đăng ký NB, đủ bước 1–3 |
+| Run: csv | CSV lớp NB, đủ bước 1–3 |
+| Run: hr-csv | CSV lớp chủ nhiệm hàng loạt, đủ bước 1–3 |
+
 **期待結果（Kết quả mong đợi）**
 
 1–2. Điểm môn chính, điểm quan điểm được sao chép và tín chỉ bằng baseline; thông báo và hành vi lỗi của từng đường như baseline.
@@ -4939,6 +6722,8 @@ Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: đặc tả v2 mục 7.5
 ### TC-RS-REG-017 — Thiết lập ô nhập（入力欄設定）: các hàng hiện có không bị ảnh hưởng
 
 Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: đặc tả v2 mục 4.1 “Điểm vào và trạng thái trống”, mục 12.2 “Điểm tích hợp chính”
+Priority basis: other
+Run variants: Base
 
 <!-- Mã truy vết: TD-ITEM-01 «Mục số nguyên: Điểm đánh giá（評点）, Nhập số nguyên（数値入力（整数））, M mặc định…», TD-ITEM-10 «Mục có tính tự động: TD-ITEM-01 có thêm quy tắc tính tự…» -->
 
@@ -4953,6 +6738,11 @@ Priority: TBD ｜ Status: CONFIRMED ｜ Requirement ID: đặc tả v2 mục 4.1
 2. Bấm link ở hàng Tính tự động（自動計算） và Thiết lập ẩn mục nhập（入力項目の非表示設定）.
 3. Sửa một giá trị ở hàng khác, lưu.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: Base | Toàn bộ thủ tục theo đúng thứ tự; các đối chứng cùng fixture được kiểm trong cùng lượt, không bỏ bước |
+
 **期待結果（Kết quả mong đợi）**
 
 Cột thẳng hàng, link mở đúng màn của đúng mục, lưu các hàng khác như baseline.
@@ -4962,6 +6752,8 @@ Cột thẳng hàng, link mở đúng màn của đúng mục, lưu các hàng k
 ### TC-RS-DATA-014 — Legacy: báo cáo riêng trường vẫn giữ cách dùng điểm đỏ cũ
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: AC-G38 «Bảo toàn điểm đỏ cũ»
+Priority basis: lifecycle
+Run variants: Base
 
 **前提条件（Điều kiện trước）**
 
@@ -4972,19 +6764,27 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: AC-G38 «Bảo toàn đi
 1. Xem báo cáo riêng trường trước và sau khi cấu hình/chạy rule mới.
 2. Đối chiếu giá trị legacy và kết luận của rule mới.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: Base | Toàn bộ thủ tục theo đúng thứ tự; các đối chứng cùng fixture được kiểm trong cùng lượt, không bỏ bước |
+
 **期待結果（Kết quả mong đợi）**
 
 Legacy không bị chuyển thành rule mới, reset hoặc dùng thay cho rule mới; hai nguồn được giữ riêng và báo cáo legacy vẫn giữ cách dùng cũ.
 
 <a id="tc-rs-data-015"></a>
 
-### TC-RS-DATA-015 — Sao chép cấu hình không sao chép kết quả cá nhân hoặc legacy
+### TC-RS-DATA-015 — Sao chép cấu hình giữ riêng legacy và không sao chép kết quả cá nhân
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: AC-G38 «Bảo toàn điểm đỏ cũ»; AC-G39 «Không dùng lại kết quả cho đối tượng mới»
+Priority basis: lifecycle
+Run variants: Base
+Readiness: BLOCKED — fixture sao chép riêng năm 2026 với ngưỡng legacy 25 và đường copy/mapping/reader legacy ở đích chưa được provision hoặc xác minh; cần quan sát giá trị nguồn và đích trước/sau thao tác.
 
 **前提条件（Điều kiện trước）**
 
-- Nguồn: trường A / năm 2026 / mục Toán / nhóm G-A, có rule `<30`, cấu hình legacy `red_score` đang được báo cáo riêng, và S01 có kết quả Đỏ đã chốt. Đích: trường A / năm 2026 / mục Ngữ văn / nhóm G-B, cùng mapping môn/nhóm nhưng identity ô và S01 khác. Có chức năng sao chép cấu hình trong phạm vi đợt.
+- Nguồn: trường A / năm 2026 / mục Toán / nhóm G-A, có rule mới `<30`, ngưỡng legacy `red_score=25` đang được báo cáo riêng, và S01 có kết quả Đỏ đã chốt. Đích: trường A / năm 2026 / mục Toán tương ứng / nhóm G-B, chưa có legacy/kết quả cá nhân; mapping môn Toán và identity ô đích khác nguồn. Có chức năng sao chép cấu hình trong phạm vi đợt.
 
 **操作（Thao tác）**
 
@@ -4992,95 +6792,134 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: AC-G38 «Bảo toàn đi
 2. Sao chép cấu hình sang mục/đối tượng đích; ghi identity nguồn/đích và mapping thực tế.
 3. Mở cấu hình, legacy và kết quả của đích; không dùng dữ liệu nguồn làm baseline cho đích.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: Base | Toàn bộ thủ tục theo đúng thứ tự; các đối chứng cùng fixture được kiểm trong cùng lượt, không bỏ bước |
+
 **期待結果（Kết quả mong đợi）**
 
-Cấu hình `<30` được ánh xạ theo identity đích và legacy vẫn đi theo đường báo cáo cũ (không biến thành rule mới hoặc fallback). Đích không có kết quả đỏ/bản chốt cá nhân của S01; nếu có kết quả thì phải là dữ liệu do identity đích tự tạo sau khi chạy xét.
+Cấu hình `<30` được ánh xạ theo identity đích. Ngưỡng legacy `red_score=25` có mapping hợp lệ cũng được sao chép theo đường legacy hiện hữu: nguồn và đích đều đọc ra 25 tại cấu hình/báo cáo legacy riêng; không xóa, đổi nghĩa hoặc biến thành rule/fallback mới. Nếu đường sao chép legacy của build chưa được xác minh, giữ nhánh BLOCKED và ghi seam/mapping thiếu. Đích không có kết quả đỏ/bản chốt **cá nhân** của S01 nguồn; chỉ lần xét mới trên identity đích mới tạo kết quả cá nhân ở đích.
 
 <a id="tc-rs-data-016"></a>
 
 ### TC-RS-DATA-016 — Kế thừa năm mới không dùng bản chốt hoặc kết quả cá nhân của năm cũ
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: AC-G38 «Bảo toàn điểm đỏ cũ»; AC-G39 «Không dùng lại kết quả cho đối tượng mới»
+Priority basis: lifecycle
+Run variants: Base
+Readiness: BLOCKED — TD-LEGACY-01 và đường kế thừa năm 2025→2026 chưa được provision; cần xác minh mapping kỳ/môn/mục/nhóm, reader legacy ở đích và kết quả cá nhân trước lần xét mới.
 
 **前提条件（Điều kiện trước）**
 
-- Nguồn: trường A / năm 2025 / mục Toán / nhóm G-A có rule `<30`, snapshot nguồn đã chốt, legacy `red_score` và kết quả đỏ của S01. Đích: trường A / năm 2026 / cùng mục và mapping nhóm được phép, chưa từng chạy xét và dùng identity học sinh của năm mới; thao tác tạo/kế thừa cấu hình được bật.
+- Nguồn: TD-LEGACY-01 tại trường A/năm 2025/kỳ Cuối kỳ học kỳ 1/mục Toán/nhóm G-A có rule mới `<30`, ngưỡng legacy `red_score=25`, snapshot và kết quả cá nhân Đỏ của S01. Đích: cùng trường/năm 2026/kỳ tương ứng/mục Toán/nhóm được ánh xạ G-A→G-A năm mới, ban đầu không có ngưỡng legacy hay kết quả cá nhân; ghi identity học sinh đích riêng. Đường tạo/kế thừa năm cần provision và xác minh mapping thực tế.
 
 **操作（Thao tác）**
 
-1. Chụp riêng cấu hình, snapshot, legacy và kết quả S01 của năm 2025.
-2. Tạo năm 2026/kế thừa cấu hình; kiểm tra mapping mục, môn, nhóm và identity học sinh.
-3. Mở kết quả của năm 2026 trước khi chạy xét, rồi chạy xét riêng ở đích.
+1. Chụp riêng rule mới, giá trị legacy 25 tại nguồn, snapshot và kết quả cá nhân S01 năm 2025; ghi đích chưa có legacy/kết quả.
+2. Tạo năm 2026/kế thừa cấu hình; ghi mapping kỳ/mục Toán/môn Toán/nhóm G-A, identity ô và học sinh đích thực tế.
+3. Đọc lại ngưỡng/báo cáo legacy của hai năm; mở kết quả cá nhân năm 2026 **trước** khi chạy xét, rồi chạy xét riêng ở đích.
+
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: Base | Toàn bộ thủ tục theo đúng thứ tự; các đối chứng cùng fixture được kiểm trong cùng lượt, không bỏ bước |
 
 **期待結果（Kết quả mong đợi）**
 
-Cấu hình `<30` được kế thừa đúng mapping được phép; legacy vẫn được giữ ở đường tương thích của năm cũ, không được dựng thành rule mới. Trước lần chạy mới, năm 2026 không có snapshot/kết quả cá nhân của S01 năm 2025; sau khi chạy, mọi kết quả chỉ mang identity năm 2026.
+Rule mới `<30` và ngưỡng legacy **25** được kế thừa đúng mapping: nguồn vẫn 25, đích đọc 25 ở cấu hình/báo cáo legacy riêng; không thành rule/fallback mới. Trước lần xét mới, đích không có snapshot/kết quả **cá nhân** của S01 năm 2025; sau lần xét riêng, kết quả chỉ mang identity năm 2026. Nếu chưa xác minh được seam kế thừa/mapping hoặc reader legacy ở đích thì BLOCKED, không chỉ kiểm nguồn giữ nguyên.
 
 <a id="tc-rs-data-017"></a>
 
 ### TC-RS-DATA-017 — Xuất/nhập cấu hình giữ legacy riêng và không nhập kết quả cá nhân
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: AC-G38 «Bảo toàn điểm đỏ cũ»; AC-G39 «Không dùng lại kết quả cho đối tượng mới»
+Priority basis: lifecycle
+Run variants: Base
+Readiness: BLOCKED — TD-LEGACY-01, file xuất có giá trị legacy 25, format nhập và reader legacy ở đích chưa được provision/xác minh; cần đối chiếu payload thật và trạng thái đích trước/sau nhập.
 
 **前提条件（Điều kiện trước）**
 
-- Nguồn: file xuất chỉ gồm cấu hình trường A/năm 2025 cho mục Toán, mapping môn/nhóm, và metadata legacy `red_score`; kết quả đỏ/bản chốt của S01 được tạo riêng để làm dữ liệu âm, không nằm trong phần cấu hình được phép nhập. Đích: trường A/năm 2026, quyền nhập hợp lệ.
+- Nguồn: TD-LEGACY-01 trường A/năm 2025/kỳ Cuối kỳ học kỳ 1/mục Toán/nhóm G-A. File cấu hình xuất phải chứa mapping kỳ/môn Toán/mục Toán/nhóm G-A **và giá trị legacy `red_score=25`**, không chỉ metadata/tên field; rule mới `<30` nằm ở phần cấu hình mới riêng. Snapshot/kết quả cá nhân Đỏ của S01 làm đối chứng âm, không thuộc payload cấu hình được phép nhập. Đích: trường A/năm 2026/kỳ, môn, mục, nhóm tương ứng được ánh xạ, ban đầu chưa có legacy/kết quả cá nhân; quyền nhập hợp lệ.
 
 **操作（Thao tác）**
 
-1. Ghi manifest file xuất và phân biệt payload cấu hình với payload kết quả cá nhân.
-2. Xuất cấu hình, sau đó nhập vào trường/năm đích.
-3. Kiểm tra mapping mục/môn/nhóm, đường legacy và kết quả của đích.
+1. Ghi file xuất thật, vị trí giá trị legacy 25, mapping nguồn→đích và sự vắng mặt của snapshot/kết quả cá nhân trong phần cấu hình.
+2. Nhập file vào trường/năm đích bằng đường import được hỗ trợ; ghi response/lỗi ánh xạ nếu có.
+3. Đọc lại legacy ở nguồn và đích qua cấu hình/báo cáo riêng, rule mới và kết quả cá nhân đích trước/sau lần xét riêng.
+
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: Base | Toàn bộ thủ tục theo đúng thứ tự; các đối chứng cùng fixture được kiểm trong cùng lượt, không bỏ bước |
 
 **期待結果（Kết quả mong đợi）**
 
-Chỉ payload cấu hình có mapping hợp lệ được nhập; legacy vẫn dùng đường tương thích cũ và không bị biến thành rule mới. Kết quả cá nhân/bản chốt của S01 không được nhập hoặc gắn vào identity đích; dữ liệu phát sinh sau lần chạy ở đích phải có identity đích.
+Chỉ payload cấu hình có mapping hợp lệ được nhập: ngưỡng legacy nguồn 25 vẫn là 25, file chứa 25 và đích đọc ra **25** ở cấu hình/báo cáo legacy riêng; rule mới `<30` giữ riêng, không dùng 25 như fallback. Snapshot/kết quả **cá nhân** của S01 nguồn không được nhập hoặc gắn vào identity đích trước lần xét riêng; kết quả mới phải mang identity đích. Nếu format/đường import hoặc reader legacy chưa xác minh thì BLOCKED đúng nhánh, ghi seam thiếu, không suy giá trị từ metadata trống.
 
 <a id="tc-rs-data-018"></a>
 
 ### TC-RS-DATA-018 — Khôi phục/thay khung không gắn kết quả vào ô mới
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: AC-G38 «Bảo toàn điểm đỏ cũ»; AC-G39 «Không dùng lại kết quả cho đối tượng mới»
+Priority basis: lifecycle
+Run variants: Base
+Readiness: BLOCKED — TD-LEGACY-01 và đường khôi phục/thay khung chưa được provision; cần xác minh identity ô mới, mapping legacy 25 và reader kết quả cá nhân trước lần xét mới.
 
 **前提条件（Điều kiện trước）**
 
-- Nguồn: ô cũ của trường A/năm 2025/mục Toán có rule `<30`, kết quả đỏ đã chốt và legacy. Đích: bản sao/khôi phục tạo identity ô hoặc khung mới, chưa có kết quả; mapping mục/môn/nhóm được ghi trước thao tác.
+- Nguồn: TD-LEGACY-01, ô cũ trường A/năm 2025/kỳ Cuối kỳ học kỳ 1/mục Toán/nhóm G-A có rule mới `<30`, ngưỡng legacy 25, snapshot và kết quả cá nhân Đỏ. Đích: ô/khung tạo lại có identity mới, cùng kỳ/môn Toán/mục Toán/nhóm G-A theo mapping được hỗ trợ, ban đầu chưa có legacy/kết quả cá nhân; đường khôi phục cần provision.
 
 **操作（Thao tác）**
 
-1. Chụp identity, cấu hình, legacy và kết quả của ô cũ.
-2. Khôi phục hoặc thay khung theo đường được hỗ trợ; ghi mapping ô cũ → ô mới.
-3. Kiểm tra ô cũ, ô mới, cấu hình legacy và ba đầu ra.
+1. Chụp identity, rule mới, ngưỡng legacy 25 và kết quả cá nhân ô cũ; ghi ô đích chưa có các giá trị đó.
+2. Khôi phục/thay khung theo đường được hỗ trợ; ghi mapping kỳ/môn/mục/nhóm và ô cũ → ô mới, không tự ghép theo tên giống nhau.
+3. Đọc lại ngưỡng/báo cáo legacy nguồn và đích, rule mới và kết quả cá nhân ô mới trước/sau khi xét riêng; kiểm ba đầu ra theo identity ô.
+
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: Base | Toàn bộ thủ tục theo đúng thứ tự; các đối chứng cùng fixture được kiểm trong cùng lượt, không bỏ bước |
 
 **期待結果（Kết quả mong đợi）**
 
-Ô mới không nhận snapshot/kết quả cá nhân của ô đã mất; legacy vẫn ở đường tương thích cũ, không bị chuyển đổi thành rule; chỉ cấu hình có mapping hợp lệ mới được giữ. Nếu ô mới được chạy, kết quả phải mang identity ô mới.
+Nguồn giữ ngưỡng legacy **25**; ô/khung mới có mapping hợp lệ cũng đọc **25** qua cấu hình/báo cáo legacy riêng, không thành rule/fallback mới. Ô mới **không** nhận snapshot/kết quả cá nhân của ô cũ trước lần xét riêng; sau đó kết quả phải mang identity ô mới. Nếu chưa xác minh đường khôi phục/mapping hoặc reader legacy ở đích thì BLOCKED, không bỏ nhánh.
 
 <a id="tc-rs-data-019"></a>
 
 ### TC-RS-DATA-019 — Đồng bộ cấu hình không đồng nghĩa đã xét
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: AC-G38 «Bảo toàn điểm đỏ cũ»; AC-G39 «Không dùng lại kết quả cho đối tượng mới»
+Priority basis: lifecycle
+Run variants: Base
+Readiness: BLOCKED — TD-LEGACY-01 và seam sync năm 2025→2026 chưa được provision; cần xác minh mapping/reader legacy 25 tại đích và kết quả cá nhân trước lần xét mới.
 
 **前提条件（Điều kiện trước）**
 
-- Nguồn: trường A/năm 2025/mục Toán có rule `<30`, legacy, snapshot và kết quả S01. Đích: trường A/năm 2026/mục Toán cùng mapping được phép, chưa từng chạy xét đỏ và không có snapshot/kết quả nguồn.
+- Nguồn: TD-LEGACY-01 trường A/năm 2025/kỳ Cuối kỳ học kỳ 1/mục Toán/nhóm G-A có rule mới `<30`, ngưỡng legacy 25, snapshot và kết quả cá nhân Đỏ của S01. Đích: cùng trường/năm 2026/kỳ tương ứng/môn Toán/mục Toán/nhóm được ánh xạ G-A→G-A năm mới, ban đầu không có legacy, snapshot hoặc kết quả nguồn; đường sync cấu hình cần provision.
 
 **操作（Thao tác）**
 
-1. Ghi manifest mapping và snapshot nguồn.
-2. Đồng bộ cấu hình; kiểm tra identity nguồn/đích, legacy và mapping mục/môn/nhóm.
-3. Mở kết quả và ba đầu ra trước khi chạy xét, sau đó chạy xét riêng ở đích.
+1. Ghi mapping kỳ/môn/mục/nhóm, identity nguồn/đích, giá trị legacy nguồn 25 và snapshot/kết quả cá nhân nguồn; ghi trạng thái đích ban đầu.
+2. Đồng bộ cấu hình; đọc lại rule mới và ngưỡng/báo cáo legacy ở cả nguồn lẫn đích.
+3. Mở kết quả cá nhân và ba đầu ra của đích **trước** khi chạy xét, sau đó chạy xét riêng ở đích và đọc lại.
+
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: Base | Toàn bộ thủ tục theo đúng thứ tự; các đối chứng cùng fixture được kiểm trong cùng lượt, không bỏ bước |
 
 **期待結果（Kết quả mong đợi）**
 
-Đồng bộ chỉ tạo/cập nhật cấu hình; legacy vẫn theo đường tương thích cũ, không trở thành fallback. Trước lần chạy mới đích không bị coi là đã xét và không dùng snapshot/kết quả nguồn. Sau khi chạy, kết quả chỉ thuộc identity đích và mapping đã ghi.
+Đồng bộ cấu hình có mapping hợp lệ giữ ngưỡng legacy **25** ở nguồn và đưa **25** tới cấu hình/báo cáo legacy riêng của đích; không thành rule/fallback mới. Trước lần xét riêng, đích chưa được coi là đã xét và không dùng snapshot/kết quả **cá nhân** nguồn; sau đó kết quả chỉ thuộc identity đích. Nếu seam sync/mapping hoặc reader legacy ở đích chưa xác minh thì BLOCKED, không coi chỉ bảo toàn nguồn là đủ.
 
 <a id="tc-rs-func-003"></a>
 
 ### TC-RS-FUNC-003 — Danh sách trống không tự dựng rule từ cấu hình legacy
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: AC-G04 «Lưu và mở lại nhiều thiết lập»; AC-G38 «Bảo toàn điểm đỏ cũ»
+Priority basis: result
+Run variants: Base
 
 **前提条件（Điều kiện trước）**
 
@@ -5091,6 +6930,11 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: AC-G04 «Lưu và mở l
 1. Mở danh sách rule đỏ trống.
 2. Chạy xét hoặc mở đầu ra.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: Base | Toàn bộ thủ tục theo đúng thứ tự; các đối chứng cùng fixture được kiểm trong cùng lượt, không bỏ bước |
+
 **期待結果（Kết quả mong đợi）**
 
 Danh sách không tự tạo rule/default từ ngưỡng legacy. Giá trị và kết quả legacy giữ nguyên; không dùng legacy làm rule fallback.
@@ -5100,6 +6944,8 @@ Danh sách không tự tạo rule/default từ ngưỡng legacy. Giá trị và 
 ### TC-RS-BR-026 — Không fallback sang legacy khi rule mới thiếu hoặc không khớp dữ liệu
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: AC-G12 «Đúng phạm vi tham chiếu»; AC-G38 «Bảo toàn điểm đỏ cũ»
+Priority basis: result
+Run variants: no-match; missing-input
 
 **前提条件（Điều kiện trước）**
 
@@ -5110,6 +6956,12 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: AC-G12 «Đúng phạm v
 1. Chạy nút cam.
 2. Xem trạng thái ô và ba đầu ra.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: no-match | Không quy tắc khớp |
+| Run: missing-input | Thiếu dữ liệu để xét |
+
 **期待結果（Kết quả mong đợi）**
 
 Ô chuyển đúng trạng thái Chưa xét được/Không áp dụng theo nguyên nhân; không dùng legacy làm fallback và không tự ghi đè kết quả cũ ngoài chính sách trạng thái đã xác nhận.
@@ -5119,6 +6971,8 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: AC-G12 «Đúng phạm v
 ### TC-RS-DATA-006 — Giá trị legacy giữ nguyên khi thay đổi rule mới
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: AC-G38 «Bảo toàn điểm đỏ cũ»
+Priority basis: lifecycle
+Run variants: Base
 
 **前提条件（Điều kiện trước）**
 
@@ -5129,6 +6983,11 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: AC-G38 «Bảo toàn đi
 1. Thêm, sửa, xóa và chạy rule mới.
 2. Đọc lại giá trị legacy và kết quả legacy.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: Base | Toàn bộ thủ tục theo đúng thứ tự; các đối chứng cùng fixture được kiểm trong cùng lượt, không bỏ bước |
+
 **期待結果（Kết quả mong đợi）**
 
 Giá trị legacy không bị sửa, xóa hoặc dùng lại làm kết quả cá nhân của rule mới.
@@ -5138,6 +6997,8 @@ Giá trị legacy không bị sửa, xóa hoặc dùng lại làm kết quả c�
 ### TC-RS-REG-011 — Consumer legacy giữ hành vi sau khi thêm rule đỏ
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: AC-G38 «Bảo toàn điểm đỏ cũ»
+Priority basis: result
+Run variants: Base
 
 **前提条件（Điều kiện trước）**
 
@@ -5148,6 +7009,11 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: AC-G38 «Bảo toàn đi
 1. Thêm và chạy rule đỏ mới.
 2. Mở consumer/báo cáo legacy cùng kỳ.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: Base | Toàn bộ thủ tục theo đúng thứ tự; các đối chứng cùng fixture được kiểm trong cùng lượt, không bỏ bước |
+
 **期待結果（Kết quả mong đợi）**
 
 Consumer legacy giữ hành vi và giá trị trước đó, trừ phần tích hợp đỏ được xác nhận riêng; không đọc nhầm payload kết quả cá nhân mới.
@@ -5157,6 +7023,8 @@ Consumer legacy giữ hành vi và giá trị trước đó, trừ phần tích 
 ### TC-RS-DATA-009 — Copy, kế thừa năm, import/export và sync không mang kết quả cũ
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: AC-G38 «Bảo toàn điểm đỏ cũ»; AC-G39 «Không dùng lại kết quả cho đối tượng mới»
+Priority basis: lifecycle
+Run variants: copy; year; import-export; sync
 
 **前提条件（Điều kiện trước）**
 
@@ -5167,6 +7035,14 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: AC-G38 «Bảo toàn đi
 1. Thực hiện từng đường copy, kế thừa năm, import/export và sync.
 2. Kiểm tra cấu hình, mapping identity, bản chốt và kết quả trước khi chạy xét ở đích.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: copy | Đường copy, fixture DATA-015 |
+| Run: year | Đường kế thừa năm, fixture DATA-016 |
+| Run: import-export | Đường xuất nhập, fixture DATA-017 |
+| Run: sync | Đường đồng bộ, fixture DATA-019 |
+
 **期待結果（Kết quả mong đợi）**
 
 Chỉ phần được phép copy/sync được chuyển; không chuyển kết quả cá nhân hoặc bản chốt legacy sang identity đích. Mapping đúng; đích chỉ có kết quả sau lượt xét riêng.
@@ -5176,6 +7052,8 @@ Chỉ phần được phép copy/sync được chuyển; không chuyển kết q
 ### TC-RS-REG-012 — Các luồng chuyển cấu hình không làm mất legacy
 
 Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: AC-G38 «Bảo toàn điểm đỏ cũ»; AC-G39 «Không dùng lại kết quả cho đối tượng mới»
+Priority basis: result
+Run variants: copy; year; import; sync
 
 **前提条件（Điều kiện trước）**
 
@@ -5186,7 +7064,14 @@ Priority: Cao ｜ Status: CONFIRMED ｜ Requirement ID: AC-G38 «Bảo toàn đi
 1. Chuyển cấu hình qua copy/năm mới/import hoặc sync.
 2. Đọc lại nguồn và đích trên consumer/báo cáo.
 
+
+| Lượt chạy | Phạm vi thực hiện và đối chiếu |
+| --- | --- |
+| Run: copy | Đường copy DATA-015 |
+| Run: year | Đường năm mới DATA-016 |
+| Run: import | Đường import DATA-017 |
+| Run: sync | Đường sync DATA-019 |
+
 **期待結果（Kết quả mong đợi）**
 
 Legacy ở nguồn vẫn nguyên vẹn; đích không nhận kết quả cá nhân ngoài mapping hợp lệ và không dùng lại kết quả nguồn.
-
