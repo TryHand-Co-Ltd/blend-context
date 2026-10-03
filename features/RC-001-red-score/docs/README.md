@@ -18,6 +18,7 @@ Các thay đổi tiếp theo thực hiện trong **v2**. Việc tạo thư mục
 | Nhóm tài liệu | v1 — bản lưu | v2 — bản cập nhật tiếp theo |
 | --- | --- | --- |
 | Checklist sửa Figma | — | [Nhật](v2/figma-update-checklist.ja.md) · [Việt](v2/figma-update-checklist.vi.md) |
+| Đặc tả màn hình và dữ liệu | — | [Nhật](v2/screen-definition.ja.md) · [Việt](v2/screen-definition.vi.md) |
 | Đặc tả | [Việt](v1/specification.vi.md) | [Việt](v2/specification.vi.md) |
 | Thiết kế DB | [Nhật](v1/database-design.ja.md) · [Việt](v1/database-design.vi.md) | [Nhật](v2/database-design.ja.md) · [Việt](v2/database-design.vi.md) |
 | DDL thiết kế | [SQL chú thích Nhật](v1/database-design.ja.sql) · [SQL chú thích Việt](v1/database-design.sql) | [SQL chú thích Nhật](v2/database-design.ja.sql) · [SQL chú thích Việt](v2/database-design.sql) |
@@ -28,6 +29,8 @@ Các thay đổi tiếp theo thực hiện trong **v2**. Việc tạo thư mục
 **Đặc tả kiểm thử v2** (`v2/test-spec/`, chỉ bản Việt): 216 test case theo cấu trúc bốn tài liệu [scope-and-approach.vi.md](v2/test-spec/scope-and-approach.vi.md), [test-cases.vi.md](v2/test-spec/test-cases.vi.md), [test-data.vi.md](v2/test-spec/test-data.vi.md) và [test-case-report.xlsx](v2/test-spec/test-case-report.xlsx). Các file chi tiết cũ không còn là nguồn của active suite; generator đọc Markdown v2, dùng workbook làm vỏ style/layout và dựng lại `Data`, `Cases`, `Run Log`, trạng thái hoàn tất theo đủ biến thể bắt buộc và toàn bộ nội dung case ở các sheet A–H. `Run variants` cũng được định nghĩa trong Markdown; không có biến thể nào tự thêm từ script. Checker đối chiếu nội dung nguồn, category statistics, manifest và trạng thái từng variant. Chưa có test nào được chạy.
 
 Bản English lịch sử, không cập nhật cùng bộ v2: [chia việc](v1/split-tasks.en.md) và [tiêu chí nghiệm thu](v1/acceptance-criteria.en.md).
+
+**Bản Google Sheets:** [Đặc tả màn hình và thiết kế dữ liệu](https://docs.google.com/spreadsheets/d/1NiWVdJIAQURT_KWZEuZo5fhYCD8EennAa6UaB3nHjdI/edit#gid=0), tiếng Nhật. Các tab 00–11 định nghĩa màn hình và nghiệp vụ; 12–14 là phụ lục dữ liệu. Nội dung không xác nhận ứng dụng đã được triển khai. Giới hạn số ký tự ký hiệu trích xuất/phiếu chưa có số được xác minh và được nêu rõ tại tab 11.
 
 ## Nội dung bổ sung trong v2
 

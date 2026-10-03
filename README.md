@@ -21,13 +21,17 @@ features/
     README.md                      Nguồn ID, ticket liên quan và thứ tự đọc
     CONTEXT.md                     Context chuẩn của feature
     sources/                       Q&A và nguồn xác nhận, tạo khi cần
+    research/                      Topic reports <topic>.ja.md/.vi.md; query draft khi được yêu cầu
+    plans/                         <scope>-implementation-plan.ja.md/.vi.md dùng chung
     docs/                          Tài liệu dùng chung của chức năng
     tasks/                         Tài liệu riêng từng task, tạo khi cần
     decisions/                     Quyết định riêng, tạo khi cần
 .github/                           CONTRIBUTING.md và mẫu PR
 ```
 
-Tên thư mục dùng `<ID>-<slug>`, không thêm tiền tố nguồn. Ghi nguồn Redmine/Sheet trong README của feature hoặc tài liệu task. Giữ nguyên ID của nguồn, kể cả chữ hoa và số 0; chỉ phần mô tả `slug` dùng tiếng Anh chữ thường, nối bằng dấu `-`. Không tạo thư mục rỗng để đủ bộ.
+Tên thư mục dùng `<ID>-<slug>`, không thêm tiền tố nguồn. Ghi nguồn Redmine/Sheet trong README của feature hoặc tài liệu task. Giữ nguyên ID của nguồn, kể cả chữ hoa và số 0; chỉ phần mô tả `slug` dùng tiếng Anh chữ thường, nối bằng dấu `-`. Không tạo thư mục rỗng để đủ bộ. Research được tổ chức theo vấn đề/luồng có kết luận dùng lại được, không mặc định một file cho toàn feature. `research/` và `plans/` ở gốc feature kể cả khi chỉ phục vụ task đã xác minh; ghi scope/Task ID/parent và link từ tài liệu task, không nhân bản. Chỉ tạo report/plan có nội dung được yêu cầu; giữ nguyên Research lịch sử và SQL/DDL hiện có nếu chưa có yêu cầu migration.
+
+`CONTEXT.md` cùng xác nhận mới nhất được phép áp dụng là nguồn yêu cầu. Topic research là bằng chứng theo revision và dependencies; shared implementation plan ghi đầu vào đã duyệt cùng công việc đề xuất, dùng đường dẫn/commands portable. Kế hoạch vận hành/debugging và cấu hình workstation riêng không thuộc tài liệu dùng chung; duyệt đầu vào hoặc plan không tự cho phép thực thi.
 
 ## Tài liệu chức năng hiện có
 

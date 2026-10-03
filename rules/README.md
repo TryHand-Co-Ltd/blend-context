@@ -12,7 +12,9 @@
 | Feature | Phạm vi nghiệp vụ trong một thư mục; mặc định tương ứng một Backlogitem, hoặc một Work Item của Sheet khi chưa có Redmine |
 | Task | Công việc con có ID nguồn riêng; có thể là Redmine SubTask hoặc dòng Internal Tasks của Sheet |
 | Context | Yêu cầu hiện hành, xác nhận, nguồn gốc và điểm còn mở của feature |
-| Docs | Đặc tả, thiết kế, research, kế hoạch, tiêu chí nghiệm thu và báo cáo |
+| Docs | Đặc tả, thiết kế, tiêu chí nghiệm thu và báo cáo dùng chung |
+| Research | Topic reports tại gốc feature; câu hỏi, kết luận và bằng chứng theo revision/dependencies, không là nguồn yêu cầu cạnh tranh |
+| Plans | Implementation plans dùng chung, portable tại gốc feature; kế hoạch vận hành/debugging riêng không thuộc repo này |
 | Decision | Quyết định có vấn đề, phương án chọn, lý do, tác động, ngày/trạng thái và căn cứ xác nhận |
 
 Không tự đặt URL cho `blend`. Các PR đã liên kết trong Redmine hiện dẫn tới `ednity/school-web`; đó là nguồn code được ticket tham chiếu, không phải bằng chứng tồn tại repository `TryHand-Co-Ltd/blend`. Khi ghi bằng chứng code, dùng permalink đã kiểm hoặc `blend:<đường-dẫn-từ-gốc-repo>` cùng revision đã đọc.
@@ -40,6 +42,8 @@ features/<Feature-ID>-<slug>/
   README.md
   CONTEXT.md
   sources/
+  research/<topic>.ja.md, <topic>.vi.md, <topic>.sql khi được yêu cầu
+  plans/<scope>-implementation-plan.ja.md, <scope>-implementation-plan.vi.md
   docs/
   tasks/<Task-ID>-<slug>/
   decisions/
@@ -63,10 +67,14 @@ Trước khi ghi file, phân loại nội dung theo owner thay vì theo tên tem
 
 - yêu cầu hiện hành của feature → `CONTEXT.md`;
 - phản hồi/Q&A đã xác nhận hoặc nguồn gốc → `sources/`;
-- đặc tả, thiết kế, research, test design, acceptance criteria hoặc báo cáo dùng chung toàn feature → `docs/`;
+- topic research theo vấn đề/luồng → `research/` tại gốc feature; không mặc định một file cho toàn feature, không tách một file cho mỗi field/tool call;
+- implementation plan dùng chung → `plans/` tại gốc feature, dùng đường dẫn và commands portable; không chứa workstation/private configuration;
+- đặc tả, thiết kế, test design, acceptance criteria hoặc báo cáo dùng chung toàn feature → `docs/`;
 - nội dung chỉ thuộc một Task ID đã xác minh, gồm task bundle, review, PR/QA draft → `tasks/<Task-ID>-<slug>/`;
 - quyết định đã chuẩn hóa → `decisions/`;
 - rule/evidence dùng chung toàn dự án → `rules/` hoặc `rules/evidence/`.
+
+`research/` và `plans/` là hai ngoại lệ của routing task-only: kể cả slice của một task, giữ report/plan tại gốc feature, ghi exact Task ID/parent/scope và link từ task folder, không copy lại. Chỉ tạo folder khi có output hữu ích được giao; không tạo report rỗng hoặc scaffolds. Query draft chỉ cho câu hỏi dữ liệu cụ thể được phép, không execute; không chuyển Database Design SQL, migrations, confirmed Q&A hoặc historical flat Research.
 
 Tái sử dụng folder/slug hiện có. Chỉ tạo revision subfolder khi nguồn có revision thực hoặc feature đã dùng convention đó; không mặc định tạo `r1`. Khi chưa xác minh được Feature ID hoặc Task ID, không tự đặt ID/folder canonical: trả nội dung trong chat hoặc dùng đúng nơi tạm do người dùng chỉ định, rồi chuyển vào repo sau khi có identity.
 
@@ -82,7 +90,7 @@ Một quyết định nhỏ có thể ghi ngay trong context. Khi cần tách, d
 
 Người và AI cùng đi theo: README repo → rules liên quan → README feature → `CONTEXT.md` → nguồn xác nhận nếu cần → docs/task cụ thể → code trong `blend` khi công việc cần. Chỉ đọc sâu phần liên quan, không tải toàn bộ tài liệu của mọi feature.
 
-Context chuẩn cùng xác nhận mới được phép áp dụng xác định yêu cầu. Spec, quyết định, task và bản dịch phải đồng bộ với context; code mô tả hiện trạng, không tự thay yêu cầu. Khi nguồn xung đột, nêu cụ thể và yêu cầu chốt phần ảnh hưởng, không âm thầm chọn nguồn thuận tiện hoặc mở lại câu đã được xác nhận.
+Context chuẩn cùng xác nhận mới được phép áp dụng xác định yêu cầu. Spec, quyết định, task và bản dịch phải đồng bộ với context; code mô tả hiện trạng, không tự thay yêu cầu. Research là bằng chứng/advice theo source/code/dependency identities và currentness; chỉ chọn topics cần cho consumer, không coi toàn folder là một snapshot hoặc để topic không liên quan tự invalidate toàn feature. Plan phải pin approved source/review/approval revisions và scope; review PASS không tự là approval và plan không tự cấp quyền execute. Khi nguồn xung đột, nêu cụ thể và yêu cầu chốt phần ảnh hưởng, không âm thầm chọn nguồn thuận tiện hoặc mở lại câu đã được xác nhận.
 
 ## 5. Tài liệu và quyền cập nhật
 
@@ -96,7 +104,7 @@ Context chuẩn cùng xác nhận mới được phép áp dụng xác định y
 
 ## 6. Bằng chứng và thông tin tài liệu
 
-[Bằng chứng đối chiếu](evidence/) lưu kết quả kiểm nguồn theo ngày, tách khỏi rules hiện hành. Mỗi bản ghi nêu nguồn, ngày, phạm vi và giới hạn; không coi bản đối chiếu là trạng thái mới nhất của ticket hay một quy tắc mới. Nghiên cứu nghiệp vụ và bằng chứng riêng feature vẫn nằm trong `docs/` hoặc task tương ứng của feature.
+[Bằng chứng đối chiếu](evidence/) lưu kết quả kiểm nguồn theo ngày, tách khỏi rules hiện hành. Mỗi bản ghi nêu nguồn, ngày, phạm vi và giới hạn; không coi bản đối chiếu là trạng thái mới nhất của ticket hay một quy tắc mới. Topic research riêng feature nằm trong `research/`; shared implementation plans nằm trong `plans/`. Bằng chứng khác giữ routing `docs/` hoặc task tương ứng. Giữ Research lịch sử tại chỗ nếu chưa có migration riêng; ngày sửa/import không tự xác nhận currentness.
 
 Thông tin tối thiểu dùng bảng Markdown hoặc đoạn ngắn, không cần file cấu hình riêng:
 
