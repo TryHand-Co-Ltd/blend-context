@@ -11,7 +11,7 @@ Các thay đổi tiếp theo thực hiện trong **v2**. Việc tạo thư mục
 
 **Bộ gửi review:** các file Database Design/DDL, AC, Split Tasks và đặc tả trình bày phương án độc lập; không kèm nguồn phản hồi, context/Q&A, decisions/lessons hoặc checklist thực hiện nội bộ. Những hồ sơ này phục vụ theo dõi nội bộ. Không cần đưa trạng thái chờ phản hồi vào từng tài liệu gửi; trạng thái duyệt vẫn theo context, không suy từ hình thức bản hoàn chỉnh.
 
-**Ngôn ngữ của bộ cập nhật:** Nhật và Việt, theo yêu cầu người phụ trách ngày 28/09. Lượt thực hiện này ưu tiên nội dung theo yêu cầu tiếp theo: cập nhật các bản Nhật/Việt đã có, hoãn tạo/chuyển đổi bản ngôn ngữ mới. V2 có 9 tài liệu/SQL và 2 checklist Figma, không có bản English; bản English lưu ở v1 để đối chiếu mốc cũ. V1 không đổi. Đặc tả Nhật chưa được tạo trong lượt này.
+**Ngôn ngữ của bộ cập nhật:** Nhật và Việt, theo yêu cầu người phụ trách ngày 28/09. Lượt thực hiện này ưu tiên nội dung theo yêu cầu tiếp theo: cập nhật các bản Nhật/Việt đã có, hoãn tạo/chuyển đổi bản ngôn ngữ mới. V2 có 9 tài liệu/SQL và 2 checklist Figma (chưa tính thư mục `test-spec/`), không có bản English; bản English lưu ở v1 để đối chiếu mốc cũ. V1 không đổi. Đặc tả Nhật chưa được tạo trong lượt này.
 
 ## Danh mục
 
@@ -24,6 +24,9 @@ Các thay đổi tiếp theo thực hiện trong **v2**. Việc tạo thư mục
 | DDL thiết kế | [SQL chú thích Nhật](v1/database-design.ja.sql) · [SQL chú thích Việt](v1/database-design.sql) | [SQL chú thích Nhật](v2/database-design.ja.sql) · [SQL chú thích Việt](v2/database-design.sql) |
 | Chia việc | [Nhật](v1/split-tasks.ja.md) · [English](v1/split-tasks.en.md) · [Việt](v1/split-tasks.vi.md) | [Nhật](v2/split-tasks.ja.md) · [Việt](v2/split-tasks.vi.md) |
 | Tiêu chí nghiệm thu | [Nhật](v1/acceptance-criteria.ja.md) · [English](v1/acceptance-criteria.en.md) · [Việt](v1/acceptance-criteria.vi.md) | [Nhật](v2/acceptance-criteria.ja.md) · [Việt](v2/acceptance-criteria.vi.md) |
+| Đặc tả kiểm thử | — | [Việt](v2/test-spec/scope-and-approach.vi.md) (thư mục `v2/test-spec/`) |
+
+**Đặc tả kiểm thử v2** (`v2/test-spec/`, chỉ bản Việt): 216 testcase / 569 biến thể dùng [schema BLEND Kit hiện hành](v2/test-spec/README.md), gồm [scope-and-approach.vi.md](v2/test-spec/scope-and-approach.vi.md), [test-cases.vi.md](v2/test-spec/test-cases.vi.md), [test-data.vi.md](v2/test-spec/test-data.vi.md) và [test-report.vi.xlsx](v2/test-spec/test-report.vi.xlsx). Report có Tổng quan, Kiểm thử bảy cột và Chi tiết khi cần; QA nhập actual/status/evidence trong cùng workbook và dùng chính file đó làm báo cáo. Generator từ chối output đã tồn tại, checker chỉ đọc. [Bộ cũ bba351f](v2/test-spec/archive/legacy-bba351f/README.md) giữ nguyên byte để tra cứu. Chưa có test ứng dụng nào được chạy.
 
 Bản English lịch sử, không cập nhật cùng bộ v2: [chia việc](v1/split-tasks.en.md) và [tiêu chí nghiệm thu](v1/acceptance-criteria.en.md).
 
