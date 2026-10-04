@@ -12,7 +12,7 @@ from urllib.parse import parse_qsl, unquote, urlsplit
 
 import export_report as working
 
-VERSION = "1.0.0"
+VERSION = "1.0.1"
 REPORT_LAYOUTS = {
     "vi": {
         "template": "test-report-template.vi.xlsx",
@@ -198,7 +198,7 @@ def _read_text(cell, field: str, *, optional=False) -> str:
 FAMILY = "test-report"
 SUMMARY_FIELDS = {"feature": 4, "revision": 5, "run_id": 6, "build": 7,
                   "environment": 8, "tester": 9, "period": 10, "scope": 11,
-                  "excluded": 12, "limitations": 13}
+                  "excluded": 12, "limitations": 13, "preparation": 14}
 INPUT_FIELDS = ("run_id", "build", "environment", "tester", "period")
 METRIC_ROWS = {"cases": 16, "variants": 17, "PASS": 18, "FAIL": 19,
                "BLOCKED": 20, "SKIPPED": 21, "NOT RUN": 22,
@@ -221,7 +221,7 @@ for _language, _locale in REPORT_LAYOUTS.items():
         if _language == "vi" else "実際の結果と状態を入力し、証拠・不具合の先頭行に HTTPS のURL、合格以外は続く行に理由と次の対応を記入します。"
         "対象外は実行省略とし、期待結果が確定し実行可能で、結果とURLを記入した合否判定のみ集計します。")
     _locale['metric_labels'] = dict(zip(METRIC_ROWS,
-        ('Số trường hợp kiểm thử', 'Số kịch bản', 'Phán định Đạt đủ điều kiện', 'Phán định Không đạt đủ điều kiện', 'Kịch bản bị chặn',
+        ('Số testcase (trường hợp kiểm thử)', 'Số biến thể (dòng Kiểm thử)', 'Phán định Đạt đủ điều kiện', 'Phán định Không đạt đủ điều kiện', 'Kịch bản bị chặn',
          'Kịch bản không thực hiện', 'Kịch bản chưa thực hiện', 'Phán định Đạt/Không đạt đủ điều kiện',
          'Tỷ lệ Đạt / phán định đủ điều kiện', 'Phán định đủ điều kiện / toàn bộ kịch bản', 'Kịch bản chưa đạt', 'Trạng thái không hợp lệ')
         if _language == 'vi' else
@@ -237,6 +237,9 @@ class ReportRow:
     conditions: str
     expected: str
     eligible: bool
+    screen_preview: str = ''
+    conditions_preview: str = ''
+    expected_preview: str = ''
 
     @property
     def identity(self):
@@ -357,6 +360,14 @@ def prepare_report(source: Path, language="vi"):
     return project_report(design, language), captures
 
 
+def excerpt(value, limit=140):
+    """A visibly incomplete source excerpt, never a replacement assertion."""
+    first = next((line.strip() for line in value.splitlines() if line.strip()), '')
+    if len(first) > limit:
+        return first[:limit].rsplit(' ', 1)[0] + '…'
+    return first + ('…' if len(value.splitlines()) > 1 else '')
+
+
 def project_report(design, language):
     locale = REPORT_LAYOUTS[language]
     parts = locale['parts']
@@ -401,9 +412,22 @@ def project_report(design, language):
                     conditions += '\n' + ('Khoảng trống: ' if language == 'vi' else '未完了事項: ')
                     conditions += public_text(gap[3] + '\n' + gap[4], 'gap decision and impact')
             title = public_text(case['group'] + ' — ' + case['function'] + '\n' + case['title'], 'screen/function')
-            rows.append(ReportRow(case['id'], variant[0], title, conditions, public_text(expected, 'expected'), eligible))
+            condition_preview = (f'Chuẩn bị: {readiness}\nKỳ vọng: {basis}\nDữ liệu (trích): {excerpt(variant[1], 65)}\nThao tác (trích): {excerpt(actions, 110)}'
+                                 if language == 'vi' else
+                                 f'実行準備: {readiness}\n期待結果: {basis}\n入力データ（抜粋）: {excerpt(variant[1], 45)}\n操作（抜粋）: {excerpt(actions, 65)}')
+            expected_preview = ('Kỳ vọng: ' if language == 'vi' else '期待結果: ') + basis + '\n' + excerpt(expected, 180 if language == 'vi' else 100)
+            rows.append(ReportRow(case['id'], variant[0], title, conditions, public_text(expected, 'expected'), eligible,
+                                  excerpt(case['function'], 70 if language == 'vi' else 35) + '\n' + excerpt(case['title'], 80 if language == 'vi' else 45),
+                                  condition_preview, expected_preview))
     labels = working.SCOPE_LABELS[language]
+    readiness_counts = {state: sum(case['readiness'] == state for case in design['cases']) for state in ('Ready', 'Draft', 'Blocked')}
+    preparation = (f"Sẵn sàng: {readiness_counts['Ready']} · Đang chuẩn bị: {readiness_counts['Draft']} · Bị chặn: {readiness_counts['Blocked']}\n"
+                   "Tính theo testcase, độc lập với trạng thái đã chạy. Một testcase có thể có nhiều biến thể; mỗi dòng Kiểm thử là một biến thể."
+                   if language == 'vi' else
+                   f"実行可能: {readiness_counts['Ready']} · 準備中: {readiness_counts['Draft']} · 実行不可: {readiness_counts['Blocked']}\n"
+                   "ケース単位の準備状況であり、実行結果とは別です。1ケースに複数のバリエーションがあり、テストの1行が1バリエーションです。")
     summary = {'feature': public_text(design['conventions']['Feature'], 'feature'), 'revision': public_text(design['revision'], 'revision'),
+        'preparation': preparation,
         'scope': public_text(design['scope'][1][labels[1][0]], 'scope'),
         'excluded': public_text(design['scope'][1][labels[1][1]], 'excluded'),
         'limitations': public_text(design['scope'][0][labels[0][5]], 'limitations')}

@@ -10,6 +10,10 @@ design = working.parse_sources(args.source_dir, 'vi')
 report, _ = prepare_report(args.source_dir, 'vi')
 expected = [(case['id'], variant[0]) for case in design['cases'] for variant in case['variants']]
 assert [(row.case_id, row.variant) for row in report.rows] == expected
+assert sum(sum(case['readiness'] == state for case in design['cases']) for state in ('Ready', 'Draft', 'Blocked')) == len(design['cases'])
+assert 'Tính theo testcase' in report.summary['preparation']
+assert all('Chuẩn bị:' in row.conditions_preview and 'Kỳ vọng:' in row.conditions_preview
+           and row.screen_preview and row.expected_preview for row in report.rows)
 for gap in design['gaps']:
     owners = {case['id'] for case in design['cases'] if gap[0] in case['gap'].split(', ')}
     text = public_text(gap[3] + '\n' + gap[4], 'gap')

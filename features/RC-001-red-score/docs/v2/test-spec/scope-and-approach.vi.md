@@ -7,10 +7,10 @@
 | --- | --- |
 | Revision | RC-001-v2-report-2026-10-04 |
 | Nguồn | CONTEXT RC-001 và Q&amp;A đã xác nhận đến Q38; đặc tả và AC v2; Work Item RC-001 nguồn Sheet. |
-| Căn cứ research | Refresh format từ bộ thiết kế đã review tại bba351f. Không thay oracle, IDs hoặc biến thể; không điều tra/chạy lại ứng dụng. |
-| Baseline code | Bằng chứng code lịch sử 87d5a78d174 trong bộ nguồn; chưa xác minh lại deployment hoặc mọi seam trên build hiện tại. |
+| Căn cứ research | Refresh format từ bộ thiết kế đã review tại bba351f. Không thay căn cứ kỳ vọng, IDs hoặc biến thể; không điều tra/chạy lại ứng dụng. |
+| Baseline code | Bằng chứng code lịch sử 87d5a78d174 trong bộ nguồn; chưa xác minh lại deployment hoặc mọi đường thực hiện trên phiên bản hiện tại. |
 | Mode | refresh |
-| Giới hạn | Báo cáo mới chưa thực thi. Fixture/seam và phạm vi phát hành chưa xác minh vẫn Draft/Blocked; không coi file có format đúng là QA hoàn tất. |
+| Giới hạn | Báo cáo mới chưa thực thi. Dữ liệu kiểm thử, đường thực hiện và phạm vi phát hành chưa xác minh vẫn Đang chuẩn bị/Bị chặn; không coi file có format đúng là QA hoàn tất. |
 
 ## Phạm vi
 
@@ -24,11 +24,11 @@
 
 | Field | Value |
 | --- | --- |
-| Môi trường | Build tính năng ở môi trường test được cho phép ghi; trường A, năm 2026 và kỳ cuối học kỳ 1 theo fixture; không sử dụng học sinh thật. |
-| Chuẩn bị | Chuẩn bị và đọc lại đúng actor/quyền, lớp, mục, kỳ, nguồn và baseline của từng case. Ưu tiên UI hiện hữu; seam chưa xác minh giữ Draft/Blocked. Mỗi biến thể stateful có reset riêng. |
+| Môi trường | Build tính năng ở môi trường test được cho phép ghi; trường A, năm 2026 và kỳ cuối học kỳ 1 theo dữ liệu kiểm thử; không sử dụng học sinh thật. |
+| Chuẩn bị | Chuẩn bị và đọc lại đúng vai trò/quyền, lớp, mục, kỳ, nguồn và baseline của từng case. Ưu tiên UI hiện hữu; đường thực hiện chưa xác minh giữ Đang chuẩn bị/Bị chặn. Mỗi biến thể có trạng thái cần khôi phục dữ liệu đầu vào riêng. |
 | Chọn lượt chạy | Theo luồng nghiệp vụ và readiness; giữ mọi biến thể bắt buộc. Priority High giữ Cao; Medium là quy ước tạm cho Priority TBD cũ, không xác nhận mức ưu tiên nghiệp vụ mới. |
-| Điều kiện bắt đầu | Đã xác định build, quyền ghi test, fixture, đường kích hoạt và nơi quan sát của lượt được chọn; chọn đúng lát cắt phát hành trước khi chạy. |
-| Điều kiện kết thúc | Ghi actual, trạng thái, bằng chứng và lý do cho mọi lượt được chọn; chưa chuẩn bị/chưa chốt oracle không được PASS. Hoàn tất toàn bộ cần xác nhận đóng lượt và quyền xem bằng chứng thực tế. |
+| Điều kiện bắt đầu | Đã xác định phiên bản ứng dụng, quyền ghi ở môi trường kiểm thử, dữ liệu kiểm thử, đường kích hoạt và nơi quan sát của lượt được chọn; chọn đúng lát cắt phát hành trước khi chạy. |
+| Điều kiện kết thúc | Ghi kết quả thực tế, trạng thái, bằng chứng và lý do cho mọi lượt được chọn; chưa chuẩn bị/chưa chốt căn cứ kỳ vọng không được kết luận Đạt. Hoàn tất toàn bộ cần xác nhận đóng lượt và quyền xem bằng chứng thực tế. |
 | Bằng chứng | Dùng cùng workbook để nhập kết quả. Excel/PDF phải có file thật; layout có ảnh trước/sau; cột/bảng mới có ảnh SELECT/SHOW FULL COLUMNS; request phải che thông tin xác thực. Không thay expected theo output. |
 
 ## Coverage và gaps

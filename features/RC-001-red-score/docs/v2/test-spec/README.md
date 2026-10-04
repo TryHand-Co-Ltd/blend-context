@@ -1,6 +1,6 @@
 # RC-001 — Test Spec và báo cáo kiểm thử
 
-Bộ hiện hành dùng schema `scope-and-approach`, `test-cases`, `test-data` và `test-report@1.0.0` của BLEND Kit. Chỉ bản Việt trong phạm vi cập nhật này; giữ 216 Case IDs và 569 Variant IDs đã review.
+Bộ hiện hành dùng schema `scope-and-approach`, `test-cases`, `test-data` và `test-report@1.0.1` của BLEND Kit. Chỉ bản Việt trong phạm vi cập nhật này; giữ 216 Case IDs và 569 Variant IDs đã review.
 
 - [Phạm vi, coverage và gaps](scope-and-approach.vi.md).
 - [Testcase theo luồng nghiệp vụ](test-cases.vi.md).
@@ -25,3 +25,5 @@ Wrapper PowerShell `tools/generate-test-spec.ps1` giữ hai mode Generate/Check 
 ## Bản cũ
 
 [Archive bba351f](archive/legacy-bba351f/README.md) giữ nguyên byte của ba Markdown, workbook, manifest và generator cũ. Đây là lịch sử; không là nguồn đang dùng cho report mới và không có kết quả chạy nào được chuyển sang report mới.
+
+Phần trích trong Kiểm thử giúp đọc lướt; mở liên kết để đọc đầy đủ thao tác/kỳ vọng trước khi chạy. Tổng quan phân biệt số testcase với số biến thể và mức chuẩn bị với trạng thái đã chạy.

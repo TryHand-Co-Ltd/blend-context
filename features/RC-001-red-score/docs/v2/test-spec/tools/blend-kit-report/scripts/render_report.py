@@ -17,7 +17,7 @@ from openpyxl.workbook.properties import CalcProperties
 
 from report_model import (REPORT_LAYOUTS, VERSION, FAMILY, ReportData, SUMMARY_FIELDS,
                           INPUT_FIELDS, CASE_HEADER_ROW, CASE_START_ROW,
-                          summary_formulas, detail_backlink_formula, display_lines as _lines)
+                           summary_formulas, detail_backlink_formula, display_lines as _lines, excerpt)
 
 INK = '172033'
 LINK = '1D4ED8'
@@ -58,7 +58,9 @@ def _jump(cell, sheet, row, caption=None):
     if caption is not None:
         _text(cell, caption)
     cell.hyperlink = Hyperlink(ref=cell.coordinate, location=f"'{sheet.replace(chr(39), chr(39)*2)}'!A{row}", display=str(cell.value))
-    cell.font = Font(name=cell.parent['A1'].font.name, size=11, color=LINK, underline='single')
+    cell.font = Font(name=cell.parent['A1'].font.name, size=11,
+                     color=INK if '\n' in str(cell.value) else LINK,
+                     underline=None if '\n' in str(cell.value) else 'single')
 
 
 def _finish(sheet, end_column, end_row, header=None):
@@ -124,7 +126,7 @@ def build_workbook(data: ReportData):
             _text(results.cell(row, col), value)
         for col in (2, 3, 4):
             width = 22 if col == 2 else 32
-            if _lines(values[col - 1], width) <= 12:
+            if _lines(values[col - 1], width) <= (6 if col == 2 else 12):
                 continue
             if details is None:
                 details = book.create_sheet(locale['sheets'][2])
@@ -132,7 +134,11 @@ def build_workbook(data: ReportData):
                 _text(details['A1'], locale['sheets'][2])
                 details['A1'].font = Font(name=locale['font'], size=15, bold=True, color=INK)
                 details.row_dimensions[1].height = 32
-                details.row_dimensions[2].height = 12
+                _text(details['A2'], ('Từ ngữ trong nội dung nguồn: fixture = dữ liệu kiểm thử; seam = đường thực hiện/quan sát; oracle = căn cứ xác định kết quả; actual = kết quả thực tế.'
+                                     if data.language == 'vi' else
+                                     '原文の用語: fixture＝テストデータ、seam＝実行・確認経路、oracle＝期待結果の判定根拠、actual＝実際の結果。'))
+                details.merge_cells('A2:C2')
+                details.row_dimensions[2].height = 38
                 for column, label in enumerate(locale['detail_headers'], 1):
                     target = details.cell(locale['detail_header_row'], column)
                     _text(target, label)
@@ -151,8 +157,10 @@ def build_workbook(data: ReportData):
                         line_height=22 if data.language == 'ja' else 17,
                         padding=18 if data.language == 'ja' else 10)
                 detail_row += 1
-            values[col - 1] = locale['detail_link']
-            _jump(results.cell(row, col), details.title, first, locale['detail_link'])
+            preview = (record.screen_preview, record.conditions_preview, record.expected_preview)[col - 2]
+            caption = (preview or excerpt(values[col - 1])) + '\n' + locale['detail_link']
+            values[col - 1] = caption
+            _jump(results.cell(row, col), details.title, first, caption)
         for col in (5, 6, 7):
             results.cell(row, col).fill = PatternFill('solid', fgColor=INPUT_FILL)
             results.cell(row, col).protection = Protection(locked=False)
