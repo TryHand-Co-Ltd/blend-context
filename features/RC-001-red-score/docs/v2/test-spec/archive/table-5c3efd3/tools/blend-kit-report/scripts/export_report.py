@@ -78,10 +78,8 @@ def fields(block: str, labels: list[str], *, exact: bool = True) -> tuple[dict[s
 def document(path: Path, family: str, language: str, *, raw: bytes | None = None) -> tuple[str, list[str]]:
     captured = path.read_bytes() if raw is None else raw
     text = captured.decode("utf-8-sig").replace("\r\n", "\n").replace("\r", "\n")
-    markers = [f"<!-- blend-template: {family}@{VERSION} -->"]
-    if family == 'test-cases':
-        markers.append('<!-- blend-template: test-cases@1.1.0 -->')
-    if re.findall(r"<!--\s*blend-template:[^>]*-->", text) not in [[marker] for marker in markers]:
+    marker = f"<!-- blend-template: {family}@{VERSION} -->"
+    if re.findall(r"<!--\s*blend-template:[^>]*-->", text) != [marker]:
         raise ValueError(f"Missing/wrong template family/version: {path.name}")
     if "<!-- AUTHORING:" in text or re.search(r"\[(?:verified value|same design revision|Feature|source clause)\]", text):
         raise ValueError(f"Unfinished template: {path.name}")
@@ -180,10 +178,6 @@ def parse_sources(source: Path, language: str = "vi", *, captured: dict[str, byt
             raise ValueError("Missing case block/title")
         for offset in range(1, len(chunks), 3):
             case_id, title, body = chunks[offset:offset + 3]
-            paths = re.findall(r'^\| screen_relative_path \| (.*?) \|$',body,re.M)
-            if len(paths)>1:
-                raise ValueError('Duplicate screen_relative_path')
-            body = re.sub(r'^\| screen_relative_path \| .*? \|\n','',body,flags=re.M)
             data, rest = fields(body, CASE_LABELS[language])
             for label, value in data.items():
                 if value.startswith("@CTX"):
@@ -218,7 +212,6 @@ def parse_sources(source: Path, language: str = "vi", *, captured: dict[str, byt
             if rest:
                 raise ValueError("Unsupported/unprojected case prose or table")
             cases.append({"id": identifier(case_id), "title": title, "group": group, **data, "steps": steps,
-                          "screen_relative_path":paths[0] if paths else 'unknown',
                           "variants": variants or [["base", data["fixture"], data["expected"]]]})
     case_ids = {case["id"] for case in cases}
     if len({value.casefold() for value in case_ids}) != len(cases):

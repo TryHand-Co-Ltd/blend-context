@@ -1,4 +1,4 @@
-<!-- blend-template: test-cases@1.1.0 -->
+<!-- blend-template: test-cases@1.0.0 -->
 # RC-001 — Testcase điểm đỏ（赤点）
 
 ## Quy ước và context
@@ -18,7 +18,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Thiết lập điểm đỏ（赤点設定） |
-| screen_relative_path | unknown |
 | Căn cứ | đặc tả v2 mục 4.1 “Điểm vào và trạng thái trống”; AC-G02 chỉ xác nhận loại điểm được hỗ trợ; trạng thái nguồn PROPOSED; ưu tiên nguồn TBD |
 | Priority | Medium |
 | Căn cứ kỳ vọng | Proposed |
@@ -48,7 +47,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Thiết lập điểm đỏ（赤点設定） |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Kiểu điểm được hỗ trợ” (AC-G02 «Kiểu điểm được hỗ trợ»); tiêu chí nghiệm thu “Phạm vi từng đợt” (AC-G40 «Phạm vi từng đợt»); trạng thái nguồn CONFIRMED; ưu tiên nguồn TBD |
 | Priority | Medium |
 | Căn cứ kỳ vọng | Confirmed |
@@ -77,7 +75,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Thiết lập điểm đỏ（赤点設定） |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Lưu và mở lại nhiều thiết lập” (AC-G04 «Lưu và mở lại nhiều thiết lập»); trạng thái nguồn CONFIRMED; ưu tiên nguồn TBD |
 | Priority | Medium |
 | Căn cứ kỳ vọng | Confirmed |
@@ -105,7 +102,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Thiết lập điểm đỏ（赤点設定） |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Lưu và mở lại nhiều thiết lập” (AC-G04 «Lưu và mở lại nhiều thiết lập»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -133,7 +129,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Thiết lập điểm đỏ（赤点設定） |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Lưu và mở lại nhiều thiết lập” (AC-G04 «Lưu và mở lại nhiều thiết lập»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -162,7 +157,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Thiết lập điểm đỏ（赤点設定） |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Lưu và mở lại nhiều thiết lập” (AC-G04 «Lưu và mở lại nhiều thiết lập»); trạng thái nguồn CONFIRMED; ưu tiên nguồn TBD |
 | Priority | Medium |
 | Căn cứ kỳ vọng | Confirmed |
@@ -191,7 +185,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Thiết lập điểm đỏ（赤点設定） |
-| screen_relative_path | unknown |
 | Căn cứ | đặc tả v2 mục 4.4 “Lưu, đổi thứ tự và xóa”; tiêu chí nghiệm thu “Lưu và mở lại nhiều thiết lập” (AC-G04 «Lưu và mở lại nhiều thiết lập»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -221,7 +214,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Thiết lập điểm đỏ（赤点設定） |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Lưu và mở lại nhiều thiết lập” (AC-G04 «Lưu và mở lại nhiều thiết lập»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -249,7 +241,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Thiết lập điểm đỏ（赤点設定） |
-| screen_relative_path | unknown |
 | Căn cứ | đặc tả v2 mục 4.2 “Nội dung một dòng”, mục 5.1 “Đối tượng áp dụng”; trạng thái nguồn PROPOSED; ưu tiên nguồn TBD |
 | Priority | Medium |
 | Căn cứ kỳ vọng | Proposed |
@@ -282,7 +273,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Thiết lập điểm đỏ（赤点設定） |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Lưu và mở lại nhiều thiết lập” (AC-G04 «Lưu và mở lại nhiều thiết lập»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -310,7 +300,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Thiết lập điểm đỏ（赤点設定） |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Lưu và mở lại nhiều thiết lập” (AC-G04 «Lưu và mở lại nhiều thiết lập»); tiêu chí nghiệm thu “Giữ chính xác giá trị” (AC-G11 «Giữ chính xác giá trị»); trạng thái nguồn CONFIRMED; ưu tiên nguồn TBD |
 | Priority | Medium |
 | Căn cứ kỳ vọng | Confirmed |
@@ -341,7 +330,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Thiết lập điểm đỏ（赤点設定） |
-| screen_relative_path | unknown |
 | Căn cứ | đặc tả v2 mục 4.1 “Điểm vào và trạng thái trống”, mục 12.2 “Điểm tích hợp chính”; trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -369,7 +357,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Thiết lập điểm đỏ（赤点設定） |
-| screen_relative_path | unknown |
 | Căn cứ | đặc tả v2 mục 4.1 “Điểm vào và trạng thái trống”; trạng thái nguồn PROPOSED; ưu tiên nguồn TBD |
 | Priority | Medium |
 | Căn cứ kỳ vọng | Proposed |
@@ -397,7 +384,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Thiết lập điểm đỏ（赤点設定） |
-| screen_relative_path | unknown |
 | Căn cứ | đặc tả v2 mục 4.1 “Điểm vào và trạng thái trống”, mục 4.2 “Nội dung một dòng”; trạng thái nguồn PROPOSED; ưu tiên nguồn TBD |
 | Priority | Medium |
 | Căn cứ kỳ vọng | Proposed |
@@ -425,7 +411,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Thiết lập điểm đỏ（赤点設定） |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Lưu và mở lại nhiều thiết lập” (AC-G04 «Lưu và mở lại nhiều thiết lập»); trạng thái nguồn CONFIRMED; ưu tiên nguồn TBD |
 | Priority | Medium |
 | Căn cứ kỳ vọng | Confirmed |
@@ -453,7 +438,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Thiết lập điểm đỏ（赤点設定） |
-| screen_relative_path | unknown |
 | Căn cứ | đặc tả v2 mục 4.2 “Nội dung một dòng”; trạng thái nguồn PROPOSED; ưu tiên nguồn TBD |
 | Priority | Medium |
 | Căn cứ kỳ vọng | Proposed |
@@ -481,7 +465,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Thiết lập điểm đỏ（赤点設定） |
-| screen_relative_path | unknown |
 | Căn cứ | đặc tả v2 mục 4.1 “Điểm vào và trạng thái trống”; trạng thái nguồn PROPOSED; ưu tiên nguồn TBD |
 | Priority | Medium |
 | Căn cứ kỳ vọng | Proposed |
@@ -509,7 +492,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Thiết lập điểm đỏ（赤点設定） |
-| screen_relative_path | unknown |
 | Căn cứ | đặc tả v2 mục 4.4 “Lưu, đổi thứ tự và xóa”; trạng thái nguồn PROPOSED; ưu tiên nguồn TBD |
 | Priority | Medium |
 | Căn cứ kỳ vọng | Proposed |
@@ -537,7 +519,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Thiết lập điểm đỏ（赤点設定） |
-| screen_relative_path | unknown |
 | Căn cứ | đặc tả v2 mục 4.4 “Lưu, đổi thứ tự và xóa”; AC-G04 «Lưu và mở lại nhiều thiết lập»; trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -566,7 +547,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Thiết lập điểm đỏ（赤点設定） |
-| screen_relative_path | unknown |
 | Căn cứ | AC-G04 «Lưu và mở lại nhiều thiết lập»; AC-G38 «Bảo toàn điểm đỏ cũ»; trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -596,7 +576,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Điều kiện áp dụng（適用条件） |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Đối tượng áp dụng và nhu cầu nguồn” (AC-G05 «Đối tượng áp dụng và nhu cầu nguồn»); trạng thái nguồn CONFIRMED; ưu tiên nguồn TBD |
 | Priority | Medium |
 | Căn cứ kỳ vọng | Confirmed |
@@ -625,7 +604,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Điều kiện áp dụng（適用条件） |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Đúng phạm vi tham chiếu” (AC-G12 «Đúng phạm vi tham chiếu»); trạng thái nguồn CONFIRMED; ưu tiên nguồn TBD |
 | Priority | Medium |
 | Căn cứ kỳ vọng | Confirmed |
@@ -654,7 +632,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Điều kiện áp dụng（適用条件） |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Đúng phạm vi tham chiếu” (AC-G12 «Đúng phạm vi tham chiếu»); trạng thái nguồn CONFIRMED; ưu tiên nguồn TBD |
 | Priority | Medium |
 | Căn cứ kỳ vọng | Confirmed |
@@ -682,7 +659,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Điều kiện áp dụng（適用条件） |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Đối tượng áp dụng và nhu cầu nguồn” (AC-G05 «Đối tượng áp dụng và nhu cầu nguồn»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -710,7 +686,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Điều kiện áp dụng（適用条件） |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Đối tượng áp dụng và nhu cầu nguồn” (AC-G05 «Đối tượng áp dụng và nhu cầu nguồn»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -759,7 +734,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Điều kiện áp dụng（適用条件） |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Đối tượng áp dụng và nhu cầu nguồn” (AC-G05 «Đối tượng áp dụng và nhu cầu nguồn»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -787,7 +761,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Điều kiện áp dụng（適用条件） |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Kiểu điểm được hỗ trợ” (AC-G02 «Kiểu điểm được hỗ trợ»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -815,7 +788,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Điều kiện áp dụng（適用条件） |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Đối tượng áp dụng và nhu cầu nguồn” (AC-G05 «Đối tượng áp dụng và nhu cầu nguồn»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -843,7 +815,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Điều kiện áp dụng（適用条件） |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Đối tượng áp dụng và nhu cầu nguồn” (AC-G05 «Đối tượng áp dụng và nhu cầu nguồn»); trạng thái nguồn PROPOSED; ưu tiên nguồn TBD |
 | Priority | Medium |
 | Căn cứ kỳ vọng | Proposed |
@@ -871,7 +842,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Điều kiện áp dụng（適用条件） |
-| screen_relative_path | unknown |
 | Căn cứ | đặc tả v2 mục 5.2 “Điều kiện dựa trên trung bình”; trạng thái nguồn PROPOSED; ưu tiên nguồn TBD |
 | Priority | Medium |
 | Căn cứ kỳ vọng | Proposed |
@@ -907,7 +877,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Điều kiện áp dụng（適用条件） |
-| screen_relative_path | unknown |
 | Căn cứ | đặc tả v2 mục 5.1 “Đối tượng áp dụng”; trạng thái nguồn PROPOSED; ưu tiên nguồn TBD |
 | Priority | Medium |
 | Căn cứ kỳ vọng | Proposed |
@@ -935,7 +904,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Điều kiện áp dụng（適用条件） |
-| screen_relative_path | unknown |
 | Căn cứ | đặc tả v2 mục 3 “Bản đồ màn hình và luồng thao tác”, mục 5.4 “Bộ thông tin nguồn”, mục 5.5 “Chọn bản nguồn”; trạng thái nguồn CONFIRMED; ưu tiên nguồn TBD |
 | Priority | Medium |
 | Căn cứ kỳ vọng | Confirmed |
@@ -963,7 +931,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Điều kiện áp dụng（適用条件） |
-| screen_relative_path | unknown |
 | Căn cứ | đặc tả v2 mục 5.3 “Tỷ lệ nhóm — kế thừa kết quả tổng hợp thứ hạng hiện có”; trạng thái nguồn PROPOSED; ưu tiên nguồn TBD |
 | Priority | Medium |
 | Căn cứ kỳ vọng | Proposed |
@@ -993,7 +960,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Thiết lập ngưỡng（基準設定） |
-| screen_relative_path | unknown |
 | Căn cứ | đặc tả v2 mục 5.6 “Khi nào không cần nguồn?”, mục 6.1 “Thành phần chung của màn ngưỡng”; trạng thái nguồn CONFIRMED; ưu tiên nguồn TBD |
 | Priority | Medium |
 | Căn cứ kỳ vọng | Confirmed |
@@ -1023,7 +989,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Thiết lập ngưỡng（基準設定） |
-| screen_relative_path | unknown |
 | Căn cứ | đặc tả v2 mục 6.1 “Thành phần chung của màn ngưỡng”; trạng thái nguồn CONFIRMED; ưu tiên nguồn TBD |
 | Priority | Medium |
 | Căn cứ kỳ vọng | Confirmed |
@@ -1052,7 +1017,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Thiết lập ngưỡng（基準設定） |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Điểm cố định” (AC-G08 «Điểm cố định»); trạng thái nguồn CONFIRMED; ưu tiên nguồn TBD |
 | Priority | Medium |
 | Căn cứ kỳ vọng | Confirmed |
@@ -1083,7 +1047,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Thiết lập ngưỡng（基準設定） |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Điểm cố định” (AC-G08 «Điểm cố định»); trạng thái nguồn CONFIRMED; ưu tiên nguồn TBD |
 | Priority | Medium |
 | Căn cứ kỳ vọng | Confirmed |
@@ -1113,7 +1076,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Thiết lập ngưỡng（基準設定） |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Điểm cố định” (AC-G08 «Điểm cố định»); trạng thái nguồn CONFIRMED; ưu tiên nguồn TBD |
 | Priority | Medium |
 | Căn cứ kỳ vọng | Confirmed |
@@ -1141,7 +1103,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Thiết lập ngưỡng（基準設定） |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Giữ chính xác giá trị” (AC-G11 «Giữ chính xác giá trị»); trạng thái nguồn CONFIRMED; ưu tiên nguồn TBD |
 | Priority | Medium |
 | Căn cứ kỳ vọng | Confirmed |
@@ -1176,7 +1137,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Thiết lập ngưỡng（基準設定） |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Giữ chính xác giá trị” (AC-G11 «Giữ chính xác giá trị»); trạng thái nguồn PROPOSED; ưu tiên nguồn TBD |
 | Priority | Medium |
 | Căn cứ kỳ vọng | Proposed |
@@ -1207,7 +1167,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Thiết lập ngưỡng（基準設定） |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Biên so sánh và cảnh báo” (AC-G07 «Biên so sánh và cảnh báo»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -1236,7 +1195,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Thiết lập ngưỡng（基準設定） |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Biên so sánh và cảnh báo” (AC-G07 «Biên so sánh và cảnh báo»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -1266,7 +1224,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Thiết lập ngưỡng（基準設定） |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Giữ chính xác giá trị” (AC-G11 «Giữ chính xác giá trị»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -1295,7 +1252,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Thiết lập ngưỡng（基準設定） |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Điểm cố định” (AC-G08 «Điểm cố định»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -1323,7 +1279,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Thiết lập ngưỡng（基準設定） |
-| screen_relative_path | unknown |
 | Căn cứ | đặc tả v2 mục 6.1 “Thành phần chung của màn ngưỡng”; trạng thái nguồn PROPOSED; ưu tiên nguồn TBD |
 | Priority | Medium |
 | Căn cứ kỳ vọng | Proposed |
@@ -1352,7 +1307,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Thiết lập ngưỡng（基準設定） |
-| screen_relative_path | unknown |
 | Căn cứ | đặc tả v2 mục 6.1 “Thành phần chung của màn ngưỡng”; trạng thái nguồn PROPOSED; ưu tiên nguồn TBD |
 | Priority | Medium |
 | Căn cứ kỳ vọng | Proposed |
@@ -1380,7 +1334,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Thiết lập ngưỡng（基準設定） |
-| screen_relative_path | unknown |
 | Căn cứ | đặc tả v2 mục 5.6 “Khi nào không cần nguồn?”; trạng thái nguồn CONFIRMED; ưu tiên nguồn TBD |
 | Priority | Medium |
 | Căn cứ kỳ vọng | Confirmed |
@@ -1410,7 +1363,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Thiết lập ngưỡng（基準設定） |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Công thức theo dòng và phần lẻ” (AC-G16 «Công thức theo dòng và phần lẻ»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -1438,7 +1390,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Thiết lập ngưỡng（基準設定） |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Kiểm công thức khi lưu” (AC-G17 «Kiểm công thức khi lưu»); trạng thái nguồn CONFIRMED; ưu tiên nguồn TBD |
 | Priority | Medium |
 | Căn cứ kỳ vọng | Confirmed |
@@ -1466,7 +1417,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Thiết lập ngưỡng（基準設定） |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Kiểm công thức khi lưu” (AC-G17 «Kiểm công thức khi lưu»); trạng thái nguồn CONFIRMED; ưu tiên nguồn TBD |
 | Priority | Medium |
 | Căn cứ kỳ vọng | Confirmed |
@@ -1495,7 +1445,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Thiết lập ngưỡng（基準設定） |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Kiểm công thức khi lưu” (AC-G17 «Kiểm công thức khi lưu»); trạng thái nguồn CONFIRMED; ưu tiên nguồn TBD |
 | Priority | Medium |
 | Căn cứ kỳ vọng | Confirmed |
@@ -1525,7 +1474,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Thiết lập ngưỡng（基準設定） |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Kiểm công thức khi lưu” (AC-G17 «Kiểm công thức khi lưu»); trạng thái nguồn CONFIRMED; ưu tiên nguồn TBD |
 | Priority | Medium |
 | Căn cứ kỳ vọng | Confirmed |
@@ -1556,7 +1504,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Thiết lập ngưỡng（基準設定） |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Kiểm công thức khi lưu” (AC-G17 «Kiểm công thức khi lưu»); trạng thái nguồn CONFIRMED; ưu tiên nguồn TBD |
 | Priority | Medium |
 | Căn cứ kỳ vọng | Confirmed |
@@ -1585,7 +1532,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Thiết lập ngưỡng（基準設定） |
-| screen_relative_path | unknown |
 | Căn cứ | đặc tả v2 mục 6.4 “Công thức dùng trung bình”, mục 6.8 “Yêu cầu độ chính xác”; trạng thái nguồn PROPOSED; ưu tiên nguồn TBD |
 | Priority | Medium |
 | Căn cứ kỳ vọng | Proposed |
@@ -1615,7 +1561,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Thiết lập ngưỡng（基準設定） |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Biên so sánh và cảnh báo” (AC-G07 «Biên so sánh và cảnh báo»); trạng thái nguồn CONFIRMED; ưu tiên nguồn TBD |
 | Priority | Medium |
 | Căn cứ kỳ vọng | Confirmed |
@@ -1649,7 +1594,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Thiết lập ngưỡng（基準設定） |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Ngưỡng âm” (AC-G18 «Ngưỡng âm»); trạng thái nguồn CONFIRMED; ưu tiên nguồn TBD |
 | Priority | Medium |
 | Căn cứ kỳ vọng | Confirmed |
@@ -1678,7 +1622,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Thiết lập ngưỡng（基準設定） |
-| screen_relative_path | unknown |
 | Căn cứ | đặc tả v2 mục 6.7 “Đổi loại ngưỡng và đổi toán hạng”; trạng thái nguồn PROPOSED; ưu tiên nguồn TBD |
 | Priority | Medium |
 | Căn cứ kỳ vọng | Proposed |
@@ -1706,7 +1649,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Thiết lập ngưỡng（基準設定） |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Giữ chính xác giá trị” (AC-G11 «Giữ chính xác giá trị»); trạng thái nguồn PROPOSED; ưu tiên nguồn TBD |
 | Priority | Medium |
 | Căn cứ kỳ vọng | Proposed |
@@ -1738,7 +1680,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Thiết lập ngưỡng（基準設定） |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Công thức theo dòng và phần lẻ” (AC-G16 «Công thức theo dòng và phần lẻ»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -1768,7 +1709,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Thiết lập ngưỡng（基準設定） |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Công thức theo dòng và phần lẻ” (AC-G16 «Công thức theo dòng và phần lẻ»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -1796,7 +1736,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Thiết lập ngưỡng（基準設定） |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Công thức theo dòng và phần lẻ” (AC-G16 «Công thức theo dòng và phần lẻ»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -1826,7 +1765,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Thiết lập ngưỡng（基準設定） |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Ngưỡng âm” (AC-G18 «Ngưỡng âm»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -1857,7 +1795,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Thiết lập ngưỡng（基準設定） |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Công thức theo dòng và phần lẻ” (AC-G16 «Công thức theo dòng và phần lẻ»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -1885,7 +1822,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Thiết lập ngưỡng（基準設定） |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Biên so sánh và cảnh báo” (AC-G07 «Biên so sánh và cảnh báo»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -1913,7 +1849,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Thiết lập ngưỡng（基準設定） |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Công thức theo dòng và phần lẻ” (AC-G16 «Công thức theo dòng và phần lẻ»); trạng thái nguồn TBD; ưu tiên nguồn TBD |
 | Priority | Medium |
 | Căn cứ kỳ vọng | Awaiting decision |
@@ -1955,7 +1890,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Thiết lập ngưỡng（基準設定） |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Công thức theo dòng và phần lẻ” (AC-G16 «Công thức theo dòng và phần lẻ»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -1984,7 +1918,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Thiết lập ngưỡng（基準設定） |
-| screen_relative_path | unknown |
 | Căn cứ | đặc tả v2 mục 6.4 “Công thức dùng trung bình”, mục 8.3 “Không tạo được ngưỡng hợp lệ”; trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -2014,7 +1947,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Thiết lập ngưỡng（基準設定） |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Giữ chính xác giá trị” (AC-G11 «Giữ chính xác giá trị»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -2045,7 +1977,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Thiết lập ngưỡng（基準設定） |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Giữ chính xác giá trị” (AC-G11 «Giữ chính xác giá trị»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -2075,7 +2006,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Thiết lập ngưỡng（基準設定） |
-| screen_relative_path | unknown |
 | Căn cứ | đặc tả v2 mục 2.3 “Điểm được đưa vào xét”, mục 6.6 “Ngưỡng âm và cảnh báo biên”; trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -2104,7 +2034,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Thiết lập ngưỡng（基準設定） |
-| screen_relative_path | unknown |
 | Căn cứ | đặc tả v2 mục 5.6 “Khi nào không cần nguồn?”, mục 6.4 “Công thức dùng trung bình”; trạng thái nguồn PROPOSED; ưu tiên nguồn TBD |
 | Priority | Medium |
 | Căn cứ kỳ vọng | Proposed |
@@ -2132,7 +2061,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Thiết lập ngưỡng（基準設定） |
-| screen_relative_path | unknown |
 | Căn cứ | đặc tả v2 mục 6.4 “Công thức dùng trung bình”; trạng thái nguồn PROPOSED; ưu tiên nguồn TBD |
 | Priority | Medium |
 | Căn cứ kỳ vọng | Proposed |
@@ -2160,7 +2088,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Thiết lập ngưỡng（基準設定） |
-| screen_relative_path | unknown |
 | Căn cứ | đặc tả v2 mục 8.4 “Lỗi kỹ thuật và thông báo”; trạng thái nguồn PROPOSED; ưu tiên nguồn TBD |
 | Priority | Medium |
 | Căn cứ kỳ vọng | Proposed |
@@ -2191,7 +2118,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Nguồn tổng hợp |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Thứ tự đánh giá tương đối” (AC-G25 «Thứ tự đánh giá tương đối»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -2219,7 +2145,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Nguồn tổng hợp |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Đúng phạm vi tham chiếu” (AC-G12 «Đúng phạm vi tham chiếu»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -2247,7 +2172,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Nguồn tổng hợp |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Đúng phạm vi tham chiếu” (AC-G12 «Đúng phạm vi tham chiếu»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -2277,7 +2201,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Nguồn tổng hợp |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Đúng phạm vi tham chiếu” (AC-G12 «Đúng phạm vi tham chiếu»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -2305,7 +2228,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Nguồn tổng hợp |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Ưu tiên bản chốt và xử lý thiếu nguồn” (AC-G13 «Ưu tiên bản chốt và xử lý thiếu nguồn»); tiêu chí nghiệm thu “Phạm vi từng đợt” (AC-G40 «Phạm vi từng đợt»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -2333,7 +2255,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Nguồn tổng hợp |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Ưu tiên bản chốt và xử lý thiếu nguồn” (AC-G13 «Ưu tiên bản chốt và xử lý thiếu nguồn»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -2363,7 +2284,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Nguồn tổng hợp |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Ưu tiên bản chốt và xử lý thiếu nguồn” (AC-G13 «Ưu tiên bản chốt và xử lý thiếu nguồn»); tiêu chí nghiệm thu “Phạm vi từng đợt” (AC-G40 «Phạm vi từng đợt»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -2391,7 +2311,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Nguồn tổng hợp |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Ưu tiên bản chốt và xử lý thiếu nguồn” (AC-G13 «Ưu tiên bản chốt và xử lý thiếu nguồn»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -2419,7 +2338,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Nguồn tổng hợp |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Đối tượng áp dụng và nhu cầu nguồn” (AC-G05 «Đối tượng áp dụng và nhu cầu nguồn»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -2449,7 +2367,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Nguồn tổng hợp |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Kế thừa tỷ lệ nhóm” (AC-G15 «Kế thừa tỷ lệ nhóm»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -2477,7 +2394,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Nguồn tổng hợp |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Bao phủ đường đăng ký và chạy lại” (AC-G23 «Bao phủ đường đăng ký và chạy lại»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -2505,7 +2421,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Nguồn tổng hợp |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Đúng phạm vi tham chiếu” (AC-G12 «Đúng phạm vi tham chiếu»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -2533,7 +2448,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Nguồn tổng hợp |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Đúng phạm vi tham chiếu” (AC-G12 «Đúng phạm vi tham chiếu»); tiêu chí nghiệm thu “Ưu tiên bản chốt và xử lý thiếu nguồn” (AC-G13 «Ưu tiên bản chốt và xử lý thiếu nguồn»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -2564,7 +2478,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Nguồn tổng hợp |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Ưu tiên bản chốt và xử lý thiếu nguồn” (AC-G13 «Ưu tiên bản chốt và xử lý thiếu nguồn»); tiêu chí nghiệm thu “Giữ kết quả trước khi chạy lại” (AC-G21 «Giữ kết quả trước khi chạy lại và xóa rule cuối»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -2594,7 +2507,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Nguồn tổng hợp |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Đối tượng áp dụng và nhu cầu nguồn” (AC-G05 «Đối tượng áp dụng và nhu cầu nguồn»); trạng thái nguồn CONFIRMED; ưu tiên nguồn TBD |
 | Priority | Medium |
 | Căn cứ kỳ vọng | Confirmed |
@@ -2627,7 +2539,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Nguồn tổng hợp |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Đúng phạm vi tham chiếu” (AC-G12 «Đúng phạm vi tham chiếu»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -2662,7 +2573,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Nguồn tổng hợp |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Giá trị thô từ cùng tập dữ liệu” (AC-G14 «Giá trị thô từ cùng tập dữ liệu»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -2690,7 +2600,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Nguồn tổng hợp |
-| screen_relative_path | unknown |
 | Căn cứ | đặc tả v2 mục 5.5 “Chọn bản nguồn”; trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -2718,7 +2627,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Nguồn tổng hợp |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Giá trị thô từ cùng tập dữ liệu” (AC-G14 «Giá trị thô từ cùng tập dữ liệu»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -2747,7 +2655,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Nguồn tổng hợp |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Giá trị thô từ cùng tập dữ liệu” (AC-G14 «Giá trị thô từ cùng tập dữ liệu»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -2775,7 +2682,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Nguồn tổng hợp |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Trạng thái sau lần chạy” (AC-G20 «Trạng thái sau lần chạy»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -2803,7 +2709,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Nguồn tổng hợp |
-| screen_relative_path | unknown |
 | Căn cứ | AC-G12 «Đúng phạm vi tham chiếu»; AC-G38 «Bảo toàn điểm đỏ cũ»; trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -2834,7 +2739,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Vòng đời kết quả |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Bao phủ đường đăng ký và chạy lại” (AC-G23 «Bao phủ đường đăng ký và chạy lại»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -2862,7 +2766,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Vòng đời kết quả |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Bao phủ đường đăng ký và chạy lại” (AC-G23 «Bao phủ đường đăng ký và chạy lại»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -2891,7 +2794,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Vòng đời kết quả |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Bao phủ đường đăng ký và chạy lại” (AC-G23 «Bao phủ đường đăng ký và chạy lại»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -2920,7 +2822,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Vòng đời kết quả |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Trigger khi đổi điểm tối đa/đơn vị” (AC-G24 «Trigger khi đổi điểm tối đa/đơn vị»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -2948,7 +2849,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Vòng đời kết quả |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Trigger khi đổi điểm tối đa/đơn vị” (AC-G24 «Trigger khi đổi điểm tối đa/đơn vị»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -2976,7 +2876,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Vòng đời kết quả |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Bao phủ đường đăng ký và chạy lại” (AC-G23 «Bao phủ đường đăng ký và chạy lại»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -3004,7 +2903,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Vòng đời kết quả |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Bao phủ đường đăng ký và chạy lại” (AC-G23 «Bao phủ đường đăng ký và chạy lại»); trạng thái nguồn TBD; ưu tiên nguồn TBD |
 | Priority | Medium |
 | Căn cứ kỳ vọng | Awaiting decision |
@@ -3033,7 +2931,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Vòng đời kết quả |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Giữ kết quả trước khi chạy lại” (AC-G21 «Giữ kết quả trước khi chạy lại và xóa rule cuối»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -3061,7 +2958,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Vòng đời kết quả |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Lưu thành công và thông báo an toàn” (AC-G26 «Lưu thành công và thông báo an toàn»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -3089,7 +2985,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Vòng đời kết quả |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Trạng thái sau lần chạy” (AC-G20 «Trạng thái sau lần chạy»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -3119,7 +3014,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Vòng đời kết quả |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Giữ kết quả trước khi chạy lại” (AC-G21 «Giữ kết quả trước khi chạy lại và xóa rule cuối»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -3147,7 +3041,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Vòng đời kết quả |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Giữ kết quả trước khi chạy lại” (AC-G21 «Giữ kết quả trước khi chạy lại và xóa rule cuối»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -3176,7 +3069,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Vòng đời kết quả |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Dùng điểm cuối cùng” (AC-G19 «Dùng điểm cuối cùng»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -3204,7 +3096,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Vòng đời kết quả |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Thứ tự đánh giá tương đối” (AC-G25 «Thứ tự đánh giá tương đối»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -3232,7 +3123,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Vòng đời kết quả |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Trigger khi đổi điểm tối đa/đơn vị” (AC-G24 «Trigger khi đổi điểm tối đa/đơn vị»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -3260,7 +3150,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Vòng đời kết quả |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Thứ tự đánh giá tương đối” (AC-G25 «Thứ tự đánh giá tương đối»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -3288,7 +3177,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Vòng đời kết quả |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Xem/xuất không tự xét” (AC-G28 «Xem/xuất không tự xét»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -3320,7 +3208,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Vòng đời kết quả |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Kết quả chung và thứ tự cập nhật” (AC-G22 «Kết quả chung và thứ tự cập nhật»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -3348,7 +3235,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Vòng đời kết quả |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Trigger khi đổi điểm tối đa/đơn vị” (AC-G24 «Trigger khi đổi điểm tối đa/đơn vị»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -3377,7 +3263,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Vòng đời kết quả |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Trigger khi đổi điểm tối đa/đơn vị” (AC-G24 «Trigger khi đổi điểm tối đa/đơn vị»); trạng thái nguồn TBD; ưu tiên nguồn TBD |
 | Priority | Medium |
 | Căn cứ kỳ vọng | Awaiting decision |
@@ -3405,7 +3290,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Vòng đời kết quả |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Nhận diện ô điểm” (AC-G03 «Nhận diện ô điểm»); tiêu chí nghiệm thu “Không dùng lại kết quả cho đối tượng mới” (AC-G39 «Không dùng lại kết quả cho đối tượng mới»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -3437,7 +3321,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Trích xuất thành tích（成績抽出） |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Hiển thị ô trích xuất” (AC-G30 «Hiển thị ô trích xuất»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -3467,7 +3350,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Trích xuất thành tích（成績抽出） |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Lọc khi trích xuất” (AC-G29 «Lọc khi trích xuất»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -3501,7 +3383,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Trích xuất thành tích（成績抽出） |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Hiển thị ô trích xuất” (AC-G30 «Hiển thị ô trích xuất»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -3530,7 +3411,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Trích xuất thành tích（成績抽出） |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Excel khớp và dùng kết luận server” (AC-G31 «Excel khớp và dùng kết luận server»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -3562,7 +3442,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Trích xuất thành tích（成績抽出） |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Hiển thị ô trích xuất” (AC-G30 «Hiển thị ô trích xuất»); trạng thái nguồn IMPLEMENTED; ưu tiên nguồn TBD |
 | Priority | Medium |
 | Căn cứ kỳ vọng | Confirmed |
@@ -3591,7 +3470,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Trích xuất thành tích（成績抽出） |
-| screen_relative_path | unknown |
 | Căn cứ | đặc tả v2 mục 9.1 “Thiết lập”; trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -3619,7 +3497,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Trích xuất thành tích（成績抽出） |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Lọc khi trích xuất” (AC-G29 «Lọc khi trích xuất»); trạng thái nguồn PROPOSED; ưu tiên nguồn TBD |
 | Priority | Medium |
 | Căn cứ kỳ vọng | Proposed |
@@ -3648,7 +3525,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Trích xuất thành tích（成績抽出） |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Hiển thị ô trích xuất” (AC-G30 «Hiển thị ô trích xuất»); trạng thái nguồn TBD; ưu tiên nguồn TBD |
 | Priority | Medium |
 | Căn cứ kỳ vọng | Awaiting decision |
@@ -3676,7 +3552,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Trích xuất thành tích（成績抽出） |
-| screen_relative_path | unknown |
 | Căn cứ | đặc tả v2 mục 9.1 “Thiết lập”, mục 9.2 “Kết quả và ví dụ”, mục 9.3 “Xuất file”; trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -3709,7 +3584,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Công khai thành tích（成績公開） |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Cấu hình công khai và ẩn điểm” (AC-G32 «Cấu hình công khai và ẩn điểm»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -3740,7 +3614,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Công khai thành tích（成績公開） |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Kết hợp hiệu ứng công khai” (AC-G33 «Kết hợp hiệu ứng công khai»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -3773,7 +3646,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Công khai thành tích（成績公開） |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Đúng người, lịch và đầu ra công khai” (AC-G34 «Đúng người, lịch và đầu ra công khai»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -3803,7 +3675,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Công khai thành tích（成績公開） |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Cấu hình công khai và ẩn điểm” (AC-G32 «Cấu hình công khai và ẩn điểm»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -3836,7 +3707,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Công khai thành tích（成績公開） |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Xem/xuất không tự xét” (AC-G28 «Xem/xuất không tự xét»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -3867,7 +3737,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Công khai thành tích（成績公開） |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Cấu hình công khai và ẩn điểm” (AC-G32 «Cấu hình công khai và ẩn điểm»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -3895,7 +3764,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Công khai thành tích（成績公開） |
-| screen_relative_path | unknown |
 | Căn cứ | đặc tả v2 mục 10.1 “Phạm vi và tùy chọn”; trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -3923,7 +3791,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Công khai thành tích（成績公開） |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Cấu hình công khai và ẩn điểm” (AC-G32 «Cấu hình công khai và ẩn điểm»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -3951,7 +3818,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Công khai thành tích（成績公開） |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Kết hợp hiệu ứng công khai” (AC-G33 «Kết hợp hiệu ứng công khai»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -3979,7 +3845,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Công khai thành tích（成績公開） |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Cấu hình công khai và ẩn điểm” (AC-G32 «Cấu hình công khai và ẩn điểm»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -4014,7 +3879,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Công cụ phiếu điểm（通知表ツール） |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Tùy chọn trên phiếu” (AC-G35 «Tùy chọn trên phiếu»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -4045,7 +3909,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Công cụ phiếu điểm（通知表ツール） |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Phiếu dừng ở điều kiện khớp đầu tiên” (AC-G36 «Phiếu dừng ở điều kiện khớp đầu tiên»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -4080,7 +3943,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Công cụ phiếu điểm（通知表ツール） |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Lưu, sao chép và PDF phiếu” (AC-G37 «Lưu, sao chép và PDF phiếu»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -4109,7 +3971,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Công cụ phiếu điểm（通知表ツール） |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Tùy chọn trên phiếu” (AC-G35 «Tùy chọn trên phiếu»); trạng thái nguồn IMPLEMENTED; ưu tiên nguồn TBD |
 | Priority | Medium |
 | Căn cứ kỳ vọng | Confirmed |
@@ -4140,7 +4001,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Công cụ phiếu điểm（通知表ツール） |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Lưu, sao chép và PDF phiếu” (AC-G37 «Lưu, sao chép và PDF phiếu»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -4169,7 +4029,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Công cụ phiếu điểm（通知表ツール） |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Tùy chọn trên phiếu” (AC-G35 «Tùy chọn trên phiếu»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -4197,7 +4056,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Công cụ phiếu điểm（通知表ツール） |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Phiếu dừng ở điều kiện khớp đầu tiên” (AC-G36 «Phiếu dừng ở điều kiện khớp đầu tiên»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -4226,7 +4084,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Công cụ phiếu điểm（通知表ツール） |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Lưu, sao chép và PDF phiếu” (AC-G37 «Lưu, sao chép và PDF phiếu»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -4256,7 +4113,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Kết quả dùng chung |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Kết quả chung và thứ tự cập nhật” (AC-G22 «Kết quả chung và thứ tự cập nhật»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -4287,7 +4143,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Kết quả dùng chung |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Cấu hình công khai và ẩn điểm” (AC-G32 «Cấu hình công khai và ẩn điểm»); trạng thái nguồn TBD; ưu tiên nguồn TBD |
 | Priority | Medium |
 | Căn cứ kỳ vọng | Awaiting decision |
@@ -4319,7 +4174,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Xét theo ưu tiên |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Chọn quy tắc khớp đầu tiên” (AC-G06 «Chọn quy tắc khớp đầu tiên»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -4348,7 +4202,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Xét theo ưu tiên |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Chọn quy tắc khớp đầu tiên” (AC-G06 «Chọn quy tắc khớp đầu tiên»); tiêu chí nghiệm thu “Trạng thái sau lần chạy” (AC-G20 «Trạng thái sau lần chạy»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -4376,7 +4229,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Xét theo ưu tiên |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Chọn quy tắc khớp đầu tiên” (AC-G06 «Chọn quy tắc khớp đầu tiên»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -4406,7 +4258,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Xét theo ưu tiên |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Bao phủ đường đăng ký và chạy lại” (AC-G23 «Bao phủ đường đăng ký và chạy lại»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -4434,7 +4285,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Xét theo ưu tiên |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Giá trị thô từ cùng tập dữ liệu” (AC-G14 «Giá trị thô từ cùng tập dữ liệu»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -4465,7 +4315,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Xét theo ưu tiên |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Giá trị thô từ cùng tập dữ liệu” (AC-G14 «Giá trị thô từ cùng tập dữ liệu»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -4494,7 +4343,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Xét theo ưu tiên |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Kế thừa tỷ lệ nhóm” (AC-G15 «Kế thừa tỷ lệ nhóm»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -4523,7 +4371,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Xét theo ưu tiên |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Giá trị thô từ cùng tập dữ liệu” (AC-G14 «Giá trị thô từ cùng tập dữ liệu»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -4554,7 +4401,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Đăng ký thành tích（成績登録） |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Dùng điểm cuối cùng” (AC-G19 «Dùng điểm cuối cùng»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -4585,7 +4431,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Đăng ký thành tích（成績登録） |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Dùng điểm cuối cùng” (AC-G19 «Dùng điểm cuối cùng»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -4615,7 +4460,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Đăng ký thành tích（成績登録） |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Dùng điểm cuối cùng” (AC-G19 «Dùng điểm cuối cùng»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -4644,7 +4488,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Đăng ký thành tích（成績登録） |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Kiểu điểm được hỗ trợ” (AC-G02 «Kiểu điểm được hỗ trợ»); tiêu chí nghiệm thu “Nhận diện ô điểm” (AC-G03 «Nhận diện ô điểm»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -4672,7 +4515,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Đăng ký thành tích（成績登録） |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Dùng điểm cuối cùng” (AC-G19 «Dùng điểm cuối cùng»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -4702,7 +4544,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Quyền thao tác |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Quyền thao tác và phạm vi dữ liệu” (AC-G01 «Quyền thao tác và phạm vi dữ liệu»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -4734,7 +4575,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Quyền thao tác |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Quyền thao tác và phạm vi dữ liệu” (AC-G01 «Quyền thao tác và phạm vi dữ liệu»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -4762,7 +4602,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Quyền thao tác |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Quyền thao tác và phạm vi dữ liệu” (AC-G01 «Quyền thao tác và phạm vi dữ liệu»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -4790,7 +4629,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Quyền thao tác |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Quyền thao tác và phạm vi dữ liệu” (AC-G01 «Quyền thao tác và phạm vi dữ liệu»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -4820,7 +4658,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Quyền thao tác |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Quyền thao tác và phạm vi dữ liệu” (AC-G01 «Quyền thao tác và phạm vi dữ liệu»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -4858,7 +4695,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Quyền thao tác |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Quyền thao tác và phạm vi dữ liệu” (AC-G01 «Quyền thao tác và phạm vi dữ liệu»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -4886,7 +4722,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Quyền thao tác |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Giữ chính xác giá trị” (AC-G11 «Giữ chính xác giá trị»); tiêu chí nghiệm thu “Công thức theo dòng và phần lẻ” (AC-G16 «Công thức theo dòng và phần lẻ»); trạng thái nguồn CONFIRMED; ưu tiên nguồn TBD |
 | Priority | Medium |
 | Căn cứ kỳ vọng | Confirmed |
@@ -4929,7 +4764,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Quyền thao tác |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Excel khớp và dùng kết luận server” (AC-G31 «Excel khớp và dùng kết luận server»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -4964,7 +4798,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Quyền thao tác |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Lưu thành công và thông báo an toàn” (AC-G26 «Lưu thành công và thông báo an toàn»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -4994,7 +4827,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Quyền thao tác |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Đúng người, lịch và đầu ra công khai” (AC-G34 «Đúng người, lịch và đầu ra công khai»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -5025,7 +4857,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Thiết lập ngưỡng（基準設定） |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Tỷ lệ điểm tối đa” (AC-G10 «Tỷ lệ điểm tối đa»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -5058,7 +4889,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Thiết lập ngưỡng（基準設定） |
-| screen_relative_path | unknown |
 | Căn cứ | đặc tả v2 mục 6.5 “Xử lý phần lẻ”, mục 6.8 “Yêu cầu độ chính xác”; trạng thái nguồn PROPOSED; ưu tiên nguồn TBD |
 | Priority | Medium |
 | Căn cứ kỳ vọng | Proposed |
@@ -5091,7 +4921,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Thiết lập ngưỡng（基準設定） |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Tỷ lệ điểm tối đa” (AC-G10 «Tỷ lệ điểm tối đa»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -5120,7 +4949,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Thiết lập ngưỡng（基準設定） |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Tỷ lệ điểm tối đa” (AC-G10 «Tỷ lệ điểm tối đa»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -5149,7 +4977,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Thiết lập ngưỡng（基準設定） |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Tỷ lệ điểm tối đa” (AC-G10 «Tỷ lệ điểm tối đa»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -5184,7 +5011,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Thiết lập ngưỡng（基準設定） |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Tỷ lệ điểm tối đa” (AC-G10 «Tỷ lệ điểm tối đa»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -5213,7 +5039,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Thiết lập ngưỡng（基準設定） |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Tỷ lệ điểm tối đa” (AC-G10 «Tỷ lệ điểm tối đa»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -5244,7 +5069,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Thiết lập ngưỡng（基準設定） |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Tỷ lệ điểm tối đa” (AC-G10 «Tỷ lệ điểm tối đa»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -5275,7 +5099,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Thiết lập ngưỡng（基準設定） |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Điểm tối đa hiện hành” (AC-G09 «Điểm tối đa hiện hành»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -5305,7 +5128,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Thiết lập ngưỡng（基準設定） |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Điểm tối đa hiện hành” (AC-G09 «Điểm tối đa hiện hành»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -5333,7 +5155,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Thiết lập ngưỡng（基準設定） |
-| screen_relative_path | unknown |
 | Căn cứ | đặc tả v2 mục 5.6 “Khi nào không cần nguồn?”, mục 6.3 “Tỷ lệ điểm tối đa”, mục 6.5 “Xử lý phần lẻ”; trạng thái nguồn PROPOSED; ưu tiên nguồn TBD |
 | Priority | Medium |
 | Căn cứ kỳ vọng | Proposed |
@@ -5363,7 +5184,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Bảo toàn dữ liệu và cấu hình |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Nhận diện ô điểm” (AC-G03 «Nhận diện ô điểm»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -5391,7 +5211,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Bảo toàn dữ liệu và cấu hình |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Trạng thái sau lần chạy” (AC-G20 «Trạng thái sau lần chạy»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -5419,7 +5238,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Bảo toàn dữ liệu và cấu hình |
-| screen_relative_path | unknown |
 | Căn cứ | đặc tả v2 mục 6.4 “Công thức dùng trung bình”, mục 7.1 “Trình tự cho một ô”; trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -5447,7 +5265,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Bảo toàn dữ liệu và cấu hình |
-| screen_relative_path | unknown |
 | Căn cứ | đặc tả v2 mục 9.1 “Thiết lập”, mục 10.1 “Phạm vi và tùy chọn”, mục 11.1 “Tùy chọn hiển thị đỏ”; trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -5477,7 +5294,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Bảo toàn dữ liệu và cấu hình |
-| screen_relative_path | unknown |
 | Căn cứ | đặc tả v2 mục 12.1 “Dữ liệu cấu hình và kết quả cần quản lý”; trạng thái nguồn PROPOSED; ưu tiên nguồn TBD |
 | Priority | Medium |
 | Căn cứ kỳ vọng | Proposed |
@@ -5505,7 +5321,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Bảo toàn dữ liệu và cấu hình |
-| screen_relative_path | unknown |
 | Căn cứ | đặc tả v2 mục 12.1 “Dữ liệu cấu hình và kết quả cần quản lý”, mục 12.3 “Không chuyển đổi dữ liệu đỏ cũ”; trạng thái nguồn CONFIRMED; ưu tiên nguồn TBD |
 | Priority | Medium |
 | Căn cứ kỳ vọng | Confirmed |
@@ -5533,7 +5348,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Bảo toàn dữ liệu và cấu hình |
-| screen_relative_path | unknown |
 | Căn cứ | đặc tả v2 mục 10.1 “Phạm vi và tùy chọn”; trạng thái nguồn PROPOSED; ưu tiên nguồn TBD |
 | Priority | Medium |
 | Căn cứ kỳ vọng | Proposed |
@@ -5563,7 +5377,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Bảo toàn dữ liệu và cấu hình |
-| screen_relative_path | unknown |
 | Căn cứ | đặc tả v2 mục 7.5 “Phạm vi một lượt và thứ tự hoàn tất”, mục 12.1 “Dữ liệu cấu hình và kết quả cần quản lý”; trạng thái nguồn PROPOSED; ưu tiên nguồn TBD |
 | Priority | Medium |
 | Căn cứ kỳ vọng | Proposed |
@@ -5594,7 +5407,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Bảo toàn dữ liệu và cấu hình |
-| screen_relative_path | unknown |
 | Căn cứ | AC-G38 «Bảo toàn điểm đỏ cũ»; trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -5622,7 +5434,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Bảo toàn dữ liệu và cấu hình |
-| screen_relative_path | unknown |
 | Căn cứ | AC-G38 «Bảo toàn điểm đỏ cũ»; AC-G39 «Không dùng lại kết quả cho đối tượng mới»; trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -5650,7 +5461,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Bảo toàn dữ liệu và cấu hình |
-| screen_relative_path | unknown |
 | Căn cứ | AC-G38 «Bảo toàn điểm đỏ cũ»; AC-G39 «Không dùng lại kết quả cho đối tượng mới»; trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -5678,7 +5488,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Bảo toàn dữ liệu và cấu hình |
-| screen_relative_path | unknown |
 | Căn cứ | AC-G38 «Bảo toàn điểm đỏ cũ»; AC-G39 «Không dùng lại kết quả cho đối tượng mới»; trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -5706,7 +5515,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Bảo toàn dữ liệu và cấu hình |
-| screen_relative_path | unknown |
 | Căn cứ | AC-G38 «Bảo toàn điểm đỏ cũ»; AC-G39 «Không dùng lại kết quả cho đối tượng mới»; trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -5734,7 +5542,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Bảo toàn dữ liệu và cấu hình |
-| screen_relative_path | unknown |
 | Căn cứ | AC-G38 «Bảo toàn điểm đỏ cũ»; AC-G39 «Không dùng lại kết quả cho đối tượng mới»; trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -5762,7 +5569,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Bảo toàn dữ liệu và cấu hình |
-| screen_relative_path | unknown |
 | Căn cứ | AC-G38 «Bảo toàn điểm đỏ cũ»; trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -5790,7 +5596,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Bảo toàn dữ liệu và cấu hình |
-| screen_relative_path | unknown |
 | Căn cứ | AC-G38 «Bảo toàn điểm đỏ cũ»; AC-G39 «Không dùng lại kết quả cho đối tượng mới»; trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -5823,7 +5628,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Lỗi và cập nhật kết quả |
-| screen_relative_path | unknown |
 | Căn cứ | đặc tả v2 mục 7.2 “Bảng sự kiện”; trạng thái nguồn IMPLEMENTED; ưu tiên nguồn TBD |
 | Priority | Medium |
 | Căn cứ kỳ vọng | Confirmed |
@@ -5851,7 +5655,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Lỗi và cập nhật kết quả |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Lưu thành công và thông báo an toàn” (AC-G26 «Lưu thành công và thông báo an toàn»); trạng thái nguồn PROPOSED; ưu tiên nguồn TBD |
 | Priority | Medium |
 | Căn cứ kỳ vọng | Proposed |
@@ -5880,7 +5683,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Lỗi và cập nhật kết quả |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Trạng thái sau lần chạy” (AC-G20 «Trạng thái sau lần chạy»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -5910,7 +5712,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Lỗi và cập nhật kết quả |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Lưu thành công và thông báo an toàn” (AC-G26 «Lưu thành công và thông báo an toàn»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -5952,7 +5753,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Lỗi và cập nhật kết quả |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Batch hoàn tất một phần” (AC-G27 «Batch hoàn tất một phần»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -5982,7 +5782,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Lỗi và cập nhật kết quả |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Batch hoàn tất một phần” (AC-G27 «Batch hoàn tất một phần»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -6010,7 +5809,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Lỗi và cập nhật kết quả |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Lưu thành công và thông báo an toàn” (AC-G26 «Lưu thành công và thông báo an toàn»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -6041,7 +5839,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Lỗi và cập nhật kết quả |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Nhận diện ô điểm” (AC-G03 «Nhận diện ô điểm»); tiêu chí nghiệm thu “Đúng phạm vi tham chiếu” (AC-G12 «Đúng phạm vi tham chiếu»); tiêu chí nghiệm thu “Giữ kết quả trước khi chạy lại” (AC-G21 «Giữ kết quả trước khi chạy lại và xóa rule cuối»); tiêu chí nghiệm thu “Kết quả chung và thứ tự cập nhật” (AC-G22 «Kết quả chung và thứ tự cập nhật»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -6074,7 +5871,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Lỗi và cập nhật kết quả |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Kết quả chung và thứ tự cập nhật” (AC-G22 «Kết quả chung và thứ tự cập nhật»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -6104,7 +5900,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Lỗi và cập nhật kết quả |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Kết quả chung và thứ tự cập nhật” (AC-G22 «Kết quả chung và thứ tự cập nhật»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -6134,7 +5929,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Phạm vi triển khai |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Phạm vi từng đợt” (AC-G40 «Phạm vi từng đợt»); trạng thái nguồn CONFIRMED; ưu tiên nguồn TBD |
 | Priority | Medium |
 | Căn cứ kỳ vọng | Confirmed |
@@ -6164,7 +5958,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Hồi quy luồng hiện có |
-| screen_relative_path | unknown |
 | Căn cứ | đặc tả v2 mục 7.1 “Trình tự cho một ô”, mục 12.2 “Điểm tích hợp chính”; trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -6192,7 +5985,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Hồi quy luồng hiện có |
-| screen_relative_path | unknown |
 | Căn cứ | đặc tả v2 mục 12.2 “Điểm tích hợp chính”; trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -6220,7 +6012,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Hồi quy luồng hiện có |
-| screen_relative_path | unknown |
 | Căn cứ | đặc tả v2 mục 1.3 “Quyền sử dụng”, mục 7.4 “Quy trình vận hành khi dùng trung bình/tỷ lệ nhóm”; trạng thái nguồn CONFIRMED; ưu tiên nguồn TBD |
 | Priority | Medium |
 | Căn cứ kỳ vọng | Confirmed |
@@ -6249,7 +6040,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Hồi quy luồng hiện có |
-| screen_relative_path | unknown |
 | Căn cứ | đặc tả v2 mục 5.5 “Chọn bản nguồn”, mục 7.4 “Quy trình vận hành khi dùng trung bình/tỷ lệ nhóm”, mục 12.2 “Điểm tích hợp chính”; trạng thái nguồn CONFIRMED; ưu tiên nguồn TBD |
 | Priority | Medium |
 | Căn cứ kỳ vọng | Confirmed |
@@ -6277,7 +6067,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Hồi quy luồng hiện có |
-| screen_relative_path | unknown |
 | Căn cứ | tiêu chí nghiệm thu “Trigger khi đổi điểm tối đa/đơn vị” (AC-G24 «Trigger khi đổi điểm tối đa/đơn vị»); trạng thái nguồn CONFIRMED; ưu tiên nguồn TBD |
 | Priority | Medium |
 | Căn cứ kỳ vọng | Confirmed |
@@ -6307,7 +6096,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Hồi quy luồng hiện có |
-| screen_relative_path | unknown |
 | Căn cứ | đặc tả v2 mục 12.2 “Điểm tích hợp chính”; trạng thái nguồn CONFIRMED; ưu tiên nguồn TBD |
 | Priority | Medium |
 | Căn cứ kỳ vọng | Confirmed |
@@ -6336,7 +6124,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Hồi quy luồng hiện có |
-| screen_relative_path | unknown |
 | Căn cứ | đặc tả v2 mục 7.5 “Phạm vi một lượt và thứ tự hoàn tất”, mục 8.4 “Lỗi kỹ thuật và thông báo”; trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -6366,7 +6153,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Hồi quy luồng hiện có |
-| screen_relative_path | unknown |
 | Căn cứ | đặc tả v2 mục 4.1 “Điểm vào và trạng thái trống”, mục 12.2 “Điểm tích hợp chính”; trạng thái nguồn CONFIRMED; ưu tiên nguồn TBD |
 | Priority | Medium |
 | Căn cứ kỳ vọng | Confirmed |
@@ -6394,7 +6180,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Hồi quy luồng hiện có |
-| screen_relative_path | unknown |
 | Căn cứ | AC-G38 «Bảo toàn điểm đỏ cũ»; trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
@@ -6422,7 +6207,6 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Hồi quy luồng hiện có |
-| screen_relative_path | unknown |
 | Căn cứ | AC-G38 «Bảo toàn điểm đỏ cũ»; AC-G39 «Không dùng lại kết quả cho đối tượng mới»; trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |

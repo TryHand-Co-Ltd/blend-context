@@ -84,12 +84,13 @@ def _xml_attributes(root, name, urls):
                 urls.update(match.group() for match in url_spans(value))
 
 
-def _package(raw, data, phase, payload, gaps):
+def _package(raw, data, phase, payload, gaps, *, allowed_formulas=None):
     """Inspect saved relationships, metadata, text and image bytes, never strip them."""
     urls, media, captions = set(), {}, []
     locale = REPORT_LAYOUTS[data.language]
-    allowed_formulas = {value.removeprefix('=') for value in summary_formulas(data).values()}
-    allowed_formulas.update(detail_backlink_formula(row.identity, data).removeprefix('=') for row in data.rows)
+    if allowed_formulas is None:
+        allowed_formulas = {value.removeprefix('=') for value in summary_formulas(data).values()}
+        allowed_formulas.update(detail_backlink_formula(row.identity, data).removeprefix('=') for row in data.rows)
     allowed_formulas.update('"' + label + '"' for label in locale['statuses'].values())
     allowed_formulas.add('"' + ','.join(locale['statuses'].values()) + '"')
     allowed_formulas = {_formula_reference_key(value, locale['sheets']) for value in allowed_formulas}
@@ -142,7 +143,9 @@ def _package(raw, data, phase, payload, gaps):
                         if element.text and tag not in ('f', 'formula', 'formula1', 'formula2'):
                             value = element.text
                             if value.strip():
-                                dummy_input = '[dummy-input: ' in value and any(value in r.conditions for r in data.rows)
+                                dummy_input = '[dummy-input: ' in value and (any(value in r.conditions for r in data.rows)
+                                    or any(value in item[1] for case in data.cases for item in case['preparation_items'])
+                                    or any(value in pair[0] for case in data.cases for pair in case['variants'].values()))
                                 public_text(value, name, dummy_input=dummy_input)
                                 scan = re.sub(r'\[dummy-input: [^\]\n]+\]', '', value) if dummy_input else value
                                 urls.update(match.group() for match in url_spans(scan))
@@ -194,183 +197,8 @@ def _package(raw, data, phase, payload, gaps):
 
 def check_report(report: Path, source_dir: Path, language='vi', phase='in-progress', *,
                  closure_confirmation=None, evidence_access=(), screenshots=()):
-    from openpyxl import load_workbook
-    from render_report import build_workbook
-    if phase not in ('in-progress', 'complete'):
-        raise ValueError('Unknown check phase')
-    report = Path(report)
-    data, captures = prepare_report(Path(source_dir), language)
-    template = Path(__file__).resolve().parents[1] / 'assets' / REPORT_LAYOUTS[language]['template']
-    captures[template] = _capture(template)
-    captures[report] = _capture(report)
-    raw = captures[report][0]
-    book = load_workbook(io.BytesIO(raw), data_only=False)
-    props = {p.name: p.value for p in book.custom_doc_props}
-    if props != {'TemplateFamily': FAMILY, 'TemplateVersion': VERSION, 'Language': language}:
-        raise ValueError('Unsupported report schema; legacy workbooks require separately authorized migration')
-    expected = build_workbook(data)
-    locale = REPORT_LAYOUTS[language]
-    summary, results = book[locale['sheets'][0]], book[locale['sheets'][1]]
-    if book.sheetnames not in (expected.sheetnames, list(locale['sheets'])):
-        raise ValueError('Report sheets differ from matching design')
-    if locale['sheets'][2] in book.sheetnames and locale['sheets'][2] not in expected.sheetnames:
-        added = expected.create_sheet(locale['sheets'][2])
-        for col, label in enumerate(locale['detail_headers'], 1):
-            added.cell(locale['detail_header_row'], col, label)
-    if any(sheet.sheet_state != 'visible' for sheet in book):
-        raise ValueError('Hidden worksheets are unsupported')
-    gaps, layout_notes = [], []
-    for field in INPUT_FIELDS:
-        value = _read_text(summary.cell(SUMMARY_FIELDS[field], 2), field, optional=True)
-        if value:
-            public_text(value, field)
-            cell = summary.cell(SUMMARY_FIELDS[field], 2)
-            height = summary.row_dimensions[cell.row].height
-            height = summary.sheet_format.defaultRowHeight or 15 if height is None else height
-            if height < (value.count('\n') + 1) * (cell.font.sz or 11):
-                gaps.append(f'{summary.title}!{cell.coordinate}: row is too short for its explicit text lines')
-            elif display_lines(value, 100) * 17 + 10 > height:
-                layout_notes.append(f'{summary.title}!{cell.coordinate}: estimated wrapping exceeds row height; verify visibility in the spreadsheet application')
-        else:
-            gaps.append(f'{summary.title}!B{SUMMARY_FIELDS[field]}: missing {field}')
-    if phase == 'complete' and summary.cell(SUMMARY_FIELDS['period'], 2).value:
-        executed_at = timestamp(summary.cell(SUMMARY_FIELDS['period'], 2).value, 'execution timestamp')
-        closure = _records(closure_confirmation, ClosureConfirmation)
-        if executed_at > timestamp(closure.closed_at, 'closure.closed_at'):
-            raise ValueError('Execution timestamp is after closure')
-    # All source/formula cells are immutable. Result rows may be sorted together.
-    start = locale['start_row']
-    wanted = {r.identity: r for r in data.rows}
-    image_caption_cells = set()
-    image_bindings = []
-    for sheet in book:
-        for picture in sheet._images:
-            if sheet.title != locale['sheets'][2]:
-                raise ValueError('Evidence images belong in the detail sheet')
-            anchor = picture.anchor._from
-            caption_row = anchor.row  # image is one row below caption, OOXML is zero based
-            if anchor.col != 2 or caption_row < locale['detail_start_row']:
-                raise ValueError('Evidence image must be anchored in C immediately below its caption row')
-            identity, label, caption = [sheet.cell(caption_row, col).value for col in (1, 2, 3)]
-            if identity not in wanted or label != locale['evidence_link']:
-                raise ValueError('Image caption row requires exact variant identity and evidence label')
-            public_text(caption, 'image caption')
-            image_bindings.append((identity, caption, hashlib.sha256(picture._data()).hexdigest()))
-            image_caption_cells.update((sheet.title, sheet.cell(caption_row, col).coordinate) for col in (1, 2, 3))
-    if phase == 'complete':
-        reviews = [_records(item, ScreenshotReview) for item in screenshots]
-        expected_bindings = Counter((f'{r.case_id} / {r.variant}', r.caption, r.sha256) for r in reviews)
-        if expected_bindings != Counter(image_bindings):
-            raise ValueError('Screenshot review identity/caption/digest differs from saved image placement')
-    seen, seen_folded, states = set(), set(), []
-    pristine_results = expected[results.title]
-    pristine_rows = {pristine_results.cell(row, 1).value: row for row in range(start, start + len(data.rows))}
-    for row in range(start, results.max_row + 1):
-        if not any(results.cell(row, col).value is not None for col in range(1, 8)):
-            continue
-        identity = _read_text(results.cell(row, 1), f'{results.title}!A{row}')
-        if identity not in wanted or identity.casefold() in seen_folded:
-            raise ValueError(f'Duplicate or unknown variant: {results.title}!A{row}')
-        seen.add(identity)
-        seen_folded.add(identity.casefold())
-        record = wanted[identity]
-        original_row = pristine_rows[identity]
-        for col in range(1, 5):
-            actual, original = results.cell(row, col), pristine_results.cell(original_row, col)
-            if actual.value != original.value or actual.data_type != original.data_type:
-                raise ValueError(f'Changed design value/type: {results.title}!{actual.coordinate}')
-            if original.hyperlink and (not actual.hyperlink or actual.hyperlink.location != original.hyperlink.location):
-                raise ValueError(f'Changed detail link: {results.title}!{actual.coordinate}')
-        actual, status, evidence = [_read_text(results.cell(row, col), f'{results.title}!{results.cell(row, col).coordinate}', optional=(col != 6)) for col in (5, 6, 7)]
-        reverse = {v: k for k, v in locale['statuses'].items()}
-        if status not in reverse:
-            raise ValueError(f'Invalid pasted status: {results.title}!F{row}')
-        token = reverse[status]
-        first_evidence_line = evidence.split('\n', 1)[0]
-        if first_evidence_line.startswith('https://') and not any(ch.isspace() for ch in first_evidence_line):
-            shared_url(first_evidence_line, f'{results.title}!G{row}')
-        for value, column in ((actual, 'E'), (evidence, 'G')):
-            if value.strip():
-                public_text(value, f'{results.title}!{column}{row}')
-        if results.cell(row, 7).hyperlink and results.cell(row, 7).hyperlink.target:
-            shared_url(results.cell(row, 7).hyperlink.target, f'{results.title}!G{row}')
-        reason = evidence
-        for match in reversed(list(url_spans(evidence))):
-            reason = reason[:match.start()] + reason[match.end():]
-        reason = reason.strip()
-        valid = token in ('PASS', 'FAIL') and record.eligible and recorded_decision_inputs(actual, evidence)
-        if token in ('PASS', 'FAIL'):
-            if not recorded_decision_inputs(actual, evidence):
-                gaps.append(f'{identity}: nonblank actual and a standalone HTTPS URL on the first evidence line required')
-            if not record.eligible:
-                gaps.append(f'{identity}: expected result or preparation remains unconfirmed')
-        if token != 'PASS' and not reason:
-            gaps.append(f'{identity}: reason and next action required in evidence/issues')
-        if token == 'NOT RUN':
-            gaps.append(f'{identity}: not executed')
-        required_height = max(display_lines(actual, 32), display_lines(evidence, 21)) * 17 + 10
-        height = results.row_dimensions[row].height
-        height = results.sheet_format.defaultRowHeight or 15 if height is None else height
-        minimum_height = max(((value.count('\n') + 1) * (results.cell(row, col).font.sz or 11)
-                              for value, col in ((actual, 5), (evidence, 7)) if value), default=0)
-        if height < minimum_height:
-            gaps.append(f'{identity}: row is too short for its explicit actual/evidence text lines')
-        elif required_height > height:
-            layout_notes.append(f'{identity}: estimated wrapping exceeds row height; verify visibility in the spreadsheet application')
-        states.append((identity, token, valid))
-    if seen != set(wanted):
-        raise ValueError('Missing design variants in report')
-    if results.max_row > start + len(data.rows) - 1 and any(results.cell(r, c).value is not None for r in range(start + len(data.rows), results.max_row + 1) for c in range(1, 8)):
-        raise ValueError('Result table has rows outside its formula range')
-    for sheet in book:
-        pristine = expected[sheet.title]
-        if sheet == results:
-            if sheet.freeze_panes != pristine.freeze_panes or sheet.auto_filter.ref != pristine.auto_filter.ref:
-                raise ValueError('Result freeze/filter range differs from report schema')
-            expected_validation = [(v.type, v.formula1, str(v.sqref), v.allow_blank, v.showErrorMessage)
-                                   for v in pristine.data_validations.dataValidation]
-            actual_validation = [(v.type, v.formula1, str(v.sqref), v.allow_blank, v.showErrorMessage)
-                                 for v in sheet.data_validations.dataValidation]
-            if actual_validation != expected_validation:
-                raise ValueError('Result status validation differs from report schema')
-        for row in sheet.iter_rows(max_row=max(sheet.max_row, pristine.max_row),
-                                   max_col=max(sheet.max_column, pristine.max_column)):
-            for cell in row:
-                editable = (sheet == results and start <= cell.row < start + len(data.rows) and 5 <= cell.column <= 7) or (sheet == summary and cell.column == 2 and cell.row in [SUMMARY_FIELDS[f] for f in INPUT_FIELDS])
-                if editable or (sheet == results and start <= cell.row < start + len(data.rows) and cell.column <= 4):
-                    continue
-                original = pristine[cell.coordinate]
-                if (sheet.title, cell.coordinate) in image_caption_cells and original.value is None:
-                    continue
-                same_value = (_formula_reference_key(cell.value, locale['sheets']) == _formula_reference_key(original.value, locale['sheets'])
-                              if cell.data_type == original.data_type == 'f' else cell.value == original.value)
-                if not same_value or cell.data_type != original.data_type:
-                    raise ValueError(f'Changed immutable cell/formula: {sheet.title}!{cell.coordinate}')
-                if cell.comment:
-                    public_text(cell.comment.text, f'{sheet.title}!{cell.coordinate} comment')
-        if any(d.hidden for d in sheet.row_dimensions.values()) or any(d.hidden for d in sheet.column_dimensions.values()):
-            raise ValueError('Hidden rows/columns are unsupported; clear active filters and unhide rows/columns before checking')
-    urls = _package(raw, data, phase, {'closure_confirmation': closure_confirmation,
-                    'evidence_access': evidence_access, 'screenshots': screenshots}, gaps)
-    _unchanged(captures)
-    counts = Counter(token for _, token, _ in states)
-    evaluated = sum(valid for _, _, valid in states)
-    passed = sum(valid and token == 'PASS' for _, token, valid in states)
-    case_results = {}
-    for case_id in dict.fromkeys(row.case_id for row in data.rows):
-        members = [(token, valid) for identity, token, valid in states if wanted[identity].case_id == case_id]
-        case_results[case_id] = ('FAIL' if any(token == 'FAIL' and valid for token, valid in members) else
-            'PASS' if all(token == 'PASS' and valid for token, valid in members) else
-            'SKIPPED' if all(token == 'SKIPPED' for token, _ in members) else
-            'BLOCKED' if any(token == 'BLOCKED' for token, _ in members) else
-            'NOT RUN' if all(token == 'NOT RUN' for token, _ in members) else 'INCOMPLETE')
-    return {'family': FAMILY, 'version': VERSION, 'language': language, 'phase': phase,
-            'complete': phase == 'complete' and not gaps, 'read_only': True,
-            'cases': len(set(r.case_id for r in data.rows)), 'variants': len(states),
-            'states': dict(counts), 'case_results': case_results, 'evaluated': evaluated, 'passed': passed,
-            'pass_rate': passed / evaluated if evaluated else None,
-            'completion_rate': evaluated / len(states) if states else None,
-            'gaps': gaps, 'layout_notes': layout_notes, 'links': len(urls)}
+    from block_report import check
+    return check(report,source_dir,language,phase,closure_confirmation=closure_confirmation,evidence_access=evidence_access,screenshots=screenshots)
 
 
 def main():
