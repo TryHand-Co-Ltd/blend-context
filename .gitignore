@@ -5,3 +5,10 @@
 *.key
 .DS_Store
 Thumbs.db
+
+# Workstation drafts, raw evidence and generated capture output.
+/local/
+/test_output/
+__pycache__/
+*.py[cod]
+~$*
