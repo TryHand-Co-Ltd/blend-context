@@ -41,6 +41,7 @@
 - **Nội dung có màn hình:** màn hình → tab/khu vực → chức năng; nêu thao tác và kết quả, chỉ mô tả chi tiết trường nhập khi cần quyết định.
 - **Q&A:** tình huống cụ thể → điều chưa rõ và ảnh hưởng → phương án/đề xuất → câu xác nhận độc lập.
 - **QA/test:** điều kiện chuẩn bị, thao tác và kết quả mong đợi; phân biệt test dự kiến với kết quả đã chạy.
+- **Report dạng bảng tính:** nội dung ngoài bảng trường hợp căn giữa theo chiều dọc; nội dung trong bảng trường hợp bắt đầu ở phía trên-trái, cách mép trên khoảng 4 px. Giá trị căn phải có lề phải nhỏ. Google Sheets dùng padding của ô; XLSX dùng hàng đệm 3 pt chỉ trước hàng dữ liệu trong bảng trường hợp, không thêm khoảng trắng hoặc xuống dòng vào giá trị hay định dạng hiển thị. Không tạo thêm hàng đệm ở các phần khác. Tab Tổng quan không highlight từng cụm trong tiêu đề TC và giữ link trên toàn bộ ô; chỉ nhấn mạnh từ khóa trong nội dung kiểm thử. Kiểm tra khoảng cách, nội dung dài và link bằng giao diện thực tế.
 - **Task/PR/báo cáo:** vấn đề, thay đổi/kết quả và bằng chứng đúng với người đọc; tuân thủ format chuyên biệt khi được yêu cầu.
 - **Mockup:** chỉ chứa UI dự kiến; giải thích và lưu ý review nằm ngoài hình.
 
@@ -52,4 +53,3 @@
 - Xác nhận, ví dụ biên, thời điểm và khác biệt đầu ra còn đúng sau khi rút gọn không?
 - Đề xuất chưa chốt có được ghi rõ ngay nơi dùng không?
 - Link có nằm trong `blend-context` hoặc là nguồn dùng chung, không vượt quá bằng chứng đã có không?
-
