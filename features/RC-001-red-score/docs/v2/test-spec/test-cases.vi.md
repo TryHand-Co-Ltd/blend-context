@@ -82,13 +82,13 @@
 | choice | Mục lựa chọn: Mục A/B/C; Kiểm tra bước 1–2, rồi thử URL trực tiếp bằng ID mục nếu biết URL; không tự dựng route. | Không có thao tác tạo quy tắc đỏ có hiệu lực cho mục A/B/C. Nếu có endpoint truy cập trực tiếp, server từ chối tạo/lưu quy tắc cho mục không thuộc loại số; không dùng việc URL không hiển thị làm bằng chứng duy nhất. |
 | passfail | Mục Đạt/không đạt: Mục Đạt/không đạt（合否）; Kiểm tra bước 1–2. Nhánh endpoint chỉ đánh giá nếu có đường truy cập được xác minh; không coi việc thiếu URL là PASS. | Không có thao tác tạo quy tắc đỏ có hiệu lực cho mục Đạt/không đạt（合否）. Nếu có endpoint truy cập trực tiếp, server từ chối tạo/lưu quy tắc cho mục không thuộc loại số; không dùng việc URL không hiển thị làm bằng chứng duy nhất. |
 
-#### TC-RS-FUNC-004 — Thêm quy tắc qua Điều kiện áp dụng（適用条件） và Ngưỡng（基準設定） rồi quay lại danh sách
+#### TC-RS-FUNC-004 — Thêm quy tắc qua Điều kiện áp dụng（適用条件） rồi Ngưỡng（基準設定）; lưu điều kiện khi chưa có ngưỡng thì sang màn ngưỡng
 
 | Field | Value |
 | --- | --- |
 | Chức năng | Thiết lập điểm đỏ（赤点設定） |
 | screen_relative_path | unknown |
-| Căn cứ | tiêu chí nghiệm thu “Lưu và mở lại nhiều thiết lập” (AC-G04 «Lưu và mở lại nhiều thiết lập»); trạng thái nguồn CONFIRMED; ưu tiên nguồn TBD |
+| Căn cứ | tiêu chí nghiệm thu “Lưu và mở lại nhiều thiết lập” (AC-G04 «Lưu và mở lại nhiều thiết lập»); định nghĩa màn hình v2 §03 mục 15（条件保存）đã xác nhận 2026-10-07; ưu tiên nguồn TBD |
 | Priority | Medium |
 | Căn cứ kỳ vọng | Confirmed |
 | Readiness | Draft |
@@ -98,8 +98,8 @@
 | Quan sát | @CTX-COMMON |
 | Actor và quyền | Dùng actor/quyền được nêu trong điều kiện; cấu hình bởi người được sửa đúng mục, ghi điểm bởi người phụ trách lớp, batch bởi người có quyền chạy; đầu ra và tài khoản học sinh giữ quyền riêng. |
 | Fixture | local: mục số nguyên (M=100), cặp quy tắc cùng áp dụng (dưới 20 và dưới 30); quy tắc “Cố định 30” (dưới 30) |
-| Thao tác | 1. Ở danh sách, bấm Thêm thiết lập chi tiết（詳細設定の追加）.<br>2. Nhập Tên thiết lập（設定名称） "Cố định 30", chọn Toàn bộ đối tượng（全員が対象）, bấm Cập nhật（更新する）.<br>3. Mở Ngưỡng, chọn Điểm cố định（固定点数）, nhập 30, chọn Nhỏ hơn（未満）, bấm Cập nhật（更新する）.<br>4. Xem danh sách. |
-| Expected | 1. Sau mỗi lần cập nhật, màn quay về danh sách.<br>2. Dòng mới hiện tên, tóm tắt điều kiện "toàn bộ" và ngưỡng "Điểm cố định: 30 điểm, Nhỏ hơn" đúng với dữ liệu đã lưu.<br>3. **PROPOSED (đặc tả v2 mục 4.4 “Lưu, đổi thứ tự và xóa”):** dòng mới nằm sau các quy tắc đã có. |
+| Thao tác | 1. Ở danh sách, bấm Thêm thiết lập chi tiết（詳細設定の追加）.<br>2. Nhập Tên thiết lập（設定名称） "Cố định 30", chọn Toàn bộ đối tượng（全員が対象）, bấm Cập nhật（更新する）; quan sát màn chuyển đến.<br>3. Trên màn Ngưỡng（基準設定） vừa mở, chọn Điểm cố định（固定点数）, nhập 30, chọn Nhỏ hơn（未満）, bấm Cập nhật（更新する）.<br>4. Xem danh sách. |
+| Expected | 1. Sau khi lưu điều kiện của quy tắc mới（ngưỡng chưa nhập）: chuyển sang màn Ngưỡng（基準設定） của đúng quy tắc; không quay về danh sách ở bước này.<br>2. Sau khi lưu ngưỡng: quay về danh sách.<br>3. Dòng mới hiện tên, tóm tắt điều kiện "toàn bộ" và ngưỡng "Điểm cố định: 30 điểm, Nhỏ hơn" đúng với dữ liệu đã lưu.<br>4. **PROPOSED (đặc tả v2 mục 4.4 “Lưu, đổi thứ tự và xóa”):** dòng mới nằm sau các quy tắc đã có. |
 | Bảo toàn | @CTX-COMMON |
 | Bằng chứng | @CTX-COMMON |
 | Reset | @CTX-COMMON |
@@ -108,7 +108,7 @@
 
 | Variant | Inputs | Expected |
 | --- | --- | --- |
-| Base | Toàn bộ tình huống: Thực hiện đủ các bước chung theo thứ tự; kiểm cả đối tượng đích và đối chứng cùng fixture, không bỏ bước. | 1. Sau mỗi lần cập nhật, màn quay về danh sách.<br>2. Dòng mới hiện tên, tóm tắt điều kiện "toàn bộ" và ngưỡng "Điểm cố định: 30 điểm, Nhỏ hơn" đúng với dữ liệu đã lưu.<br>3. **PROPOSED (đặc tả v2 mục 4.4 “Lưu, đổi thứ tự và xóa”):** dòng mới nằm sau các quy tắc đã có. |
+| Base | Toàn bộ tình huống: Thực hiện đủ các bước chung theo thứ tự; kiểm cả đối tượng đích và đối chứng cùng fixture, không bỏ bước. | 1. Sau khi lưu điều kiện của quy tắc mới（ngưỡng chưa nhập）: chuyển sang màn Ngưỡng（基準設定） của đúng quy tắc; không quay về danh sách ở bước này.<br>2. Sau khi lưu ngưỡng: quay về danh sách.<br>3. Dòng mới hiện tên, tóm tắt điều kiện "toàn bộ" và ngưỡng "Điểm cố định: 30 điểm, Nhỏ hơn" đúng với dữ liệu đã lưu.<br>4. **PROPOSED (đặc tả v2 mục 4.4 “Lưu, đổi thứ tự và xóa”):** dòng mới nằm sau các quy tắc đã có. |
 
 #### TC-RS-FUNC-005 — Nhiều quy tắc hiển thị theo ưu tiên; đổi thứ tự bằng ▲▼ được lưu
 
@@ -531,7 +531,7 @@
 | Actor và quyền | Dùng actor/quyền được nêu trong điều kiện; cấu hình bởi người được sửa đúng mục, ghi điểm bởi người phụ trách lớp, batch bởi người có quyền chạy; đầu ra và tài khoản học sinh giữ quyền riêng. |
 | Fixture | local: mục số nguyên (M=100); quy tắc “Cố định 30” (dưới 30) |
 | Thao tác | Bấm Xóa（削除） ở dòng duy nhất. |
-| Expected | Hộp xác nhận nêu đây là thiết lập cuối, kết quả trước còn dùng tới lần chạy lại, điểm được giữ; có Hủy và Xóa. |
+| Expected | Hộp xác nhận nói rõ thiết lập sẽ bị xóa và kết quả trước còn được dùng tới lần chạy lại; điểm được giữ. Có lựa chọn Hủy và xác nhận. Không yêu cầu thông báo riêng đây là thiết lập cuối hoặc nhãn nút xác nhận tùy biến. |
 | Bảo toàn | @CTX-COMMON |
 | Bằng chứng | @CTX-COMMON |
 | Reset | @CTX-COMMON |
@@ -540,7 +540,7 @@
 
 | Variant | Inputs | Expected |
 | --- | --- | --- |
-| Base | Toàn bộ tình huống: Thực hiện đủ các bước chung theo thứ tự; kiểm cả đối tượng đích và đối chứng cùng fixture, không bỏ bước. | Hộp xác nhận nêu đây là thiết lập cuối, kết quả trước còn dùng tới lần chạy lại, điểm được giữ; có Hủy và Xóa. |
+| Base | Toàn bộ tình huống: Thực hiện đủ các bước chung theo thứ tự; kiểm cả đối tượng đích và đối chứng cùng fixture, không bỏ bước. | Hộp xác nhận nêu thiết lập sẽ bị xóa, kết quả trước được giữ tới lần chạy lại và điểm không bị xóa; có Hủy/xác nhận. Hủy giữ nguyên rule. Không yêu cầu câu riêng cho trường hợp rule cuối hoặc nhãn xác nhận tùy biến. |
 
 #### TC-RS-UI-007 — Dòng quy tắc mới chỉ có điều kiện, chưa có ngưỡng
 
@@ -559,7 +559,7 @@
 | Actor và quyền | Dùng actor/quyền được nêu trong điều kiện; cấu hình bởi người được sửa đúng mục, ghi điểm bởi người phụ trách lớp, batch bởi người có quyền chạy; đầu ra và tài khoản học sinh giữ quyền riêng. |
 | Fixture | local: form ngưỡng ở tab A sẽ nhập T=40 nhưng chưa lưu; tab B dùng để xóa rule nhập dở. Phạm vi trích xuất chỉ có ô S01=29 này. Đây là fixture của `FUNC-014/incomplete-deleted-stale`, không thay ngưỡng 30 dùng chung. |
 | Thao tác | 1. Với `incomplete-row`, quay về danh sách, xem dòng nhập dở và thao tác mở thiết lập ngưỡng; chạy xét và đọc rule đối chứng T=20 đã dùng cho S01.<br>2. Với `incomplete-deleted-stale`, reset fixture và xác nhận baseline Không đỏ/T=20. Mở form ngưỡng của rule nhập dở ở tab A, nhập T=40 nhưng chưa lưu; xóa rule đó ở tab B rồi gửi lưu tab A. Reload danh sách và đọc trạng thái rule.<br>3. Chạy xét lại thành công; đọc identity rule/ngưỡng đã dùng và trích xuất S01 một lượt tắt lọc, một lượt bật lọc đỏ. Ghi kết quả riêng cho hai biến thể. |
-| Expected | 1. `incomplete-row`: dòng hiển thị chưa có ngưỡng, có link mở thiết lập ngưỡng và câu báo không dùng để xét. Bộ xét chọn rule đối chứng T=20, S01=29 Không đỏ; không tạo ngưỡng 0 ngầm.<br>2. `incomplete-deleted-stale`: dòng đã xóa không xuất hiện lại; gửi T=40 từ form cũ không phục hồi rule trong bộ xét. Sau lần xét lại, identity rule đối chứng và T=20 giữ đúng, S01=29 **Không đỏ**. Lượt tắt lọc hiện 29 không dấu đỏ; lượt bật lọc không có S01. Nếu rule 40 bị phục hồi thì 29&lt;40 sẽ Đỏ và biến thể phải FAIL.<br>3. Schema/enum là cách hiện thực đề xuất. Nếu chưa xác minh được form cũ, đường chạy xét hoặc reader rule/ngưỡng thì giữ biến thể BLOCKED, không suy PASS chỉ từ danh sách. |
+| Expected | 1. `incomplete-row`: dòng hiển thị trạng thái chưa có ngưỡng và link mở thiết lập ngưỡng. Bộ xét chọn rule đối chứng T=20, S01=29 Không đỏ; không tạo ngưỡng 0 ngầm. Không yêu cầu câu cảnh báo riêng trên dòng; cần xác minh cả UI và kết quả xét, không suy PASS chỉ từ danh sách.<br>2. `incomplete-deleted-stale`: dòng đã xóa không xuất hiện lại; gửi T=40 từ form cũ không phục hồi rule trong bộ xét. Sau lần xét lại, identity rule đối chứng và T=20 giữ đúng, S01=29 **Không đỏ**. Lượt tắt lọc hiện 29 không dấu đỏ; lượt bật lọc không có S01. Nếu rule 40 bị phục hồi thì 29&lt;40 sẽ Đỏ và biến thể phải FAIL.<br>3. Schema/enum là cách hiện thực đề xuất. Nếu chưa xác minh được form cũ, đường chạy xét hoặc reader rule/ngưỡng thì giữ biến thể BLOCKED, không suy PASS chỉ từ danh sách. |
 | Bảo toàn | @CTX-COMMON |
 | Bằng chứng | @CTX-COMMON |
 | Reset | @CTX-COMMON |
@@ -568,7 +568,7 @@
 
 | Variant | Inputs | Expected |
 | --- | --- | --- |
-| incomplete-row | Hiển thị quy tắc chưa có ngưỡng: S01=29, rule ưu tiên 1 nhập dở, rule đối chứng ưu tiên 2/T=20. Xem dòng và link ngưỡng; chạy xét và đọc identity rule/ngưỡng đã dùng. | 1. `incomplete-row`: dòng hiển thị chưa có ngưỡng, có link mở thiết lập ngưỡng và câu báo không dùng để xét. Bộ xét chọn rule đối chứng T=20, S01=29 Không đỏ; không tạo ngưỡng 0 ngầm.<br>3. Schema/enum là cách hiện thực đề xuất. Nếu chưa xác minh được form cũ, đường chạy xét hoặc reader rule/ngưỡng thì giữ biến thể BLOCKED, không suy PASS chỉ từ danh sách. |
+| incomplete-row | Hiển thị quy tắc chưa có ngưỡng: S01=29, rule ưu tiên 1 nhập dở, rule đối chứng ưu tiên 2/T=20. Xem dòng và link ngưỡng; chạy xét và đọc identity rule/ngưỡng đã dùng. | Dòng hiển thị trạng thái chưa có ngưỡng và link mở thiết lập ngưỡng. Bộ xét chọn rule đối chứng T=20, S01=29 Không đỏ; không tạo ngưỡng 0 ngầm. Không yêu cầu câu cảnh báo riêng trên dòng; kết luận dựa trên cả UI và kết quả xét. |
 | incomplete-deleted-stale | Form cũ của quy tắc nhập dở đã xóa: Reset S01=29/Không đỏ theo rule đối chứng ưu tiên 2/T=20. Tab A nhập T=40 cho rule nhập dở nhưng chưa lưu; tab B xóa rule đó, rồi gửi form cũ tab A. Chạy xét lại; đọc identity/ngưỡng và trích xuất tắt/bật lọc riêng. | 2. `incomplete-deleted-stale`: dòng đã xóa không xuất hiện lại; gửi T=40 từ form cũ không phục hồi rule trong bộ xét. Sau lần xét lại, identity rule đối chứng và T=20 giữ đúng, S01=29 **Không đỏ**. Lượt tắt lọc hiện 29 không dấu đỏ; lượt bật lọc không có S01. Nếu rule 40 bị phục hồi thì 29&lt;40 sẽ Đỏ và biến thể phải FAIL.<br>3. Schema/enum là cách hiện thực đề xuất. Nếu chưa xác minh được form cũ, đường chạy xét hoặc reader rule/ngưỡng thì giữ biến thể BLOCKED, không suy PASS chỉ từ danh sách. |
 
 #### TC-RS-FUNC-003 — Danh sách trống không tự dựng rule từ cấu hình legacy
@@ -882,18 +882,18 @@
 | --- | --- |
 | Chức năng | Điều kiện áp dụng（適用条件） |
 | screen_relative_path | unknown |
-| Căn cứ | đặc tả v2 mục 5.2 “Điều kiện dựa trên trung bình”; trạng thái nguồn PROPOSED; ưu tiên nguồn TBD |
+| Căn cứ | đặc tả v2 mục 5.2 “Điều kiện dựa trên trung bình”; xác nhận miền Trung bình 0–100 (2026-10-07); trạng thái nguồn CONFIRMED (miền Trung bình 0–100) / PROPOSED (độ dài chữ số lẻ); ưu tiên nguồn TBD |
 | Priority | Medium |
-| Căn cứ kỳ vọng | Proposed |
+| Căn cứ kỳ vọng | Confirmed |
 | Readiness | Draft |
 | Gap | G-PREP-UNASSESSED |
 | Cấu hình | Màn thêm quy tắc có điều kiện. |
 | Kích hoạt | @CTX-COMMON |
 | Quan sát | @CTX-COMMON |
 | Actor và quyền | Dùng actor/quyền được nêu trong điều kiện; cấu hình bởi người được sửa đúng mục, ghi điểm bởi người phụ trách lớp, batch bởi người có quyền chạy; đầu ra và tài khoản học sinh giữ quyền riêng. |
-| Fixture | local: Trung bình: trống, −1, 101, 60.5, 60.123456789; tỷ lệ nhóm: −1, 0, 100, 101 |
+| Fixture | local: Trung bình: trống, −1, 0, 100, 101, 60.5, 60.123456789; tỷ lệ nhóm: −1, 0, 100, 101 |
 | Thao tác | Nhập từng giá trị, Lưu. |
-| Expected | Đề xuất (thiết kế DB v2): trống → không lưu được (điều kiện chưa đủ); 60.5 lưu được; 60.123456789 (9 chữ số lẻ) bị từ chối; tỷ lệ nhóm 0 và 100 lưu được, −1 và 101 bị từ chối. Trung bình −1 và 101: thiết kế DB v2 không nêu miền — TBD, ghi hành vi thực tế. |
+| Expected | 1. **CONFIRMED (2026-10-07):** điều kiện Trung bình（平均点） chỉ nhận **0–100**. `−1` và `101` bị từ chối, không lưu; `0` và `100` lưu được.<br>2. Trống → không lưu được (điều kiện chưa đủ). `60.5` lưu được; `60.123456789` (9 chữ số lẻ) bị từ chối (**PROPOSED**, thiết kế DB v2).<br>3. Tỷ lệ nhóm（集団の得点率）: `0` và `100` lưu được; `−1` và `101` bị từ chối. |
 | Bảo toàn | @CTX-COMMON |
 | Bằng chứng | @CTX-COMMON |
 | Reset | @CTX-COMMON |
@@ -902,15 +902,17 @@
 
 | Variant | Inputs | Expected |
 | --- | --- | --- |
-| avg-empty | Trung bình để trống: Nhập điều kiện Trung bình với giá trị trống; bấm Lưu. | **PROPOSED** (thiết kế DB v2): Trung bình trống không lưu được vì điều kiện chưa đủ. |
-| avg-negative | Trung bình âm: Nhập Trung bình=−1; bấm Lưu; miền giá trị vẫn TBD. | Trung bình **−1**: thiết kế DB v2 chưa nêu miền — **TBD**, ghi hành vi thực tế, không tự kết luận PASS/FAIL. |
-| avg101 | Trung bình vượt 100: Nhập Trung bình=101; bấm Lưu; miền giá trị vẫn TBD. | Trung bình **101**: thiết kế DB v2 chưa nêu miền — **TBD**, ghi hành vi thực tế, không tự kết luận PASS/FAIL. |
+| avg-empty | Trung bình để trống: Nhập điều kiện Trung bình với giá trị trống; bấm Lưu. | Trung bình trống không lưu được vì điều kiện chưa đủ. |
+| avg-negative | Trung bình âm: Nhập Trung bình=−1; bấm Lưu. | **CONFIRMED:** Trung bình **−1** bị từ chối, không lưu. |
+| avg0 | Trung bình bằng 0: Nhập Trung bình=0; bấm Lưu. | **CONFIRMED:** Trung bình **0** lưu được. |
+| avg100 | Trung bình bằng 100: Nhập Trung bình=100; bấm Lưu. | **CONFIRMED:** Trung bình **100** lưu được. |
+| avg101 | Trung bình vượt 100: Nhập Trung bình=101; bấm Lưu. | **CONFIRMED:** Trung bình **101** bị từ chối, không lưu. |
 | avg605 | Trung bình có một chữ số lẻ: Nhập Trung bình=60.5; bấm Lưu. | **PROPOSED** (thiết kế DB v2): Trung bình **60.5** lưu được. |
 | avg-long | Trung bình có chín chữ số lẻ: Nhập Trung bình=60.123456789; bấm Lưu. | **PROPOSED** (thiết kế DB v2): Trung bình **60.123456789** có 9 chữ số lẻ, bị từ chối. |
-| ratio-negative | Tỷ lệ nhóm âm: Nhập tỷ lệ nhóm=−1; bấm Lưu. | **PROPOSED** (thiết kế DB v2): Tỷ lệ nhóm **−1** bị từ chối. |
-| ratio0 | Tỷ lệ nhóm bằng 0: Nhập tỷ lệ nhóm=0; bấm Lưu. | **PROPOSED** (thiết kế DB v2): Tỷ lệ nhóm **0** lưu được. |
-| ratio100 | Tỷ lệ nhóm bằng 100: Nhập tỷ lệ nhóm=100; bấm Lưu. | **PROPOSED** (thiết kế DB v2): Tỷ lệ nhóm **100** lưu được. |
-| ratio101 | Tỷ lệ nhóm vượt 100: Nhập tỷ lệ nhóm=101; bấm Lưu. | **PROPOSED** (thiết kế DB v2): Tỷ lệ nhóm **101** bị từ chối. |
+| ratio-negative | Tỷ lệ nhóm âm: Nhập tỷ lệ nhóm=−1; bấm Lưu. | Tỷ lệ nhóm **−1** bị từ chối. |
+| ratio0 | Tỷ lệ nhóm bằng 0: Nhập tỷ lệ nhóm=0; bấm Lưu. | Tỷ lệ nhóm **0** lưu được. |
+| ratio100 | Tỷ lệ nhóm bằng 100: Nhập tỷ lệ nhóm=100; bấm Lưu. | Tỷ lệ nhóm **100** lưu được. |
+| ratio101 | Tỷ lệ nhóm vượt 100: Nhập tỷ lệ nhóm=101; bấm Lưu. | Tỷ lệ nhóm **101** bị từ chối. |
 
 #### TC-RS-UI-008 — Màn Điều kiện áp dụng（適用条件設定）: bố cục và chuyển Toàn bộ/Bộ lọc
 
@@ -1161,9 +1163,9 @@
 | Kích hoạt | @CTX-COMMON |
 | Quan sát | @CTX-COMMON |
 | Actor và quyền | Dùng actor/quyền được nêu trong điều kiện; cấu hình bởi người được sửa đúng mục, ghi điểm bởi người phụ trách lớp, batch bởi người có quyền chạy; đầu ra và tài khoản học sinh giữ quyền riêng. |
-| Fixture | local: mục số nguyên (M=100); Giá trị: trống, `abc`, `3O` (chữ O), `３０` (số toàn khổ) |
+| Fixture | local: mục số nguyên (M=100); Giá trị: trống, `abc`, `3O` (chữ O), `３０` (số toàn khổ / full-width) |
 | Thao tác | Với loại Điểm cố định（固定点数） rồi Tỷ lệ điểm tối đa（得点率）: nhập từng giá trị, bấm Lưu. |
-| Expected | Trống, `abc`, `3O`: không lưu được, có lỗi. `３０`: xử lý theo quy ước nhập số hiện hành của BLEND (TBD — có thể chuẩn hóa thành 30 hoặc báo lỗi). |
+| Expected | Trống, `abc`, `3O`: không lưu được, có lỗi. **CONFIRMED (2026-10-07):** hệ thống không chuẩn hóa số full-width; `３０` bị từ chối (không lưu thành 30) với cả Điểm cố định（固定点数） và Tỷ lệ điểm tối đa（得点率）. |
 | Bảo toàn | @CTX-COMMON |
 | Bằng chứng | @CTX-COMMON |
 | Reset | @CTX-COMMON |
@@ -1175,11 +1177,11 @@
 | fixed-empty | Điểm cố định với trống: Nhập **trống** vào Điểm cố định, rồi lưu. | Giá trị **trống** không lưu được, có lỗi. |
 | fixed-abc | Điểm cố định với abc: Nhập **abc** vào Điểm cố định, rồi lưu. | Giá trị **abc** không lưu được, có lỗi. |
 | fixed-3O | Điểm cố định với 3O: Nhập **3O** vào Điểm cố định, rồi lưu. | Giá trị **3O** không lưu được, có lỗi. |
-| fixed-fullwidth | Điểm cố định với ３０: Nhập **３０** vào Điểm cố định, rồi lưu. | Giá trị **３０** xử lý theo quy ước nhập số hiện hành của BLEND — **TBD**: có thể chuẩn hóa thành 30 hoặc báo lỗi; chưa tự chốt PASS/FAIL. |
+| fixed-fullwidth | Điểm cố định với ３０: Nhập **３０** (full-width) vào Điểm cố định, rồi lưu. | **CONFIRMED:** `３０` bị từ chối, không chuẩn hóa thành 30, không lưu. |
 | ratio-empty | Tỷ lệ với trống: Nhập **trống** vào Tỷ lệ, rồi lưu. | Giá trị **trống** không lưu được, có lỗi. |
 | ratio-abc | Tỷ lệ với abc: Nhập **abc** vào Tỷ lệ, rồi lưu. | Giá trị **abc** không lưu được, có lỗi. |
 | ratio-3O | Tỷ lệ với 3O: Nhập **3O** vào Tỷ lệ, rồi lưu. | Giá trị **3O** không lưu được, có lỗi. |
-| ratio-fullwidth | Tỷ lệ với ３０: Nhập **３０** vào Tỷ lệ, rồi lưu. | Giá trị **３０** xử lý theo quy ước nhập số hiện hành của BLEND — **TBD**: có thể chuẩn hóa thành 30 hoặc báo lỗi; chưa tự chốt PASS/FAIL. |
+| ratio-fullwidth | Tỷ lệ với ３０: Nhập **３０** (full-width) vào Tỷ lệ, rồi lưu. | **CONFIRMED:** `３０` bị từ chối, không chuẩn hóa thành 30, không lưu. |
 
 #### TC-RS-VAL-005 — Điểm cố định thập phân
 
@@ -3014,19 +3016,19 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Vòng đời kết quả |
-| screen_relative_path | unknown |
-| Căn cứ | tiêu chí nghiệm thu “Bao phủ đường đăng ký và chạy lại” (AC-G23 «Bao phủ đường đăng ký và chạy lại»); trạng thái nguồn TBD; ưu tiên nguồn TBD |
+| screen_relative_path | `/admin/grade/bulk_input/csv/{homeroom_id}` |
+| Căn cứ | tiêu chí nghiệm thu “Bao phủ đường đăng ký và chạy lại” (AC-G23 «Bao phủ đường đăng ký và chạy lại»); đặc tả v2 mục 7.2 “Bảng sự kiện”; trạng thái nguồn TBD (phạm vi release của đường HR成績CSV一括登録); ưu tiên nguồn TBD |
 | Priority | Medium |
 | Căn cứ kỳ vọng | Awaiting decision |
-| Readiness | Draft |
-| Gap | G-ORACLE-TC-RS-FUNC-035, G-PREP-UNASSESSED |
-| Cấu hình | mục số nguyên (M=100) có quy tắc “Cố định 30” (dưới 30). Chạy hai lần: (a) trường có tính tự động, (b) trường không có tính tự động. |
+| Readiness | Blocked |
+| Gap | G-ORACLE-TC-RS-FUNC-035, G-PREP-TC-RS-FUNC-035 |
+| Cấu hình | mục số nguyên (M=100) có quy tắc “Cố định 30” (dưới 30). Hai biến thể tách riêng: `auto-on` (trường có tính tự động) và `auto-off` (trường không có tính tự động). URL chuẩn: `/admin/grade/bulk_input/csv/{homeroom_id}` (HR成績CSV一括登録). |
 | Kích hoạt | @CTX-COMMON |
 | Quan sát | @CTX-COMMON |
 | Actor và quyền | Dùng actor/quyền được nêu trong điều kiện; cấu hình bởi người được sửa đúng mục, ghi điểm bởi người phụ trách lớp, batch bởi người có quyền chạy; đầu ra và tài khoản học sinh giữ quyền riêng. |
-| Fixture | local: mục số nguyên (M=100); quy tắc “Cố định 30” (dưới 30), học sinh S01 (điểm 29) |
-| Thao tác | 1. Nhập CSV đăng ký điểm lớp chủ nhiệm hàng loạt（HR成績CSV一括登録） với S01=28.<br>2. Xem kết quả. |
-| Expected | Theo đặc tả v2 mục 7.2 “Bảng sự kiện”: nhập thành công → S01 Đỏ. tài liệu chia công việc v2 chưa đưa đường ghi điểm “HR成績CSV一括登録 (đăng ký điểm hàng loạt bằng CSV)” vào đường được hỗ trợ; code đường ghi điểm “HR成績CSV一括登録 (đăng ký điểm hàng loạt bằng CSV)” chỉ xếp hàng khi trường dùng tính tự động (context điểm đỏ khoảng trống tích hợp “Không có công thức / điểm sửa tay”) — cần xác nhận đường ghi điểm “HR成績CSV一括登録 (đăng ký điểm hàng loạt bằng CSV)” có thuộc đợt không. |
+| Fixture | local: mục số nguyên (M=100); quy tắc “Cố định 30” (dưới 30), học sinh S01 (điểm 29); homeroom có quyền mở HR成績CSV一括登録 |
+| Thao tác | 1. Mở `/admin/grade/bulk_input/csv/{homeroom_id}` theo biến thể (ghi URL, HTTP status, quyền, feature flag nếu bị chặn).<br>2. Nhập CSV đăng ký điểm lớp chủ nhiệm hàng loạt（HR成績CSV一括登録） với S01=28.<br>3. Xem kết quả đỏ của S01. |
+| Expected | **Blocked — chờ quyết định phạm vi release** (G-ORACLE-TC-RS-FUNC-035): chưa xác nhận HR成績CSV一括登録 có thuộc đợt phát hành hay không. Khi đã thuộc phạm vi: theo đặc tả v2 mục 7.2, nhập thành công → S01 Đỏ. Không dùng việc local không mở được màn hình để kết luận ngoài phạm vi release; đó là G-PREP-TC-RS-FUNC-035 riêng. |
 | Bảo toàn | @CTX-COMMON |
 | Bằng chứng | @CTX-COMMON |
 | Reset | @CTX-COMMON |
@@ -3035,8 +3037,8 @@
 
 | Variant | Inputs | Expected |
 | --- | --- | --- |
-| auto-on | Trường có tính tự động: Trường có tính tự động; CSV đăng ký điểm lớp chủ nhiệm hàng loạt S01=28; đọc kết quả. | Theo đặc tả v2 mục 7.2 “Bảng sự kiện”: nhập thành công → S01 Đỏ. tài liệu chia công việc v2 chưa đưa đường ghi điểm “HR成績CSV一括登録 (đăng ký điểm hàng loạt bằng CSV)” vào đường được hỗ trợ; code đường ghi điểm “HR成績CSV一括登録 (đăng ký điểm hàng loạt bằng CSV)” chỉ xếp hàng khi trường dùng tính tự động (context điểm đỏ khoảng trống tích hợp “Không có công thức / điểm sửa tay”) — cần xác nhận đường ghi điểm “HR成績CSV一括登録 (đăng ký điểm hàng loạt bằng CSV)” có thuộc đợt không. |
-| auto-off | Trường không có tính tự động: Trường không có tính tự động; cùng CSV đăng ký điểm lớp chủ nhiệm hàng loạt S01=28; đọc kết quả. | Theo đặc tả v2 mục 7.2 “Bảng sự kiện”: nhập thành công → S01 Đỏ. tài liệu chia công việc v2 chưa đưa đường ghi điểm “HR成績CSV一括登録 (đăng ký điểm hàng loạt bằng CSV)” vào đường được hỗ trợ; code đường ghi điểm “HR成績CSV一括登録 (đăng ký điểm hàng loạt bằng CSV)” chỉ xếp hàng khi trường dùng tính tự động (context điểm đỏ khoảng trống tích hợp “Không có công thức / điểm sửa tay”) — cần xác nhận đường ghi điểm “HR成績CSV一括登録 (đăng ký điểm hàng loạt bằng CSV)” có thuộc đợt không. |
+| auto-on | Trường **có** tính tự động; mở `/admin/grade/bulk_input/csv/{homeroom_id}`; CSV HR S01=28; đọc kết quả. | **Blocked (phạm vi release):** chờ xác nhận đường này thuộc đợt. Nếu đã thuộc phạm vi và màn mở được: nhập thành công → S01 Đỏ. Nếu màn không truy cập được (403/404/feature off): ghi URL, HTTP status, quyền, flag → G-PREP-TC-RS-FUNC-035; **không** dùng để kết luận ngoài phạm vi release. |
+| auto-off | Trường **không** có tính tự động; cùng URL và CSV HR S01=28; đọc kết quả. | **Blocked (phạm vi release):** chờ xác nhận đường này thuộc đợt. Nếu đã thuộc phạm vi và màn mở được: ghi hành vi thực tế sau nhập (có xét ngay hay chỉ xếp hàng khi auto bật). Nếu màn không truy cập được: ghi URL/status/quyền/flag → G-PREP-TC-RS-FUNC-035; tách khỏi quyết định phạm vi release. |
 
 #### TC-RS-BR-015 — Lưu cấu hình không xét; kết quả trước giữ tới lần chạy lại
 
@@ -3387,19 +3389,19 @@
 | Field | Value |
 | --- | --- |
 | Chức năng | Vòng đời kết quả |
-| screen_relative_path | unknown |
-| Căn cứ | tiêu chí nghiệm thu “Trigger khi đổi điểm tối đa/đơn vị” (AC-G24 «Trigger khi đổi điểm tối đa/đơn vị»); trạng thái nguồn TBD; ưu tiên nguồn TBD |
+| screen_relative_path | `/admin/nb/grade/grade_setting_system/lesson_group_csv/option_regist/{group_id}` (hoặc `/admin/grade/grade_setting_system/lesson_group_csv/option_regist/{group_id}`); bulk liên quan: `/admin/grade/lesson_group/setting?setting_type=change_max_score` |
+| Căn cứ | tiêu chí nghiệm thu “Trigger khi đổi điểm tối đa/đơn vị” (AC-G24 «Trigger khi đổi điểm tối đa/đơn vị»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | Medium |
-| Căn cứ kỳ vọng | Awaiting decision |
+| Căn cứ kỳ vọng | Confirmed |
 | Readiness | Draft |
-| Gap | G-ORACLE-TC-RS-ERR-012, G-PREP-UNASSESSED |
-| Cấu hình | mục điểm đơn vị (đơn vị U1 có M riêng 40), quy tắc tỷ lệ 30% (30%); S06 U1=14 Không đỏ với M=40. |
+| Gap | — (G-PREP-TC-RS-ERR-012 đã clear: màn/route mở được; kết quả thực thi FAIL — option lưu nhưng không chạy đường tính) |
+| Cấu hình | mục điểm đơn vị (đơn vị U1 có M riêng 40), quy tắc tỷ lệ 30% (30%); S06 U1=14 Không đỏ với M=40. Route CSV lựa chọn điểm tối đa của lớp: `lesson_group_csv/option_regist/{group_id}` (NB hoặc legacy). |
 | Kích hoạt | @CTX-COMMON |
 | Quan sát | @CTX-COMMON |
 | Actor và quyền | Dùng actor/quyền được nêu trong điều kiện; cấu hình bởi người được sửa đúng mục, ghi điểm bởi người phụ trách lớp, batch bởi người có quyền chạy; đầu ra và tài khoản học sinh giữ quyền riêng. |
-| Fixture | local: mục điểm đơn vị (đơn vị U1 có M riêng 40), quy tắc tỷ lệ 30%; CSV gán lựa chọn M=50 cho lớp G-B |
-| Thao tác | 1. Nhập CSV lựa chọn điểm tối đa.<br>2. Xem kết quả S06 U1. |
-| Expected | TBD (chưa chốt): có cần xét lại ngay (`T=15` → Đỏ) hay giữ kết quả trước tới lần chạy lại. Ghi hành vi thực tế. |
+| Fixture | local: mục điểm đơn vị (đơn vị U1 có M riêng 40), quy tắc tỷ lệ 30%; CSV gán lựa chọn M=50 cho lớp G-B (group 3378747) |
+| Thao tác | 1. Mở đúng URL CSV lựa chọn điểm tối đa; nếu 404/403 thì ghi URL, HTTP status, quyền tài khoản và feature flag, rồi dừng theo G-PREP-TC-RS-ERR-012 (không kết luận thiếu spec).<br>2. Nhập CSV thành công với lựa chọn M=50 cho lớp G-B.<br>3. Chờ đường tính hiện có hoàn tất; xem kết quả S06 U1. |
+| Expected | **CONFIRMED (AC-G24):** sau khi nhập CSV điểm tối đa thành công, hệ thống chạy đường tính hiện có và cập nhật kết quả điểm đỏ. Với quy tắc tỷ lệ 30% và M=50 → `T=15` → S06=14 Đỏ. Không còn oracle TBD về “có xét lại ngay hay không”. |
 | Bảo toàn | @CTX-COMMON |
 | Bằng chứng | @CTX-COMMON |
 | Reset | @CTX-COMMON |
@@ -3408,7 +3410,7 @@
 
 | Variant | Inputs | Expected |
 | --- | --- | --- |
-| Base | Toàn bộ tình huống: Thực hiện đủ các bước chung theo thứ tự; kiểm cả đối tượng đích và đối chứng cùng fixture, không bỏ bước. | TBD (chưa chốt): có cần xét lại ngay (`T=15` → Đỏ) hay giữ kết quả trước tới lần chạy lại. Ghi hành vi thực tế. |
+| Base | Toàn bộ tình huống: mở URL CSV → nhập M=50 cho G-B → chờ đường tính → đọc S06 U1. | Sau nhập CSV thành công và đường tính xong: S06 U1 Đỏ (`T=15`). Nếu không mở được màn: ghi URL/HTTP/quyền/flag → Blocked môi trường (G-PREP-TC-RS-ERR-012), không phải thiếu AC. |
 
 #### TC-RS-ERR-015 — Bản ghi điểm bị xóa rồi tạo lại không kế thừa kết quả cũ
 
@@ -3659,18 +3661,18 @@
 | --- | --- |
 | Chức năng | Trích xuất thành tích（成績抽出） |
 | screen_relative_path | unknown |
-| Căn cứ | tiêu chí nghiệm thu “Hiển thị ô trích xuất” (AC-G30 «Hiển thị ô trích xuất»); trạng thái nguồn TBD; ưu tiên nguồn TBD |
+| Căn cứ | tiêu chí nghiệm thu “Hiển thị ô trích xuất” (AC-G30 «Hiển thị ô trích xuất»); context hiện chỉ quy định có thể tô màu điểm đỏ và màn hình/Excel phải nhất quán; trạng thái nguồn TBD (màu ưu tiên khi trùng); ưu tiên nguồn TBD |
 | Priority | Medium |
 | Căn cứ kỳ vọng | Awaiting decision |
-| Readiness | Draft |
-| Gap | G-ORACLE-TC-RS-ERR-013, G-PREP-UNASSESSED |
+| Readiness | Blocked |
+| Gap | G-ORACLE-TC-RS-ERR-013 |
 | Cấu hình | Mục có điều kiện Khoảng điểm（点数範囲） 0–30 tô Vàng（黄） và điều kiện đỏ tô Đỏ（赤）, ký hiệu `*`. |
 | Kích hoạt | @CTX-COMMON |
 | Quan sát | @CTX-COMMON |
 | Actor và quyền | Dùng actor/quyền được nêu trong điều kiện; cấu hình bởi người được sửa đúng mục, ghi điểm bởi người phụ trách lớp, batch bởi người có quyền chạy; đầu ra và tài khoản học sinh giữ quyền riêng. |
 | Fixture | local: học sinh S01 (điểm 29) (29) |
 | Thao tác | Chạy trích xuất, xuất Excel. |
-| Expected | TBD (chưa chốt) cho màu cuối. CONFIRMED phần không tranh chấp: điều kiện Khoảng điểm vẫn giữ nghĩa cũ; màn hình và Excel cho cùng kết quả. |
+| Expected | **Blocked — chờ quyết định nghiệp vụ về màu ưu tiên** khi ô đồng thời có màu Khoảng điểm（点数範囲） và màu điểm đỏ. Không tự kết luận PASS/FAIL cho màu cuối. CONFIRMED phần không tranh chấp (chỉ ghi nhận khi chạy sau quyết định): điều kiện Khoảng điểm vẫn giữ nghĩa cũ; màn hình và Excel cho cùng kết quả. |
 | Bảo toàn | @CTX-COMMON |
 | Bằng chứng | @CTX-COMMON |
 | Reset | @CTX-COMMON |
@@ -3679,7 +3681,7 @@
 
 | Variant | Inputs | Expected |
 | --- | --- | --- |
-| Base | Toàn bộ tình huống: Thực hiện đủ các bước chung theo thứ tự; kiểm cả đối tượng đích và đối chứng cùng fixture, không bỏ bước. | TBD (chưa chốt) cho màu cuối. CONFIRMED phần không tranh chấp: điều kiện Khoảng điểm vẫn giữ nghĩa cũ; màn hình và Excel cho cùng kết quả. |
+| Base | Toàn bộ tình huống: chạy trích xuất + Excel khi ô vừa thỏa Khoảng điểm vừa đỏ. | **Blocked:** chờ quyết định màu ưu tiên. Không PASS/FAIL màu cuối cho tới khi có quyết định. |
 
 #### TC-RS-REG-006 — Trích xuất: mẫu hiện có không cấu hình đỏ cho kết quả như trước
 
