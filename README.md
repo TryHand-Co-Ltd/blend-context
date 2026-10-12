@@ -40,7 +40,7 @@ Bảng này chỉ liệt kê tài liệu đã có trong repo, không phải danh
 | Feature ID | Chức năng | Thư mục |
 | --- | --- | --- |
 | Sheet `RC-001` | Điểm đỏ（赤点） — context, đặc tả, thiết kế DB và chia việc hiện có | [RC-001-red-score](features/RC-001-red-score/) |
-| `RA-001` | Implement Ranking Average in Automatic Grade Calculation and Apply It to Conditions, Formulas, and Grade Registration — đặc tả làm việc, đang xác nhận với khách, Q1–Q7 chờ trả lời | [RA-001-ranking-average](features/RA-001-ranking-average/) |
+| `RA-001` | Implement Ranking Average in Automatic Grade Calculation and Apply It to Conditions, Formulas, and Grade Registration — đặc tả sẵn sàng triển khai; Q1, Q3–Q7 đã xác nhận 12/10, Q2 chờ khách | [RA-001-ranking-average](features/RA-001-ranking-average/) |
 
 ### Ví dụ tổ chức task Redmine
 

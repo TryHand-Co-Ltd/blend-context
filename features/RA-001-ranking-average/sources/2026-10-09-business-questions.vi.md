@@ -56,6 +56,8 @@ Cách chọn trung bình ở vế trái và vế phải vẫn thực hiện tron
 
 **Nhờ xác nhận：** Có thêm trung bình môn vào ô giá trị gốc hay không?
 
+**Khách xác nhận (12/10/2026)：** Không thêm **科目平均** vào **[基準値]**. Dùng **計算結果** rồi đặt trung bình môn ở vế trái/phải của công thức (phương án B).
+
 <a id="q2"></a>
 
 ## Q2 — Công thức lấy số đã chốt hay số vừa chạy
@@ -74,6 +76,8 @@ Sau khi PR được gộp, cùng một kỳ có thể có hai số. Chạy tổn
 **Đề xuất：** Hiện tại, vì PR 57058 chưa được gộp, công thức lấy số vừa chạy. Sau khi có bản đã chốt, dùng phương án A. Số vừa chạy mới hơn sẽ chưa vào công thức cho tới khi có bản chốt mới. Lưu ý: công thức có thể chưa theo lần chạy tổng hợp mới nhất.
 
 **Nhờ xác nhận：** Công thức có ưu tiên bản đã chốt, và chỉ dùng số vừa chạy khi chưa có bản đó, hay không?
+
+**Trạng thái (12/10/2026)：** Chưa chốt. Khách nghiêng về chỉ cho chọn kết quả đã chốt, sẽ bàn với mw rồi quyết. Đã ghi ở **成績シート** No.1 như spec chung với xét điểm liệt.
 
 <a id="q3"></a>
 
@@ -94,6 +98,8 @@ Hiện tại, khi công thức dùng **科目平均** (trung bình môn), hệ t
 
 **Nhờ xác nhận：** Số đưa vào công thức và điều kiện có phải số trung bình chưa làm tròn, như hiện tại, hay không?
 
+**Khách xác nhận (12/10/2026)：** Dùng số trước làm tròn, giống xét điểm liệt (phương án đề xuất).
+
 <a id="q4"></a>
 
 ## Q4 — Khi chưa có điểm trung bình, điểm đang có có được giữ không
@@ -112,6 +118,8 @@ Khi đã có 70 và 50, chạy **自動算出実行** (chạy tính điểm tự
 **Đề xuất：** Phương án A. Chưa chạy thứ hạng thì giữ điểm giáo viên đã nhập hoặc kết quả lần trước. Khi đã có điểm trung bình, chạy tính điểm tự động thì 84 ghi đè 75.
 
 **Nhờ xác nhận：** Khi chưa có điểm trung bình, có giữ điểm đang nằm trong cột đang tính hay không?
+
+**Khách xác nhận (12/10/2026)：** Làm theo cách tính điểm tự động hiện tại (phương án B). Không tính được thì ghi trống vào cột đang tính, 75 bị xóa. Khách trả lời lần đầu là giữ điểm; sau khi chúng tôi báo hiện trạng là ghi trống, khách đồng ý đổi: 「その方針で進めましょう」.
 
 <a id="q5"></a>
 
@@ -132,6 +140,8 @@ Chọn **科目平均** (trung bình môn) thì cạnh đó hiện thêm hai ô.
 
 **Nhờ xác nhận：** Có giữ các nhóm đang có, không thêm trung bình của riêng một tiết học, hay không?
 
+**Khách xác nhận (12/10/2026)：** Cần trung bình của tiết học (**授業平均**). Danh sách nhóm giống PR 57058.
+
 <a id="q6"></a>
 
 ## Q6 — Một thiết lập có được đặt khoảng điểm trung bình không
@@ -151,6 +161,8 @@ Từ 50 trở lên gắn công thức A và nhỏ hơn 50 gắn công thức B v
 
 **Nhờ xác nhận：** Một thiết lập có được đặt khoảng điểm trung bình, ví dụ lớn hơn 50 và nhỏ hơn 80, hay không?
 
+**Khách xác nhận (12/10/2026)：** Được đặt cận dưới và cận trên trên một thiết lập, các điều kiện nối AND, giống xét điểm liệt.
+
 <a id="q7"></a>
 
 ## Q7 — Chưa có điểm trung bình thì điều kiện được xét thế nào
@@ -169,3 +181,5 @@ Ví dụ: dòng 1 từ 50 trở lên dùng công thức A, dòng 2 nhỏ hơn 50
 **Đề xuất：** Phương án A. Học sinh không bị áp nhầm công thức của dòng khác chỉ vì chưa chạy tổng hợp. Cách này giống điểm liệt: điều kiện ưu tiên cao chưa xác định được thì không thử quy tắc thấp hơn. Lưu ý: cần chạy tổng hợp trước khi chạy tính điểm tự động thì học sinh mới được tính.
 
 **Nhờ xác nhận：** Khi chưa có điểm trung bình để so, có dừng ở dòng đó và không xét dòng bên dưới hay không?
+
+**Khách xác nhận (12/10/2026)：** Làm theo cách tính điểm tự động hiện tại (phương án B). Khách yêu cầu điều tra cách xử lý hiện có khi không lấy được trung bình hoặc không tính được, rồi làm giống như vậy. Hiện trạng: điều kiện lọc không có giá trị để xét thì coi là không khớp, xét thiết lập tiếp theo; không khớp thiết lập nào thì ghi trống. Không lấy được điểm trung bình thì điều kiện trung bình coi là không khớp và xét dòng bên dưới. Khách trả lời: 「その方針で進めましょう」.

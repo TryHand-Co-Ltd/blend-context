@@ -1,130 +1,142 @@
 # RA-001 — Đặc tả màn hình
 
-**Ngày cập nhật:** 11/10/2026.
+**Ngày cập nhật:** 12/10/2026.
 
-**Người đọc:** thiết kế và phát triển. Nhãn Nhật là nhãn đang có trên sản phẩm. Ô điểm trung bình trên **計算対象設定** (thiết lập đối tượng được tính) là thành phần mới.
+**Người đọc:** thiết kế và phát triển. Nhãn tiếng Nhật là nhãn trên sản phẩm. Thành phần đánh dấu **mới** là phần RA-001 thêm; còn lại giữ như hiện tại.
 
-**Figma:** [RA-001](https://www.figma.com/design/OkFTBuOyoF2hNnxCFy4Uds/), vẽ theo UI đang chạy, version "RA-001 v5". Trang **01｜List and priority** ứng với mục 01, **02｜Conditions** với mục 02, **03｜Formula** với mục 03, **04｜Mapping states** với mục 04. Figma thể hiện đề xuất hiện hành, không phải xác nhận của khách.
+**Figma:** [RA-001](https://www.figma.com/design/OkFTBuOyoF2hNnxCFy4Uds/), version "RA-001 v9 – cân bố cục, ghi chú cho khách". Trang **00｜Guide**, **01｜List and priority**, **02｜Conditions**, **03｜Formula**, **04｜Mapping states**. Bảng đối chiếu ở mục 08.
 
-**Trạng thái:** đang xác nhận với khách. Quy tắc nghiệp vụ nằm ở [đặc tả](specification.vi.md). Q1–Q7 chưa được khách hàng trả lời. Dòng nào phụ thuộc đề xuất thì ghi trong cột ghi chú.
+**Trạng thái:** khách đã xác nhận Q1, Q3–Q7 ngày 12/10/2026. Q2 đang chờ (**成績シート** No.1); Q2 không đổi màn hình nào. Quy tắc nghiệp vụ nằm ở [đặc tả](specification.vi.md).
 
 ## 00 — Cách đọc
 
 - **Bắt buộc** là điều kiện để lưu phần đang nhập. “—” dùng cho nhãn và nút.
-- Thao tác và kết quả là hành vi cần có, không phải biên bản đã chạy trên môi trường.
-- Giá trị 50, 60, 70, 75, 84 chỉ là ví dụ của yêu cầu, không phải giá trị mặc định.
+- Giá trị 50, 60, 70, 75, 84 là ví dụ của yêu cầu, không phải giá trị mặc định.
+- Lưu bất kỳ màn nào cũng không tính lại điểm học sinh.
 
-Luồng: **成績帳票設定** (thiết lập phiếu điểm) → **成績設定** (thiết lập điểm) → **成績入力設定** (thiết lập nhập điểm) → **自動計算設定** (thiết lập tính điểm tự động).
+Luồng: **成績帳票設定** → **成績設定** → **成績入力設定** → **自動計算設定** → **計算対象設定** hoặc **登録方法設定**.
 
 ## 01 — Danh sách thiết lập
 
-**Màn hình:** **自動計算設定** (thiết lập tính điểm tự động) của một cột điểm.
+<a id="screen-list"></a>
+
+**Màn hình:** **自動計算設定** (thiết lập tính điểm tự động). Tiêu đề ví dụ `1学期期末:「評点」の自動計算設定`. Figma 01-A.
 
 | STT | Thành phần | Loại | Bắt buộc | Thao tác và kết quả | Ghi chú |
 | --- | --- | --- | --- | --- | --- |
-| 1 | Tên cột đang tính | Nhãn | — | Giữ đúng cột, ví dụ **1学期期末 評点** (điểm đánh giá cuối học kỳ 1) | Không đổi cột bằng tên hiển thị |
-| 2 | Danh sách dòng thiết lập | Danh sách | — | Xét từ trên xuống, dùng dòng khớp đầu tiên | Dòng khớp mà không ra số vẫn không xét dòng dưới |
-| 3 | **全員が対象** (mọi học sinh đều là đối tượng) | Cách chọn đối tượng của một dòng | — | Nếu dòng này ở trên cùng, các dòng dưới không chạy | Đặt nhánh hẹp hơn phía trên |
-| 4 | Cột **自動計算の対象者** (học sinh được tính tự động) | Văn bản | — | Hiện điều kiện trung bình dạng "平均点 評点集計 1学期期末/学年平均 50点以上" (điểm trung bình, thiết lập thứ hạng, kỳ/nhóm, mốc) | Đề xuất nội bộ. Giữa các điều kiện hiện **かつ** (và) hoặc **または** (hoặc) như hiện tại |
-| 5 | **計算対象設定** (thiết lập đối tượng được tính) | Liên kết [編集] (sửa) | — | Mở điều kiện của đúng dòng | [02](#screen-condition) |
-| 6 | **登録方法設定** (thiết lập cách đăng ký) | Liên kết [編集] (sửa) | — | Mở công thức hoặc ánh xạ của đúng dòng | [03](#screen-formula), [04](#screen-mapping) |
-| 7 | **削除** (xóa), **優先順位** (thứ tự ưu tiên) ▲▼ | Nút hiện có | — | Giữ hành vi danh sách hiện tại. Lưu thiết lập không tính điểm học sinh | ▲ của dòng đầu và ▼ của dòng cuối không bấm được |
-| 8 | Ghi chú khi thiếu trung bình | Ghi chú ngoài UI trên Figma | — | Nhắc cách xử lý khi chưa có số trung bình | Theo đề xuất Q4 và Q7 |
+| 1 | Khối cơ bản, quyền sửa tay, **自動計算設定の管理用メモ** (memo) | Hiện có | — | Giữ nguyên | — |
+| 2 | Bảng **詳細設定** (thiết lập chi tiết), năm cột | Bảng hiện có | — | Xét từ trên xuống, dùng dòng khớp đầu tiên | Không thêm cột, không thêm nút |
+| 3 | Cột **自動計算の対象者** (học sinh được tính tự động) | Văn bản | — | **Mới:** hiện điều kiện trung bình `平均点 評点集計 1学期期末/学年平均 50点以上`. Nhiều điều kiện nối bằng chữ nối hiện có | Ví dụ Figma: 設定2 `…50点以上`, 設定3 `…50点より小さい`, 設定1 `全員が対象` ở dưới cùng |
+| 4 | [編集] ở cột đối tượng | Liên kết hiện có | — | Mở [02](#screen-condition) của đúng dòng | — |
+| 5 | [編集] ở cột cách đăng ký | Liên kết hiện có | — | Mở [03](#screen-formula) hoặc [04](#screen-mapping) của đúng dòng | — |
+| 6 | Thêm chi tiết, **削除** (xóa), **優先順位** ▲▼ | Nút hiện có | — | Giữ hành vi hiện tại | ▲ dòng đầu và ▼ dòng cuối không bấm được |
+| 7 | Hai dòng chú thích dưới bảng | Văn bản | — | **Mới:** `※上から順に判定し、最初に条件に一致した設定のみを適用します。` / `※「全員が対象」を最上位にすると、下の平均点条件は適用されません。` | Quyết định nội bộ |
 
 ## 02 — Đối tượng được tính
 
 <a id="screen-condition"></a>
 
-**Màn hình:** **計算対象設定** (thiết lập đối tượng được tính).
-
-**Mục đích:** quyết định học sinh nào dùng công thức của dòng này. Thêm điều kiện điểm trung bình.
+**Màn hình:** **計算対象設定** (thiết lập đối tượng được tính). Tiêu đề `「1学期期末 評点」の詳細設定（計算対象）`. Figma 02-A. Khoảng trên–dưới (Q6) không vẽ khung riêng vì không có UI mới: thêm dòng 平均点 thứ hai bằng nút hiện có; quy tắc ghi ở ghi chú 02 và 02-A-2.
 
 | STT | Thành phần | Loại | Bắt buộc | Thao tác và kết quả | Ghi chú |
 | --- | --- | --- | --- | --- | --- |
-| 1 | Tên thiết lập | Ô văn bản hiện có | Theo màn hiện tại | Giữ tên dòng trên danh sách | — |
-| 2 | Mọi học sinh hoặc lọc | Radio hiện có, trên một hàng | Bắt buộc | **全員が対象** (mọi học sinh đều là đối tượng) hoặc lọc theo điều kiện | Mọi học sinh đặt trên cùng thì chặn dòng dưới |
-| 3 | Các điều kiện đang có | Bộ lọc hiện có | Có điều kiện | Giữ môn, khóa và các loại hiện có. Nhiều điều kiện trên cùng một dòng phải đúng cùng lúc | Không đổi nghĩa các loại cũ. Dòng cũ lưu OR giữ nguyên nghĩa |
-| 4 | Loại điều kiện điểm trung bình | Bộ chọn mới | Có điều kiện | Chọn khi muốn so trung bình nhóm | Có ở mọi trường |
-| 5 | Thiết lập thứ hạng, kỳ, nhóm | Bộ chọn | Bắt buộc khi có dòng trung bình | Chọn đúng kết quả tổng hợp cần so | Nhóm theo [mục 05](#screen-population). Tham chiếu đã bị đổi tên hoặc xóa thì hiện chưa chọn, kèm cảnh báo (đề xuất nội bộ) |
-| 6 | Dấu | Bộ chọn | Bắt buộc khi có dòng trung bình | **以上** (từ … trở lên), **より大きい** (lớn hơn), **等しい** (bằng), **より小さい** (nhỏ hơn), **以下** (từ … trở xuống) | Không có **未満** (dưới) |
-| 7 | Mốc | Ô số | Bắt buộc khi có dòng trung bình | Ví dụ **50 以上** (từ 50 trở lên) hoặc **50 より小さい** (nhỏ hơn 50) | Đề xuất nội bộ: số từ 0 trở lên, cho phép số thập phân |
-| 8 | Thêm điều kiện | Nút hiện có | — | Thêm một mốc nữa trên cùng dòng | Khoảng, ví dụ lớn hơn 50 và nhỏ hơn 80, là đề xuất Q6 |
-| 9 | Lưu | Nút hiện có | — | Lưu và mở lại đúng các mốc đã chọn | Không tính điểm học sinh lúc lưu |
+| 1 | **設定名称** (tên thiết lập) | Ô văn bản hiện có | Theo hiện tại | Tên dòng trên danh sách | — |
+| 2 | **全員が対象** hoặc lọc | Radio hiện có | Bắt buộc | — | — |
+| 3 | Các dòng lọc hiện có | Hiện có | Có điều kiện | Giữ môn và các loại cũ | — |
+| 4 | Dropdown loại lọc | Dropdown hiện có | — | **Mới:** nhóm cuối `----集計条件で絞り込む----` (không chọn được) và mục **平均点**. Chưa chọn loại thì phần bên phải trống | Figma 02-3 |
+| 5 | Thiết lập thứ hạng | Dropdown **mới** | Bắt buộc | Tên **順位集計設定** của năm học. Mục đầu `選択してください` | Figma 02-4 |
+| 6 | Kỳ/nhóm | Dropdown **mới** | Bắt buộc | Dạng `1学期期末/学年平均`. Nhóm theo [05](#screen-population). Mục đầu `選択してください` | Q5 |
+| 7 | Mốc | Ô số **mới** | Bắt buộc | Số từ 0 trở lên, cho phép thập phân | Lỗi nếu trống hoặc âm |
+| 8 | Dấu | Dropdown **mới** | Bắt buộc | **以上**, **より大きい**, **等しい**, **より小さい**, **以下**. Không có **未満** | — |
+| 9 | Xóa dòng lọc | Nút hiện có | — | Xóa dòng điều kiện | — |
+| 10 | Thêm dòng lọc | Nút hiện có | — | Thêm điều kiện thứ hai, ví dụ khoảng **50 より大きい** + **80 より小さい** | Q6, AND. Figma ghi chú 02-A-2 |
+| 11 | Chú thích `※絞り込み条件を複数設定した場合、全ての条件を満たす生徒が対象となります。` | Văn bản | — | Nhắc quy tắc AND | — |
+| 12 | Lưu | Nút hiện có | — | Lưu và mở lại đúng lựa chọn. Tham chiếu không còn thì hiện `選択してください` kèm cảnh báo | Không tính điểm lúc lưu |
 
-Hai nhánh của yêu cầu là hai dòng danh sách, không phải hai mốc trên một dòng: một dòng từ 50 trở lên gắn công thức A, một dòng nhỏ hơn 50 gắn công thức B.
+Kết quả khi tính (Figma 02-A-2):
 
-Khi chưa có số trung bình để so, đề xuất Q7 là dừng ở dòng đó và không xét dòng dưới.
+- Một mốc: 49,9 → 設定3; 50 và 70 → 設定2.
+- Khoảng **50 より大きい** + **80 より小さい**: 50 và 80 không khớp; 50,1 và 79,9 khớp.
+- Không lấy được trung bình: điều kiện không khớp, xét dòng dưới; không khớp dòng nào thì ghi trống (Q7).
 
 ## 03 — Công thức
 
 <a id="screen-formula"></a>
 
-**Màn hình:** **登録方法設定** (thiết lập cách đăng ký), chọn **計算結果を登録する** (đăng ký kết quả tính).
+**Màn hình:** **登録方法設定** (thiết lập cách đăng ký), chọn **計算結果を登録する**. Tiêu đề `「1学期期末 評点」の詳細設定（登録方法）`. Figma 03-A.
 
 | STT | Thành phần | Loại | Bắt buộc | Thao tác và kết quả | Ghi chú |
 | --- | --- | --- | --- | --- | --- |
-| 1 | Các dòng công thức | Bảng hiện có | Có điều kiện | Mỗi dòng có vế trái, phép tính, vế phải | Cộng, trừ, nhân, chia |
-| 2 | Loại giá trị | Bộ chọn | Bắt buộc cho vế đang dùng | Thêm **科目平均** (trung bình môn) cho mọi trường | Hiện chỉ có ở hai trường Uenomiya |
-| 3 | Thiết lập thứ hạng | Bộ chọn | Bắt buộc khi vế là trung bình môn | Chọn tên thiết lập tổng hợp | Mỗi vế chọn riêng |
-| 4 | Kỳ và nhóm | Bộ chọn | Bắt buộc khi vế là trung bình môn | Ví dụ cuối kỳ cả khối, giữa kỳ cả lớp | Hai kỳ là hai dòng |
-| 5 | Làm tròn dòng | Lựa chọn hiện có | — | **しない** (không làm tròn) hoặc **する** (có làm tròn) | Theo quy định trường. Đề xuất Q3: vế nhận số chưa làm tròn, phần lẻ chỉ xử lý ở đây |
-| 6 | Lưu | Nút hiện có | — | Mở lại vẫn thấy trung bình môn, thiết lập, kỳ và nhóm | Trường khác hai trường Uenomiya hiện không lưu được phần này |
+| 1 | Các dòng công thức (式1, 式2…) | Bảng hiện có | Có điều kiện | Vế trái, phép tính (+ − × ÷), vế phải | — |
+| 2 | Loại giá trị mỗi vế | Dropdown hiện có | Bắt buộc | **成績登録項目**, **固定値**, **式の結果** (không có ở 式1), **授業設定** (khi có), **科目平均** (**mới** cho mọi trường) | Figma 03-1 |
+| 3 | Thiết lập thứ hạng | Dropdown | Bắt buộc khi chọn **科目平均** | Hiện khi chọn **科目平均**, ẩn với loại khác | Figma 03-2 |
+| 4 | Kỳ/nhóm | Dropdown | Bắt buộc khi chọn **科目平均** | Dạng `1学期期末/学年平均`, nhóm theo [05](#screen-population) | Q5 |
+| 5 | **端数処理** | Lựa chọn hiện có | — | **しない** / **する**; **する** thì hiện **小数第** và **四捨五入**, **切り上げ**, **切り捨て** | Figma 03-3. Áp lên kết quả dòng, sau khi đọc trung bình chưa làm tròn (Q3) |
+| 6 | **計算式を追加** (thêm công thức), xóa dòng | Nút hiện có | — | Giữ nguyên | — |
+| 7 | **戻る**, **更新する** | Nút hiện có | — | **更新する** lưu; mở lại vẫn thấy **科目平均**, thiết lập, kỳ/nhóm | Bỏ chặn lưu theo trường |
 
-Ví dụ đọc được trên form: dòng 1 là trung bình cuối kỳ, dòng 2 là điểm thô 60 nhân dòng 1 rồi chia trung bình giữa kỳ. Kết quả 84 ghi vào cột đang tính khi chạy tính điểm tự động.
+Ví dụ trên Figma: 式1 `科目平均 評点集計 1学期期末/学年平均 × 素点`; 式2 `式1の計算結果 ÷ 科目平均 評点集計 1学期中間/学年平均`. 60 × 70 ÷ 50 = 84.
 
 ## 04 — Ánh xạ
 
 <a id="screen-mapping"></a>
 
-**Màn hình:** **登録方法設定** (thiết lập cách đăng ký), chọn **マッピングした結果を登録する** (đăng ký kết quả đã so và chọn).
+**Màn hình:** **登録方法設定**, chọn **マッピングした結果を登録する**. Figma 04-A.
 
 | STT | Thành phần | Loại | Bắt buộc | Thao tác và kết quả | Ghi chú |
 | --- | --- | --- | --- | --- | --- |
-| 1 | **[基準値]** (giá trị gốc) | Bộ chọn hiện có | Bắt buộc | Cột điểm hoặc **計算結果** (kết quả tính) | Đề xuất Q1 thêm **科目平均** (trung bình môn) |
-| 2 | Công thức khi giá trị gốc là kết quả tính | Bảng như mục 03 | Có điều kiện | Tính số riêng của học sinh, ví dụ 84, rồi so khung | Phạm vi đang dùng, không phụ thuộc Q1 |
-| 3 | Khung và **登録する値** (điểm sẽ ghi) | Bảng hiện có | Bắt buộc khi dùng ánh xạ | Khung khớp đầu tiên được ghi. **[比較値]** (giá trị so) chọn **手入力** (nhập tay) hoặc **授業設定** (thiết lập tiết học) | Không khớp khung nào thì xử lý theo Q4 |
-| 4 | Trung bình môn đặt tại giá trị gốc | Bộ chọn đề xuất | Có điều kiện | Cả nhóm so cùng một số và có thể nhận cùng điểm sẽ ghi | Chỉ làm nếu khách xác nhận Q1 |
+| 1 | **[基準値]** | Dropdown hiện có | Bắt buộc | **計算結果** hoặc cột điểm. **Không** thêm **科目平均** | Q1 |
+| 2 | Bảng công thức khi chọn **計算結果** | Như [03](#screen-formula) | Có điều kiện | Vế trái/phải chọn được **科目平均**; tính riêng từng học sinh rồi so khung | Figma 04-A-1 |
+| 3 | Khung: **[比較値]**, **[比較条件]**, **登録する値**, **枠を追加**, nút trừ | Hiện có | Bắt buộc | Khung khớp đầu tiên được ghi | Figma 04-3 |
+| 4 | Không ra số hoặc không khớp khung | — | — | Ghi trống | Q4. Figma 04-A-2, 04-4 |
 
-Ví dụ Q1: trung bình cả khối 72, khung từ 70 trở lên ghi 80. Nếu trung bình nằm ở giá trị gốc, học sinh trong khối nhận 80. Nếu trung bình chỉ nằm trong công thức, học sinh điểm 60 và học sinh điểm 90 so khung bằng hai kết quả khác nhau.
+Không thêm ô chọn bản tổng hợp (Q2) và không thêm checkbox giữ điểm (Q4). Figma 04-4.
 
 ## 05 — Nhóm
 
 <a id="screen-population"></a>
 
-Dùng chung cho điều kiện lọc và cho vế **科目平均** (trung bình môn).
+Dùng chung cho dropdown kỳ/nhóm ở 02 và 03. Chỉ hiện nhóm mà thiết lập thứ hạng đã chọn có tổng hợp (Q5, giống chọn nguồn của xét điểm liệt và PR 57058).
 
-| Nhóm | Trong đề xuất Q5 |
+| Nhóm | Nhãn |
 | --- | --- |
-| **学年平均** (trung bình cả khối) | Giữ |
-| **HR平均** (trung bình lớp) | Giữ |
-| Trung bình của một nhóm thứ hạng | Giữ |
-| Nhóm kết hợp | Giữ |
-| Trung bình của riêng một tiết học | Không thêm, trừ khi khách chọn phương án còn lại của Q5 |
+| Cả khối | `学年平均` |
+| Lớp chủ nhiệm | `HR平均` |
+| Tiết học | `授業平均` |
+| Nhóm thứ hạng | Tên nhóm |
+| Nhóm kết hợp | Tên nhóm |
+| Nhóm môn học | Tên nhóm |
 
 Không có ô chọn môn. Môn là môn của tiết đang cấu hình.
 
 ## 06 — Chạy và ghi điểm
 
-| STT | Thao tác | Kết quả với số trung bình | Kết quả với cột đang tính |
+| STT | Thao tác | Số trung bình | Cột đang tính |
 | --- | --- | --- | --- |
-| 1 | **集計実行** (chạy tổng hợp) | Tạo hoặc ghi đè số vừa chạy | Giữ nguyên, kể cả 75 |
-| 2 | **自動算出実行** (chạy tính điểm tự động) | Đọc số đang dùng để tính | Khi tính được thì ghi, ví dụ 84 đè 75 |
-| 3 | Lưu điểm, nhập CSV, chạy hàng loạt | Đọc số đang dùng để tính | Giữ đường ghi hiện tại |
-| 4 | Liên kết **試験・採点管理** (quản lý thi và chấm điểm), phía quản trị và phía học sinh | Đọc số đang dùng để tính | Giữ đường ghi hiện tại |
-| 5 | Xử lý riêng của trường (Takaoka, ULS) | Đọc số đang dùng để tính | Giữ đường ghi hiện tại. Cần kiểm chi tiết khi triển khai |
+| 1 | Lưu ở 01, 02, 03, 04 | Không đọc | Không đổi |
+| 2 | **集計実行** | Tạo hoặc ghi đè số mới nhất | Không đổi |
+| 3 | **自動算出実行** | Đọc để tính | Ghi kết quả; không tính được thì ghi trống |
+| 4 | Lưu điểm, CSV, batch, liên kết **試験・採点管理** | Đọc để tính | Giữ đường ghi hiện tại |
 
-Số đang dùng hiện tại là số vừa chạy, chưa làm tròn. Sau khi **順位集計結果の確定** (xác định kết quả tổng hợp thứ hạng) có trong sản phẩm, ưu tiên bản đã chốt là đề xuất Q2.
+## 07 — Câu hỏi khách
 
-Khi chưa có số trung bình, đề xuất Q4 là giữ điểm đang có trong cột. Hiện trạng sản phẩm là ghi trống và xóa điểm đó. Cả hai cách đều không chuyển sang dòng thiết lập bên dưới. Học sinh không khớp dòng nào vẫn bị ghi trống như hiện tại.
+| Câu | Trạng thái | Ảnh hưởng màn hình |
+| --- | --- | --- |
+| Q1 | Đã xác nhận: không thêm vào **[基準値]** | 04-1 giữ nguyên |
+| Q2 | Đang chờ (成績シート No.1) | Không đổi màn hình |
+| Q3 | Đã xác nhận: số chưa làm tròn | Không có control |
+| Q4 | Đã xác nhận: ghi trống | Không có control |
+| Q5 | Đã xác nhận: thêm `授業平均`, danh sách như PR 57058 | 05 |
+| Q6 | Đã xác nhận: nhiều mốc, AND | 02-10, 02-11 |
+| Q7 | Đã xác nhận: thiếu trung bình thì không khớp | Không có control |
 
-## 07 — Những chỗ chờ khách hàng
+## 08 — Đối chiếu Figma
 
-| Câu | Chỗ trên màn | Nếu giữ đề xuất | Nếu khách chọn phương án kia |
-| --- | --- | --- | --- |
-| Q1 | Ô giá trị gốc của ánh xạ | Có thêm trung bình môn | Ô này không có trung bình môn |
-| Q2 | Không thêm ô chọn bản | Có bản đã chốt thì đọc bản đó | Luôn đọc số vừa chạy |
-| Q3 | Số đưa vào điều kiện và vế công thức | Số chưa làm tròn | Số đang hiện trên màn thứ hạng |
-| Q4 | Cột đích khi không ra số | Giữ điểm đang có | Ghi trống |
-| Q5 | Ô nhóm | Không có trung bình từng tiết | Thêm trung bình từng tiết |
-| Q6 | Hai mốc trên một dòng điều kiện | Được đặt khoảng | Mỗi dòng thiết lập chỉ một mốc |
-| Q7 | Điều kiện trung bình khi chưa có số | Dừng ở dòng đó | Xét tiếp dòng bên dưới |
+| Figma | Mục đặc tả màn hình | Mục đặc tả nghiệp vụ |
+| --- | --- | --- |
+| 00 Guide | 00, 07 | 1 |
+| 01-A, ghi chú 01-1 → 01-3 | 01 | 4 |
+| Ghi chú 02, 02-A, 02-A-1, 02-A-2 | 02 (STT 4–12) | 5.1, 5.2, 5.3 |
+| 02-3, 02-4 | 02 (STT 4–8), 05 | 5.1, 8.3, 11 |
+| 03-A, 03-1 → 03-4 | 03, 05 | 6, 8.3, 11 |
+| 04-A, 04-A-1 → 04-A-3, 04-3, 04-4 | 04 | 7, 8.2, 10 |
