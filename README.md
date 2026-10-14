@@ -42,6 +42,10 @@ Bảng này chỉ liệt kê tài liệu đã có trong repo, không phải danh
 | Sheet `RC-001` | Điểm đỏ（赤点） — context, đặc tả, thiết kế DB và chia việc hiện có | [RC-001-red-score](features/RC-001-red-score/) |
 | `RA-001` | Implement Ranking Average in Automatic Grade Calculation and Apply It to Conditions, Formulas, and Grade Registration — đặc tả sẵn sàng triển khai; Q1, Q3–Q7 đã xác nhận 12/10, Q2 chờ khách | [RA-001-ranking-average](features/RA-001-ranking-average/) |
 
+### Context EM-001
+
+- [EM-001 — Ánh xạ theo khoảng điểm trung bình](features/EM-001-average-score-ranges/): mã do người phụ trách xác nhận ngày 14/10/2026, chưa đối chiếu Sheet/Redmine. Yêu cầu cốt lõi và Q1–Q4 từ Slack; thiết kế đang đề xuất.
+
 ### Ví dụ tổ chức task Redmine
 
 [225454-student-career-registration](features/225454-student-career-registration/) chỉ là **ví dụ minh họa** cách đặt tên thư mục và liên kết Epic → Backlogitem → SubTask. Việc đưa ticket này vào repo không có nghĩa đây là task đang được thực hiện, task mặc định cho AI hoặc toàn bộ các task Redmine của dự án.
