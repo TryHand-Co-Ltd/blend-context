@@ -59,21 +59,21 @@ Nhóm bổ sung: điểm cá nhân trống thì kết quả trống theo hiện 
 - Dùng chung quy tắc nguồn trung bình với [RA-001](../RA-001-ranking-average/CONTEXT.md) và [RC-001](../RC-001-red-score/CONTEXT.md), theo yêu cầu tái sử dụng phần chung trong Q1.
 - RA-001 hiện dùng trung bình **trước làm tròn**, tổng điểm chia **số học sinh có điểm của cùng bản nguồn**, không dùng `examinees`. Nội dung này được đối chiếu từ context/đặc tả RA-001 hiện hành ngày 14/10; không phải câu xác nhận riêng trong chuỗi chức năng này.
 - Chính sách chưa có bản chốt còn chờ Q2 của RA-001. Phương án A đang dùng: phạm vi đang chốt chỉ dùng bản chốt; nếu bản chốt thiếu nhóm cần đọc thì coi là thiếu trung bình, **không rơi về số mới nhất**. Chưa chốt hoặc đã hủy chốt thì dùng số mới nhất. Chạy tổng hợp lại không cập nhật bản chốt. Không đóng Q2 dựa trên Q1–Q4 ở đây.
-- Mẫu số bằng 0 được coi là thiếu trung bình. Không thay bằng 1 hoặc dùng trung bình 0 giả. Mẫu số cùng bản nguồn gồm học sinh có điểm bị loại khỏi thứ hạng, theo [RA-001, mục 8.2–8.3](../RA-001-ranking-average/docs/specification.vi.md). Đây là hợp đồng nguồn dùng chung; cách xử lý thiếu nguồn trong hai bước EM-001 còn nằm trong đề xuất mục 5.
+- Mẫu số bằng 0 được coi là thiếu trung bình. Không thay bằng 1 hoặc dùng trung bình 0 giả. Mẫu số cùng bản nguồn gồm học sinh có điểm bị loại khỏi thứ hạng, theo [RA-001, mục 8.2–8.3](../RA-001-ranking-average/docs/specification.vi.md). Với điều kiện xét trung bình không lấy được giá trị, quy tắc chung RA-001 Q7 là coi điều kiện đó không khớp, xét điều kiện tiếp theo và ghi trống nếu không điều kiện nào khớp ([nguồn Q7](../RA-001-ranking-average/sources/2026-10-09-business-questions.vi.md#q7), [đặc tả mục 5.3](../RA-001-ranking-average/docs/specification.vi.md)). Đây là quy tắc chung được kế thừa, không phải xác nhận riêng trong thread EM-001.
 - Nhóm dự kiến triển khai sau chức năng dùng trung bình xếp hạng. Trạng thái merge/deploy các PR chưa được kiểm lại trong lần tổ chức context.
 
 ## 5. Thiết kế đang đề xuất
 
 [Nội dung giao diện bằng văn bản](docs/screen-definition.vi.md) là đầu vào chuẩn bị thiết kế. Người phụ trách sẽ vẽ mockup trên Figma sau; chưa có liên kết hoặc thiết kế Figma được duyệt. Bộ context không chứa mockup HTML/CSS. Cấu trúc hai cận nối VÀ, cận thứ hai tùy chọn, việc dùng mục đích đang cấu hình, tên phương thức mới và nội dung log là đề xuất.
 
-**Phân biệt nguyên tắc và cách áp dụng:** thứ tự khớp đầu tiên và không khớp → trống đã được Q3 xác nhận. Cách áp dụng chi tiết cho hai lớp (thiếu trung bình/không có hàng phù hợp → trống; chọn hàng đầu tiên rồi không quay sang hàng khác khi điều kiện cá nhân không khớp) là diễn giải thiết kế, chưa có câu xác nhận riêng trong chuỗi; không dùng trạng thái này để mở lại Q3. Không nhầm với xử lý thiếu trung bình ở điều kiện lọc của RA-001.
+**Phân biệt nguyên tắc và cách áp dụng:** Q3 EM-001 xác nhận điều kiện cá nhân xét theo thứ tự, lấy lần khớp đầu tiên và ghi trống nếu không điều kiện nào khớp. Quy tắc chung RA-001 Q7 cũng đã chốt: điều kiện trung bình không lấy được giá trị được coi là không khớp, xét điều kiện tiếp theo; nếu không điều kiện nào khớp thì ghi trống. Áp dụng nguyên tắc này cho thứ tự các hàng trung bình EM-001 là cách cụ thể hóa thiết kế, không phải xác nhận riêng của Shite trong thread EM-001. Sau khi một hàng đã được chọn, việc không quay sang hàng trung bình khác nếu điểm cá nhân không khớp vẫn là diễn giải thiết kế, chưa được thread xác nhận riêng.
 
 ## 6. Việc còn mở
 
 | Điểm cần hoàn thiện | Loại | Ảnh hưởng và cách tiếp tục |
 | --- | --- | --- |
 | Chính sách bản nguồn Q2 | Nghiệp vụ chung còn mở | Theo dõi RA-001; giữ phương án A là tạm dùng, không tự chốt chỉ dùng bản chốt |
-| Thiếu trung bình/không có hàng và thứ tự hai lớp | Cụ thể hóa nghiệp vụ trong thiết kế | Giữ phương án ở mục 5 để review; không suy quy tắc fallback của RA-001 sang EM-001 |
+| Cách ánh xạ quy tắc chung vào hai lớp | Cụ thể hóa thiết kế | Hàng trung bình không thể xét/không khớp thì xét hàng tiếp theo theo RA-001 Q7; không còn hàng khớp thì trống. Việc có quay lại hàng trung bình sau khi điểm cá nhân không khớp hay không vẫn cần review thiết kế; không ghi thành xác nhận của Shite |
 | Figma, điều khiển, tên phương thức | Thiết kế chưa thực hiện | Người phụ trách thiết kế sau; không tạo mockup hoặc coi bố cục cũ là đã duyệt |
 | Mapping với giới hạn mục đích/quyền ghi | Bằng chứng kỹ thuật | Đối chiếu các đường ghi thực tế khi triển khai; không tạo ngoại lệ nghiệp vụ mới từ suy đoán |
 | Phân bố hiện có đáp ứng Q4 | Bằng chứng vận hành | Thử trên staging, báo thiếu hụt nếu có; chưa có kết quả |

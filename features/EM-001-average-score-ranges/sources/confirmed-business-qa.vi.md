@@ -32,7 +32,7 @@
 ## Ranh giới xác nhận sau đối chiếu toàn chuỗi
 
 - **Chưa được Shite duyệt:** layout/số màn, nhãn phương thức mới, việc không thêm bộ chọn đích riêng, ngưỡng A/B/C và 1, 3, 5 trong ví dụ bổ sung, cấu trúc hai cận VÀ/cận tùy chọn và chi tiết log. Đây là đề xuất để thể hiện yêu cầu.
-- **Phụ thuộc hoặc cụ thể hóa thiết kế:** trước làm tròn, bản chốt/kết quả mới nhất, xử lý thiếu trung bình và cách kích hoạt tính lại. Không dẫn Q1–Q4 của chuỗi này như xác nhận riêng cho các chi tiết đó.
+- **Phụ thuộc hoặc cụ thể hóa thiết kế:** trước làm tròn, bản chốt/kết quả mới nhất, cách kích hoạt tính lại và việc áp dụng quy tắc chung vào thứ tự hai lớp EM-001. Quy tắc RA-001 Q7 về điều kiện trung bình không lấy được giá trị đã được xác nhận trong feature chung: coi là không khớp, xét điều kiện tiếp theo, và ghi trống nếu không điều kiện nào khớp. Đây là nội dung kế thừa, không phải xác nhận riêng trong thread EM-001. Việc có quay sang hàng trung bình khác sau khi điểm cá nhân không khớp vẫn là diễn giải thiết kế cần review.
 - **Phản hồi của nhóm:** triển khai chức năng này sau chức năng dùng trung bình xếp hạng; thử phân bố trên staging; gửi UI để review. Lời nhóm nói sẽ tiếp tục theo đề xuất khi chưa được trả lời không làm các đề xuất tự trở thành phê duyệt.
 - Shite yêu cầu dùng chung phần đặc tả có thể dùng chung, tự kiểm nội dung trước khi gửi và trao đổi ngắn gọn, rõ ý.
 - Đã đọc toàn bộ yêu cầu gốc và 8 phản hồi ngày 14/10/2026; nguồn báo không còn tin nhắn trong chuỗi. Chưa có phê duyệt thiết kế hoặc kết quả thử staging trong nguồn này.

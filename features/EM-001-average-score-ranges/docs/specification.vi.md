@@ -36,15 +36,16 @@ Bộ A/B/C dùng cùng ngưỡng minh họa ở mục 2, thay kết quả 5 → 
 - Đề xuất kiểm giá trị đầu ra theo loại và giới hạn của mục nhận. Cách từ chối cấu hình ngoài giới hạn hay giới hạn kết quả khi ghi cần đối chiếu hiện trạng; không coi đây là validation Shite đã phê duyệt.
 
 - Phương án biểu diễn khoảng trung bình: hai phép so sánh nối VÀ, cận thứ hai có thể bỏ; danh sách hàng có thứ tự. Đây là phương án UI để review, **không phải giới hạn nghiệp vụ tối đa hai điều kiện đã được khách chốt**.
-- Chọn hàng khớp đầu tiên, chỉ xét điều kiện cá nhân trong hàng đó; không quay sang hàng sau khi không khớp điểm cá nhân.
-- Thiếu trung bình hoặc không có hàng khớp → trống. Điểm cá nhân trống → trống là phần nhóm bổ sung theo hiện trạng. Điểm 0 không phải ô trống.
+- Nếu điều kiện xét trung bình của một hàng không lấy được giá trị, coi hàng đó không khớp và xét hàng tiếp theo theo quy tắc chung [RA-001 Q7](../../RA-001-ranking-average/sources/2026-10-09-business-questions.vi.md#q7). Nếu không còn hàng/điều kiện nào khớp thì ghi trống theo nguyên tắc chung. Đây là kế thừa quy tắc, không phải xác nhận riêng trong thread EM-001.
+- Đề xuất chọn hàng trung bình khớp đầu tiên rồi chỉ xét điều kiện cá nhân trong hàng đó; nếu điểm cá nhân không khớp thì ghi trống, không quay sang hàng trung bình kế tiếp. Phần không quay lại hàng trung bình là diễn giải thiết kế cần review, không phải chi tiết Shite xác nhận riêng.
+- Điểm cá nhân trống → trống là phần nhóm bổ sung theo hiện trạng. Điểm 0 không phải ô trống.
 - Dùng mục nhận đang cấu hình, không thêm bộ chọn riêng; thêm phương thức mới cho hai bước. Đây là lựa chọn UI, không phải xác nhận Q2.
 - Tóm tắt và log thể hiện thứ tự, nguồn thực dùng, điều kiện khớp và kết quả. Chi tiết dữ liệu/log chưa chốt.
 - Quyền ghi/ô sửa tay và giới hạn có hiệu lực trước lưu cần giữ theo hệ thống hiện có, đối chiếu khi triển khai.
 
 ## 5. Nguồn trung bình và vận hành
 
-Dùng quy tắc chung [RA-001](../../RA-001-ranking-average/docs/specification.vi.md): trước làm tròn, tổng điểm/số học sinh có điểm của cùng bản nguồn; không dùng `examinees`. Ví dụ 1.812/30 = 60,4 thì 30 là số học sinh có điểm. Chính sách bản chốt theo Q2 còn mở của RA-001. Theo phương án A đang dùng, phạm vi đang chốt mà thiếu nhóm thì coi là thiếu trung bình, không lấy số mới nhất; mẫu số 0 cũng là thiếu trung bình. Xem context mục 4 trước khi dùng nguồn.
+Dùng quy tắc chung [RA-001](../../RA-001-ranking-average/docs/specification.vi.md): trước làm tròn, tổng điểm/số học sinh có điểm của cùng bản nguồn; không dùng `examinees`. Ví dụ **1812 ÷ 30 = 60,4** thì 30 là số học sinh có điểm. Chính sách bản chốt theo Q2 còn mở của RA-001. Theo phương án A đang dùng, phạm vi đang chốt mà thiếu nhóm thì coi là thiếu trung bình, không lấy số mới nhất; mẫu số 0 cũng là thiếu trung bình. Khi điều kiện xét trung bình thiếu giá trị, áp dụng quy tắc RA-001 Q7: coi là không khớp, xét điều kiện tiếp theo; nếu không điều kiện nào khớp thì ghi trống. Xem context mục 4 trước khi dùng nguồn.
 
 Hướng vận hành đề xuất: chỉ sửa bảng thì lưu và chạy AutoRating đủ phạm vi; nguồn điểm đổi thì cập nhật tổng hợp/bản chốt theo chính sách chung rồi chạy lại. Chuỗi này không xác nhận riêng cách tự kích hoạt từng đường ghi điểm.
 
