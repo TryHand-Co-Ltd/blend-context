@@ -1,6 +1,6 @@
 # Đặc tả RA-001 — Trung bình tổng hợp thứ hạng（順位集計の平均点）
 
-**Ngày cập nhật:** 12/10/2026.
+**Ngày cập nhật:** 14/10/2026 (cách chọn bản và mẫu số theo điểm liệt, mục 8.2–8.3).
 
 **Đối tượng đọc:** thành viên phát triển, thiết kế, kiểm thử và người phụ trách nghiệp vụ BLEND.
 
@@ -204,16 +204,29 @@ Số trung bình lấy từ kết quả tổng hợp thứ hạng của đúng t
 
 ### 8.1. Nguồn đọc — quyết định nội bộ
 
-Dùng chung bộ đọc nguồn với xét điểm liệt (`RedScoreJudge::sourceMetric` và `getRedScoreSourceMetric` của `GradeCalcResultEachSubSubjectLogs_m` / `GradeCalcResultEachGroupLogs_m`), để hai chức năng luôn đọc cùng một số cho cùng nguồn. Nhóm **授業** đọc bảng kết quả theo tiết học; các nhóm khác đọc bảng kết quả theo môn.
+Dùng chung bộ đọc nguồn với xét điểm liệt ([PR 57572](https://github.com/ednity/school-web/pull/57572): `getRedScoreSourceMetric` của `GradeCalcResultEachSubSubjectLogs_m` / `GradeCalcResultEachGroupLogs_m`), để hai chức năng luôn đọc cùng một số cho cùng nguồn. Nhóm **授業** (tiết học) đọc bảng kết quả theo tiết học; các nhóm khác đọc bảng kết quả theo môn.
+
+Nhóm **授業**, nhóm thứ hạng（順位集計グループ）và nhóm kết hợp（組合わせグループ）: kết quả được ghi riêng cho từng khối, và nhóm thứ hạng có thể chứa học sinh nhiều khối. RA-001 đọc thêm điều kiện khối của học sinh để không lấy nhầm số của khối khác. Cách chọn bản và mẫu số vẫn dùng chung với điểm liệt (mục 8.2, 8.3).
+
+So sánh với mốc dùng số thập phân chính xác (bcmath) như điểm liệt, nên trung bình đúng bằng mốc (ví dụ 3,3 ÷ 3 = 1,1) được coi là bằng mốc.
+
+Kỳ **単元** (kiểm tra theo đơn vị): chỉ khi kỳ/nhóm được chọn là kỳ 単元 thì mới đọc trung bình của đúng đơn vị đang tính. Khi tính cột của kỳ 単元 mà chọn kỳ thường (ví dụ **1学期期末**), hệ thống đọc trung bình của kỳ thường đó như các cột khác. Nhóm `授業平均` không có trung bình theo đơn vị, nên chọn kỳ 単元 thì coi như thiếu trung bình.
 
 ### 8.2. Bản đã chốt hay số vừa chạy — Q2 đang chờ
 
-Q2 là spec chung với xét điểm liệt, ghi ở **成績シート** No.1. Khách đang xem xét giữa:
+Q2 là spec chung với xét điểm liệt, ghi ở **成績シート** (bảng thành tích) No.1. Khách đang xem xét giữa:
 
-- **案A:** có bản đã chốt thì dùng bản đã chốt, chưa có thì dùng số mới nhất. Đây là cách xét điểm liệt đang chạy.
-- **案B:** chỉ dùng bản đã chốt. Chưa chốt thì coi như không có trung bình (mục 5.3, mục 10).
+- **案A** (phương án A): có bản đã chốt thì dùng bản đã chốt, chưa có thì dùng số mới nhất. Đây là cách xét điểm liệt đang chạy.
+- **案B** (phương án B): chỉ dùng bản đã chốt. Chưa chốt thì coi như không có trung bình (mục 5.3, mục 10).
 
-Triển khai: viết bộ đọc nguồn theo 案A như điểm liệt, đặt quy tắc chọn bản ở một chỗ duy nhất trong bộ đọc chung. Khi khách trả lời 案B thì chỉ đổi chỗ đó, cho cả điểm liệt và tính điểm tự động. Màn hình không thêm ô chọn bản trong cả hai trường hợp.
+Triển khai theo 案A, đúng cách chọn bản của điểm liệt ([đặc tả điểm liệt v2, mục 5.5](../../RC-001-red-score/docs/v2/specification.vi.md)). "Đã chốt" xét theo phạm vi trường, năm, khối, kỳ và phân kỳ:
+
+| Phạm vi của nguồn | Số dùng |
+| --- | --- |
+| Đang có bản chốt có hiệu lực | Chỉ dùng bản chốt. Bản chốt thiếu nhóm cần đọc (ví dụ chỉ chốt toàn khối, thiếu lớp) thì coi như không có trung bình, **không** lấy số mới nhất |
+| Chưa chốt, hoặc bản chốt đã bị hủy | Số tổng hợp mới nhất |
+
+Quy tắc chọn bản nằm ở một chỗ trong bộ đọc chung. Khi khách trả lời 案B thì chỉ đổi chỗ đó, áp cho cả điểm liệt và tính điểm tự động. Màn hình không thêm ô chọn bản trong cả hai trường hợp.
 
 Bản đã chốt là chức năng **順位集計結果の確定** (xác định kết quả tổng hợp thứ hạng) của [PR 57058](https://github.com/ednity/school-web/pull/57058). Chạy tổng hợp lại không ghi vào bản đã chốt.
 
@@ -221,7 +234,7 @@ Bản đã chốt là chức năng **順位集計結果の確定** (xác định
 
 Dùng trung bình trước làm tròn, giống xét điểm liệt: tổng điểm ÷ số học sinh làm mẫu số của kết quả tổng hợp. Không dùng số đã làm tròn đang hiện trên màn thứ hạng. Ví dụ màn thứ hạng hiện 38, số dùng là 37,5.
 
-Mẫu số dùng cùng trường với điểm liệt (`total_score ÷ examinees`, `RedScoreJudge::applyRawAggregateMetrics`). Hiện trạng công thức trung bình môn của Uenomiya chia cho `student_count` (số học sinh có điểm, gồm cả học sinh bị loại khỏi thứ hạng). Đổi sang mẫu số chung là quyết định nội bộ để thống nhất với điểm liệt; xem việc còn mở ở mục 15.
+Mẫu số giống điểm liệt: **số học sinh có điểm** của cùng bản nguồn (số dòng thứ hạng của cùng log, gồm cả học sinh bị loại khỏi thứ hạng), không dùng `examinees` (số người tính thứ hạng). Đây cũng là mẫu số của công thức trung bình môn Uenomiya hiện tại, nên dữ liệu cũ của Uenomiya ra cùng số. Số học sinh có điểm bằng 0 thì coi như không có trung bình.
 
 Phần lẻ của kết quả công thức chỉ xử lý ở **端数処理** của dòng công thức. Không làm tròn hai lần.
 
@@ -317,7 +330,7 @@ Dữ liệu ví dụ: thiết lập thứ hạng `評点集計`, môn của ti�
 | Mã | Tình huống | Kết quả mong đợi |
 | --- | --- | --- |
 | AC-01 | Trường ngoài Uenomiya mở công thức | Dropdown vế trái/phải có **科目平均**; lưu rồi mở lại vẫn thấy đúng thiết lập và kỳ/nhóm |
-| AC-02 | Dữ liệu cũ của Uenomiya | Mở lại đúng lựa chọn, tính ra cùng kết quả như trước (trừ chênh mẫu số, mục 8.3) |
+| AC-02 | Dữ liệu cũ của Uenomiya | Mở lại đúng lựa chọn, tính ra cùng kết quả như trước |
 | AC-03 | Công thức 60 × 70 ÷ 50, đã chạy tổng hợp | Chạy tính điểm tự động ghi 84, đè 75 |
 | AC-04 | Như AC-03 nhưng chưa chạy tổng hợp | Cột ghi trống, 75 bị xóa; điểm thô 60 giữ nguyên |
 | AC-05 | Vế phải là trung bình bằng 0 dùng làm số chia | Cột ghi trống |
@@ -338,6 +351,8 @@ Dữ liệu ví dụ: thiết lập thứ hạng `評点集計`, môn của ti�
 | AC-20 | Chạy qua lưu điểm, CSV, batch, liên kết thi | Kết quả giống **自動算出実行** |
 | AC-21 | Đã có bản chốt 70, số mới nhất 68 | Dùng 70 (cả 案A và 案B) |
 | AC-22 | Chưa có bản chốt, số mới nhất 68 | 案A: dùng 68. 案B: coi như thiếu trung bình. Kiểm lại theo câu trả lời Q2 |
+| AC-23 | Khối đã chốt, bản chốt chỉ có toàn khối; điều kiện đọc `HR平均` (trung bình lớp chủ nhiệm), số mới nhất của lớp là 60 | Coi như thiếu trung bình, không dùng 60 |
+| AC-24 | Tổng điểm 124; 2 học sinh có điểm; `examinees` là 3 | Trung bình 62 (chia cho số học sinh có điểm) |
 
 <a id="out"></a>
 
@@ -358,7 +373,7 @@ Dữ liệu ví dụ: thiết lập thứ hạng `評点集計`, môn của ti�
 | Việc | Ai | Ảnh hưởng |
 | --- | --- | --- |
 | Q2 — chỉ bản đã chốt hay ưu tiên bản đã chốt | Khách (成績シート No.1) | Một chỗ trong bộ đọc nguồn chung (mục 8.2) |
-| PR 57058 được gộp | Team | Trước khi gộp, chỉ có số mới nhất; nếu Q2 = 案B thì RA-001 phải phát hành sau PR 57058 |
-| Mẫu số trung bình: `examinees` thay `student_count` | Team, báo Uenomiya nếu số thay đổi | Dữ liệu cũ của Uenomiya có thể ra số khác nếu có học sinh bị loại khỏi thứ hạng |
+| PR 57572 (điểm liệt) được gộp | Team | RA-001 dùng chung bộ đọc nguồn của PR này (mục 8.1). Phần code chung trong RA-001 giống hệt PR, gộp trước hay sau đều không xung đột |
+| PR 57058 được gộp | Team | Trước khi gộp, chỉ có số mới nhất; nếu Q2 = 案B thì RA-001 phải phát hành sau PR 57058. Sau khi gộp, kiểm lại trường hợp đã chốt (AC-21, AC-23) |
 | Bốn thư viện riêng của trường (`TakaokaEx`, `UlsEx`, `UlsJrEx`, `UlsElEx`) | Team | Kiểm có gọi cơ chế chung hay tự tính |
 | Số dòng thiết lập cũ dùng OR | Team | Báo người phụ trách nếu có |

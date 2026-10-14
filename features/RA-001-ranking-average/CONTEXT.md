@@ -32,7 +32,7 @@ Một số trường đã chọn **科目平均** (trung bình môn) trong công
 | Nhiều mốc | Một dòng được đặt nhiều điều kiện trung bình, nối AND (Q6) |
 | Dấu so sánh | **以上**, **より大きい**, **等しい**, **より小さい**, **以下**. Không dùng **未満** |
 | Nhóm | `学年平均`, `HR平均`, `授業平均`, nhóm thứ hạng, nhóm kết hợp, nhóm môn học; giống xét điểm liệt và PR 57058 (Q5) |
-| Số trung bình | Trước làm tròn, như xét điểm liệt (Q3). Bản đã chốt hay số mới nhất theo Q2 chung |
+| Số trung bình | Trước làm tròn, như xét điểm liệt (Q3). Bản đã chốt hay số mới nhất theo Q2 chung; hiện theo 案A (phương án A) của điểm liệt: phạm vi đang chốt chỉ dùng bản chốt, chưa chốt dùng số mới nhất |
 | Thứ tự | Xét từ trên xuống, dòng khớp đầu tiên thì chạy |
 | Thiếu trung bình ở điều kiện | Coi là không khớp, xét dòng dưới; không khớp dòng nào thì ghi trống (Q7) |
 | Không tính được | Ghi trống vào cột đích, điểm đang có bị xóa (Q4) |
@@ -60,8 +60,8 @@ Chi tiết ở [đặc tả](docs/specification.vi.md).
 | Mục | Quyết định |
 | --- | --- |
 | Lưu điều kiện | Thêm một loại vào `setting_condition` của `auto_rating_conf_items.condition`. Không thêm bảng, không thêm cột |
-| Bộ đọc nguồn | Dùng chung với xét điểm liệt (`RedScoreJudge::sourceMetric`), quy tắc chọn bản ở một chỗ |
-| Mẫu số trung bình | `total_score ÷ examinees` như điểm liệt, thay `student_count` của code Uenomiya hiện tại |
+| Bộ đọc nguồn | Dùng chung với xét điểm liệt ([PR 57572](https://github.com/ednity/school-web/pull/57572)), quy tắc chọn bản ở một chỗ. Nhóm **授業** (tiết học), nhóm thứ hạng（順位集計グループ）và nhóm kết hợp（組合わせグループ）đọc thêm điều kiện khối của học sinh. So sánh với mốc bằng số thập phân chính xác như điểm liệt |
+| Mẫu số trung bình | Số học sinh có điểm của cùng bản nguồn, như điểm liệt; không dùng `examinees`. Trùng với code Uenomiya hiện tại |
 | Kiểm tra khi lưu | Thiết lập, kỳ/nhóm, mốc, dấu bắt buộc; mốc ≥ 0, cho phép thập phân |
 | Tham chiếu bị đổi tên/xóa | Mở lại hiện `選択してください` kèm cảnh báo; khi tính xử lý như thiếu trung bình |
 | Dữ liệu cũ dùng OR | Giữ nghĩa; đếm trước khi phát hành |
@@ -74,7 +74,7 @@ Chi tiết ở [đặc tả](docs/specification.vi.md).
 
 ## 6. Tài liệu
 
-- [Đặc tả](docs/specification.vi.md), gồm tiêu chí nghiệm thu AC-01 → AC-22 (mục 14).
+- [Đặc tả](docs/specification.vi.md), gồm tiêu chí nghiệm thu AC-01 → AC-24 (mục 14).
 - [Đặc tả màn hình](docs/screen-definition.vi.md), [bản tiếng Nhật](docs/screen-definition.ja.md).
 - Chưa làm: chia việc và đặc tả kiểm thử chi tiết. Làm khi bắt đầu triển khai.
 
@@ -83,8 +83,8 @@ Chi tiết ở [đặc tả](docs/specification.vi.md).
 | Việc | Ảnh hưởng |
 | --- | --- |
 | Q2 | Một chỗ trong bộ đọc nguồn chung, áp cho cả điểm liệt |
-| PR 57058 chưa gộp | Nếu Q2 = 案B thì RA-001 phát hành sau PR 57058 |
-| Mẫu số `examinees` thay `student_count` | Báo Uenomiya nếu số thay đổi |
+| PR 57572 (điểm liệt) chưa gộp | RA-001 dùng chung bộ đọc nguồn; phần code chung giống hệt PR nên gộp trước hay sau đều không xung đột |
+| PR 57058 chưa gộp | Nếu Q2 = 案B thì RA-001 phát hành sau PR 57058. Sau khi gộp, kiểm lại trường hợp đã chốt |
 | Bốn thư viện riêng của trường | Kiểm khi triển khai |
 | Dữ liệu cũ dùng OR | Đếm trước khi phát hành |
 
