@@ -1,6 +1,6 @@
 # Đặc tả dự thảo — Ánh xạ theo khoảng trung bình
 
-Ngày: 14/10/2026. Đọc [context](../CONTEXT.md) và [nguồn xác nhận](../sources/confirmed-business-qa.vi.md) trước. Tài liệu này diễn giải context, không phải nguồn yêu cầu độc lập. Mục 1 là nguyên tắc đã xác nhận; mục 2–3 là ví dụ; mục 4 là đề xuất; mục 5 kế thừa nguồn chung và nêu hướng vận hành; mục 6 là kiểm chứng chưa thực hiện.
+Cập nhật: 15/10/2026. Đọc [context](../CONTEXT.md) và [nguồn xác nhận](../sources/confirmed-business-qa.vi.md) trước. Tài liệu này diễn giải context, không phải nguồn yêu cầu độc lập. Mục 1 là nguyên tắc đã xác nhận; mục 2–3 là ví dụ; mục 4 là đề xuất; mục 5 kế thừa nguồn chung và nêu hướng vận hành; mục 6 là kiểm chứng chưa thực hiện.
 
 ## 1. Thiết lập và tính
 
@@ -16,16 +16,20 @@ Mục nhận là điểm xếp loại（評定）, giới hạn có hiệu lực
 | --- | --- |
 | 0 ≤ trung bình <50 | ≥80 → 5; ≥65 → 3; <65 → 1 |
 | 50 ≤ trung bình <70 | ≥90 → 5; ≥75 → 3; <75 → 1 |
-| 70 ≤ trung bình ≤100 | ≥95 → 5; ≥85 → 3 |
+| 70 ≤ trung bình ≤100 | ≥95 → 5; ≥85 → 3; <85 → 1 |
 
 - Trung bình 49, điểm 85 → 5; trung bình 60, điểm 85 → 3; trung bình 60, điểm 30 → 1.
-- Trung bình 70, điểm 70 → trống: hàng cuối không có điều kiện cho điểm này.
+- Trung bình 70, điểm 70 → 1; bản mục nhận lựa chọn tương ứng trả C.
+- Ví dụ LOG: 1812 ÷ 30 = 60,4; trung bình thuộc khoảng thứ hai, điểm cá nhân 85 khớp điều kiện thứ hai → 3.
+- Ví dụ không khớp riêng: nếu đổi điều kiện cuối của hàng thứ ba thành <65 → 1, trung bình 70 và điểm cá nhân 70 → trống, kể cả đã có kết quả. Đây là cấu hình khác, không phải bảng mockup ở trên.
 - Giá trị 2, 4 vẫn nằm trong giới hạn mục nhận nhưng không được bảng này trả về.
 - Thêm/xóa điều kiện không thay giới hạn 1–5. Không yêu cầu số điều kiện bằng 5.
 
 Ví dụ gốc dùng bảng khác: trung bình 60, điểm 85 → **4**. Ví dụ Q2 của khách dùng kết quả **2, 4, 5**. Không trình bày các bảng này như cùng một cấu hình.
 
 ## 3. Ví dụ mục lựa chọn
+
+Bảng minh họa được đồng bộ với [mockup Figma](https://www.figma.com/design/ECOs3PWUGyxIS6LS0MnTjm?node-id=63-23) ngày 15/10/2026 theo yêu cầu người phụ trách; không phải phê duyệt thiết kế của khách.
 
 Bộ A/B/C dùng cùng ngưỡng minh họa ở mục 2, thay kết quả 5 → A, 3 → B, 1 → C. Đây là cách minh họa hai loại mục nhận, không phải quy tắc quy đổi A=5/B=3/C=1 áp dụng trong hệ thống. Mã lưu của lựa chọn không đồng nhất với nhãn hiển thị và không được dùng làm điểm nguồn.
 

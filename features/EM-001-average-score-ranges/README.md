@@ -10,7 +10,7 @@ Configure an Evaluation Mapping Table Based on Average Score Ranges
 | Codebase | Repository `blend` |
 | Ngày tổng hợp | 14/10/2026 |
 
-**Trạng thái:** yêu cầu cốt lõi đã được làm rõ; thiết kế còn là đề xuất, chưa sẵn sàng coi toàn bộ bộ tài liệu là đặc tả triển khai đã duyệt. Chưa có kết quả thử phân bố trên staging.
+**Trạng thái:** yêu cầu cốt lõi đã được làm rõ; thiết kế còn là đề xuất, chưa sẵn sàng coi toàn bộ bộ tài liệu là đặc tả triển khai đã duyệt. Đã kiểm tra local ngày 16/10/2026: bảng phân bố và biểu đồ hỗ trợ mục số và A/B/C, số lượng khớp nhau; xem CONTEXT.md mục 10. Chưa có kết quả trên staging hoặc kiểm chứng luồng tự tính EM-001 → trích xuất.
 
 ## Thứ tự đọc
 
