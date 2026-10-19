@@ -1,6 +1,6 @@
 # Context EM-001 — Ánh xạ đánh giá theo khoảng điểm trung bình
 
-Cập nhật: **14/10/2026**. Định danh feature: **EM-001**, được người phụ trách xác nhận ngày 14/10/2026. Chưa đối chiếu mã trên Sheet/Redmine.
+Cập nhật: **16/10/2026** (bổ sung kiểm chứng local Q4). Định danh feature: **EM-001**, được người phụ trách xác nhận ngày 14/10/2026. Chưa đối chiếu mã trên Sheet/Redmine.
 
 Tài liệu này là điểm đọc yêu cầu hiện hành của bộ context được người phụ trách yêu cầu tạo. Xác nhận khách hàng là căn cứ nghiệp vụ; đề xuất dưới đây chưa phải thiết kế được duyệt.
 
@@ -76,7 +76,7 @@ Nhóm bổ sung: điểm cá nhân trống thì kết quả trống theo hiện 
 | Cách ánh xạ quy tắc chung vào hai lớp | Cụ thể hóa thiết kế | Hàng trung bình không thể xét/không khớp thì xét hàng tiếp theo theo RA-001 Q7; không còn hàng khớp thì trống. Việc có quay lại hàng trung bình sau khi điểm cá nhân không khớp hay không vẫn cần review thiết kế; không ghi thành xác nhận của Shite |
 | Figma, điều khiển, tên phương thức | Thiết kế chưa thực hiện | Người phụ trách thiết kế sau; không tạo mockup hoặc coi bố cục cũ là đã duyệt |
 | Mapping với giới hạn mục đích/quyền ghi | Bằng chứng kỹ thuật | Đối chiếu các đường ghi thực tế khi triển khai; không tạo ngoại lệ nghiệp vụ mới từ suy đoán |
-| Phân bố hiện có đáp ứng Q4 | Bằng chứng vận hành | Thử trên staging, báo thiếu hụt nếu có; chưa có kết quả |
+| Phân bố hiện có đáp ứng Q4 | Bằng chứng vận hành | Đã kiểm tra local với mục số và A/B/C, bảng và biểu đồ khớp số lượng; xem mục 10. Còn kiểm tra staging, kết quả trống và luồng tự tính EM-001 → trích xuất |
 | Liên kết Sheet/Redmine | Metadata nguồn | Mã EM-001 đã được cung cấp; thiếu liên kết không làm Q1–Q4 thành chưa xác nhận |
 
 Các công việc tiếp theo:
@@ -84,7 +84,7 @@ Các công việc tiếp theo:
 1. Bổ sung liên kết Work Item/Redmine khi có; mã EM-001 đã được người phụ trách xác nhận.
 2. Review UI và chi tiết hai lớp điều kiện; giữ nguyên các nguyên tắc đã chốt.
 3. Theo dõi Q2 của RA-001, kiểm tích hợp bộ đọc nguồn và mẫu số.
-4. Thử màn phân bố hiện có trên staging, gồm mục số, lựa chọn và kết quả trống; chưa có kết quả thử.
+4. Tiếp tục kiểm tra trên staging và luồng tự tính EM-001 → trích xuất, gồm mục số, lựa chọn và kết quả trống. Kết quả local ngày 16/10 ở mục 10 chưa thay thế các bước này.
 5. Đánh giá lại phạm vi dev/QA và ước lượng sau review. Không dùng ước lượng cũ 13–20,5 ngày công cho thiết kế mới.
 6. Khi yêu cầu và thiết kế hoàn tất, chuẩn bị tài liệu tổng quan tương tự chức năng điểm đỏ theo yêu cầu khách.
 
@@ -109,3 +109,14 @@ Các công việc tiếp theo:
 Đã đọc lại yêu cầu gốc và toàn bộ 8 phản hồi của chuỗi Slack; nguồn báo hết trang. Đã đối chiếu cả 7 tài liệu Markdown trong EM-001. Không phát hiện mâu thuẫn còn lại giữa yêu cầu cốt lõi trong bộ context và nội dung Shite trả lời tại lần đọc này.
 
 Phân loại đã làm rõ: Q1–Q4 là căn cứ nghiệp vụ; điểm cá nhân trống và cam kết staging là phần nhóm trả lời; ví dụ 1, 3, 5 do người phụ trách yêu cầu; các chi tiết UI/validation/hai lớp/log là đề xuất; mẫu số/bản chốt lấy từ nguồn chung RA-001. Kết luận này là kiểm nội dung, không phải phê duyệt thiết kế hoặc kiểm chứng ứng dụng. Khi có phản hồi mới, đọc lại nguồn và cập nhật trạng thái trước khi dùng làm đầu vào cho AI.
+
+## 10. Kiểm chứng local Q4 ngày 16/10/2026
+
+Đã thao tác trực tiếp chức năng trích xuất thành tích（成績抽出）trên môi trường local, trường demo, năm học 2026, lớp 1–3, nhóm Toán I G-A. Chọn mục đánh giá trong thiết lập mục hiển thị（表示項目設定）, chạy trích xuất và đối chiếu bảng phân bố với biểu đồ trên dữ liệu có sẵn; không sửa điểm học sinh.
+
+| Mục và thời kỳ kiểm tra | Bảng phân bố | Biểu đồ |
+| --- | --- | --- |
+| Đánh giá cuối năm dạng số, cuối năm | Mức 1: 3 người; mức 2: 2 người; mức 3–5: 0 người | Khớp bảng |
+| Mục lựa chọn A/B/C, cuối kỳ I | A: 1 người; B: 1 người; C: 1 người | Khớp bảng, hiển thị ba nhãn A/B/C |
+
+Kết quả hỗ trợ hướng tái sử dụng bảng/biểu đồ phân bố hiện có theo Q4, không bổ sung màn đếm người riêng. Đây là bằng chứng vận hành local của chức năng hiện có, không phải xác nhận mới của khách hoặc kết quả nghiệm thu EM-001. Chưa kiểm tra trên staging, chưa kiểm tra riêng cách xử lý kết quả trống và chưa kiểm tra luồng tự tính EM-001 → trích xuất. Chưa đối chiếu revision ứng dụng đang chạy; phạm vi kết luận giới hạn ở môi trường và dữ liệu đã thử. Báo cáo gửi khách mới được soạn trong phiên làm việc, chưa có bằng chứng đã gửi hoặc được khách phản hồi.

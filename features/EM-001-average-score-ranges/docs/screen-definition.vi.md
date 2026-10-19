@@ -14,7 +14,7 @@ Người dùng phải mở lại được nguồn, điều kiện, toán tử, g
 
 ## 3. Kiểm tra kết quả
 
-Dùng bảng/biểu đồ phân bố tần suất（度数分布表・グラフ）trong trích xuất thành tích（成績抽出）theo Q4. Cần thử vận hành thực tế trước khi kết luận đáp ứng.
+Dùng bảng/biểu đồ phân bố tần suất（度数分布表・グラフ）trong trích xuất thành tích（成績抽出）theo Q4, không bổ sung màn đếm người riêng. Kiểm tra local ngày 16/10/2026 đã xác nhận mục số và A/B/C đều xuất được bảng và biểu đồ với số lượng khớp nhau; xem [context, mục 10](../CONTEXT.md). Còn kiểm tra staging, kết quả trống và luồng tự tính EM-001 → trích xuất trước khi kết luận nghiệm thu.
 
 Việc bổ sung nội dung lịch sử tính toán để giải thích nguồn và điều kiện khớp là đề xuất thiết kế, chưa phải màn hình được khách yêu cầu riêng hoặc phê duyệt.
 
