@@ -10,7 +10,7 @@ Cập nhật: 14/10/2026. **Dự thảo để review**, không phải bộ tri�
 | [Nguồn Q&A](../sources/confirmed-business-qa.vi.md) | Nguồn xác nhận và phần nhóm bổ sung |
 | [Research](../research/current-mapping-behavior.vi.md) | Hiện trạng đã đọc theo revision |
 
-Chưa tạo task, test spec, DB design hoặc kế hoạch triển khai. Mockup sẽ do người phụ trách thiết kế trên Figma sau; bộ này chỉ chứa tài liệu văn bản.
+Chưa tạo task, test spec hoặc DB design. [Kế hoạch triển khai đề xuất](../plans/average-range-mapping-implementation-plan.vi.md) nằm ở thư mục `plans`, chưa phải bản đã duyệt. Mockup sẽ do người phụ trách thiết kế trên Figma sau; bộ này chỉ chứa tài liệu văn bản.
 
 ## Bản tiếng Nhật
 

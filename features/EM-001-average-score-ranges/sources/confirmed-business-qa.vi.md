@@ -27,12 +27,12 @@
 - Sau khi yêu cầu và thiết kế hoàn tất, Shite yêu cầu chuẩn bị tài liệu tổng quan tương tự tài liệu đã làm cho chức năng điểm đỏ. Đây là việc tiếp theo, chưa phải tài liệu đã được tạo hoặc duyệt.
 - Nhóm dự kiến thiết kế UI rồi gửi Shite review; chưa có phê duyệt thiết kế; các ví dụ nghiệp vụ được ghi trong [đặc tả dự thảo](../docs/specification.vi.md).
 - Q1–Q4 ở trên đã được trả lời; không tiếp tục trình bày đề xuất cũ “chỉ nhận kết quả số”, “tối thiểu hai mức”, “cột còn lại tự động”, hoặc “chặn mọi khoảng chồng lấn” như đặc tả đã chốt. Chi tiết hình thức nhập điều kiện cho hai bước cần thiết kế và review theo các quy tắc đã xác nhận, đặc biệt thứ tự xét điều kiện và ghi trống khi không khớp.
-- Việc chọn bản tổng hợp khi chưa có bản chốt vẫn phụ thuộc kết luận Q2 của RA-001; phản hồi lần này không chốt lại vấn đề đó. Ước lượng 13–20,5 ngày công trong bản phân tích cũ chỉ áp dụng cho phạm vi **mục nhận kết quả số và bảng ngưỡng đề xuất cũ**, nên cần ước lượng lại sau khi thiết kế mới hoàn tất.
+- Việc chọn bản tổng hợp khi chưa có bản chốt đã được Shite xác nhận ngày 19/10/2026 trong [thread RC-001 ④](https://tryhand.slack.com/archives/C0BRGJA6XDE/p1792383099678219) (chỉ dùng bản chốt, thiếu thì trống); phản hồi Q1–Q4 trong thread EM-001 không chốt vấn đề đó. Ước lượng 13–20,5 ngày công trong bản phân tích cũ chỉ áp dụng cho phạm vi **mục nhận kết quả số và bảng ngưỡng đề xuất cũ**, nên cần ước lượng lại sau khi thiết kế mới hoàn tất.
 
 ## Ranh giới xác nhận sau đối chiếu toàn chuỗi
 
 - **Chưa được Shite duyệt:** layout/số màn, nhãn phương thức mới, việc không thêm bộ chọn đích riêng, ngưỡng A/B/C và 1, 3, 5 trong ví dụ bổ sung, cấu trúc hai cận VÀ/cận tùy chọn và chi tiết log. Đây là đề xuất để thể hiện yêu cầu.
-- **Phụ thuộc hoặc cụ thể hóa thiết kế:** trước làm tròn, bản chốt/kết quả mới nhất, cách kích hoạt tính lại và việc áp dụng quy tắc chung vào thứ tự hai lớp EM-001. Quy tắc RA-001 Q7 về điều kiện trung bình không lấy được giá trị đã được xác nhận trong feature chung: coi là không khớp, xét điều kiện tiếp theo, và ghi trống nếu không điều kiện nào khớp. Đây là nội dung kế thừa, không phải xác nhận riêng trong thread EM-001. Việc có quay sang hàng trung bình khác sau khi điểm cá nhân không khớp vẫn là diễn giải thiết kế cần review.
+- **Phụ thuộc hoặc cụ thể hóa thiết kế:** trước làm tròn, cách kích hoạt tính lại và việc áp dụng quy tắc chung vào thứ tự hai lớp EM-001. Quy tắc RA-001 Q7 về điều kiện trung bình không lấy được giá trị đã được xác nhận trong feature chung: coi là không khớp, xét điều kiện tiếp theo, và ghi trống nếu không điều kiện nào khớp. Đây là nội dung kế thừa, không phải xác nhận riêng trong thread EM-001. Việc có quay sang hàng trung bình khác sau khi điểm cá nhân không khớp vẫn là diễn giải thiết kế cần review.
 - **Phản hồi của nhóm:** triển khai chức năng này sau chức năng dùng trung bình xếp hạng; thử phân bố trên staging; gửi UI để review. Lời nhóm nói sẽ tiếp tục theo đề xuất khi chưa được trả lời không làm các đề xuất tự trở thành phê duyệt.
 - Shite yêu cầu dùng chung phần đặc tả có thể dùng chung, tự kiểm nội dung trước khi gửi và trao đổi ngắn gọn, rõ ý.
 - Đã đọc toàn bộ yêu cầu gốc và 8 phản hồi ngày 14/10/2026; nguồn báo không còn tin nhắn trong chuỗi. Chưa có phê duyệt thiết kế hoặc kết quả thử staging trong nguồn này.
@@ -52,3 +52,13 @@ Bảng trên giữ ví dụ gốc, không phải cấu hình bắt buộc. Ví d
 Nguồn tham khảo được dẫn trong yêu cầu gốc: [tài liệu Pattern B/B′](https://docs.google.com/spreadsheets/d/19Xrn06a-ijqB8QYwqaeOTGZ-pecvuy4DAx-Lq2WFj2E/edit?gid=916885722#gid=916885722), [tài liệu nhóm khoảng trung bình](https://docs.google.com/spreadsheets/d/1wpnSchkIwPcHfhT6u-OZIM7c_Qu-9ixL1WH-iuv3lVY/edit?gid=772723315#gid=772723315). Khách nói tài liệu có phương án cũ, không coi mọi chi tiết là xác nhận; lần chuẩn hóa context này dựa vào thread đã đọc, không tuyên bố đã kiểm lại hai Sheet.
 
 Bản tiếng Nhật: [confirmed-business-qa.ja.md](confirmed-business-qa.ja.md). Bản dịch cùng nội dung, không bổ sung phê duyệt nghiệp vụ.
+
+## Xác nhận bổ sung ngày 19/10/2026 (từ thread RC-001 ④)
+
+Nguồn: [thread Slack](https://tryhand.slack.com/archives/C0BRGJA6XDE/p1792383099678219), người xác nhận là Shite, trả lời cho nhóm phát triển. Không phải phản hồi của khách trong thread EM-001.
+
+- Chức năng ③ (EM-001) dùng **chỉ kết quả 順位集計 (tổng hợp thứ hạng) đã chốt (確定) và còn hiệu lực**, cùng chính sách với ① 赤点 và ②; không dùng kết quả mới nhất chưa chốt để thay thế.
+- Thiếu bản chốt hợp lệ thì coi trung bình là thiếu; với chức năng quy đổi, kết quả để **trống** và không giữ giá trị cũ.
+- Danh sách chọn 順位集計設定 hiển thị mọi thiết lập đã tạo, bất kể đã chốt hay chưa; trạng thái chốt chỉ ảnh hưởng việc lấy kết quả khi tính.
+- Phần hiển thị ngưỡng điểm đỏ trên 成績抽出 và Excel chỉ thuộc chức năng ①, không áp dụng cho EM-001.
+- Chức năng ② được tạm dừng ở mức hiện tại; thread không nói ③ dừng.
