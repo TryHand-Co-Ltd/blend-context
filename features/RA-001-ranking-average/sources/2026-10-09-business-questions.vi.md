@@ -79,6 +79,12 @@ Sau khi PR được gộp, cùng một kỳ có thể có hai số. Chạy tổn
 
 **Trạng thái (12/10/2026)：** Chưa chốt. Khách nghiêng về chỉ cho chọn kết quả đã chốt, sẽ bàn với mw rồi quyết. Đã ghi ở **成績シート** No.1 như spec chung với xét điểm liệt.
 
+**Khách xác nhận (19/10/2026)：** Chỉ dùng **kết quả tổng hợp thứ hạng đã chốt và còn hiệu lực**; không lấy số vừa chạy thay thế. Chính sách này áp dụng thống nhất cho xét điểm liệt, tính điểm tự động (RA-001) và bảng ánh xạ theo khoảng điểm trung bình ([thread Slack](https://tryhand.slack.com/archives/C0BRGJA6XDE/p1792383099678219)). Đây là phương án "chỉ bản đã chốt" của [đặc tả mục 8.2](../docs/specification.vi.md#source), không phải phương án B của câu hỏi gốc ở trên (luôn dùng số vừa chạy).
+
+- Không có bản chốt hợp lệ cho phạm vi cần đọc thì trung bình coi như thiếu. Điều kiện trung bình thiếu số thì không khớp, xét dòng dưới (Q7); công thức không tính được thì ghi trống vào cột đích (Q4).
+- Dropdown **順位集計設定** (thiết lập tổng hợp thứ hạng) hiện **mọi thiết lập đã tạo**, bất kể đã chốt hay chưa. Trạng thái chốt chỉ ảnh hưởng số được đọc khi tính.
+- Chức năng này (RA-001) **tạm dừng ở mức hiện tại** theo chỉ đạo của shite: người làm chức năng chốt tổng hợp thứ hạng có thể làm cùng phần này; giữ tiến độ đã có, ưu tiên việc khác.
+
 <a id="q3"></a>
 
 ## Q3 — Lấy số đang hiện trên màn thứ hạng hay số chưa làm tròn

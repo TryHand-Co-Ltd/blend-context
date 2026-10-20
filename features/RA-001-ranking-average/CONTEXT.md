@@ -1,10 +1,10 @@
 # Context RA-001 — Trung bình tổng hợp thứ hạng（順位集計の平均点）
 
-Cập nhật: **12/10/2026**.
+Cập nhật: **20/10/2026**.
 
 **Tài liệu này là nguồn yêu cầu hiện hành của feature.** Đặc tả trong [docs](docs/README.md) diễn giải nguồn này.
 
-**Trạng thái: sẵn sàng triển khai, còn Q2 chờ khách.** Khách đã xác nhận Q1, Q3–Q7 ngày 12/10/2026. Q2 là spec chung với xét điểm liệt, đã ghi ở **成績シート** No.1, chỉ ảnh hưởng một chỗ trong bộ đọc nguồn trung bình ([đặc tả mục 8.2](docs/specification.vi.md#source)).
+**Trạng thái: tạm dừng ở mức hiện tại.** Khách đã xác nhận Q1, Q3–Q7 ngày 12/10/2026 và Q2 ngày 19/10/2026: **chỉ dùng kết quả tổng hợp thứ hạng đã chốt** ([đặc tả mục 8.2](docs/specification.vi.md#source)). Cùng ngày shite chỉ đạo tạm dừng chức năng này, giữ tiến độ và ưu tiên việc khác, vì người làm chức năng chốt tổng hợp thứ hạng có thể làm cùng phần này ([thread Slack](https://tryhand.slack.com/archives/C0BRGJA6XDE/p1792383099678219)). Code hiện theo 案A (ưu tiên bản chốt, chưa chốt thì dùng số mới nhất), **chưa đổi** sang chỉ bản đã chốt.
 
 Work item: **Implement Ranking Average in Automatic Grade Calculation and Apply It to Conditions, Formulas, and Grade Registration**.
 
@@ -32,7 +32,7 @@ Một số trường đã chọn **科目平均** (trung bình môn) trong công
 | Nhiều mốc | Một dòng được đặt nhiều điều kiện trung bình, nối AND (Q6) |
 | Dấu so sánh | **以上**, **より大きい**, **等しい**, **より小さい**, **以下**. Không dùng **未満** |
 | Nhóm | `学年平均`, `HR平均`, `授業平均`, nhóm thứ hạng, nhóm kết hợp, nhóm môn học; giống xét điểm liệt và PR 57058 (Q5) |
-| Số trung bình | Trước làm tròn, như xét điểm liệt (Q3). Bản đã chốt hay số mới nhất theo Q2 chung; hiện theo 案A (phương án A) của điểm liệt: phạm vi đang chốt chỉ dùng bản chốt, chưa chốt dùng số mới nhất |
+| Số trung bình | Trước làm tròn, như xét điểm liệt (Q3). Chỉ dùng bản tổng hợp đã chốt và còn hiệu lực, không lấy số mới nhất thay thế (Q2, 19/10). Không có bản chốt hợp lệ thì coi như thiếu trung bình |
 | Thứ tự | Xét từ trên xuống, dòng khớp đầu tiên thì chạy |
 | Thiếu trung bình ở điều kiện | Coi là không khớp, xét dòng dưới; không khớp dòng nào thì ghi trống (Q7) |
 | Không tính được | Ghi trống vào cột đích, điểm đang có bị xóa (Q4) |
@@ -46,7 +46,7 @@ Bằng chứng hiện trạng code: [research](research/current-auto-rating-beha
 | Câu | Trạng thái | Nội dung |
 | --- | --- | --- |
 | [Q1](sources/2026-10-09-business-questions.vi.md#q1) | Đã xác nhận 12/10 | Không thêm **科目平均** vào **[基準値]**; dùng **計算結果** + công thức |
-| [Q2](sources/2026-10-09-business-questions.vi.md#q2) | **Đang chờ**, 成績シート No.1 | 案A: ưu tiên bản đã chốt, chưa có thì dùng số mới nhất (như điểm liệt hiện tại). 案B: chỉ bản đã chốt. Khách nghiêng về 案B, sẽ bàn với mw |
+| [Q2](sources/2026-10-09-business-questions.vi.md#q2) | Đã xác nhận 19/10 | Chỉ dùng bản đã chốt, thống nhất cho xét điểm liệt, tính điểm tự động và bảng ánh xạ theo khoảng điểm trung bình. Thay phương án ưu tiên bản chốt ngày 12/10. Dropdown **順位集計設定** hiện mọi thiết lập, bất kể đã chốt hay chưa |
 | [Q3](sources/2026-10-09-business-questions.vi.md#q3) | Đã xác nhận 12/10 | Số trước làm tròn, như điểm liệt |
 | [Q4](sources/2026-10-09-business-questions.vi.md#q4) | Đã xác nhận 12/10 | Ghi trống như hiện trạng (khách đổi từ "giữ điểm") |
 | [Q5](sources/2026-10-09-business-questions.vi.md#q5) | Đã xác nhận 12/10 | Thêm `授業平均`; danh sách nhóm như PR 57058 |
@@ -82,9 +82,10 @@ Chi tiết ở [đặc tả](docs/specification.vi.md).
 
 | Việc | Ảnh hưởng |
 | --- | --- |
-| Q2 | Một chỗ trong bộ đọc nguồn chung, áp cho cả điểm liệt |
+| Đổi bộ đọc nguồn sang chỉ bản đã chốt (Q2, 19/10) | Một chỗ trong bộ đọc nguồn chung. Chưa làm vì chức năng đang tạm dừng; người làm chức năng chốt có thể làm cùng |
+| Dropdown kỳ/nhóm sau Q2 | Chưa rõ có lọc nhóm "có kết quả" theo bản đã chốt hay theo mọi kết quả tổng hợp ([đặc tả mục 11](docs/specification.vi.md#population)). Cần xác nhận |
 | PR 57572 (điểm liệt) chưa gộp | RA-001 dùng chung bộ đọc nguồn; phần code chung giống hệt PR nên gộp trước hay sau đều không xung đột |
-| PR 57058 chưa gộp | Nếu Q2 = 案B thì RA-001 phát hành sau PR 57058. Sau khi gộp, kiểm lại trường hợp đã chốt |
+| PR 57058 chưa gộp | Q2 = chỉ bản đã chốt, nên RA-001 phát hành sau PR 57058; trước đó mọi điều kiện/công thức trung bình đều thiếu số. Sau khi gộp, kiểm lại trường hợp đã chốt |
 | Bốn thư viện riêng của trường | Kiểm khi triển khai |
 | Dữ liệu cũ dùng OR | Đếm trước khi phát hành |
 

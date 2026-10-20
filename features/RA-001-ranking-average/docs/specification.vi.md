@@ -6,7 +6,7 @@
 
 **Phạm vi tài liệu:** dùng điểm trung bình của tổng hợp thứ hạng trong tính điểm tự động. Tài liệu này đủ để triển khai: quy tắc, màn hình, dữ liệu, thời điểm ghi điểm và tiêu chí nghiệm thu.
 
-**Trạng thái:** khách đã xác nhận Q1, Q3–Q7 ngày 12/10/2026. Còn Q2 (bản đã chốt hay số vừa chạy) đang được khách xem xét, đã ghi ở **成績シート** No.1 như spec chung với xét điểm liệt. Chỗ phụ thuộc Q2 được ghi rõ ở mục 8.2; phần còn lại không phụ thuộc Q2.
+**Trạng thái:** khách đã xác nhận Q1, Q3–Q7 ngày 12/10/2026 và Q2 ngày 19/10/2026 (chỉ dùng bản đã chốt, mục 8.2). Chức năng **tạm dừng ở mức hiện tại** theo chỉ đạo của shite ngày 19/10: người làm chức năng chốt tổng hợp thứ hạng có thể làm cùng phần này; giữ tiến độ, ưu tiên việc khác. Code đang theo 案A (có bản chốt thì dùng, chưa chốt thì dùng số mới nhất), **chưa đổi sang "chỉ bản đã chốt"**.
 
 Nhãn dùng trong tài liệu:
 
@@ -212,21 +212,25 @@ So sánh với mốc dùng số thập phân chính xác (bcmath) như điểm l
 
 Kỳ **単元** (kiểm tra theo đơn vị): chỉ khi kỳ/nhóm được chọn là kỳ 単元 thì mới đọc trung bình của đúng đơn vị đang tính. Khi tính cột của kỳ 単元 mà chọn kỳ thường (ví dụ **1学期期末**), hệ thống đọc trung bình của kỳ thường đó như các cột khác. Nhóm `授業平均` không có trung bình theo đơn vị, nên chọn kỳ 単元 thì coi như thiếu trung bình.
 
-### 8.2. Bản đã chốt hay số vừa chạy — Q2 đang chờ
+### 8.2. Bản đã chốt hay số vừa chạy — đã xác nhận Q2
 
-Q2 là spec chung với xét điểm liệt, ghi ở **成績シート** (bảng thành tích) No.1. Khách đang xem xét giữa:
+Ngày 19/10/2026 shite xác nhận ([thread Slack](https://tryhand.slack.com/archives/C0BRGJA6XDE/p1792383099678219)): **chỉ dùng kết quả tổng hợp thứ hạng đã chốt và còn hiệu lực**. Số tổng hợp mới nhất chưa chốt **không** được dùng thay thế. Chính sách này áp dụng thống nhất cho xét điểm liệt, tính điểm tự động (RA-001) và bảng ánh xạ theo khoảng điểm trung bình. Q2 là spec chung với xét điểm liệt, ghi ở **成績シート** (bảng thành tích) No.1.
 
-- **案A** (phương án A): có bản đã chốt thì dùng bản đã chốt, chưa có thì dùng số mới nhất. Đây là cách xét điểm liệt đang chạy.
-- **案B** (phương án B): chỉ dùng bản đã chốt. Chưa chốt thì coi như không có trung bình (mục 5.3, mục 10).
-
-Triển khai theo 案A, đúng cách chọn bản của điểm liệt ([đặc tả điểm liệt v2, mục 5.5](../../RC-001-red-score/docs/v2/specification.vi.md)). "Đã chốt" xét theo phạm vi trường, năm, khối, kỳ và phân kỳ:
+"Đã chốt" xét theo phạm vi trường, năm, khối, kỳ và phân kỳ:
 
 | Phạm vi của nguồn | Số dùng |
 | --- | --- |
-| Đang có bản chốt có hiệu lực | Chỉ dùng bản chốt. Bản chốt thiếu nhóm cần đọc (ví dụ chỉ chốt toàn khối, thiếu lớp) thì coi như không có trung bình, **không** lấy số mới nhất |
-| Chưa chốt, hoặc bản chốt đã bị hủy | Số tổng hợp mới nhất |
+| Có bản chốt có hiệu lực, có đủ nhóm cần đọc | Dùng bản chốt |
+| Có bản chốt nhưng thiếu nhóm cần đọc (ví dụ chỉ chốt toàn khối, thiếu lớp) | Coi như không có trung bình, **không** lấy số mới nhất |
+| Chưa chốt, hoặc bản chốt đã bị hủy | Coi như không có trung bình, **không** lấy số mới nhất |
 
-Quy tắc chọn bản nằm ở một chỗ trong bộ đọc chung. Khi khách trả lời 案B thì chỉ đổi chỗ đó, áp cho cả điểm liệt và tính điểm tự động. Màn hình không thêm ô chọn bản trong cả hai trường hợp.
+Khi không có trung bình, xử lý như đã chốt ở mục 5.3 và mục 10: điều kiện trung bình thiếu số thì không khớp, xét dòng dưới; công thức không tính được thì ghi trống vào cột đích, không giữ kết quả cũ.
+
+Dropdown **順位集計設定** (thiết lập tổng hợp thứ hạng) ở điều kiện và công thức hiện **mọi thiết lập đã tạo**, bất kể đã chốt hay chưa. Trạng thái chốt chỉ ảnh hưởng số được đọc khi tính.
+
+Quy tắc chọn bản nằm ở một chỗ trong bộ đọc chung, dùng cho cả điểm liệt và tính điểm tự động. Màn hình không thêm ô chọn bản.
+
+Lịch sử: bản spec ngày 12/10 triển khai theo 案A (ưu tiên bản chốt, chưa chốt thì dùng số mới nhất). Phương án này bị thay thế bởi xác nhận ngày 19/10.
 
 Bản đã chốt là chức năng **順位集計結果の確定** (xác định kết quả tổng hợp thứ hạng) của [PR 57058](https://github.com/ednity/school-web/pull/57058). Chạy tổng hợp lại không ghi vào bản đã chốt.
 
@@ -245,7 +249,7 @@ Phần lẻ của kết quả công thức chỉ xử lý ở **端数処理** c
 | Thao tác | Số trung bình | Cột điểm đang tính |
 | --- | --- | --- |
 | Lưu thiết lập (danh sách, điều kiện, cách đăng ký) | Không đọc | Không đổi |
-| **集計実行** (chạy tổng hợp) | Tạo hoặc ghi đè số mới nhất | Không đổi, kể cả 75 |
+| **集計実行** (chạy tổng hợp) | Tạo hoặc ghi đè số mới nhất. Số này không được đọc để tính (mục 8.2, chỉ đọc bản đã chốt) | Không đổi, kể cả 75 |
 | **自動算出実行** (chạy tính điểm tự động) | Đọc để tính | Ghi kết quả; không tính được thì ghi trống |
 | Lưu điểm, nhập CSV, chạy hàng loạt | Đọc để tính | Giữ cách ghi hiện tại của từng đường |
 | Liên kết **試験・採点管理** (quản lý thi và chấm điểm), phía quản trị và phía học sinh | Đọc để tính | Giữ cách ghi hiện tại |
@@ -279,6 +283,8 @@ Khách trả lời Q4 lần đầu là giữ điểm đang có. Ngày 12/10 khá
 
 Danh sách nhóm giống chọn nguồn của xét điểm liệt và PR 57058: theo thiết lập tổng hợp thứ hạng đã chọn, chỉ hiện nhóm mà thiết lập đó có kết quả.
 
+**Cần xác nhận lại sau Q2 (19/10):** shite chỉ xác nhận dropdown **順位集計設定** hiện mọi thiết lập, bất kể đã chốt hay chưa (mục 8.2). Chưa rõ dropdown kỳ/nhóm có lọc "có kết quả" theo kết quả đã chốt hay theo mọi kết quả tổng hợp. Cho tới khi có xác nhận, giữ cách chọn nguồn của xét điểm liệt như trên.
+
 | Nhóm | Nhãn trong dropdown kỳ/nhóm | Khi nào có |
 | --- | --- | --- |
 | Cả khối | `学年平均` | Thiết lập bật tổng hợp theo khối |
@@ -301,7 +307,7 @@ Mỗi học sinh so với trung bình của nhóm mình: khối của học sinh
 | Mục | Điểm liệt | RA-001 |
 | --- | --- | --- |
 | Nguồn trung bình, nhóm, số chưa làm tròn | Dùng chung (mục 8, 11) | Dùng chung |
-| Bản đã chốt hay số mới nhất | Theo Q2 chung | Theo Q2 chung |
+| Bản đã chốt hay số mới nhất | Chỉ bản đã chốt (Q2, 19/10) | Chỉ bản đã chốt (Q2, 19/10) |
 | Nhiều điều kiện trên một thiết lập | AND | AND (Q6) |
 | Thiếu trung bình | Không chuyển xuống thiết lập thấp hơn | Coi là không khớp, xét dòng dưới (Q7, theo hiện trạng tính điểm tự động) |
 | Bộ dấu | Có **未満** | Bộ dấu của ánh xạ, không có **未満** |
@@ -349,8 +355,8 @@ Dữ liệu ví dụ: thiết lập thứ hạng `評点集計`, môn của ti�
 | AC-18 | Danh sách | Cột **自動計算の対象者** hiện `平均点 評点集計 1学期期末/学年平均 50点以上`; có hai dòng chú thích ※ |
 | AC-19 | Lưu thiết lập | Không thay đổi điểm học sinh |
 | AC-20 | Chạy qua lưu điểm, CSV, batch, liên kết thi | Kết quả giống **自動算出実行** |
-| AC-21 | Đã có bản chốt 70, số mới nhất 68 | Dùng 70 (cả 案A và 案B) |
-| AC-22 | Chưa có bản chốt, số mới nhất 68 | 案A: dùng 68. 案B: coi như thiếu trung bình. Kiểm lại theo câu trả lời Q2 |
+| AC-21 | Đã có bản chốt 70, số mới nhất 68 | Dùng 70 |
+| AC-22 | Chưa có bản chốt (hoặc bản chốt đã bị hủy), số mới nhất 68 | Coi như thiếu trung bình, không dùng 68 (Q2, 19/10). Điều kiện không khớp, công thức ghi trống |
 | AC-23 | Khối đã chốt, bản chốt chỉ có toàn khối; điều kiện đọc `HR平均` (trung bình lớp chủ nhiệm), số mới nhất của lớp là 60 | Coi như thiếu trung bình, không dùng 60 |
 | AC-24 | Tổng điểm 124; 2 học sinh có điểm; `examinees` là 3 | Trung bình 62 (chia cho số học sinh có điểm) |
 
@@ -372,8 +378,8 @@ Dữ liệu ví dụ: thiết lập thứ hạng `評点集計`, môn của ti�
 
 | Việc | Ai | Ảnh hưởng |
 | --- | --- | --- |
-| Q2 — chỉ bản đã chốt hay ưu tiên bản đã chốt | Khách (成績シート No.1) | Một chỗ trong bộ đọc nguồn chung (mục 8.2) |
+| Q2 — chỉ bản đã chốt hay ưu tiên bản đã chốt | Đã xác nhận 19/10/2026: chỉ bản đã chốt (mục 8.2) | Đổi một chỗ trong bộ đọc nguồn chung; code hiện theo 案A, chưa đổi (chức năng đang tạm dừng) |
 | PR 57572 (điểm liệt) được gộp | Team | RA-001 dùng chung bộ đọc nguồn của PR này (mục 8.1). Phần code chung trong RA-001 giống hệt PR, gộp trước hay sau đều không xung đột |
-| PR 57058 được gộp | Team | Trước khi gộp, chỉ có số mới nhất; nếu Q2 = 案B thì RA-001 phải phát hành sau PR 57058. Sau khi gộp, kiểm lại trường hợp đã chốt (AC-21, AC-23) |
+| PR 57058 được gộp | Team | Q2 = chỉ bản đã chốt, nên RA-001 phải phát hành sau PR 57058; trước khi gộp, mọi điều kiện/công thức trung bình đều thiếu số. Sau khi gộp, kiểm các trường hợp AC-21 đến AC-23 |
 | Bốn thư viện riêng của trường (`TakaokaEx`, `UlsEx`, `UlsJrEx`, `UlsElEx`) | Team | Kiểm có gọi cơ chế chung hay tự tính |
 | Số dòng thiết lập cũ dùng OR | Team | Báo người phụ trách nếu có |

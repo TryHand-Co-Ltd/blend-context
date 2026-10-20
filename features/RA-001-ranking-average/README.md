@@ -13,11 +13,11 @@ Implement Ranking Average in Automatic Grade Calculation and Apply It to Conditi
 
 Phạm vi: dùng điểm trung bình do tổng hợp thứ hạng（順位集計）tính ra trong tính điểm tự động（自動計算）.
 
-Trạng thái: **sẵn sàng triển khai, còn Q2 chờ khách**. Khách đã xác nhận Q1, Q3–Q7 ngày 12/10/2026. Q2 ghi ở 成績シート No.1, chỉ ảnh hưởng bộ đọc nguồn trung bình. Tiêu chí nghiệm thu ở [đặc tả mục 14](docs/specification.vi.md#ac).
+Trạng thái: **tạm dừng ở mức hiện tại** theo chỉ đạo của shite ngày 19/10/2026. Khách đã xác nhận Q1, Q3–Q7 ngày 12/10/2026 và Q2 ngày 19/10/2026 (chỉ dùng bản tổng hợp đã chốt). Code đang theo 案A, chưa đổi sang chỉ bản đã chốt. Tiêu chí nghiệm thu ở [đặc tả mục 14](docs/specification.vi.md#ac).
 
 ## Thứ tự đọc
 
 1. Đọc [CONTEXT.md](CONTEXT.md) để lấy yêu cầu khách, phạm vi thiết kế đang dùng và các đề xuất đang chờ.
 2. Đọc [đặc tả](docs/specification.vi.md) và [đặc tả màn hình](docs/screen-definition.vi.md). Bản Nhật của màn hình là [screen-definition.ja.md](docs/screen-definition.ja.md).
-3. Khi cần đúng câu đang hỏi khách, đọc [bản tiếng Việt](sources/2026-10-09-business-questions.vi.md) hoặc [bản tiếng Nhật](sources/2026-10-09-business-questions.ja.md). Mỗi câu có đoạn ghi câu trả lời của khách (Q2 còn chờ).
+3. Khi cần đúng câu đang hỏi khách, đọc [bản tiếng Việt](sources/2026-10-09-business-questions.vi.md) hoặc [bản tiếng Nhật](sources/2026-10-09-business-questions.ja.md). Mỗi câu có đoạn ghi câu trả lời của khách (Q2 đã xác nhận ngày 19/10/2026).
 4. Khi cần căn cứ, đọc [ghi nhận nội bộ 10/10](sources/2026-10-10-internal-design-review.vi.md) và [hiện trạng code](research/current-auto-rating-behavior.vi.md).

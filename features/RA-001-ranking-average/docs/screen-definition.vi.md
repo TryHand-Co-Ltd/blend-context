@@ -6,7 +6,7 @@
 
 **Figma:** [RA-001](https://www.figma.com/design/OkFTBuOyoF2hNnxCFy4Uds/), version "RA-001 v9 – cân bố cục, ghi chú cho khách". Trang **00｜Guide**, **01｜List and priority**, **02｜Conditions**, **03｜Formula**, **04｜Mapping states**. Bảng đối chiếu ở mục 08.
 
-**Trạng thái:** khách đã xác nhận Q1, Q3–Q7 ngày 12/10/2026. Q2 đang chờ (**成績シート** No.1); Q2 không đổi màn hình nào. Quy tắc nghiệp vụ nằm ở [đặc tả](specification.vi.md).
+**Trạng thái:** khách đã xác nhận Q1, Q3–Q7 ngày 12/10/2026. Q2 đã xác nhận ngày 19/10/2026 (chỉ dùng bản tổng hợp đã chốt); Q2 không đổi màn hình nào. Dropdown **順位集計設定** (thiết lập tổng hợp thứ hạng) hiện mọi thiết lập đã tạo, bất kể đã chốt hay chưa. Quy tắc nghiệp vụ nằm ở [đặc tả](specification.vi.md).
 
 ## 00 — Cách đọc
 
@@ -123,7 +123,7 @@ Không có ô chọn môn. Môn là môn của tiết đang cấu hình.
 | Câu | Trạng thái | Ảnh hưởng màn hình |
 | --- | --- | --- |
 | Q1 | Đã xác nhận: không thêm vào **[基準値]** | 04-1 giữ nguyên |
-| Q2 | Đang chờ (成績シート No.1) | Không đổi màn hình |
+| Q2 | Đã xác nhận 19/10: chỉ dùng bản tổng hợp đã chốt | Không đổi màn hình |
 | Q3 | Đã xác nhận: số chưa làm tròn | Không có control |
 | Q4 | Đã xác nhận: ghi trống | Không có control |
 | Q5 | Đã xác nhận: thêm `授業平均`, danh sách như PR 57058 | 05 |
