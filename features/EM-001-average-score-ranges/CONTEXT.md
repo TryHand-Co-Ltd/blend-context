@@ -1,6 +1,6 @@
 # Context EM-001 — Ánh xạ đánh giá theo khoảng điểm trung bình
 
-Cập nhật: **16/10/2026** (bổ sung kiểm chứng local Q4). Định danh feature: **EM-001**, được người phụ trách xác nhận ngày 14/10/2026. Chưa đối chiếu mã trên Sheet/Redmine.
+Cập nhật: **20/10/2026** (EM-001 đổi sang mã loại đăng ký 9 vì PR #57058 dùng mã 8, xem kế hoạch mục 15; áp dụng xác nhận của Shite ngày 19/10/2026 về chỉ dùng kết quả tổng hợp thứ hạng đã chốt, mục 4; trước đó 19/10/2026 bổ sung quyết định kế thừa từ RA-001/RC-001 và 16/10/2026 bổ sung kiểm chứng local Q4). Định danh feature: **EM-001**, được người phụ trách xác nhận ngày 14/10/2026. Chưa đối chiếu mã trên Sheet/Redmine.
 
 Tài liệu này là điểm đọc yêu cầu hiện hành của bộ context được người phụ trách yêu cầu tạo. Xác nhận khách hàng là căn cứ nghiệp vụ; đề xuất dưới đây chưa phải thiết kế được duyệt.
 
@@ -58,9 +58,35 @@ Nhóm bổ sung: điểm cá nhân trống thì kết quả trống theo hiện 
 
 - Dùng chung quy tắc nguồn trung bình với [RA-001](../RA-001-ranking-average/CONTEXT.md) và [RC-001](../RC-001-red-score/CONTEXT.md), theo yêu cầu tái sử dụng phần chung trong Q1.
 - RA-001 hiện dùng trung bình **trước làm tròn**, tổng điểm chia **số học sinh có điểm của cùng bản nguồn**, không dùng `examinees`. Nội dung này được đối chiếu từ context/đặc tả RA-001 hiện hành ngày 14/10; không phải câu xác nhận riêng trong chuỗi chức năng này.
-- Chính sách chưa có bản chốt còn chờ Q2 của RA-001. Phương án A đang dùng: phạm vi đang chốt chỉ dùng bản chốt; nếu bản chốt thiếu nhóm cần đọc thì coi là thiếu trung bình, **không rơi về số mới nhất**. Chưa chốt hoặc đã hủy chốt thì dùng số mới nhất. Chạy tổng hợp lại không cập nhật bản chốt. Không đóng Q2 dựa trên Q1–Q4 ở đây.
+- Chính sách nguồn trung bình **đã được Shite xác nhận ngày 19/10/2026** (xem mục "Xác nhận ngày 19/10/2026" dưới đây): chỉ dùng kết quả tổng hợp thứ hạng **đã chốt** và đang hợp lệ; **không** dùng kết quả mới nhất chưa chốt để thay thế. Chưa có bản chốt hợp lệ thì coi là thiếu trung bình và ghi trống. Phương án A cũ ("chưa chốt hoặc đã hủy chốt thì dùng số mới nhất") **không còn áp dụng**. Chạy tổng hợp lại không thay bản chốt đang hợp lệ.
 - Mẫu số bằng 0 được coi là thiếu trung bình. Không thay bằng 1 hoặc dùng trung bình 0 giả. Mẫu số cùng bản nguồn gồm học sinh có điểm bị loại khỏi thứ hạng, theo [RA-001, mục 8.2–8.3](../RA-001-ranking-average/docs/specification.vi.md). Với điều kiện xét trung bình không lấy được giá trị, quy tắc chung RA-001 Q7 là coi điều kiện đó không khớp, xét điều kiện tiếp theo và ghi trống nếu không điều kiện nào khớp ([nguồn Q7](../RA-001-ranking-average/sources/2026-10-09-business-questions.vi.md#q7), [đặc tả mục 5.3](../RA-001-ranking-average/docs/specification.vi.md)). Đây là quy tắc chung được kế thừa, không phải xác nhận riêng trong thread EM-001.
 - Nhóm dự kiến triển khai sau chức năng dùng trung bình xếp hạng. Trạng thái merge/deploy các PR chưa được kiểm lại trong lần tổ chức context.
+
+### Xác nhận ngày 19/10/2026 về nguồn trung bình đã chốt
+
+Nguồn: [thread RC-001 ④ trong Slack](https://tryhand.slack.com/archives/C0BRGJA6XDE/p1792383099678219), do Shite xác nhận cho cả ba chức năng ① 赤点 (điểm đỏ), ② dùng kết quả 順位集計 (tổng hợp thứ hạng) trong công thức/điều kiện AutoRating và ③ bảng quy đổi theo khoảng trung bình (chính là EM-001). Đây là xác nhận của Shite dành cho nhóm phát triển, không phải phản hồi riêng của khách trong thread EM-001.
+
+| Nội dung | Quy tắc áp dụng cho EM-001 |
+| --- | --- |
+| Chỉ dùng bản đã chốt | Chỉ đọc kết quả 順位集計 **đã chốt (確定)** và còn hiệu lực. Không dùng kết quả mới nhất chưa chốt để thay thế, kể cả khi số mới nhất khác bản chốt (ví dụ bản chốt 56, số mới nhất 60 thì vẫn dùng 56) |
+| Thiếu bản chốt | Thiếu bản chốt hợp lệ cho phạm vi cần đọc thì coi là **thiếu trung bình**. Với chức năng quy đổi, kết quả là **trống**; không giữ giá trị cũ. Đây khác với ① 赤点 (kết quả 判定不能, không xác định được) |
+| Chạy tổng hợp lại | Chỉ chạy tổng hợp lại mà bản chốt vẫn hợp lệ thì dùng tiếp bản chốt; điểm đã ghi không tự đổi |
+| Gỡ chốt | Không xóa kết quả ngay khi gỡ chốt. Ở lần **自動算出実行** kế tiếp, nếu không còn bản chốt hợp lệ thì ô kết quả được ghi trống |
+| Danh sách chọn | Danh sách 順位集計設定 trên màn thiết lập hiển thị **mọi** thiết lập đã tạo, bất kể đã chốt hay chưa. Trạng thái chốt chỉ ảnh hưởng việc lấy kết quả khi tính |
+| Không áp dụng | Hiển thị ngưỡng điểm đỏ trên 成績抽出 và Excel, và trạng thái 判定不能 chỉ thuộc chức năng ①. Việc thread tạm dừng chức năng ② không nêu ③ cũng dừng; ③ phụ thuộc cùng bộ đọc nguồn nên cần đối chiếu tiến độ bộ đọc chung |
+
+Quyết định này **đóng Q2 của RA-001** đối với EM-001 (chính sách khi chưa có bản chốt). Điểm "sau khi điểm cá nhân không khớp có quay lại hàng trung bình khác không" ở mục 6 vẫn còn mở.
+
+### Quyết định kế thừa từ RA-001 và RC-001 (ghi nhận 19/10/2026)
+
+Các điểm dưới đây đã có câu trả lời ở tính năng dùng chung, nên EM-001 áp dụng lại và **không hỏi khách lại**. Đây là quy tắc kế thừa, không phải xác nhận riêng trong thread EM-001; không đóng điểm "sau khi điểm cá nhân không khớp có quay lại hàng trung bình khác không" ở mục 6.
+
+| Nội dung | Quy tắc kế thừa | Nguồn |
+| --- | --- | --- |
+| Phạm vi trường | Nguồn trung bình dùng chung áp dụng cho mọi trường. Hiện **科目平均** (trung bình môn) chỉ mở ở hai trường Uenomiya; RA-001 bỏ cả chặn khi hiển thị lẫn chặn khi lưu công thức. EM-001 không đặt giới hạn trường riêng. Không phát hành sớm hơn bộ đọc nguồn chung, vì nguồn tạm chỉ đọc bảng bản chốt hiện có, chưa lọc khối theo học sinh và chưa dùng bộ đọc chung | [RA-001 đặc tả mục 1](../RA-001-ranking-average/docs/specification.vi.md), [mục 6](../RA-001-ranking-average/docs/specification.vi.md) |
+| Thời điểm tính lại | Lưu thiết lập và **集計実行** (chạy tổng hợp thứ hạng) không ghi điểm. Quy trình vận hành: nhập đủ điểm → **集計実行** → chờ xong → **自動算出実行** (chạy tính điểm tự động). Không có vòng lặp tự hội tụ và không tự kích hoạt tính lại khi trung bình hoặc bảng đổi; "tính lại" trong yêu cầu gốc được hiểu là chạy lại tính điểm tự động theo quy trình này | [RA-001 đặc tả mục 9](../RA-001-ranking-average/docs/specification.vi.md), [RC-001 Q&A, Q12](../RC-001-red-score/sources/confirmed-business-qa.vi.md) |
+| Nhãn dấu so sánh | **以上** (từ … trở lên), **より大きい** (lớn hơn), **等しい** (bằng), **より小さい** (nhỏ hơn), **以下** (từ … trở xuống). Không dùng **未満** (dưới). Đây là thống nhất nội bộ của người phụ trách; Figma EM-001 cần dùng cùng nhãn | [RA-001 ghi nhận nội bộ 10/10, mục 1](../RA-001-ranking-average/sources/2026-10-10-internal-design-review.vi.md) |
+| Nhóm, bản chốt, mẫu số | Mỗi học sinh so với trung bình của nhóm mình, đọc thêm điều kiện khối để không lấy nhầm số khối khác. Chỉ dùng bản chốt, thiếu nhóm hoặc chưa có bản chốt thì coi như thiếu trung bình (xác nhận của Shite ngày 19/10/2026; không còn dùng số mới nhất cho chưa chốt). Mẫu số là số học sinh có điểm của cùng bản nguồn. Có thể dùng AC-21 đến AC-23 của RA-001 làm ca kiểm khi nối bộ đọc | [RA-001 đặc tả mục 8.1–8.3](../RA-001-ranking-average/docs/specification.vi.md), [mục 14](../RA-001-ranking-average/docs/specification.vi.md), [RC-001 Q&A, Q9](../RC-001-red-score/sources/confirmed-business-qa.vi.md) |
 
 ## 5. Thiết kế đang đề xuất
 
@@ -72,7 +98,7 @@ Nhóm bổ sung: điểm cá nhân trống thì kết quả trống theo hiện 
 
 | Điểm cần hoàn thiện | Loại | Ảnh hưởng và cách tiếp tục |
 | --- | --- | --- |
-| Chính sách bản nguồn Q2 | Nghiệp vụ chung còn mở | Theo dõi RA-001; giữ phương án A là tạm dùng, không tự chốt chỉ dùng bản chốt |
+| Chính sách bản nguồn (Q2 của RA-001) | Đã xác nhận 19/10/2026 | Chỉ dùng bản chốt, thiếu thì trống. Còn cần nối bộ đọc chung (`RankingAverageReader`) theo quy tắc này và kiểm tích hợp với chức năng chốt 順位集計 khi merge |
 | Cách ánh xạ quy tắc chung vào hai lớp | Cụ thể hóa thiết kế | Hàng trung bình không thể xét/không khớp thì xét hàng tiếp theo theo RA-001 Q7; không còn hàng khớp thì trống. Việc có quay lại hàng trung bình sau khi điểm cá nhân không khớp hay không vẫn cần review thiết kế; không ghi thành xác nhận của Shite |
 | Figma, điều khiển, tên phương thức | Thiết kế chưa thực hiện | Người phụ trách thiết kế sau; không tạo mockup hoặc coi bố cục cũ là đã duyệt |
 | Mapping với giới hạn mục đích/quyền ghi | Bằng chứng kỹ thuật | Đối chiếu các đường ghi thực tế khi triển khai; không tạo ngoại lệ nghiệp vụ mới từ suy đoán |
@@ -83,7 +109,7 @@ Các công việc tiếp theo:
 
 1. Bổ sung liên kết Work Item/Redmine khi có; mã EM-001 đã được người phụ trách xác nhận.
 2. Review UI và chi tiết hai lớp điều kiện; giữ nguyên các nguyên tắc đã chốt.
-3. Theo dõi Q2 của RA-001, kiểm tích hợp bộ đọc nguồn và mẫu số.
+3. Nối bộ đọc nguồn chung theo quy tắc chỉ dùng bản chốt và kiểm tích hợp mẫu số. Kiểm riêng luồng chốt → gỡ chốt → chạy lại 自動算出実行 khi chức năng chốt 順位集計 đã có trên nhánh chính; hiện bảng bản chốt thật chưa có trong DB local nên bản tạm trả trống.
 4. Tiếp tục kiểm tra trên staging và luồng tự tính EM-001 → trích xuất, gồm mục số, lựa chọn và kết quả trống. Kết quả local ngày 16/10 ở mục 10 chưa thay thế các bước này.
 5. Đánh giá lại phạm vi dev/QA và ước lượng sau review. Không dùng ước lượng cũ 13–20,5 ngày công cho thiết kế mới.
 6. Khi yêu cầu và thiết kế hoàn tất, chuẩn bị tài liệu tổng quan tương tự chức năng điểm đỏ theo yêu cầu khách.
@@ -100,7 +126,7 @@ Các công việc tiếp theo:
 - Không tự giữ kết quả cũ hoặc tự gán mức thấp nhất khi không khớp.
 - Không coi giới hạn “tối đa hai cận”, một phương thức mới, không có bộ chọn đích riêng hay cấu trúc JSON/DB là yêu cầu khách đã chốt.
 - Không đưa Pattern B′, màn phân bố mới, ngưỡng cũ hoặc ước lượng cũ vào phạm vi.
-- Không dùng `examinees` làm mẫu số hoặc fallback sang số mới nhất khi phạm vi đang chốt thiếu nhóm.
+- Không dùng `examinees` làm mẫu số. Không rơi về số mới nhất chưa chốt khi thiếu bản chốt (xác nhận 19/10/2026): kết quả là trống.
 
 **Mức sẵn sàng:** đủ làm cơ sở đọc yêu cầu và chuẩn bị thiết kế; chưa đủ để AI tự coi toàn bộ thiết kế, tích hợp và nghiệm thu đã hoàn tất. Các ví dụ được kiểm logic không phải bằng chứng runtime.
 

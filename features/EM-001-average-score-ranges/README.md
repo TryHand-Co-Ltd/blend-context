@@ -18,12 +18,13 @@ Configure an Evaluation Mapping Table Based on Average Score Ranges
 2. [Q&A và nguồn xác nhận](sources/confirmed-business-qa.vi.md): phân biệt xác nhận của khách với phản hồi của nhóm.
 3. [Tài liệu](docs/README.md): quy tắc chức năng và đề xuất màn hình, gồm ví dụ mục số 1–5 chỉ dùng 1, 3, 5.
 4. [Hiện trạng ánh xạ](research/current-mapping-behavior.vi.md): bằng chứng mã nguồn, không phải phê duyệt thiết kế.
+5. [Kế hoạch triển khai](plans/average-range-mapping-implementation-plan.vi.md): đề xuất kỹ thuật dự thảo để review, không phải phê duyệt triển khai.
 
 ## Nguồn gốc và cập nhật
 
 Bộ này được tổng hợp theo yêu cầu người phụ trách từ toàn bộ chuỗi Slack đã đọc ngày 14/10 và bộ tài liệu local Average-Score-Ranges. Từ lần tổ chức này, cập nhật nội dung dùng chung tại đây; bản local cũ giữ làm lịch sử. Không đưa phương án cũ hoặc ước lượng cũ thành yêu cầu hiện hành.
 
-Chưa tạo tasks, plans, decisions hoặc thiết kế DB vì chưa có đầu vào tương ứng được xác minh. Mã EM-001 do người phụ trách cung cấp; không suy mã từ RA-001/RC-001. Khi có liên kết Work Item/Redmine, bổ sung nguồn quản lý mà không thay đổi nội dung nghiệp vụ.
+Chưa tạo tasks, decisions hoặc thiết kế DB vì chưa có đầu vào tương ứng được xác minh; kế hoạch triển khai ở mục 5 chỉ là đề xuất. Mã EM-001 do người phụ trách cung cấp; không suy mã từ RA-001/RC-001. Khi có liên kết Work Item/Redmine, bổ sung nguồn quản lý mà không thay đổi nội dung nghiệp vụ.
 
 ## Ngôn ngữ
 
