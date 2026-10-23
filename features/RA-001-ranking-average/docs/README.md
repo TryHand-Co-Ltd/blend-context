@@ -13,6 +13,7 @@ Bộ này là đặc tả để triển khai, đang làm tiếp từ 22/10/2026 
 | [Bản hỏi tiếng Việt](../sources/2026-10-09-business-questions.vi.md) | Câu hỏi và câu trả lời của khách |
 | [Bản hỏi tiếng Nhật](../sources/2026-10-09-business-questions.ja.md) | Bản hỏi gửi khách |
 | [Ghi nhận nội bộ 10/10](../sources/2026-10-10-internal-design-review.vi.md) | Thống nhất nội bộ của người phụ trách, không phải câu trả lời của khách |
+| [Kiểm tra loại trừ cho 見込み点](../research/mikomi-exclusion-check.vi.md) | Bằng chứng chạy thử 高度な除外設定 (23/10/2026). Không phải nguồn yêu cầu |
 | [Hiện trạng code](../research/current-auto-rating-behavior.vi.md) | Bằng chứng đọc code theo revision. Không phải nguồn yêu cầu |
 | [Figma RA-001](https://www.figma.com/design/OkFTBuOyoF2hNnxCFy4Uds/) | Thiết kế giao diện theo UI đang chạy |
 

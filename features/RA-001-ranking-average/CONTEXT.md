@@ -82,7 +82,7 @@ Chi tiết ở [đặc tả](docs/specification.vi.md).
 
 | Việc | Ảnh hưởng |
 | --- | --- |
-| Đổi bộ đọc nguồn sang chỉ bản đã chốt (Q2, 19/10) | **Đã làm trong code** (nhánh `feature/RA-001_ranking_average`, chưa commit tại 23/10/2026): `RankingAverageReader` gọi `getRedScoreSourceMetric` cho mọi loại tập hợp. Đã chạy thử với bảng chốt dựng tạm: có bản chốt thì đọc đúng số; chưa chốt, đã hủy chốt, hoặc thiếu dòng nguồn thì không có trung bình |
+| Đổi bộ đọc nguồn sang chỉ bản đã chốt (Q2, 19/10) | **Đã làm trong code** (nhánh `feature/RA-001_ranking_average`, commit `7d1e115ee02`, 23/10/2026): `RankingAverageReader` gọi `getRedScoreSourceMetric` cho mọi loại tập hợp. Đã chạy thử với bảng chốt dựng tạm: có bản chốt thì đọc đúng số; chưa chốt, đã hủy chốt, hoặc thiếu dòng nguồn thì không có trung bình |
 | Dropdown kỳ/nhóm sau Q2 | Chưa rõ có lọc nhóm "có kết quả" theo bản đã chốt hay theo mọi kết quả tổng hợp ([đặc tả mục 11](docs/specification.vi.md#population)). Cần xác nhận |
 | Nhánh 赤点 chưa gộp (PR 57572, nhánh `feature/RC-001_red_score_spec`) | RA-001 dùng chung bộ đọc nguồn. Nội dung `GradeCalcResultEachSubSubjectLogs_m` và `GradeCalcResultEachGroupLogs_m` đã khớp từng dòng với nhánh 赤点 tại 22/10/2026, nên không xung đột ở hai file này. Nhánh 赤点 còn đổi hằng ngày: so lại trước khi gộp |
 | Xung đột với EM-001 | `AutoRating.php` xung đột 2 chỗ khi gộp. EM-001 vẫn dùng `GradeCalcResultService` và `calc_group_map` mà RA-001 đã bỏ; khi giải xung đột phải giữ lại hai thứ này cho EM-001 |
@@ -96,17 +96,25 @@ Chi tiết ở [đặc tả](docs/specification.vi.md).
 1. Context này.
 2. [Đặc tả](docs/specification.vi.md) và [đặc tả màn hình](docs/screen-definition.vi.md).
 3. [Bản hỏi tiếng Việt](sources/2026-10-09-business-questions.vi.md), [bản hỏi tiếng Nhật](sources/2026-10-09-business-questions.ja.md).
-4. [Ghi nhận nội bộ 10/10](sources/2026-10-10-internal-design-review.vi.md), [hiện trạng code](research/current-auto-rating-behavior.vi.md).
+4. [Ghi nhận nội bộ 10/10](sources/2026-10-10-internal-design-review.vi.md), [hiện trạng code](research/current-auto-rating-behavior.vi.md), [kiểm tra loại trừ cho 見込み点](research/mikomi-exclusion-check.vi.md).
 
 ## 9. Việc tiếp theo: 見込み点 (chưa có quyết định của khách)
 
-Nguồn: [thread Slack](https://tryhand.slack.com/archives/C0BRGJA6XDE/p1791290094955599), sheet 見込み点参考資料 (shite gửi 22/10). shite chỉ nhờ làm nốt RA-001 để sau đó hỗ trợ 見込み点; chưa có yêu cầu cụ thể. 23/10 hieunv đưa ra bốn điểm cần khách xác nhận (đang chờ trả lời):
+Nguồn: [thread Slack](https://tryhand.slack.com/archives/C0BRGJA6XDE/p1791290094955599), sheet 見込み点参考資料 (shite gửi 22/10). shite chỉ nhờ làm nốt RA-001 để sau đó hỗ trợ 見込み点. Ngày 23/10 hieunv nêu bốn điểm cần khách xác nhận, shite trả lời cùng ngày (hieunv báo phần còn lại của ② đã xong). Bằng chứng kiểm tra loại trừ ở [research](research/mikomi-exclusion-check.vi.md).
 
-| # | Điểm | Đề xuất của hieunv | Cần xác nhận |
-| --- | --- | --- | --- |
-| 1 | Phân biệt 欠席 (hệ số 0.8) và 公欠 (1.0) | Dùng trường chọn (選択肢) ghi lý do vắng; công thức áp hệ số theo điều kiện chọn, không cần chức năng mới | Trường hiện ghi vắng thi thế nào (để trống điểm hay có trường lý do) |
-| 2 | Chọn kỳ tham chiếu khi vắng nhiều kỳ (真和, học kỳ 3) | Không tự chọn; mỗi trường tự cấu hình bằng nhiều dòng điều kiện theo kỳ đã thi (nhược điểm: nhiều dòng) | Quy tắc từng trường |
-| 3 | Giới hạn điểm tối đa (真和: từ 100 trở lên ghi 99) | Thêm ô "giới hạn tối đa" vào dòng công thức, mặc định trống. Công thức hiện tại không có; bảng ánh xạ không thay được | Trường khác ngoài 真和 có cần không |
-| 4 | Loại 見込み点 khỏi 順位集計, không tính lại | Loại cho mọi trường như 日大習志野, để điểm dự kiến không ảnh hưởng trung bình | Chưa kiểm cơ chế loại hiện có; cần quy tắc các trường khác |
+| # | Điểm | Đề xuất của hieunv | Trả lời của shite (23/10) | Trạng thái |
+| --- | --- | --- | --- | --- |
+| 1 | Phân biệt 欠席 (hệ số 0.8) và 公欠 (1.0) | Dùng trường chọn (選択肢) ghi lý do vắng; công thức áp hệ số theo điều kiện chọn | Trường thường **để trống** khi vắng; hệ thống **không** có mục mặc định ghi vắng là 公欠 hay bệnh. Đồng ý tạo **mục thành tích chọn lý do vắng** (欠席理由) và dùng làm hệ số khi tính tự động: "要件は対応できそう" | **Hướng đã chấp nhận.** Cần quy ước lý do vắng gắn với kỳ thi nào |
+| 2 | Chọn kỳ tham chiếu khi vắng nhiều kỳ (真和, học kỳ 3) | Không tự chọn; mỗi trường tự cấu hình bằng nhiều dòng điều kiện | Cần xem có làm hết các mẫu của từng trường hay không; shite điều chỉnh với MW (phía khách), giữ làm mục xác nhận của shite | **Chưa quyết.** hieunv chờ kết quả trước khi làm |
+| 3 | Giới hạn điểm tối đa (真和: từ 100 trở lên ghi 99) | Thêm ô "giới hạn tối đa" vào dòng công thức, mặc định trống | Cần xác nhận có bắt buộc không | **Chưa quyết.** hieunv chờ kết quả trước khi làm |
+| 4 | Loại 見込み点 khỏi 順位集計, không tính lại | Loại cho mọi trường như 日大習志野 | shite hỏi chẳng phải 順位集計 đã có **高度な除外設定** loại được 見込み点 sao (kèm ảnh màn hình) | Đã kiểm tra: **có, không cần chức năng mới** (xem dưới) |
 
-Hiện trạng code liên quan (chưa quyết định hướng làm): AutoRating chưa đọc được trạng thái/lý do vắng thi và chưa ghi được cờ loại khỏi thứ hạng `grades.exclude_exam_flg`; cơ chế tương tự đã có riêng ở `ChikujyoEx`. 見込み点 cần cả hai kỳ (kỳ đã thi, kỳ vắng) đã chốt vì Q2 chỉ dùng bản chốt.
+**Kết luận điểm 4 (hieunv báo 23/10, đã kiểm trên local):** 高度な除外設定 loại được học sinh khỏi xếp hạng và khỏi trung bình khi mục chọn hoặc checkbox tương ứng được chọn/đánh dấu. Có thể dùng chính mục **lý do vắng** (điểm 1) làm điều kiện loại trừ, nên không cần chức năng mới cho 見込み点.
+
+Lưu ý khi dùng (kết quả kiểm trên local, chi tiết ở [research](research/mikomi-exclusion-check.vi.md)):
+- Phải bật **集計対象から除外** (loại khỏi tổng/trung bình). Chỉ bật 順位集計から除外 thì xếp hạng đổi nhưng trung bình RA-001 không đổi.
+- Tính tự động chỉ ghi điểm, **không đặt cờ**. Vì vậy cờ phải do mục lý do vắng (hoặc checkbox đánh dấu tay) bảo đảm trước khi 集計実行 chạy. Tính tự động cũng không xóa cờ có sẵn.
+- Bật loại trừ là cấu hình theo từng 順位集計設定 của từng trường.
+- Chưa kiểm: loại trừ khi đọc lại qua bản chốt (確定); mục lý do vắng của kỳ khác kỳ đang tính (mã loại trừ gom theo lớp và đơn nguyên, chưa xác nhận có phân biệt kỳ); mục lý do vắng dạng chọn nhiều kỳ.
+
+Hiện trạng code liên quan: AutoRating chưa đọc được trạng thái/lý do vắng thi trực tiếp, chỉ đọc được qua điều kiện **選択肢型** đã có; cơ chế tương tự đã có riêng ở `ChikujyoEx`. 見込み点 cần cả hai kỳ (kỳ đã thi, kỳ vắng) đã chốt vì Q2 chỉ dùng bản chốt.

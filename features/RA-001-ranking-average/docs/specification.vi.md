@@ -6,7 +6,7 @@
 
 **Phạm vi tài liệu:** dùng điểm trung bình của tổng hợp thứ hạng trong tính điểm tự động. Tài liệu này đủ để triển khai: quy tắc, màn hình, dữ liệu, thời điểm ghi điểm và tiêu chí nghiệm thu.
 
-**Trạng thái:** khách đã xác nhận Q1, Q3–Q7 ngày 12/10/2026 và Q2 ngày 19/10/2026 (chỉ dùng bản đã chốt, mục 8.2). Chức năng từng **tạm dừng** theo chỉ đạo của shite ngày 19/10 và được **làm tiếp từ 22/10** (làm nốt phần còn lại để sau đó hỗ trợ 見込み点). Code đã đổi sang "chỉ bản đã chốt" (nhánh `feature/RA-001_ranking_average`, chưa commit tại 23/10).
+**Trạng thái:** khách đã xác nhận Q1, Q3–Q7 ngày 12/10/2026 và Q2 ngày 19/10/2026 (chỉ dùng bản đã chốt, mục 8.2). Chức năng từng **tạm dừng** theo chỉ đạo của shite ngày 19/10 và được **làm tiếp từ 22/10** (làm nốt phần còn lại để sau đó hỗ trợ 見込み点). Code đã đổi sang "chỉ bản đã chốt" (nhánh `feature/RA-001_ranking_average`, commit `7d1e115ee02`, 23/10).
 
 Nhãn dùng trong tài liệu:
 
