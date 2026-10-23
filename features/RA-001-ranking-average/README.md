@@ -13,7 +13,7 @@ Implement Ranking Average in Automatic Grade Calculation and Apply It to Conditi
 
 Phạm vi: dùng điểm trung bình do tổng hợp thứ hạng（順位集計）tính ra trong tính điểm tự động（自動計算）.
 
-Trạng thái: **tạm dừng ở mức hiện tại** theo chỉ đạo của shite ngày 19/10/2026. Khách đã xác nhận Q1, Q3–Q7 ngày 12/10/2026 và Q2 ngày 19/10/2026 (chỉ dùng bản tổng hợp đã chốt). Code đang theo 案A, chưa đổi sang chỉ bản đã chốt. Tiêu chí nghiệm thu ở [đặc tả mục 14](docs/specification.vi.md#ac).
+Trạng thái: **làm tiếp từ 22/10/2026** (shite nhờ làm nốt phần còn lại để sau đó hỗ trợ 見込み点; trước đó tạm dừng từ 19/10/2026). Khách đã xác nhận Q1, Q3–Q7 ngày 12/10/2026 và Q2 ngày 19/10/2026 (chỉ dùng bản tổng hợp đã chốt). Code đã đổi sang chỉ bản đã chốt (nhánh `feature/RA-001_ranking_average`, chưa commit tại 23/10/2026). Tiêu chí nghiệm thu ở [đặc tả mục 14](docs/specification.vi.md#ac).
 
 ## Thứ tự đọc
 

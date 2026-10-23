@@ -1,10 +1,10 @@
 # Context RA-001 — Trung bình tổng hợp thứ hạng（順位集計の平均点）
 
-Cập nhật: **20/10/2026**.
+Cập nhật: **23/10/2026**.
 
 **Tài liệu này là nguồn yêu cầu hiện hành của feature.** Đặc tả trong [docs](docs/README.md) diễn giải nguồn này.
 
-**Trạng thái: tạm dừng ở mức hiện tại.** Khách đã xác nhận Q1, Q3–Q7 ngày 12/10/2026 và Q2 ngày 19/10/2026: **chỉ dùng kết quả tổng hợp thứ hạng đã chốt** ([đặc tả mục 8.2](docs/specification.vi.md#source)). Cùng ngày shite chỉ đạo tạm dừng chức năng này, giữ tiến độ và ưu tiên việc khác, vì người làm chức năng chốt tổng hợp thứ hạng có thể làm cùng phần này ([thread Slack](https://tryhand.slack.com/archives/C0BRGJA6XDE/p1792383099678219)). Code hiện theo 案A (ưu tiên bản chốt, chưa chốt thì dùng số mới nhất), **chưa đổi** sang chỉ bản đã chốt.
+**Trạng thái: làm tiếp từ 22/10/2026** (shite nhờ làm nốt các phần còn lại để sau đó hỗ trợ 見込み点, [thread Slack](https://tryhand.slack.com/archives/C0BRGJA6XDE/p1791290094955599)). Trước đó chức năng được tạm dừng từ 19/10. Khách đã xác nhận Q1, Q3–Q7 ngày 12/10/2026 và Q2 ngày 19/10/2026: **chỉ dùng kết quả tổng hợp thứ hạng đã chốt** ([đặc tả mục 8.2](docs/specification.vi.md#source)). Cùng ngày shite chỉ đạo tạm dừng chức năng này, giữ tiến độ và ưu tiên việc khác, vì người làm chức năng chốt tổng hợp thứ hạng có thể làm cùng phần này ([thread Slack](https://tryhand.slack.com/archives/C0BRGJA6XDE/p1792383099678219)). Code (nhánh `feature/RA-001_ranking_average`) đã đọc nguồn qua `getRedScoreSourceMetric` giống nhánh 赤点 `feature/RC-001_red_score_spec`: **chỉ dùng bản đã chốt**, không lấy số mới nhất thay thế. Đã chạy thử bằng bảng chốt dựng tạm ở DB local (22–23/10/2026).
 
 Work item: **Implement Ranking Average in Automatic Grade Calculation and Apply It to Conditions, Formulas, and Grade Registration**.
 
@@ -82,11 +82,13 @@ Chi tiết ở [đặc tả](docs/specification.vi.md).
 
 | Việc | Ảnh hưởng |
 | --- | --- |
-| Đổi bộ đọc nguồn sang chỉ bản đã chốt (Q2, 19/10) | Một chỗ trong bộ đọc nguồn chung. Chưa làm vì chức năng đang tạm dừng; người làm chức năng chốt có thể làm cùng |
+| Đổi bộ đọc nguồn sang chỉ bản đã chốt (Q2, 19/10) | **Đã làm trong code** (nhánh `feature/RA-001_ranking_average`, chưa commit tại 23/10/2026): `RankingAverageReader` gọi `getRedScoreSourceMetric` cho mọi loại tập hợp. Đã chạy thử với bảng chốt dựng tạm: có bản chốt thì đọc đúng số; chưa chốt, đã hủy chốt, hoặc thiếu dòng nguồn thì không có trung bình |
 | Dropdown kỳ/nhóm sau Q2 | Chưa rõ có lọc nhóm "có kết quả" theo bản đã chốt hay theo mọi kết quả tổng hợp ([đặc tả mục 11](docs/specification.vi.md#population)). Cần xác nhận |
-| PR 57572 (điểm liệt) chưa gộp | RA-001 dùng chung bộ đọc nguồn; phần code chung giống hệt PR nên gộp trước hay sau đều không xung đột |
+| Nhánh 赤点 chưa gộp (PR 57572, nhánh `feature/RC-001_red_score_spec`) | RA-001 dùng chung bộ đọc nguồn. Nội dung `GradeCalcResultEachSubSubjectLogs_m` và `GradeCalcResultEachGroupLogs_m` đã khớp từng dòng với nhánh 赤点 tại 22/10/2026, nên không xung đột ở hai file này. Nhánh 赤点 còn đổi hằng ngày: so lại trước khi gộp |
+| Xung đột với EM-001 | `AutoRating.php` xung đột 2 chỗ khi gộp. EM-001 vẫn dùng `GradeCalcResultService` và `calc_group_map` mà RA-001 đã bỏ; khi giải xung đột phải giữ lại hai thứ này cho EM-001 |
+| Test tự động | Chưa có. Đã kiểm tay bằng nút 自動算出実行 và lệnh batch trên DB local (có/không bản chốt, từng loại tập hợp) |
 | PR 57058 chưa gộp | Q2 = chỉ bản đã chốt, nên RA-001 phát hành sau PR 57058; trước đó mọi điều kiện/công thức trung bình đều thiếu số. Sau khi gộp, kiểm lại trường hợp đã chốt |
-| Bốn thư viện riêng của trường | Kiểm khi triển khai |
+| Bốn thư viện riêng của trường (`TakaokaEx`, `UlsEx`, `UlsJrEx`, `UlsElEx`) | Chưa kiểm hết. Đọc sơ thấy chúng có hàm tính 評定 riêng và không gọi `AutoRating` của RA-001 |
 | Dữ liệu cũ dùng OR | Đếm trước khi phát hành |
 
 ## 8. Thứ tự đọc
@@ -95,3 +97,16 @@ Chi tiết ở [đặc tả](docs/specification.vi.md).
 2. [Đặc tả](docs/specification.vi.md) và [đặc tả màn hình](docs/screen-definition.vi.md).
 3. [Bản hỏi tiếng Việt](sources/2026-10-09-business-questions.vi.md), [bản hỏi tiếng Nhật](sources/2026-10-09-business-questions.ja.md).
 4. [Ghi nhận nội bộ 10/10](sources/2026-10-10-internal-design-review.vi.md), [hiện trạng code](research/current-auto-rating-behavior.vi.md).
+
+## 9. Việc tiếp theo: 見込み点 (chưa có quyết định của khách)
+
+Nguồn: [thread Slack](https://tryhand.slack.com/archives/C0BRGJA6XDE/p1791290094955599), sheet 見込み点参考資料 (shite gửi 22/10). shite chỉ nhờ làm nốt RA-001 để sau đó hỗ trợ 見込み点; chưa có yêu cầu cụ thể. 23/10 hieunv đưa ra bốn điểm cần khách xác nhận (đang chờ trả lời):
+
+| # | Điểm | Đề xuất của hieunv | Cần xác nhận |
+| --- | --- | --- | --- |
+| 1 | Phân biệt 欠席 (hệ số 0.8) và 公欠 (1.0) | Dùng trường chọn (選択肢) ghi lý do vắng; công thức áp hệ số theo điều kiện chọn, không cần chức năng mới | Trường hiện ghi vắng thi thế nào (để trống điểm hay có trường lý do) |
+| 2 | Chọn kỳ tham chiếu khi vắng nhiều kỳ (真和, học kỳ 3) | Không tự chọn; mỗi trường tự cấu hình bằng nhiều dòng điều kiện theo kỳ đã thi (nhược điểm: nhiều dòng) | Quy tắc từng trường |
+| 3 | Giới hạn điểm tối đa (真和: từ 100 trở lên ghi 99) | Thêm ô "giới hạn tối đa" vào dòng công thức, mặc định trống. Công thức hiện tại không có; bảng ánh xạ không thay được | Trường khác ngoài 真和 có cần không |
+| 4 | Loại 見込み点 khỏi 順位集計, không tính lại | Loại cho mọi trường như 日大習志野, để điểm dự kiến không ảnh hưởng trung bình | Chưa kiểm cơ chế loại hiện có; cần quy tắc các trường khác |
+
+Hiện trạng code liên quan (chưa quyết định hướng làm): AutoRating chưa đọc được trạng thái/lý do vắng thi và chưa ghi được cờ loại khỏi thứ hạng `grades.exclude_exam_flg`; cơ chế tương tự đã có riêng ở `ChikujyoEx`. 見込み点 cần cả hai kỳ (kỳ đã thi, kỳ vắng) đã chốt vì Q2 chỉ dùng bản chốt.

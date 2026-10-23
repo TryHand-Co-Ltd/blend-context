@@ -2,7 +2,7 @@
 
 Ngày lập: **09/10/2026**. Cập nhật: **20/10/2026**.
 
-Bộ này là đặc tả để triển khai, hiện tạm dừng ở mức hiện tại (shite, 19/10/2026). Khách đã xác nhận Q1, Q3–Q7 ngày 12/10/2026 và Q2 ngày 19/10/2026 (xem [CONTEXT](../CONTEXT.md)). Tiêu chí nghiệm thu ở [mục 14 của đặc tả](specification.vi.md#ac). Chưa có chia việc và đặc tả kiểm thử chi tiết. Không thêm bảng mới; dữ liệu nằm trong [mục 13 của đặc tả](specification.vi.md#data).
+Bộ này là đặc tả để triển khai, đang làm tiếp từ 22/10/2026 (shite; trước đó tạm dừng từ 19/10/2026). Khách đã xác nhận Q1, Q3–Q7 ngày 12/10/2026 và Q2 ngày 19/10/2026 (xem [CONTEXT](../CONTEXT.md)). Tiêu chí nghiệm thu ở [mục 14 của đặc tả](specification.vi.md#ac). Chưa có chia việc và đặc tả kiểm thử chi tiết. Không thêm bảng mới; dữ liệu nằm trong [mục 13 của đặc tả](specification.vi.md#data).
 
 | Tài liệu | Vai trò |
 | --- | --- |
