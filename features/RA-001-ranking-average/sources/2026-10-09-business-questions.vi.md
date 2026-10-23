@@ -84,6 +84,7 @@ Sau khi PR được gộp, cùng một kỳ có thể có hai số. Chạy tổn
 - Không có bản chốt hợp lệ cho phạm vi cần đọc thì trung bình coi như thiếu. Điều kiện trung bình thiếu số thì không khớp, xét dòng dưới (Q7); công thức không tính được thì ghi trống vào cột đích (Q4).
 - Dropdown **順位集計設定** (thiết lập tổng hợp thứ hạng) hiện **mọi thiết lập đã tạo**, bất kể đã chốt hay chưa. Trạng thái chốt chỉ ảnh hưởng số được đọc khi tính.
 - Chức năng này (RA-001) **tạm dừng ở mức hiện tại** theo chỉ đạo của shite: người làm chức năng chốt tổng hợp thứ hạng có thể làm cùng phần này; giữ tiến độ đã có, ưu tiên việc khác.
+- 22/10/2026: shite nhờ **làm tiếp** RA-001 khi rảnh, để sau đó hỗ trợ 見込み点 ([thread Slack](https://tryhand.slack.com/archives/C0BRGJA6XDE/p1791290094955599)). Phần còn lại: chỉ dùng bản đã chốt, thống nhất cách đọc trung bình với 赤点, kiểm tra. Bản đã chốt đã được làm trong code ngày 23/10.
 
 <a id="q3"></a>
 

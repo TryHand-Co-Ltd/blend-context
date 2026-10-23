@@ -6,7 +6,7 @@
 
 **Phạm vi tài liệu:** dùng điểm trung bình của tổng hợp thứ hạng trong tính điểm tự động. Tài liệu này đủ để triển khai: quy tắc, màn hình, dữ liệu, thời điểm ghi điểm và tiêu chí nghiệm thu.
 
-**Trạng thái:** khách đã xác nhận Q1, Q3–Q7 ngày 12/10/2026 và Q2 ngày 19/10/2026 (chỉ dùng bản đã chốt, mục 8.2). Chức năng **tạm dừng ở mức hiện tại** theo chỉ đạo của shite ngày 19/10: người làm chức năng chốt tổng hợp thứ hạng có thể làm cùng phần này; giữ tiến độ, ưu tiên việc khác. Code đang theo 案A (có bản chốt thì dùng, chưa chốt thì dùng số mới nhất), **chưa đổi sang "chỉ bản đã chốt"**.
+**Trạng thái:** khách đã xác nhận Q1, Q3–Q7 ngày 12/10/2026 và Q2 ngày 19/10/2026 (chỉ dùng bản đã chốt, mục 8.2). Chức năng từng **tạm dừng** theo chỉ đạo của shite ngày 19/10 và được **làm tiếp từ 22/10** (làm nốt phần còn lại để sau đó hỗ trợ 見込み点). Code đã đổi sang "chỉ bản đã chốt" (nhánh `feature/RA-001_ranking_average`, chưa commit tại 23/10).
 
 Nhãn dùng trong tài liệu:
 
@@ -378,7 +378,7 @@ Dữ liệu ví dụ: thiết lập thứ hạng `評点集計`, môn của ti�
 
 | Việc | Ai | Ảnh hưởng |
 | --- | --- | --- |
-| Q2 — chỉ bản đã chốt hay ưu tiên bản đã chốt | Đã xác nhận 19/10/2026: chỉ bản đã chốt (mục 8.2) | Đổi một chỗ trong bộ đọc nguồn chung; code hiện theo 案A, chưa đổi (chức năng đang tạm dừng) |
+| Q2 — chỉ bản đã chốt hay ưu tiên bản đã chốt | Đã xác nhận 19/10/2026: chỉ bản đã chốt (mục 8.2) | Đã đổi trong bộ đọc nguồn chung: hai hàm `getRedScoreSourceMetric` của model khớp nhánh 赤点 `feature/RC-001_red_score_spec`; chạy thử 23/10/2026 |
 | PR 57572 (điểm liệt) được gộp | Team | RA-001 dùng chung bộ đọc nguồn của PR này (mục 8.1). Phần code chung trong RA-001 giống hệt PR, gộp trước hay sau đều không xung đột |
 | PR 57058 được gộp | Team | Q2 = chỉ bản đã chốt, nên RA-001 phải phát hành sau PR 57058; trước khi gộp, mọi điều kiện/công thức trung bình đều thiếu số. Sau khi gộp, kiểm các trường hợp AC-21 đến AC-23 |
 | Bốn thư viện riêng của trường (`TakaokaEx`, `UlsEx`, `UlsJrEx`, `UlsElEx`) | Team | Kiểm có gọi cơ chế chung hay tự tính |
