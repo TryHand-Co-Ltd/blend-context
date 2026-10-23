@@ -1,6 +1,6 @@
 # Context EM-001 — Ánh xạ đánh giá theo khoảng điểm trung bình
 
-Cập nhật: **20/10/2026** (EM-001 đổi sang mã loại đăng ký 9 vì PR #57058 dùng mã 8, xem kế hoạch mục 15; áp dụng xác nhận của Shite ngày 19/10/2026 về chỉ dùng kết quả tổng hợp thứ hạng đã chốt, mục 4; trước đó 19/10/2026 bổ sung quyết định kế thừa từ RA-001/RC-001 và 16/10/2026 bổ sung kiểm chứng local Q4). Định danh feature: **EM-001**, được người phụ trách xác nhận ngày 14/10/2026. Chưa đối chiếu mã trên Sheet/Redmine.
+Cập nhật: **22/10/2026** (đối chiếu code branch EM-001 và thread Slack, thêm mục 4.1 trạng thái triển khai; trước đó 20/10/2026: EM-001 đổi sang mã loại đăng ký 9 vì PR #57058 dùng mã 8, xem kế hoạch mục 15; áp dụng xác nhận của Shite ngày 19/10/2026 về chỉ dùng kết quả tổng hợp thứ hạng đã chốt, mục 4; trước đó 19/10/2026 bổ sung quyết định kế thừa từ RA-001/RC-001 và 16/10/2026 bổ sung kiểm chứng local Q4). Định danh feature: **EM-001**, được người phụ trách xác nhận ngày 14/10/2026. Chưa đối chiếu mã trên Sheet/Redmine.
 
 Tài liệu này là điểm đọc yêu cầu hiện hành của bộ context được người phụ trách yêu cầu tạo. Xác nhận khách hàng là căn cứ nghiệp vụ; đề xuất dưới đây chưa phải thiết kế được duyệt.
 
@@ -37,6 +37,7 @@ Nguồn trực tiếp: [yêu cầu gốc](https://tryhand.slack.com/archives/C0B
 | Nguồn | Chọn thiết lập tổng hợp, thời kỳ, tập thể và mục điểm cá nhân — yêu cầu gốc |
 | Kiểu đầu vào | Điểm cá nhân/nguồn trung bình là mục số; không dùng lựa chọn A/B/C làm căn cứ xét — Q1 |
 | Mục nhận | Chọn mục đã có, có thể là số hoặc lựa chọn A/B/C — Q1–Q2 |
+| Tập thể | Gồm 学年平均, HR平均, nhóm thứ hạng, nhóm kết hợp và **授業平均** (trung bình theo tiết học, hiện khi 順位集計 bật tổng hợp theo tiết học). 授業平均 là quy tắc kế thừa [RA-001 Q5](../RA-001-ranking-average/CONTEXT.md), không phải xác nhận riêng trong thread EM-001; kỳ 単元 không có 授業平均 (ô trống) |
 | Điều kiện | Cấu hình ngưỡng, toán tử, giá trị cần ghi; số điều kiện không bắt buộc bằng số mức của mục nhận — Q2 |
 | So sánh | ≥, >, =, <, ≤ theo cấu hình — Q3 |
 | Nhiều điều kiện khớp | Xét theo thứ tự, lấy lần khớp đầu tiên — Q3 |
@@ -83,10 +84,19 @@ Các điểm dưới đây đã có câu trả lời ở tính năng dùng chung
 
 | Nội dung | Quy tắc kế thừa | Nguồn |
 | --- | --- | --- |
-| Phạm vi trường | Nguồn trung bình dùng chung áp dụng cho mọi trường. Hiện **科目平均** (trung bình môn) chỉ mở ở hai trường Uenomiya; RA-001 bỏ cả chặn khi hiển thị lẫn chặn khi lưu công thức. EM-001 không đặt giới hạn trường riêng. Không phát hành sớm hơn bộ đọc nguồn chung, vì nguồn tạm chỉ đọc bảng bản chốt hiện có, chưa lọc khối theo học sinh và chưa dùng bộ đọc chung | [RA-001 đặc tả mục 1](../RA-001-ranking-average/docs/specification.vi.md), [mục 6](../RA-001-ranking-average/docs/specification.vi.md) |
+| Phạm vi trường | Nguồn trung bình dùng chung áp dụng cho mọi trường. Hiện **科目平均** (trung bình môn) chỉ mở ở hai trường Uenomiya; RA-001 bỏ cả chặn khi hiển thị lẫn chặn khi lưu công thức. EM-001 không đặt giới hạn trường riêng. Không phát hành sớm hơn bộ đọc nguồn chung, vì nguồn tạm chỉ đọc bảng bản chốt hiện có (đã tra theo khối `hr_grade` của học sinh) và chưa dùng bộ đọc chung | [RA-001 đặc tả mục 1](../RA-001-ranking-average/docs/specification.vi.md), [mục 6](../RA-001-ranking-average/docs/specification.vi.md) |
 | Thời điểm tính lại | Lưu thiết lập và **集計実行** (chạy tổng hợp thứ hạng) không ghi điểm. Quy trình vận hành: nhập đủ điểm → **集計実行** → chờ xong → **自動算出実行** (chạy tính điểm tự động). Không có vòng lặp tự hội tụ và không tự kích hoạt tính lại khi trung bình hoặc bảng đổi; "tính lại" trong yêu cầu gốc được hiểu là chạy lại tính điểm tự động theo quy trình này | [RA-001 đặc tả mục 9](../RA-001-ranking-average/docs/specification.vi.md), [RC-001 Q&A, Q12](../RC-001-red-score/sources/confirmed-business-qa.vi.md) |
 | Nhãn dấu so sánh | **以上** (từ … trở lên), **より大きい** (lớn hơn), **等しい** (bằng), **より小さい** (nhỏ hơn), **以下** (từ … trở xuống). Không dùng **未満** (dưới). Đây là thống nhất nội bộ của người phụ trách; Figma EM-001 cần dùng cùng nhãn | [RA-001 ghi nhận nội bộ 10/10, mục 1](../RA-001-ranking-average/sources/2026-10-10-internal-design-review.vi.md) |
 | Nhóm, bản chốt, mẫu số | Mỗi học sinh so với trung bình của nhóm mình, đọc thêm điều kiện khối để không lấy nhầm số khối khác. Chỉ dùng bản chốt, thiếu nhóm hoặc chưa có bản chốt thì coi như thiếu trung bình (xác nhận của Shite ngày 19/10/2026; không còn dùng số mới nhất cho chưa chốt). Mẫu số là số học sinh có điểm của cùng bản nguồn. Có thể dùng AC-21 đến AC-23 của RA-001 làm ca kiểm khi nối bộ đọc | [RA-001 đặc tả mục 8.1–8.3](../RA-001-ranking-average/docs/specification.vi.md), [mục 14](../RA-001-ranking-average/docs/specification.vi.md), [RC-001 Q&A, Q9](../RC-001-red-score/sources/confirmed-business-qa.vi.md) |
+
+### 4.1. Trạng thái triển khai và lựa chọn kỹ thuật (đối chiếu 22/10/2026)
+
+Nguồn: branch `feature/EM-001_average_range` của `blend`; thread Slack đến 21/10/2026. Nhóm báo hoàn tất code, test và tài liệu ngày 21/10 (kèm báo cáo test và Figma); thread chưa có phản hồi của Shite về phần giao này. Đây là hiện trạng code, không phải phê duyệt nghiệp vụ hoặc thiết kế.
+
+- **Khớp yêu cầu đã chốt:** mã loại 9; 5 toán tử (nhãn 以上 / より大きい / 等しい / より小さい / 以下); chọn khoảng khớp đầu tiên rồi điều kiện cá nhân khớp đầu tiên; không khớp hoặc thiếu trung bình thì trống; điểm cá nhân trống thì trống, 0 là hợp lệ; chỉ dùng kết quả đã chốt, tra theo khối của học sinh; mẫu số là số học sinh có điểm; không có màn mới (dùng 度数分布表・グラフ).
+- **Cách xử lý "thiếu trung bình":** RA-001 Q7 diễn đạt là "coi không khớp, xét điều kiện tiếp theo". Code trả trống ngay khi thiếu trung bình vì mọi khoảng cùng dùng một trung bình, kết quả tương đương.
+- **Lựa chọn kỹ thuật của nhóm, chưa được khách xác nhận** (Q3: cấu hình sai là trách nhiệm của trường, nên cần người phụ trách xác nhận mức kiểm tra này): (a) từ chối khi lưu nếu giá trị đăng ký ngoài min/max hoặc là số lẻ ở mục số; (b) tối đa 20 khoảng và 20 điều kiện mỗi khoảng; (c) ô điều kiện chưa dùng ("選択してください", để trống cả ngưỡng và giá trị) khác với đăng ký trống ("(空欄)"), nhập dở thì báo lỗi; (d) kiểm tra mục thuộc đúng cấu hình khi lưu/mở màn sửa. Chi tiết xem [kế hoạch 15.y–15.v và 15.u](plans/average-range-mapping-implementation-plan.vi.md).
+- **Chưa làm / còn mở:** bộ đọc chung `RankingAverageReader` (đang dùng `AverageRangeSourceStub` đọc bảng `grade_calc_fix_*` của PR #57058, chưa vào `master`); kiểm tra với bảng thật của PR; `use_relative_evaluation`, F-08, F-09; lịch sử cho ô trống (D4) và tham chiếu nhóm theo tên (ERR-001); CSRF của `auto_rating/*` (D8, có từ trước, làm riêng).
 
 ## 5. Thiết kế đang đề xuất
 
