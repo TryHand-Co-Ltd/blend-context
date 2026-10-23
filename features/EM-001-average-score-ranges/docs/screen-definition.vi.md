@@ -1,12 +1,14 @@
 # Nội dung cần thể hiện trên giao diện — EM-001
 
-Cập nhật: 14/10/2026. Tài liệu mô tả bằng văn bản để chuẩn bị thiết kế. **Người phụ trách sẽ vẽ mockup trên Figma sau; chưa có thiết kế Figma được cung cấp hoặc duyệt.**
+Cập nhật: 22/10/2026. Tài liệu mô tả bằng văn bản đi kèm thiết kế. **Figma đã được nhóm gửi Shite review ngày 16/10 và 21/10/2026 ([thread](https://tryhand.slack.com/archives/C0BRGJA6XDE/p1791290107759389)); chưa có phản hồi phê duyệt của Shite trong thread.**
 
 ## 1. Thiết lập quy tắc
 
 Người dùng xác định mục nhận kết quả, nguồn trung bình (thiết lập tổng hợp, kỳ, tập thể), mục điểm cá nhân, điều kiện và giá trị đăng ký theo thứ tự. Mục nhận có thể là số hoặc lựa chọn.
 
 Cần thể hiện rõ giới hạn của mục nhận độc lập với số điều kiện. Ví dụ mục số giới hạn 1–5 nhưng bảng chỉ trả 1, 3, 5; thêm/xóa điều kiện không thay giới hạn mục. Không tạo thiết lập số mức riêng hoặc tự gán mức thấp nhất khi không khớp.
+
+Nguồn trung bình có thêm 授業平均 (khi 順位集計 bật tổng hợp theo tiết học). Ô giá trị đăng ký của mục dạng chọn có lựa chọn đầu "選択してください" (ô chưa dùng) tách biệt với "(空欄)" (đăng ký trống). Tối đa 20 khoảng và 20 điều kiện mỗi khoảng.
 
 ## 2. Xem lại cấu hình
 

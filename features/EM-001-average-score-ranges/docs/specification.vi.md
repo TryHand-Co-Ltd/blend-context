@@ -29,7 +29,7 @@ Ví dụ gốc dùng bảng khác: trung bình 60, điểm 85 → **4**. Ví d�
 
 ## 3. Ví dụ mục lựa chọn
 
-Bảng minh họa được đồng bộ với [mockup Figma](https://www.figma.com/design/ECOs3PWUGyxIS6LS0MnTjm?node-id=63-23) ngày 15/10/2026 theo yêu cầu người phụ trách; không phải phê duyệt thiết kế của khách.
+Bảng minh họa được đồng bộ với [mockup Figma](https://www.figma.com/design/ECOs3PWUGyxIS6LS0MnTjm/EM-001%EF%BD%9C%E5%B9%B3%E5%9D%87%E7%82%B9%E3%81%AE%E7%AF%84%E5%9B%B2%E3%81%AB%E5%9F%BA%E3%81%A5%E3%81%8F%E8%A9%95%E4%BE%A1%E8%A8%AD%E5%AE%9A-%E2%80%94-%E7%94%BB%E9%9D%A2%E6%A1%88?node-id=152-8) ngày 15/10/2026 theo yêu cầu người phụ trách; không phải phê duyệt thiết kế của khách.
 
 Bộ A/B/C dùng cùng ngưỡng minh họa ở mục 2, thay kết quả 5 → A, 3 → B, 1 → C. Đây là cách minh họa hai loại mục nhận, không phải quy tắc quy đổi A=5/B=3/C=1 áp dụng trong hệ thống. Mã lưu của lựa chọn không đồng nhất với nhãn hiển thị và không được dùng làm điểm nguồn.
 
@@ -37,7 +37,10 @@ Bộ A/B/C dùng cùng ngưỡng minh họa ở mục 2, thay kết quả 5 → 
 
 **Toàn bộ mục này là đề xuất hoặc điểm kỹ thuật cần đối chiếu, không phải xác nhận bổ sung của Shite.** Quy tắc chung lấy lần khớp đầu tiên và ghi trống khi không khớp ở mục 1 vẫn là yêu cầu đã chốt; việc mô tả hai lớp bên dưới không mở lại các nguyên tắc đó.
 
-- Đề xuất kiểm giá trị đầu ra theo loại và giới hạn của mục nhận. Cách từ chối cấu hình ngoài giới hạn hay giới hạn kết quả khi ghi cần đối chiếu hiện trạng; không coi đây là validation Shite đã phê duyệt.
+- Kiểm giá trị đầu ra theo loại và giới hạn của mục nhận. **Hiện trạng code (22/10/2026):** khi lưu, từ chối giá trị đăng ký ngoài min/max của mục nhận, và số lẻ ở mục số (数値入力); mục thập phân (小数入力) chỉ kiểm min/max; mục lựa chọn phải thuộc các lựa chọn của mục (kể cả "(空欄)"). Nếu min/max của mục đổi sau khi lưu thì lúc chạy giá trị vẫn bị giới hạn về min/max. Đây là lựa chọn của nhóm, không phải validation Shite đã phê duyệt (Q3: cấu hình sai là trách nhiệm của trường); cần người phụ trách xác nhận.
+- Giới hạn kỹ thuật tối đa 20 khoảng và 20 điều kiện mỗi khoảng (để log không vượt cột `TEXT`); không phải yêu cầu của khách.
+- Ô điều kiện chưa dùng (để trống cả ngưỡng và giá trị đăng ký, hiển thị "選択してください" ở mục dạng chọn) bị bỏ qua; khác với giá trị "(空欄)" là đăng ký trống hợp lệ. Nhập dở một nửa thì báo lỗi.
+- Nguồn trung bình gồm cả 授業平均 (trung bình theo tiết học) kế thừa [RA-001 Q5](../../RA-001-ranking-average/CONTEXT.md); kỳ 単元 không có 授業平均 nên kết quả trống.
 
 - Phương án biểu diễn khoảng trung bình: hai phép so sánh nối VÀ, cận thứ hai có thể bỏ; danh sách hàng có thứ tự. Đây là phương án UI để review, **không phải giới hạn nghiệp vụ tối đa hai điều kiện đã được khách chốt**.
 - Nếu điều kiện xét trung bình của một hàng không lấy được giá trị, coi hàng đó không khớp và xét hàng tiếp theo theo quy tắc chung [RA-001 Q7](../../RA-001-ranking-average/sources/2026-10-09-business-questions.vi.md#q7). Nếu không còn hàng/điều kiện nào khớp thì ghi trống theo nguyên tắc chung. Đây là kế thừa quy tắc, không phải xác nhận riêng trong thread EM-001.

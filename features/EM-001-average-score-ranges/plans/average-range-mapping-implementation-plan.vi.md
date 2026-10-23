@@ -217,7 +217,7 @@ Hiện `registFormula` chưa kiểm các điều sau. Với loại mới phải 
 | D5 | Tự chạy lại khi trung bình hoặc bảng đổi (yêu cầu gốc). | Không tự kích hoạt; vận hành là **集計実行** → **自動算出実行**, như RA-001. Hiện không có đường nào chạy AutoRating sau tổng hợp thứ hạng, và thêm hook dễ tạo vòng lặp vì batch AutoRating lại xếp lịch tổng hợp thứ hạng. |
 | D6 | `auto_rating_detail_conf.average_round_type` (trung bình trước hay sau làm tròn) hiện là code chết. | EM-001 luôn dùng trước làm tròn, không nối cài đặt này. |
 | D7 | Mục nhận thuộc thời kỳ **単元** (kiểm tra theo đơn vị bài học). | Cho phép như ánh xạ hiện có và test ở trường dùng tính năng này; nếu rủi ro thì vô hiệu radio ở v1. |
-| D8 | CSRF: `regist_formula` chưa có trong `$csrf_include_uris` (form đã gửi token). | Cân nhắc thêm như việc hardening riêng; không bắt buộc cho EM-001. |
+| D8 | CSRF: `regist_formula` chưa có trong `$csrf_include_uris` (form đã gửi token). **Đã kiểm chứng runtime 22/10/2026:** `csrf_protection = TRUE` nhưng `Security::csrf_verify()` của dự án chỉ chặn khi token sai với URI nằm trong `$csrf_include_uris` (đoạn chặn toàn cục đã bị comment). Không có route `auto_rating/*` nào trong danh sách, nên POST không token và token sai đều tới được controller. | Hardening riêng cho toàn bộ `auto_rating/*`, không gộp vào EM-001: trước hết thêm token vào ajax `note`, `manual_input`, `delete`, `sort` của `edit.php` (hiện chưa gửi token), kiểm tra `grade_calc/auto_rating_run`, rồi mới thêm URI vào danh sách và test lại. Lỗi có từ trước, EM-001 chỉ kế thừa. Xem 15.u. |
 
 ## 12. Rủi ro, rollback và ước lượng
 
@@ -293,7 +293,7 @@ Kiểm tra: unit test (mapper 24, stub 9, AutoRating 11, service 11) và `spec_m
 - **Kiểm tra:** test đơn vị (stub 11, service 14) đạt; trên MySQL local với bảng mô phỏng PR (`use_calc_group` bật tạm): chưa chốt → ô trống, đã chốt → trung bình = 62 ÷ 3 = 20,6667 của đúng tiết và range được chọn, chưa chốt lại → ô trống. Đã khôi phục cấu hình/dữ liệu local sau test. Chưa kiểm tra bằng bảng PR #57058 thật.
 - **Hạn chế:** nếu có nhóm thứ hạng tên đúng là `授業` thì trùng với nguồn này (khóa lưu theo tên).
 
-### 15.w. Ba case còn lại trong phản hồi test (chưa xử lý, 21/10/2026)
+### 15.w. Ba case còn lại trong phản hồi test (21/10/2026; FUNC-002 đã sửa ở 15.v, hai case còn lại chưa xử lý)
 
 | Case | Đánh giá | Hướng |
 | --- | --- | --- |
@@ -305,4 +305,29 @@ Kiểm tra: unit test (mapper 24, stub 9, AutoRating 11, service 11) và `spec_m
 
 - **Nguyên nhân:** với mục dạng chọn, ô giá trị đăng ký luôn có một lựa chọn được chọn sẵn (A), nên `normalizeRanges` chỉ dựa vào ngưỡng trống để bỏ ô chưa dùng; khi dựng lại bảng ô lấy lựa chọn đầu (A). Hệ quả phụ: hàng đã chọn giá trị nhưng để trống ngưỡng bị bỏ im lặng, trái với D2 (ô nhập dở phải báo lỗi).
 - **Cách sửa:** ô giá trị đăng ký của mục dạng chọn có thêm lựa chọn đầu "選択してください" (giá trị rỗng) làm mặc định, tách biệt với "(空欄)" (giá trị `null`, là giá trị đăng ký hợp lệ). `normalizeRanges` chỉ bỏ điều kiện khi cả ngưỡng và giá trị đăng ký đều chưa nhập (rỗng); điều kiện nhập dở được giữ lại và `validateRanges` báo lỗi (ví dụ 「範囲3 条件4 個人点の値を入力してください」). Tham số `$save_value_choices` của `normalizeRanges` không còn dùng nên đã bỏ.
-- **Kiểm tra:** unit test (mapper) đạt. Trên localhost: cột điều kiện mới mặc định "選択してください"; lưu ô 空欄 ở range 1–2 và để range 3 chưa dùng → mở lại giữ `null` ở range 1–2 và trống ở range 3 (không còn hiện A); chọn giá trị nhưng bỏ trống ngưỡng → báo lỗi, không lưu. Đã trả cấu hình test về 3 điều kiện mỗi range.
+- **Kiểm tra:** unit test (mapper) đạt. Trên môi trường local: cột điều kiện mới mặc định "選択してください"; lưu ô 空欄 ở range 1–2 và để range 3 chưa dùng → mở lại giữ `null` ở range 1–2 và trống ở range 3 (không còn hiện A); chọn giá trị nhưng bỏ trống ngưỡng → báo lỗi, không lưu. Đã trả cấu hình test về 3 điều kiện mỗi range.
+
+### 15.u. Rà soát theo feedback PR RC-001 và củng cố bảo mật (22/10/2026)
+
+Đối chiếu 10 điểm trong feedback review của PR điểm đỏ (RC-001) với branch EM-001 (code `blend` tại branch `feature/EM-001_average_range`). Chỉ ghi các điểm liên quan EM-001:
+
+| Điểm feedback | EM-001 | Ghi chú |
+| --- | --- | --- |
+| Nguồn xếp hạng đã chốt đọc bằng bộ đọc khác | Giống | `AverageRangeSourceStub` đọc trực tiếp bảng `grade_calc_fix_*` của PR #57058 (chưa vào `master`). Cần xác nhận với người phụ trách; thay bằng bộ đọc chung khi có |
+| CSRF của URL trực tiếp | Giống, có từ trước | Xem D8 |
+| Lỗi transaction AutoRating | Không áp dụng | EM-001 không ghi DB riêng; log đi cùng luồng lưu sẵn có |
+| Validate trước lock, không re-validate | Gần giống, rủi ro thấp | Không thêm lock. Cùng sai lệch (giá trị đăng ký > max của mục) vẫn xảy ra khi hạ max sau khi lưu (TC-EM-CALC-001), nên lock chỉ chặn được một phần rất nhỏ. Lúc chạy giá trị luôn bị giới hạn về max. Cải thiện tùy chọn: cảnh báo ở màn sửa khi giá trị đã lưu vượt min/max hiện tại |
+| `bcdiv` cắt 20 chữ số | Không | Cận trung bình tối đa 4 chữ số thập phân; khoảng cách nhỏ nhất giữa trung bình và cận (khác 0) lớn hơn nhiều so với 10^-20. Đã so với phép nhân chính xác trên 8 ca và hơn 20.000 tổ hợp, không có chênh lệch |
+| Import CSV bỏ sót đánh giá | Không | `autoRatingUse` trả true khi có bất kỳ cấu hình tự động nào ở mục trong kỳ, kể cả loại 9 (chưa test bằng upload CSV thật) |
+| Phạm vi max lấy lẫn học kỳ khác | Không | Giới hạn lấy từ đúng mục nhận của cấu hình; giới hạn theo đơn vị chỉ áp dụng lúc chạy |
+| Copy mẫu mất trường | Không | Chỉ có luồng takeover, đã ánh xạ `score_frame_item_id`. Mục không có trong bảng ánh xạ giữ ID năm cũ và màn sửa sẽ cảnh báo không tìm thấy |
+| Select dùng chung handler | Không | Không có handler `select change` chung; select của EM-001 có `no-nice` |
+| Mâu thuẫn OR/AND | Không | Ghi chú màn hình khớp `AverageRangeMapper::map` |
+
+**Đã sửa trong EM-001:**
+
+- `registFormula` và `editFormula` kiểm tra mục thuộc đúng cấu hình tự động được gửi (`auto_rating_conf_item.auto_rating_conf_id` phải bằng `auto_rating_conf.id`). Trước đây chỉ kiểm tra cùng trường, nên gửi `conf_id` này với `item_id` của cấu hình khác thì validation của EM-001 (min/max, lựa chọn, danh sách mục điểm cá nhân) dùng ngữ cảnh của cấu hình sai. Đã test local: mục của cấu hình khác bị từ chối (`不正な送信です。` / 403).
+- `AverageRangeMapper` giới hạn tối đa **20 khoảng** và **20 điều kiện mỗi khoảng** (`MAX_RANGES`, `MAX_CONDITIONS`); vượt thì báo lỗi khi lưu. Lý do: cột `auto_rating_conf_items.condition` và `auto_rating_log.detail_log` đều là `TEXT` (64KB); cấu hình 3 × 3 cho log khoảng 800 byte. Đây là con số do nhóm đặt, không phải yêu cầu khách. Nút thêm khoảng/cột chưa bị chặn ở UI (chỉ báo lỗi khi lưu).
+- Unit test: mapper 25 (thêm `testValidateRangesLimitsNumberOfRangesAndConditions`), stub 11, AutoRating 11, service 14 đều đạt.
+
+**Chưa làm:** hardening CSRF cho `auto_rating/*` (D8); thay `AverageRangeSourceStub` bằng bộ đọc chung; kiểm tra với bảng thật của PR #57058.
