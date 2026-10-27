@@ -313,7 +313,7 @@ Kiểm tra: unit test (mapper 24, stub 9, AutoRating 11, service 11) và `spec_m
 
 | Điểm feedback | EM-001 | Ghi chú |
 | --- | --- | --- |
-| Nguồn xếp hạng đã chốt đọc bằng bộ đọc khác | Giống | `AverageRangeSourceStub` đọc trực tiếp bảng `grade_calc_fix_*` của PR #57058 (chưa vào `master`). Cần xác nhận với người phụ trách; thay bằng bộ đọc chung khi có |
+| Nguồn xếp hạng đã chốt đọc bằng bộ đọc khác | Giống | `AverageRangeSourceStub` đọc trực tiếp bảng `grade_calc_fix_*` của PR #57058 (chưa vào `master`). Cần xác nhận với người phụ trách; thay bằng bộ đọc chung khi có. 27/10/2026: bộ đọc chung thống nhất là `getTotalResults()` / `getTotalData()` có `$use_fix_table` (đã có trong PR #57058, chưa merge) |
 | CSRF của URL trực tiếp | Giống, có từ trước | Xem D8 |
 | Lỗi transaction AutoRating | Không áp dụng | EM-001 không ghi DB riêng; log đi cùng luồng lưu sẵn có |
 | Validate trước lock, không re-validate | Gần giống, rủi ro thấp | Không thêm lock. Cùng sai lệch (giá trị đăng ký > max của mục) vẫn xảy ra khi hạ max sau khi lưu (TC-EM-CALC-001), nên lock chỉ chặn được một phần rất nhỏ. Lúc chạy giá trị luôn bị giới hạn về max. Cải thiện tùy chọn: cảnh báo ở màn sửa khi giá trị đã lưu vượt min/max hiện tại |
@@ -330,4 +330,4 @@ Kiểm tra: unit test (mapper 24, stub 9, AutoRating 11, service 11) và `spec_m
 - `AverageRangeMapper` giới hạn tối đa **20 khoảng** và **20 điều kiện mỗi khoảng** (`MAX_RANGES`, `MAX_CONDITIONS`); vượt thì báo lỗi khi lưu. Lý do: cột `auto_rating_conf_items.condition` và `auto_rating_log.detail_log` đều là `TEXT` (64KB); cấu hình 3 × 3 cho log khoảng 800 byte. Đây là con số do nhóm đặt, không phải yêu cầu khách. Nút thêm khoảng/cột chưa bị chặn ở UI (chỉ báo lỗi khi lưu).
 - Unit test: mapper 25 (thêm `testValidateRangesLimitsNumberOfRangesAndConditions`), stub 11, AutoRating 11, service 14 đều đạt.
 
-**Chưa làm:** hardening CSRF cho `auto_rating/*` (D8); thay `AverageRangeSourceStub` bằng bộ đọc chung; kiểm tra với bảng thật của PR #57058.
+**Chưa làm:** hardening CSRF cho `auto_rating/*` (D8); thay `AverageRangeSourceStub` bằng bộ đọc chung (`getTotalResults()` / `getTotalData()` có `$use_fix_table` của PR #57058, thống nhất 27/10/2026); kiểm tra với bảng thật của PR #57058.

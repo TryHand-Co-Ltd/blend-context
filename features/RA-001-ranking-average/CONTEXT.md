@@ -1,10 +1,12 @@
 # Context RA-001 — Trung bình tổng hợp thứ hạng（順位集計の平均点）
 
-Cập nhật: **23/10/2026**.
+Cập nhật: **27/10/2026** (bộ đọc bản chốt dùng chung, mục 7).
 
 **Tài liệu này là nguồn yêu cầu hiện hành của feature.** Đặc tả trong [docs](docs/README.md) diễn giải nguồn này.
 
 **Trạng thái: làm tiếp từ 22/10/2026** (shite nhờ làm nốt các phần còn lại để sau đó hỗ trợ 見込み点, [thread Slack](https://tryhand.slack.com/archives/C0BRGJA6XDE/p1791290094955599)). Trước đó chức năng được tạm dừng từ 19/10. Khách đã xác nhận Q1, Q3–Q7 ngày 12/10/2026 và Q2 ngày 19/10/2026: **chỉ dùng kết quả tổng hợp thứ hạng đã chốt** ([đặc tả mục 8.2](docs/specification.vi.md#source)). Cùng ngày shite chỉ đạo tạm dừng chức năng này, giữ tiến độ và ưu tiên việc khác, vì người làm chức năng chốt tổng hợp thứ hạng có thể làm cùng phần này ([thread Slack](https://tryhand.slack.com/archives/C0BRGJA6XDE/p1792383099678219)). Code (nhánh `feature/RA-001_ranking_average`) đã đọc nguồn qua `getRedScoreSourceMetric` giống nhánh 赤点 `feature/RC-001_red_score_spec`: **chỉ dùng bản đã chốt**, không lấy số mới nhất thay thế. Đã chạy thử bằng bảng chốt dựng tạm ở DB local (22–23/10/2026).
+
+**Cập nhật 26–27/10/2026:** shite và người làm PR 57058 (chức năng chốt) thống nhất bộ đọc bản chốt dùng chung cho ba chức năng (xét điểm liệt, RA-001, EM-001) là `getTotalResults()` / `getTotalData()` có tham số `$use_fix_table`, không dùng `getStudentCalcResults()`; PR đã có thay đổi này (commit `9a91794106b`, 27/10), chưa gộp. RA-001 tạm giữ bộ đọc hiện tại, chuyển sang hàm chung sau ([research](research/confirmed-result-reader.vi.md)). Quy tắc nghiệp vụ không đổi.
 
 Work item: **Implement Ranking Average in Automatic Grade Calculation and Apply It to Conditions, Formulas, and Grade Registration**.
 
@@ -85,18 +87,19 @@ Chi tiết ở [đặc tả](docs/specification.vi.md).
 | Đổi bộ đọc nguồn sang chỉ bản đã chốt (Q2, 19/10) | **Đã làm trong code** (nhánh `feature/RA-001_ranking_average`, commit `7d1e115ee02`, 23/10/2026): `RankingAverageReader` gọi `getRedScoreSourceMetric` cho mọi loại tập hợp. Đã chạy thử với bảng chốt dựng tạm: có bản chốt thì đọc đúng số; chưa chốt, đã hủy chốt, hoặc thiếu dòng nguồn thì không có trung bình |
 | Dropdown kỳ/nhóm sau Q2 | Chưa rõ có lọc nhóm "có kết quả" theo bản đã chốt hay theo mọi kết quả tổng hợp ([đặc tả mục 11](docs/specification.vi.md#population)). Cần xác nhận |
 | Nhánh 赤点 chưa gộp (PR 57572, nhánh `feature/RC-001_red_score_spec`) | RA-001 dùng chung bộ đọc nguồn. Nội dung `GradeCalcResultEachSubSubjectLogs_m` và `GradeCalcResultEachGroupLogs_m` đã khớp từng dòng với nhánh 赤点 tại 22/10/2026, nên không xung đột ở hai file này. Nhánh 赤点 còn đổi hằng ngày: so lại trước khi gộp |
-| Xung đột với EM-001 | `AutoRating.php` xung đột 2 chỗ khi gộp. EM-001 vẫn dùng `GradeCalcResultService` và `calc_group_map` mà RA-001 đã bỏ; khi giải xung đột phải giữ lại hai thứ này cho EM-001 |
+| Xung đột với EM-001 | `AutoRating.php` xung đột 2 chỗ khi gộp. EM-001 vẫn dùng `GradeCalcResultService` và `calc_group_map` mà RA-001 đã bỏ; khi giải xung đột phải giữ lại hai thứ này cho EM-001. Import `GradeCalcResultService` đã có lại ở nhánh RA-001 (commit `55edefea7cf`, 27/10/2026) |
 | Test tự động | Chưa có. Đã kiểm tay bằng nút 自動算出実行 và lệnh batch trên DB local (có/không bản chốt, từng loại tập hợp) |
-| PR 57058 chưa gộp | Q2 = chỉ bản đã chốt, nên RA-001 phát hành sau PR 57058; trước đó mọi điều kiện/công thức trung bình đều thiếu số. Sau khi gộp, kiểm lại trường hợp đã chốt |
-| Bốn thư viện riêng của trường (`TakaokaEx`, `UlsEx`, `UlsJrEx`, `UlsElEx`) | Chưa kiểm hết. Đọc sơ thấy chúng có hàm tính 評定 riêng và không gọi `AutoRating` của RA-001 |
-| Dữ liệu cũ dùng OR | Đếm trước khi phát hành |
+| PR 57058 chưa gộp | Q2 = chỉ bản đã chốt, nên RA-001 phát hành sau PR 57058; trước đó mọi điều kiện/công thức trung bình đều thiếu số. Sau khi gộp, kiểm lại trường hợp đã chốt. Gộp thử với đầu PR `9a91794106b` (27/10/2026): RA-001 xung đột chữ 2 file (`AutoRating.php`, `AutoRatingConfController.php`), giải bằng cách giữ cả hai bên |
+| Chuyển sang bộ đọc bản chốt dùng chung | **Đã thống nhất hướng (27/10/2026), chưa làm.** `getTotalResults()` / `getTotalData()` có `$use_fix_table` trong PR 57058 trả `total_score` và `student_count` (số dòng thứ hạng của cùng log, đúng mẫu số RA-001; không dùng `examinees`). Việc cần làm sau khi PR ổn định: đổi `RankingAverageReader` sang hàm này, bỏ `getRedScoreSourceMetric` trong hai model, kiểm lại AC-21 đến AC-23 và so số liệu trước/sau. Cần xác nhận với người làm PR: điều kiện bản chốt hợp lệ (hiện không kiểm `grade_calc_fix_log.active`), môi trường chưa có bảng (hiện lỗi SQL), lọc đơn nguyên. Chi tiết ở [research](research/confirmed-result-reader.vi.md#6-điểm-cần-kiểm-khi-chuyển-nhánh-sang-hàm-chung) |
+| Bốn thư viện riêng của trường (`TakaokaEx`, `UlsEx`, `UlsJrEx`, `UlsElEx`) | **Đã kiểm (27/10/2026)**: cả bốn tự tính 評定 (điểm đánh giá), không gọi `AutoRating` chung, không dùng trung bình tổng hợp thứ hạng khi tính và không đổi hành vi khi chuyển sang bản đã chốt. ② không ảnh hưởng. Chi tiết ở [research](research/school-library-and-or-check.vi.md) |
+| Dữ liệu cũ dùng OR | **Đã đếm trên DB local (27/10/2026)**: 676 dòng đang bật có từ 2 điều kiện trở lên (39 trường), 29 dòng đã tắt. **Chưa đếm trên DB thật**; truy vấn chỉ đọc có trong [research](research/school-library-and-or-check.vi.md#3-dữ-liệu-cũ-dùng-or) |
 
 ## 8. Thứ tự đọc
 
 1. Context này.
 2. [Đặc tả](docs/specification.vi.md) và [đặc tả màn hình](docs/screen-definition.vi.md).
 3. [Bản hỏi tiếng Việt](sources/2026-10-09-business-questions.vi.md), [bản hỏi tiếng Nhật](sources/2026-10-09-business-questions.ja.md).
-4. [Ghi nhận nội bộ 10/10](sources/2026-10-10-internal-design-review.vi.md), [hiện trạng code](research/current-auto-rating-behavior.vi.md), [kiểm tra loại trừ cho 見込み点](research/mikomi-exclusion-check.vi.md).
+4. [Ghi nhận nội bộ 10/10](sources/2026-10-10-internal-design-review.vi.md), [hiện trạng code](research/current-auto-rating-behavior.vi.md), [kiểm tra loại trừ cho 見込み点](research/mikomi-exclusion-check.vi.md), [bộ đọc bản chốt dùng chung](research/confirmed-result-reader.vi.md).
 
 ## 9. Việc tiếp theo: 見込み点 (chưa có quyết định của khách)
 
