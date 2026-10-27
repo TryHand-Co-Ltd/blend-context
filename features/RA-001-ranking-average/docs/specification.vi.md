@@ -234,6 +234,8 @@ Lịch sử: bản spec ngày 12/10 triển khai theo 案A (ưu tiên bản ch�
 
 Bản đã chốt là chức năng **順位集計結果の確定** (xác định kết quả tổng hợp thứ hạng) của [PR 57058](https://github.com/ednity/school-web/pull/57058). Chạy tổng hợp lại không ghi vào bản đã chốt.
 
+Cách đọc bản chốt (thống nhất nội bộ 27/10/2026, chưa phải xác nhận của khách): xét điểm liệt, RA-001 và ánh xạ theo khoảng điểm trung bình dùng chung `getTotalResults()` / `getTotalData()` có tham số `$use_fix_table` của PR 57058, không dùng `getStudentCalcResults()` vì hàm đó không cho số học sinh có điểm. Hành vi cần có: lấy tổng điểm bản chốt và số học sinh có điểm; không có bản chốt hợp lệ thì coi như không lấy được, không dùng số chưa chốt; nơi gọi hiện có vẫn lấy kết quả thường. Hàm đã có trong PR (chưa gộp); RA-001 hiện còn đọc bằng `getRedScoreSourceMetric`, cùng bảng và cùng quy tắc, và sẽ chuyển sang hàm chung sau. Xem [research](../research/confirmed-result-reader.vi.md).
+
 ### 8.3. Số chưa làm tròn — đã xác nhận Q3
 
 Dùng trung bình trước làm tròn, giống xét điểm liệt: tổng điểm ÷ số học sinh làm mẫu số của kết quả tổng hợp. Không dùng số đã làm tròn đang hiện trên màn thứ hạng. Ví dụ màn thứ hạng hiện 38, số dùng là 37,5.
@@ -380,6 +382,6 @@ Dữ liệu ví dụ: thiết lập thứ hạng `評点集計`, môn của ti�
 | --- | --- | --- |
 | Q2 — chỉ bản đã chốt hay ưu tiên bản đã chốt | Đã xác nhận 19/10/2026: chỉ bản đã chốt (mục 8.2) | Đã đổi trong bộ đọc nguồn chung: hai hàm `getRedScoreSourceMetric` của model khớp nhánh 赤点 `feature/RC-001_red_score_spec`; chạy thử 23/10/2026 |
 | PR 57572 (điểm liệt) được gộp | Team | RA-001 dùng chung bộ đọc nguồn của PR này (mục 8.1). Phần code chung trong RA-001 giống hệt PR, gộp trước hay sau đều không xung đột |
-| PR 57058 được gộp | Team | Q2 = chỉ bản đã chốt, nên RA-001 phải phát hành sau PR 57058; trước khi gộp, mọi điều kiện/công thức trung bình đều thiếu số. Sau khi gộp, kiểm các trường hợp AC-21 đến AC-23 |
+| PR 57058 được gộp | Team | Q2 = chỉ bản đã chốt, nên RA-001 phải phát hành sau PR 57058; trước khi gộp, mọi điều kiện/công thức trung bình đều thiếu số. Sau khi gộp, kiểm các trường hợp AC-21 đến AC-23 và chuyển bộ đọc sang `getTotalResults()` / `getTotalData()` (mục 8.2) |
 | Bốn thư viện riêng của trường (`TakaokaEx`, `UlsEx`, `UlsJrEx`, `UlsElEx`) | Team | Kiểm có gọi cơ chế chung hay tự tính |
 | Số dòng thiết lập cũ dùng OR | Team | Báo người phụ trách nếu có |
