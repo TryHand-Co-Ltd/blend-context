@@ -1,12 +1,12 @@
 # Đặc tả RA-001 — Trung bình tổng hợp thứ hạng（順位集計の平均点）
 
-**Ngày cập nhật:** 14/10/2026 (cách chọn bản và mẫu số theo điểm liệt, mục 8.2–8.3).
+**Ngày cập nhật:** 27/10/2026 (bộ đọc bản chốt dùng chung `getTotalResults()`, mục 8.1–8.2; AC-02 theo Q2). Trước đó 14/10/2026 (cách chọn bản và mẫu số theo điểm liệt, mục 8.2–8.3).
 
 **Đối tượng đọc:** thành viên phát triển, thiết kế, kiểm thử và người phụ trách nghiệp vụ BLEND.
 
 **Phạm vi tài liệu:** dùng điểm trung bình của tổng hợp thứ hạng trong tính điểm tự động. Tài liệu này đủ để triển khai: quy tắc, màn hình, dữ liệu, thời điểm ghi điểm và tiêu chí nghiệm thu.
 
-**Trạng thái:** khách đã xác nhận Q1, Q3–Q7 ngày 12/10/2026 và Q2 ngày 19/10/2026 (chỉ dùng bản đã chốt, mục 8.2). Chức năng từng **tạm dừng** theo chỉ đạo của shite ngày 19/10 và được **làm tiếp từ 22/10** (làm nốt phần còn lại để sau đó hỗ trợ 見込み点). Code đã đổi sang "chỉ bản đã chốt" (nhánh `feature/RA-001_ranking_average`, commit `7d1e115ee02`, 23/10).
+**Trạng thái:** khách đã xác nhận Q1, Q3–Q7 ngày 12/10/2026 và Q2 ngày 19/10/2026 (chỉ dùng bản đã chốt, mục 8.2). Chức năng từng **tạm dừng** theo chỉ đạo của shite ngày 19/10 và được **làm tiếp từ 22/10** (làm nốt phần còn lại để sau đó hỗ trợ 見込み点). Code đã đổi sang "chỉ bản đã chốt" (nhánh `feature/RA-001_ranking_average`, commit `7d1e115ee02`, 23/10) và từ 27/10 đọc bản chốt qua `getTotalResults()` của PR 57058 (chưa commit).
 
 Nhãn dùng trong tài liệu:
 
@@ -115,7 +115,7 @@ Một dòng điều kiện trung bình gồm, theo thứ tự trên màn:
 | Thiết lập thứ hạng | Tên **順位集計設定** (thiết lập tổng hợp thứ hạng) của năm học. Mục đầu `選択してください` | Có |
 | Kỳ/nhóm | Một dropdown dạng `1学期期末/学年平均`: kỳ tổng hợp và nhóm (mục 11). Mục đầu `選択してください` | Có |
 | Mốc | Ô số | Có |
-| Dấu | **以上** (từ … trở lên), **より大きい** (lớn hơn), **等しい** (bằng), **より小さい** (nhỏ hơn), **以下** (từ … trở xuống) | Có |
+| Dấu | **以上** (từ … trở lên), **より大きい** (lớn hơn), **と等しい** (bằng), **より小さい** (nhỏ hơn), **以下** (từ … trở xuống) | Có |
 | Xóa | Nút xóa dòng điều kiện như các loại lọc hiện có | — |
 
 Không dùng **未満** (dưới). Nhánh "dưới 50" của yêu cầu là **50 より小さい** (nhỏ hơn 50).
@@ -124,7 +124,7 @@ Không dùng **未満** (dưới). Nhánh "dưới 50" của yêu cầu là **50
 | --- | --- | --- | --- |
 | **以上** | không khớp | khớp | khớp |
 | **より大きい** | không khớp | không khớp | khớp |
-| **等しい** | không khớp | khớp | không khớp |
+| **と等しい** | không khớp | khớp | không khớp |
 | **より小さい** | khớp | không khớp | không khớp |
 | **以下** | khớp | khớp | không khớp |
 
@@ -204,7 +204,7 @@ Số trung bình lấy từ kết quả tổng hợp thứ hạng của đúng t
 
 ### 8.1. Nguồn đọc — quyết định nội bộ
 
-Dùng chung bộ đọc nguồn với xét điểm liệt ([PR 57572](https://github.com/ednity/school-web/pull/57572): `getRedScoreSourceMetric` của `GradeCalcResultEachSubSubjectLogs_m` / `GradeCalcResultEachGroupLogs_m`), để hai chức năng luôn đọc cùng một số cho cùng nguồn. Nhóm **授業** (tiết học) đọc bảng kết quả theo tiết học; các nhóm khác đọc bảng kết quả theo môn.
+Dùng chung quy tắc đọc nguồn với xét điểm liệt ([PR 57572](https://github.com/ednity/school-web/pull/57572)) và ánh xạ theo khoảng điểm trung bình, để các chức năng luôn đọc cùng một số cho cùng nguồn. Từ 27/10/2026 hàm đọc là `getTotalResults()` / `getTotalData()` có `$use_fix_table` của [PR 57058](https://github.com/ednity/school-web/pull/57058) (thống nhất giữa shite và người làm PR). Nhánh 赤点 hiện còn dùng `getRedScoreSourceMetric` riêng, cùng bảng và cùng quy tắc, sẽ chuyển sau. Nhóm **授業** (tiết học) đọc bảng kết quả theo tiết học; các nhóm khác đọc bảng kết quả theo môn.
 
 Nhóm **授業**, nhóm thứ hạng（順位集計グループ）và nhóm kết hợp（組合わせグループ）: kết quả được ghi riêng cho từng khối, và nhóm thứ hạng có thể chứa học sinh nhiều khối. RA-001 đọc thêm điều kiện khối của học sinh để không lấy nhầm số của khối khác. Cách chọn bản và mẫu số vẫn dùng chung với điểm liệt (mục 8.2, 8.3).
 
@@ -234,7 +234,7 @@ Lịch sử: bản spec ngày 12/10 triển khai theo 案A (ưu tiên bản ch�
 
 Bản đã chốt là chức năng **順位集計結果の確定** (xác định kết quả tổng hợp thứ hạng) của [PR 57058](https://github.com/ednity/school-web/pull/57058). Chạy tổng hợp lại không ghi vào bản đã chốt.
 
-Cách đọc bản chốt (thống nhất nội bộ 27/10/2026, chưa phải xác nhận của khách): xét điểm liệt, RA-001 và ánh xạ theo khoảng điểm trung bình dùng chung `getTotalResults()` / `getTotalData()` có tham số `$use_fix_table` của PR 57058, không dùng `getStudentCalcResults()` vì hàm đó không cho số học sinh có điểm. Hành vi cần có: lấy tổng điểm bản chốt và số học sinh có điểm; không có bản chốt hợp lệ thì coi như không lấy được, không dùng số chưa chốt; nơi gọi hiện có vẫn lấy kết quả thường. Hàm đã có trong PR (chưa gộp); RA-001 hiện còn đọc bằng `getRedScoreSourceMetric`, cùng bảng và cùng quy tắc, và sẽ chuyển sang hàm chung sau. Xem [research](../research/confirmed-result-reader.vi.md).
+Cách đọc bản chốt (thống nhất nội bộ 27/10/2026, chưa phải xác nhận của khách): xét điểm liệt, RA-001 và ánh xạ theo khoảng điểm trung bình dùng chung `getTotalResults()` / `getTotalData()` có tham số `$use_fix_table` của PR 57058, không dùng `getStudentCalcResults()` vì hàm đó không cho số học sinh có điểm. Hành vi cần có: lấy tổng điểm bản chốt và số học sinh có điểm; không có bản chốt hợp lệ thì coi như không lấy được, không dùng số chưa chốt; nơi gọi hiện có vẫn lấy kết quả thường. Hàm đã có trong PR (chưa gộp). RA-001 đã chuyển sang hàm này ngày 27/10/2026 (chưa commit). Hàm chung không tự kiểm bản chốt còn hiệu lực (`grade_calc_fix_log.active = 1`), không kiểm bảng bản chốt có tồn tại và không lọc đơn nguyên (単元), nên `RankingAverageReader` tự kiểm hai điều kiện đầu trước khi đọc và tự lọc đơn nguyên sau khi đọc; trạng thái "đã chốt nhưng tổng hợp mới hơn" (`stale` của PR) vẫn dùng bản chốt. Xem [research](../research/confirmed-result-reader.vi.md).
 
 ### 8.3. Số chưa làm tròn — đã xác nhận Q3
 
@@ -322,7 +322,7 @@ Không thêm bảng và không thêm cột. Dữ liệu nằm trong cột JSON `
 
 | Phần | Hiện có | Thay đổi |
 | --- | --- | --- |
-| Điều kiện lọc | Mảng `setting_condition`, mỗi phần tử có loại (`jouken-a`) và giá trị (`jouken-b`, `jouken-c`). Loại 1–11 (`m_AutoRatingConfItemCondition`) | Thêm một loại điều kiện trung bình (mã tiếp theo, chốt khi triển khai). Lưu tên thiết lập thứ hạng, `kỳ,phân kỳ,nhóm` theo cùng định dạng với vế công thức, mã dấu 1–5 như `m_AutoRatingConfItemMappingCondition`, và mốc số |
+| Điều kiện lọc | Mảng `setting_condition`, mỗi phần tử có loại (`jouken-a`) và giá trị (`jouken-b`, `jouken-c`). Loại 1–11 (`m_AutoRatingConfItemCondition`) | Thêm một loại điều kiện trung bình, mã `12` (`TARGET_RANKING_AVERAGE`; loại 1–11 giữ nguyên). Lưu `jouken-b` = tên thiết lập thứ hạng, `jouken-c` = `kỳ,phân kỳ,nhóm` theo cùng định dạng với vế công thức, `jouken-d` = mã dấu 1–5 như `m_AutoRatingConfItemMappingCondition`, `jouken-e` = mốc số (chuỗi 0 đến 999999,9999) |
 | Vế công thức | `left_/right_formula_type` = 5 (`TYPE_SUB_SUBJECT_AVG`), `left_/right_calc_conf_name`, `left_/right_sub_subject_avg` dạng `期間名,区分名,集団名` | Giữ định dạng để đọc được dữ liệu cũ của Uenomiya. Thêm giá trị nhóm cho tiết học và nhóm môn học. Bỏ chặn lưu theo trường |
 | Giá trị gốc của ánh xạ | `standard_type`: 1 kết quả tính, 2 mục đánh giá | Không đổi (Q1) |
 | Cột điểm học sinh | Cột điểm hiện có | Không tạo cột kết quả riêng |
@@ -338,7 +338,7 @@ Dữ liệu ví dụ: thiết lập thứ hạng `評点集計`, môn của ti�
 | Mã | Tình huống | Kết quả mong đợi |
 | --- | --- | --- |
 | AC-01 | Trường ngoài Uenomiya mở công thức | Dropdown vế trái/phải có **科目平均**; lưu rồi mở lại vẫn thấy đúng thiết lập và kỳ/nhóm |
-| AC-02 | Dữ liệu cũ của Uenomiya | Mở lại đúng lựa chọn, tính ra cùng kết quả như trước |
+| AC-02 | Dữ liệu cũ của Uenomiya (đã lưu **科目平均**) | Mở lại đúng lựa chọn. Đã chốt: cùng mẫu số và cùng nhóm như trước. Chưa chốt: **khác trước**, vì trước đây hai trường đọc kết quả tổng hợp mới nhất còn nay chỉ đọc bản đã chốt (Q2), nên công thức ghi trống như AC-04 |
 | AC-03 | Công thức 60 × 70 ÷ 50, đã chạy tổng hợp | Chạy tính điểm tự động ghi 84, đè 75 |
 | AC-04 | Như AC-03 nhưng chưa chạy tổng hợp | Cột ghi trống, 75 bị xóa; điểm thô 60 giữ nguyên |
 | AC-05 | Vế phải là trung bình bằng 0 dùng làm số chia | Cột ghi trống |
@@ -380,8 +380,9 @@ Dữ liệu ví dụ: thiết lập thứ hạng `評点集計`, môn của ti�
 
 | Việc | Ai | Ảnh hưởng |
 | --- | --- | --- |
-| Q2 — chỉ bản đã chốt hay ưu tiên bản đã chốt | Đã xác nhận 19/10/2026: chỉ bản đã chốt (mục 8.2) | Đã đổi trong bộ đọc nguồn chung: hai hàm `getRedScoreSourceMetric` của model khớp nhánh 赤点 `feature/RC-001_red_score_spec`; chạy thử 23/10/2026 |
-| PR 57572 (điểm liệt) được gộp | Team | RA-001 dùng chung bộ đọc nguồn của PR này (mục 8.1). Phần code chung trong RA-001 giống hệt PR, gộp trước hay sau đều không xung đột |
-| PR 57058 được gộp | Team | Q2 = chỉ bản đã chốt, nên RA-001 phải phát hành sau PR 57058; trước khi gộp, mọi điều kiện/công thức trung bình đều thiếu số. Sau khi gộp, kiểm các trường hợp AC-21 đến AC-23 và chuyển bộ đọc sang `getTotalResults()` / `getTotalData()` (mục 8.2) |
+| Q2 — chỉ bản đã chốt hay ưu tiên bản đã chốt | Đã xác nhận 19/10/2026: chỉ bản đã chốt (mục 8.2) | Đã đổi trong bộ đọc: lần đầu ngày 23/10/2026 bằng `getRedScoreSourceMetric`, từ 27/10/2026 bằng `getTotalResults()` của PR 57058; chạy thử trên bảng chốt dựng ở DB local |
+| PR 57572 (điểm liệt) được gộp | Team | RA-001 dùng chung quy tắc đọc nguồn với PR này (mục 8.1) nhưng không còn dùng chung hàm: nhánh 赤点 giữ `getRedScoreSourceMetric`, RA-001 dùng `getTotalResults()`. Gộp thử RA-001 với đầu nhánh 赤点 `6e44cbfd2a0` (22/10) không xung đột |
+| PR 57058 được gộp | Team | Q2 = chỉ bản đã chốt, nên RA-001 phải phát hành sau PR 57058; trước khi gộp, mọi điều kiện/công thức trung bình đều thiếu số. Sau khi gộp, chạy lại AC-21 đến AC-24 trên bản chốt thật. Hỏi người làm PR ba điểm của hàm chung mà RA-001 đang tự bù (kiểm `active`, kiểm bảng tồn tại, lọc đơn nguyên; xem [research](../research/confirmed-result-reader.vi.md#7-điểm-cần-kiểm-khi-chuyển-và-trạng-thái)) |
+| Hai trường Uenomiya đang dùng **科目平均** | Team, shite | Dữ liệu đã lưu đọc kết quả tổng hợp mới nhất; sau RA-001 chỉ đọc bản đã chốt (Q2). Ở DB local có 294 thiết lập đang bật của **上宮学園中学校** và 644 của **上宮高等学校** (chưa đếm trên DB thật). Trường nào chưa chốt thì công thức ghi trống và xóa điểm đang có (mục 10). Cần báo trước khi phát hành, và chỉ phát hành sau khi hai trường dùng chức năng chốt |
 | Bốn thư viện riêng của trường (`TakaokaEx`, `UlsEx`, `UlsJrEx`, `UlsElEx`) | Team | Kiểm có gọi cơ chế chung hay tự tính |
 | Số dòng thiết lập cũ dùng OR | Team | Báo người phụ trách nếu có |

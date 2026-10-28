@@ -28,7 +28,7 @@ Tính điểm tự động hiện xử lý trung bình môn, điều kiện lọ
 | 12 | Điều kiện lọc lưu trong cột JSON `auto_rating_conf_items.condition`, mảng `setting_condition`, mỗi phần tử dùng `jouken-a` (loại), `jouken-b`, `jouken-c` | `blend:application/repository/grade_setting/AutoRatingConfItemRepository.php` khoảng dòng 60–110; `blend:application/models/AutoRatingConfItem_m.php` | Loại điều kiện trung bình mới thêm vào mảng này, không cần bảng mới |
 | 13 | Các loại điều kiện hiện có là `TARGET` 1–11 (khối, khóa HR, nhóm thành tích, tổ hợp nhóm, checkbox, mục lựa chọn, vắng quá số tiết, loại tiết, chương trình…). Chưa có điểm trung bình | `blend:application/domain/model/AutoRatingConf/m_AutoRatingConfItemCondition.php` | Cần một loại mới |
 | 14 | Cách nối điều kiện: `CONDITION_JOIN_TYPE_AND = 1` (かつ, và), `CONDITION_JOIN_TYPE_OR = 2` (または, hoặc) | `m_AutoRatingConfItemConditionJoinType.php` | Form hiện ẩn lựa chọn này, mặc định AND. OR chỉ còn trong dữ liệu cũ (ghi nhận khi đọc màn hình ngày 10/10) |
-| 15 | Ánh xạ có dấu so sánh 1–5: 以上 (từ … trở lên), より大きい (lớn hơn), 等しい (bằng), より小さい (nhỏ hơn), 以下 (từ … trở xuống) | `m_AutoRatingConfItemMappingCondition.php` | Bộ dấu được dùng lại cho điều kiện trung bình |
+| 15 | Ánh xạ có dấu so sánh 1–5: 以上 (từ … trở lên), より大きい (lớn hơn), と等しい (bằng), より小さい (nhỏ hơn), 以下 (từ … trở xuống) | `m_AutoRatingConfItemMappingCondition.php` | Bộ dấu được dùng lại cho điều kiện trung bình |
 | 16 | Giá trị gốc của ánh xạ: `STANDARD_TYPE_CALC = 1` (計算結果, kết quả tính), `STANDARD_TYPE_EVALUATE_ITEM = 2` (評価項目, mục đánh giá) | `m_AutoRatingConfItemMapping.php` | Q1 thêm một loại giá trị gốc |
 
 ## Các đường gọi tính điểm tự động

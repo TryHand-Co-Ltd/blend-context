@@ -47,7 +47,7 @@ Luồng: **成績帳票設定** → **成績設定** → **成績入力設定** 
 | 5 | Thiết lập thứ hạng | Dropdown **mới** | Bắt buộc | Tên **順位集計設定** của năm học. Mục đầu `選択してください` | Figma 02-4 |
 | 6 | Kỳ/nhóm | Dropdown **mới** | Bắt buộc | Dạng `1学期期末/学年平均`. Nhóm theo [05](#screen-population). Mục đầu `選択してください` | Q5 |
 | 7 | Mốc | Ô số **mới** | Bắt buộc | Số từ 0 trở lên, cho phép thập phân | Lỗi nếu trống hoặc âm |
-| 8 | Dấu | Dropdown **mới** | Bắt buộc | **以上**, **より大きい**, **等しい**, **より小さい**, **以下**. Không có **未満** | — |
+| 8 | Dấu | Dropdown **mới** | Bắt buộc | **以上**, **より大きい**, **と等しい**, **より小さい**, **以下**. Không có **未満** | — |
 | 9 | Xóa dòng lọc | Nút hiện có | — | Xóa dòng điều kiện | — |
 | 10 | Thêm dòng lọc | Nút hiện có | — | Thêm điều kiện thứ hai, ví dụ khoảng **50 より大きい** + **80 より小さい** | Q6, AND. Figma ghi chú 02-A-2 |
 | 11 | Chú thích `※絞り込み条件を複数設定した場合、全ての条件を満たす生徒が対象となります。` | Văn bản | — | Nhắc quy tắc AND | — |
