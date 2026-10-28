@@ -82,6 +82,8 @@ Cho phép xử lý phần lẻ trong công thức tính ngưỡng không tự th
 
 Có kết quả đã chốt tương ứng thì ưu tiên kết quả đó; chưa chốt thì dùng kết quả tổng hợp đã thực hiện mới nhất có sẵn. Không có radio cho người dùng bỏ qua bản chốt theo ý muốn. Không dùng một bản chốt khác kỳ chỉ vì mới hơn.
 
+> **Cập nhật 28/10/2026 (shite, nội bộ):** ①②③ chỉ dùng kết quả tổng hợp đã chốt; chưa chốt hoặc đã bỏ chốt thì không dùng kết quả chưa chốt (①: chưa xét được). Câu trả lời gốc phía trên giữ nguyên làm bản ghi lịch sử; xem [DEC-004](../decisions/DEC-004-confirmed-results-only.vi.md).
+
 Danh sách học sinh lọc để trích xuất, công khai hoặc in phiếu không trở thành nhóm mới để tính trung bình. Đối tượng áp dụng điều kiện và nhóm tham chiếu trung bình là hai khái niệm riêng.
 
 ### Q10 — Điều kiện nào không cần nguồn trung bình?

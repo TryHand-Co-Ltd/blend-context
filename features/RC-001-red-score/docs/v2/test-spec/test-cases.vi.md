@@ -645,7 +645,7 @@
 | Kích hoạt | @CTX-COMMON |
 | Quan sát | @CTX-COMMON |
 | Actor và quyền | Dùng actor/quyền được nêu trong điều kiện; cấu hình bởi người được sửa đúng mục, ghi điểm bởi người phụ trách lớp, batch bởi người có quyền chạy; đầu ra và tài khoản học sinh giữ quyền riêng. |
-| Fixture | local: cặp quy tắc phân nhánh theo trung bình 60, bản tổng hợp mới nhất chưa chốt (trung bình 62) |
+| Fixture | local: cặp quy tắc phân nhánh theo trung bình 60, bản tổng hợp đã chốt (trung bình 62) |
 | Thao tác | 1. Tạo quy tắc "Trung bình dưới 60": thêm bộ lọc Môn（教科・科目）= Toán（数学） và điều kiện Trung bình（平均点）.<br>2. Chọn Thời kỳ tổng hợp（集計対象時期）= 1学期期末 (cuối kỳ học kỳ 1), Thiết lập tổng hợp thứ hạng（順位集計設定）= 評点集計 (tổng hợp điểm đánh giá), Nhóm học sinh được tổng hợp — 集計対象（母集団）= ホームルーム (lớp chủ nhiệm; file Figma cũ ghi HR毎).<br>3. Nhập mốc 60, dấu Nhỏ hơn（未満）, lưu.<br>4. Tạo quy tắc thứ hai với mốc 60, dấu Từ mức này trở lên（以上）.<br>5. Mở lại cả hai. |
 | Expected | 1. Cả hai quy tắc lưu được, là hai dòng riêng trong danh sách (không phải một form hai nhánh).<br>2. Mở lại giữ đủ bộ nguồn, mốc, dấu.<br>3. Không có lựa chọn Kết quả tổng hợp dùng để tham chiếu（参照する集計結果） (đặc tả v2 mục 3 “Bản đồ màn hình và luồng thao tác”, mục 5.5 “Chọn bản nguồn”). |
 | Bảo toàn | @CTX-COMMON |
@@ -2214,8 +2214,8 @@
 | Quan sát | @CTX-COMMON |
 | Actor và quyền | Dùng actor/quyền được nêu trong điều kiện; cấu hình bởi người được sửa đúng mục, ghi điểm bởi người phụ trách lớp, batch bởi người có quyền chạy; đầu ra và tài khoản học sinh giữ quyền riêng. |
 | Fixture | local: mục số nguyên (M=100); cặp quy tắc phân nhánh theo trung bình 60, các lớp chủ nhiệm HR1, HR2, học sinh S01–S05 |
-| Thao tác | 1. Thiết lập tổng hợp thứ hạng（順位集計設定）→ Thiết lập chi tiết（詳細設定）: đặt tự tổng hợp khi đăng ký điểm là Không thực hiện（実行しない）.<br>2. Ở Tổng hợp thành tích（成績集計）, chọn Khối 1, kỳ 1学期期末 (cuối kỳ học kỳ 1), bấm Thực hiện tổng hợp（集計実行）, chờ hoàn tất.<br>3. Bấm Thực hiện tính toán tự động（自動算出実行）, chờ hoàn tất.<br>4. Xem kết quả ở ba đầu ra.<br>5. Sau bước 3, xem lần chạy tổng hợp gần nhất hiển thị ở Tổng hợp thành tích（成績集計）. |
-| Expected | 1. Sau bước 2 (chỉ nút xanh), kết quả đỏ chưa thay đổi.<br>2. Sau bước 3, mỗi ô của S01–S05 có kết quả theo nhánh đúng với `A` của tổng hợp vừa chạy.<br>3. Ba đầu ra hiển thị cùng kết quả mới.<br>4. (Theo tiêu chí nghiệm thu “Thứ tự đánh giá tương đối”) Bước 3 không tự chạy lại Thực hiện tổng hợp（集計実行） hay thêm lượt xét thứ hai, kể cả khi tính tự động làm đổi điểm dùng cho trung bình: lần chạy tổng hợp gần nhất vẫn là lần ở bước 2. Muốn dùng trung bình mới thì người dùng chạy lại quy trình. |
+| Thao tác | 1. Thiết lập tổng hợp thứ hạng（順位集計設定）→ Thiết lập chi tiết（詳細設定）: đặt tự tổng hợp khi đăng ký điểm là Không thực hiện（実行しない）.<br>2. Ở Tổng hợp thành tích（成績集計）, chọn Khối 1, kỳ 1学期期末 (cuối kỳ học kỳ 1), bấm Thực hiện tổng hợp（集計実行）, chờ hoàn tất.<br>3. Chốt kết quả tổng hợp（確定）của Khối 1, kỳ 1学期期末 (chức năng của PR #57058).<br>4. Bấm Thực hiện tính toán tự động（自動算出実行）, chờ hoàn tất.<br>5. Xem kết quả ở ba đầu ra.<br>6. Sau bước 4, xem lần chạy tổng hợp gần nhất hiển thị ở Tổng hợp thành tích（成績集計）. |
+| Expected | 1. Sau bước 2 và bước 3 (chỉ nút xanh và chốt), kết quả đỏ chưa thay đổi.<br>2. Sau bước 4, mỗi ô của S01–S05 có kết quả theo nhánh đúng với `A` của bản đã chốt.<br>3. Ba đầu ra hiển thị cùng kết quả mới.<br>4. (Theo tiêu chí nghiệm thu “Thứ tự đánh giá tương đối”) Bước 4 không tự chạy lại Thực hiện tổng hợp（集計実行） hay thêm lượt xét thứ hai, kể cả khi tính tự động làm đổi điểm dùng cho trung bình: lần chạy tổng hợp gần nhất vẫn là lần ở bước 2. Muốn dùng trung bình mới thì người dùng chạy lại quy trình. |
 | Bảo toàn | @CTX-COMMON |
 | Bằng chứng | @CTX-COMMON |
 | Reset | @CTX-COMMON |
@@ -2224,7 +2224,7 @@
 
 | Variant | Inputs | Expected |
 | --- | --- | --- |
-| Base | Toàn bộ tình huống: Thực hiện đủ các bước chung theo thứ tự; kiểm cả đối tượng đích và đối chứng cùng fixture, không bỏ bước. | 1. Sau bước 2 (chỉ nút xanh), kết quả đỏ chưa thay đổi.<br>2. Sau bước 3, mỗi ô của S01–S05 có kết quả theo nhánh đúng với `A` của tổng hợp vừa chạy.<br>3. Ba đầu ra hiển thị cùng kết quả mới.<br>4. (Theo tiêu chí nghiệm thu “Thứ tự đánh giá tương đối”) Bước 3 không tự chạy lại Thực hiện tổng hợp（集計実行） hay thêm lượt xét thứ hai, kể cả khi tính tự động làm đổi điểm dùng cho trung bình: lần chạy tổng hợp gần nhất vẫn là lần ở bước 2. Muốn dùng trung bình mới thì người dùng chạy lại quy trình. |
+| Base | Toàn bộ tình huống: Thực hiện đủ các bước chung theo thứ tự; kiểm cả đối tượng đích và đối chứng cùng fixture, không bỏ bước. | 1. Sau bước 2 và bước 3 (chỉ nút xanh và chốt), kết quả đỏ chưa thay đổi.<br>2. Sau bước 4, mỗi ô của S01–S05 có kết quả theo nhánh đúng với `A` của bản đã chốt.<br>3. Ba đầu ra hiển thị cùng kết quả mới.<br>4. (Theo tiêu chí nghiệm thu “Thứ tự đánh giá tương đối”) Bước 4 không tự chạy lại Thực hiện tổng hợp（集計実行） hay thêm lượt xét thứ hai, kể cả khi tính tự động làm đổi điểm dùng cho trung bình: lần chạy tổng hợp gần nhất vẫn là lần ở bước 2. Muốn dùng trung bình mới thì người dùng chạy lại quy trình. |
 
 #### TC-RS-FUNC-034 — Nguồn của điều kiện áp dụng và nguồn của công thức lưu độc lập
 
@@ -2312,13 +2312,13 @@
 | --- | --- | --- |
 | Base | Toàn bộ tình huống: Thực hiện đủ các bước chung theo thứ tự; kiểm cả đối tượng đích và đối chứng cùng fixture, không bỏ bước. | Kết quả vẫn dùng `T=25` (từ `A=50` của cả nhóm). Lọc lớp ở đầu ra hoặc đối tượng chỉ G-A không làm trung bình thành 40 (`T=20`). |
 
-#### TC-RS-BR-007 — Nguồn: bản đã chốt được ưu tiên hơn tổng hợp mới hơn
+#### TC-RS-BR-007 — Nguồn: dùng bản đã chốt, không dùng tổng hợp mới hơn chưa chốt
 
 | Field | Value |
 | --- | --- |
 | Chức năng | Nguồn tổng hợp |
 | screen_relative_path | unknown |
-| Căn cứ | tiêu chí nghiệm thu “Ưu tiên bản chốt và xử lý thiếu nguồn” (AC-G13 «Ưu tiên bản chốt và xử lý thiếu nguồn»); tiêu chí nghiệm thu “Phạm vi từng đợt” (AC-G40 «Phạm vi từng đợt»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
+| Căn cứ | tiêu chí nghiệm thu “Chỉ dùng bản chốt và xử lý thiếu nguồn” (AC-G13 «Chỉ dùng bản chốt và xử lý thiếu nguồn»); tiêu chí nghiệm thu “Phạm vi từng đợt” (AC-G40 «Phạm vi từng đợt»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
 | Readiness | Draft |
@@ -2340,24 +2340,24 @@
 | --- | --- | --- |
 | Base | Toàn bộ tình huống: Thực hiện đủ các bước chung theo thứ tự; kiểm cả đối tượng đích và đối chứng cùng fixture, không bỏ bước. | Dùng `A=49.99` → nhánh ưu tiên 2 (`A&lt;60`), `T=24.995` → điểm 24 Đỏ, điểm 26 Không đỏ. Không dùng `A=62` (sẽ vào nhánh `A≥60`, `T=30`, điểm 26 Đỏ). |
 
-#### TC-RS-BR-008 — Nguồn: chưa có bản chốt → dùng tổng hợp hoàn tất mới nhất cùng phạm vi
+#### TC-RS-BR-008 — Nguồn: chưa chốt hoặc đã bỏ chốt → Chưa xét được, không dùng kết quả tổng hợp chưa chốt
 
 | Field | Value |
 | --- | --- |
 | Chức năng | Nguồn tổng hợp |
 | screen_relative_path | unknown |
-| Căn cứ | tiêu chí nghiệm thu “Ưu tiên bản chốt và xử lý thiếu nguồn” (AC-G13 «Ưu tiên bản chốt và xử lý thiếu nguồn»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
+| Căn cứ | tiêu chí nghiệm thu “Chỉ dùng bản chốt và xử lý thiếu nguồn” (AC-G13 «Chỉ dùng bản chốt và xử lý thiếu nguồn»); trạng thái nguồn CONFIRMED (shite, 10/2026: ①②③ chỉ dùng kết quả đã chốt; chưa chốt/bỏ chốt thì không có dữ liệu); ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
 | Readiness | Draft |
 | Gap | G-PREP-UNASSESSED |
-| Cấu hình | Chỉ có bản tổng hợp mới nhất chưa chốt (trung bình 62) (`A=62`), không có bản chốt; có thêm một tổng hợp cũ hơn `A=55` và một tổng hợp khác kỳ mới hơn `A=40`. |
+| Cấu hình | Khối × kỳ cần dùng **chưa chốt**: cùng phạm vi chỉ có kết quả tổng hợp chưa chốt (trung bình 62) (`A=62`), có thêm một tổng hợp cũ hơn `A=55` và một tổng hợp khác kỳ mới hơn `A=40`. Cặp quy tắc phân nhánh theo trung bình 60. |
 | Kích hoạt | @CTX-COMMON |
 | Quan sát | @CTX-COMMON |
 | Actor và quyền | Dùng actor/quyền được nêu trong điều kiện; cấu hình bởi người được sửa đúng mục, ghi điểm bởi người phụ trách lớp, batch bởi người có quyền chạy; đầu ra và tài khoản học sinh giữ quyền riêng. |
-| Fixture | local: bản tổng hợp mới nhất chưa chốt (trung bình 62), cặp quy tắc phân nhánh theo trung bình 60 |
-| Thao tác | 1. Chạy nút cam.<br>2. Xem kết quả học sinh điểm 26 và 29.<br>3. Bắt đầu một lượt tổng hợp mới cùng phạm vi sau bản tổng hợp mới nhất chưa chốt (trung bình 62) nhưng chưa hoàn tất (đang chạy hoặc thất bại); chạy lại nút cam. |
-| Expected | 1–2. Dùng `A=62` (mới nhất, cùng kỳ) → nhánh `A≥60`, `T=30` → 26 và 29 Đỏ. Không dùng bản cũ hơn hoặc bản khác kỳ.<br><br>3. Vẫn dùng `A=62` của bản hoàn tất mới nhất; không đọc lượt tổng hợp chưa hoàn tất. |
+| Fixture | local: bản tổng hợp chưa chốt (trung bình 62) và các bản `A=55`, `A=40`; cặp quy tắc phân nhánh theo trung bình 60; học sinh điểm 26 và 29 (và 24 cho các variant có bản chốt `A=49.99`) |
+| Thao tác | 1. Chạy nút cam.<br>2. Xem kết quả học sinh điểm 26 và 29.<br>3. Chốt（確定）khối × kỳ này rồi bỏ chốt（確定解除）; chạy lại nút cam.<br>4. Variant có bản chốt: chốt bản `A=49.99`, bắt đầu một lượt tổng hợp mới cùng phạm vi (đang chạy hoặc thất bại), chạy lại nút cam. |
+| Expected | 1–2. **Chưa xét được** (lý do: không có kết quả tổng hợp đã chốt để tham chiếu); ngừng dùng dấu/lọc đỏ cũ; điểm giữ nguyên. Không dùng `A=62`, `A=55` hay `A=40`.<br><br>3. Sau khi bỏ chốt vẫn chưa xét được, dù bản tổng hợp thường còn; không quay lại kết quả chưa chốt.<br><br>4. Vẫn dùng bản chốt `A=49.99` → nhánh `A<60`, `T=24.995` → điểm 24 Đỏ, điểm 26 Không đỏ; không đọc lượt tổng hợp chưa hoàn tất. |
 | Bảo toàn | @CTX-COMMON |
 | Bằng chứng | @CTX-COMMON |
 | Reset | @CTX-COMMON |
@@ -2366,9 +2366,10 @@
 
 | Variant | Inputs | Expected |
 | --- | --- | --- |
-| completed | Bản mới nhất hoàn tất: Dùng bản hoàn tất mới nhất cùng kỳ A=62; chạy nút cam, đọc điểm26/29. | Bản hoàn tất mới nhất cùng kỳ **A=62** → nhánh **A≥60,T=30**: điểm **26 và 29 Đỏ**. Không dùng bản cũ A=55 hoặc bản khác kỳ A=40. |
-| running | Bản mới đang chạy: Sau bản A=62, bắt đầu tổng hợp mới cùng scope nhưng còn đang chạy; chạy lại nút cam. | Khi lượt tổng hợp mới đang chạy, vẫn dùng bản **hoàn tất mới nhất A=62**, không đọc nguồn chưa hoàn tất → **26 và 29 Đỏ** theo **T=30**; không dùng bản cũ/khác kỳ. |
-| failed | Bản mới thất bại: Sau bản A=62, tổng hợp mới cùng scope thất bại; chạy lại nút cam. | Khi lượt tổng hợp mới thất bại, vẫn dùng bản **hoàn tất mới nhất A=62**, không đọc nguồn chưa hoàn tất → **26 và 29 Đỏ** theo **T=30**; không dùng bản cũ/khác kỳ. |
+| unconfirmed | Chưa chốt: Chỉ có tổng hợp chưa chốt `A=62` cùng phạm vi; chạy nút cam, đọc điểm 26/29. | **Chưa xét được** cho 26 và 29; không dùng `A=62`, `A=55` hay `A=40`. |
+| revoked | Đã bỏ chốt: Chốt rồi bỏ chốt（確定解除）; chạy nút cam, đọc điểm 26/29. | **Chưa xét được**; không quay về bản tổng hợp thường còn lại. |
+| running | Có bản chốt, tổng hợp mới đang chạy: Bản chốt `A=49.99` còn hiệu lực; bắt đầu tổng hợp mới cùng phạm vi nhưng còn chạy; chạy nút cam, đọc điểm 24/26. | Vẫn dùng bản chốt **A=49.99** → nhánh **A<60, T=24.995**: điểm **24 Đỏ**, **26 Không đỏ**; không đọc nguồn chưa hoàn tất. |
+| failed | Có bản chốt, tổng hợp mới thất bại: Bản chốt `A=49.99` còn hiệu lực; tổng hợp mới cùng phạm vi thất bại; chạy nút cam, đọc điểm 24/26. | Vẫn dùng bản chốt **A=49.99** → **24 Đỏ**, **26 Không đỏ**; không đọc nguồn chưa hoàn tất. |
 
 #### TC-RS-BR-009 — Nguồn: bản đã chốt thiếu dữ liệu → Chưa xét được, không chuyển sang bản thường
 
@@ -2376,7 +2377,7 @@
 | --- | --- |
 | Chức năng | Nguồn tổng hợp |
 | screen_relative_path | unknown |
-| Căn cứ | tiêu chí nghiệm thu “Ưu tiên bản chốt và xử lý thiếu nguồn” (AC-G13 «Ưu tiên bản chốt và xử lý thiếu nguồn»); tiêu chí nghiệm thu “Phạm vi từng đợt” (AC-G40 «Phạm vi từng đợt»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
+| Căn cứ | tiêu chí nghiệm thu “Chỉ dùng bản chốt và xử lý thiếu nguồn” (AC-G13 «Chỉ dùng bản chốt và xử lý thiếu nguồn»); tiêu chí nghiệm thu “Phạm vi từng đợt” (AC-G40 «Phạm vi từng đợt»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
 | Readiness | Draft |
@@ -2404,7 +2405,7 @@
 | --- | --- |
 | Chức năng | Nguồn tổng hợp |
 | screen_relative_path | unknown |
-| Căn cứ | tiêu chí nghiệm thu “Ưu tiên bản chốt và xử lý thiếu nguồn” (AC-G13 «Ưu tiên bản chốt và xử lý thiếu nguồn»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
+| Căn cứ | tiêu chí nghiệm thu “Chỉ dùng bản chốt và xử lý thiếu nguồn” (AC-G13 «Chỉ dùng bản chốt và xử lý thiếu nguồn»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
 | Readiness | Draft |
@@ -2546,7 +2547,7 @@
 | --- | --- |
 | Chức năng | Nguồn tổng hợp |
 | screen_relative_path | unknown |
-| Căn cứ | tiêu chí nghiệm thu “Đúng phạm vi tham chiếu” (AC-G12 «Đúng phạm vi tham chiếu»); tiêu chí nghiệm thu “Ưu tiên bản chốt và xử lý thiếu nguồn” (AC-G13 «Ưu tiên bản chốt và xử lý thiếu nguồn»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
+| Căn cứ | tiêu chí nghiệm thu “Đúng phạm vi tham chiếu” (AC-G12 «Đúng phạm vi tham chiếu»); tiêu chí nghiệm thu “Chỉ dùng bản chốt và xử lý thiếu nguồn” (AC-G13 «Chỉ dùng bản chốt và xử lý thiếu nguồn»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
 | Readiness | Draft |
@@ -2577,7 +2578,7 @@
 | --- | --- |
 | Chức năng | Nguồn tổng hợp |
 | screen_relative_path | unknown |
-| Căn cứ | tiêu chí nghiệm thu “Ưu tiên bản chốt và xử lý thiếu nguồn” (AC-G13 «Ưu tiên bản chốt và xử lý thiếu nguồn»); tiêu chí nghiệm thu “Giữ kết quả trước khi chạy lại” (AC-G21 «Giữ kết quả trước khi chạy lại và xóa rule cuối»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
+| Căn cứ | tiêu chí nghiệm thu “Chỉ dùng bản chốt và xử lý thiếu nguồn” (AC-G13 «Chỉ dùng bản chốt và xử lý thiếu nguồn»); tiêu chí nghiệm thu “Giữ kết quả trước khi chạy lại” (AC-G21 «Giữ kết quả trước khi chạy lại và xóa rule cuối»); trạng thái nguồn CONFIRMED; ưu tiên nguồn Cao |
 | Priority | High |
 | Căn cứ kỳ vọng | Confirmed |
 | Readiness | Draft |
@@ -2600,6 +2601,36 @@
 | missing-source | Nguồn mới thiếu: Chọn nhóm Toán I khối1+2 nhưng X chưa tổng hợp nhóm này; chạy nút cam. | Nhóm đã chọn tồn tại nhưng chưa có dữ liệu nguồn: **S01 Chưa xét được**; không coi lựa chọn nhóm là dữ liệu đã tổng hợp. |
 | disabled-group | Nhóm bị tắt: Từ baseline S01=29 Đỏ, tắt Lớp học（授業）; đọc trước chạy, rồi chạy nút cam và đọc lại. | Sau khi chỉ tắt Lớp học（授業） mà chưa chạy lại, **S01 giữ Đỏ trước đó**. Sau nút cam: **Chưa xét được**; không chuyển sang khối/lớp chủ nhiệm/nhóm khác, không xuống rule thấp hơn hoặc dùng kết quả cũ làm hiện hành. |
 | deleted-group | Nhóm bị xóa: Xóa nhóm Toán I khối1+2 đang được rule tham chiếu; chạy nút cam và đọc ô chịu ảnh hưởng. | Sau khi xóa nhóm được tham chiếu và chạy lại, ô chịu ảnh hưởng **Chưa xét được**; không âm thầm đổi loại/ID nhóm đã lưu. |
+
+#### TC-RS-BR-041 — Nguồn: mục đánh giá của nguồn không cần trùng ô xét; ghi mục tham chiếu thực tế
+
+| Field | Value |
+| --- | --- |
+| Chức năng | Nguồn tổng hợp |
+| screen_relative_path | unknown |
+| Căn cứ | tiêu chí nghiệm thu “Chỉ dùng bản chốt và xử lý thiếu nguồn” (AC-G13); shite 28/10/2026: bỏ giới hạn «cùng mục đánh giá», ghi ID mục thực tế từ phương thức chung của PR #57058 (DEC-004) |
+| Priority | High |
+| Căn cứ kỳ vọng | Confirmed |
+| Readiness | Draft |
+| Gap | G-PREP-UNASSESSED |
+| Cấu hình | Mục thi lại R (M=100) có quy tắc: điểm < Trung bình ÷ 2 (nguồn: thiết lập tổng hợp X, đã chốt, mục tham chiếu là kỳ thi gốc E, trung bình 56). |
+| Kích hoạt | @CTX-COMMON |
+| Quan sát | @CTX-COMMON |
+| Actor và quyền | Dùng actor/quyền được nêu trong điều kiện; cấu hình bởi người được sửa đúng mục, ghi điểm bởi người phụ trách lớp, batch bởi người có quyền chạy; đầu ra và tài khoản học sinh giữ quyền riêng. |
+| Fixture | local: thiết lập X đã chốt cho khối × kỳ cần dùng, mục tham chiếu E; học sinh S01 (điểm thi lại 25), S02 (điểm 30) |
+| Thao tác | 1. Chạy nút cam; xem S01/S02 và mục Nguồn trong chi tiết.<br>2. Đổi mục đích của X sang mục khác nhưng **chưa** tổng hợp lại/chốt lại; chạy lại nút cam; xem chi tiết.<br>3. Với kết quả chốt không có ID mục (tổng hợp trước khi triển khai); chạy lại nút cam. |
+| Expected | 1. Xét được bằng trung bình đã chốt 56 → ngưỡng 28: **S01 Đỏ**, S02 Không đỏ; không bị «chưa xét được» chỉ vì mục thi lại khác mục E. Nguồn ghi **mục E** (không phải mục thi lại) và ID bản chốt đang hiệu lực.<br>2. Vẫn dùng bản chốt cũ; nguồn vẫn ghi mục **E**, không thay bằng mục mới của thiết lập.<br>3. Vẫn xét bằng số liệu đã chốt; mục nguồn lưu **null** (không xác định) trong thông tin nguồn đã lưu. |
+| Bảo toàn | @CTX-COMMON |
+| Bằng chứng | @CTX-COMMON |
+| Reset | @CTX-COMMON |
+
+##### Variants
+
+| Variant | Inputs | Expected |
+| --- | --- | --- |
+| lesson-population | Nhóm lớp học phần: nguồn theo lớp học phần, mục tham chiếu E; ô mục R không đơn vị. | Xét được; nguồn ghi mục E. |
+| lesson-unit-cell | Nguồn theo lớp học phần dùng cho ô đơn vị. | **Chưa xét được** (nguồn không hợp lệ); ràng buộc đơn vị không đổi. |
+| other-unit | Kết quả chốt của đơn vị khác. | **Chưa xét được**; chỉ bỏ ràng buộc mục đánh giá. |
 
 #### TC-RS-VAL-024 — Quy tắc dùng trung bình/tỷ lệ nhóm không lưu được khi thiếu nguồn
 
@@ -2797,9 +2828,9 @@
 | Kích hoạt | @CTX-COMMON |
 | Quan sát | @CTX-COMMON |
 | Actor và quyền | Dùng actor/quyền được nêu trong điều kiện; cấu hình bởi người được sửa đúng mục, ghi điểm bởi người phụ trách lớp, batch bởi người có quyền chạy; đầu ra và tài khoản học sinh giữ quyền riêng. |
-| Fixture | local: học sinh S01 (điểm 29); nguồn sau tổng hợp có `A=62` (giá trị như bản tổng hợp mới nhất chưa chốt (trung bình 62)) |
-| Thao tác | 1. Chạy Thực hiện tổng hợp（集計実行） cho nguồn để có `A=62`; mở lại và lưu thiết lập quy tắc (không đổi nội dung). Xem đầu ra.<br>2. Chạy nút cam. Xem đầu ra. |
-| Expected | 1. Vẫn Chưa xét được; không có dấu đỏ.<br>2. `T=62×0.5=31` → S01=29 Đỏ. |
+| Fixture | local: học sinh S01 (điểm 29); nguồn sau tổng hợp và chốt có `A=62` (giá trị như bản tổng hợp đã chốt (trung bình 62)) |
+| Thao tác | 1. Chạy Thực hiện tổng hợp（集計実行） cho nguồn để có `A=62`; mở lại và lưu thiết lập quy tắc (không đổi nội dung). Xem đầu ra.<br>2. Chốt kết quả tổng hợp（確定）của nguồn, rồi chạy nút cam. Xem đầu ra. |
+| Expected | 1. Vẫn Chưa xét được (mới tổng hợp, chưa chốt); không có dấu đỏ.<br>2. `T=62×0.5=31` → S01=29 Đỏ. |
 | Bảo toàn | @CTX-COMMON |
 | Bằng chứng | @CTX-COMMON |
 | Reset | @CTX-COMMON |
@@ -2808,7 +2839,7 @@
 
 | Variant | Inputs | Expected |
 | --- | --- | --- |
-| Base | Toàn bộ tình huống: Thực hiện đủ các bước chung theo thứ tự; kiểm cả đối tượng đích và đối chứng cùng fixture, không bỏ bước. | 1. Vẫn Chưa xét được; không có dấu đỏ.<br>2. `T=62×0.5=31` → S01=29 Đỏ. |
+| Base | Toàn bộ tình huống: Thực hiện đủ các bước chung theo thứ tự; kiểm cả đối tượng đích và đối chứng cùng fixture, không bỏ bước. | 1. Vẫn Chưa xét được (mới tổng hợp, chưa chốt); không có dấu đỏ.<br>2. `T=62×0.5=31` → S01=29 Đỏ. |
 
 #### TC-RS-BR-026 — Không fallback sang legacy khi rule mới thiếu hoặc không khớp dữ liệu
 
@@ -3107,11 +3138,11 @@
 | Căn cứ kỳ vọng | Confirmed |
 | Readiness | Draft |
 | Gap | G-PREP-UNASSESSED |
-| Cấu hình | Ô S01=29 Đỏ theo công thức `A×0.5` (nguồn bản tổng hợp mới nhất chưa chốt (trung bình 62)). |
+| Cấu hình | Ô S01=29 Đỏ theo công thức `A×0.5` (nguồn bản tổng hợp đã chốt (trung bình 62)). |
 | Kích hoạt | @CTX-COMMON |
 | Quan sát | @CTX-COMMON |
 | Actor và quyền | Dùng actor/quyền được nêu trong điều kiện; cấu hình bởi người được sửa đúng mục, ghi điểm bởi người phụ trách lớp, batch bởi người có quyền chạy; đầu ra và tài khoản học sinh giữ quyền riêng. |
-| Fixture | local: mục có M không hợp lệ, quy tắc công thức 100 ÷ trung bình, bản tổng hợp mới nhất chưa chốt (trung bình 62); học sinh S01 (điểm 29), nguồn chưa có kết quả tổng hợp |
+| Fixture | local: mục có M không hợp lệ, quy tắc công thức 100 ÷ trung bình, bản tổng hợp đã chốt (trung bình 62); học sinh S01 (điểm 29), nguồn chưa có kết quả tổng hợp |
 | Thao tác | 1. Từ baseline độc lập, xác nhận S01=29 đang Đỏ; tạo biến thể (a) bằng cách đổi nguồn sang nguồn chưa có kết quả tổng hợp (không có tổng hợp), lưu, chạy lại.<br>2. Khôi phục/rebuild baseline S01=29 Đỏ; tạo biến thể (b) bằng quy tắc tỷ lệ với M không hợp lệ (mục có M không hợp lệ), rồi chạy lại.<br>3. Khôi phục/rebuild baseline S01=29 Đỏ; tạo biến thể (c) bằng quy tắc công thức 100 ÷ trung bình với `A=0`, rồi chạy lại.<br>4. Sau mỗi biến thể: xem ba đầu ra và điểm S01. |
 | Expected | Mỗi biến thể: trạng thái Chưa xét được; dấu/lọc đỏ cũ ngừng ở cả ba đầu ra; điểm S01 vẫn 29; không đi xuống quy tắc thấp hơn; không bật lại ngưỡng cũ `red_score`. |
 | Bảo toàn | @CTX-COMMON |
@@ -3226,9 +3257,9 @@
 | Kích hoạt | @CTX-COMMON |
 | Quan sát | @CTX-COMMON |
 | Actor và quyền | Dùng actor/quyền được nêu trong điều kiện; cấu hình bởi người được sửa đúng mục, ghi điểm bởi người phụ trách lớp, batch bởi người có quyền chạy; đầu ra và tài khoản học sinh giữ quyền riêng. |
-| Fixture | local: bản tổng hợp mới nhất chưa chốt (trung bình 62) |
-| Thao tác | 1. Sửa điểm nhóm để trung bình mới là 40, bấm Thực hiện tổng hợp（集計実行）.<br>2. Xem kết quả học sinh 24.<br>3. Bấm Thực hiện tính toán tự động（自動算出実行）, xem lại. |
-| Expected | 1–2. Vẫn Đỏ theo kết quả trước (không tự xét lại).<br><br>3. `A=40` → `T=20` → 24 Không đỏ. |
+| Fixture | local: bản tổng hợp đã chốt `A=50` |
+| Thao tác | 1. Sửa điểm nhóm để trung bình mới là 40, bấm Thực hiện tổng hợp（集計実行）.<br>2. Xem kết quả học sinh 24.<br>3. Bấm Thực hiện tính toán tự động（自動算出実行）, xem lại.<br>4. Cập nhật nội dung chốt（確定内容の更新）bằng kết quả tổng hợp mới, rồi bấm Thực hiện tính toán tự động（自動算出実行）, xem lại. |
+| Expected | 1–2. Vẫn Đỏ theo kết quả trước (không tự xét lại).<br><br>3. Vẫn Đỏ: chạy tổng hợp lại không thay bản chốt, nên điểm đỏ vẫn dùng `A=50` → `T=25`.<br><br>4. Sau khi cập nhật bản chốt, `A=40` → `T=20` → 24 Không đỏ. |
 | Bảo toàn | @CTX-COMMON |
 | Bằng chứng | @CTX-COMMON |
 | Reset | @CTX-COMMON |
@@ -3237,7 +3268,7 @@
 
 | Variant | Inputs | Expected |
 | --- | --- | --- |
-| Base | Toàn bộ tình huống: Thực hiện đủ các bước chung theo thứ tự; kiểm cả đối tượng đích và đối chứng cùng fixture, không bỏ bước. | 1–2. Vẫn Đỏ theo kết quả trước (không tự xét lại).<br><br>3. `A=40` → `T=20` → 24 Không đỏ. |
+| Base | Toàn bộ tình huống: Thực hiện đủ các bước chung theo thứ tự; kiểm cả đối tượng đích và đối chứng cùng fixture, không bỏ bước. | 1–2. Vẫn Đỏ theo kết quả trước (không tự xét lại).<br><br>3. Vẫn Đỏ: chạy tổng hợp lại không thay bản chốt, nên điểm đỏ vẫn dùng `A=50` → `T=25`.<br><br>4. Sau khi cập nhật bản chốt, `A=40` → `T=20` → 24 Không đỏ. |
 
 #### TC-RS-BR-022 — Đổi M ở Thiết lập điểm tối đa（満点設定） hoặc Giá trị tối đa（最大値） không tự xét lại
 

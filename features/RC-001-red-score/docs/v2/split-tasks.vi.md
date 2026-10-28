@@ -116,7 +116,7 @@ Lưu duy nhất đúng trạng thái của ô mà không đổi điểm; ba đ�
 - Chọn Thời kỳ tổng hợp（集計対象時期）, Thiết lập tổng hợp thứ hạng（順位集計設定）, Nhóm học sinh được tổng hợp（集計対象（母集団）） và đúng môn/mục/đơn vị. Tách đối tượng áp dụng khỏi nhóm tham chiếu, không đổi trung bình theo bộ lọc trích xuất. Ngưỡng cố định có điều kiện trung bình/tỷ lệ cũng phụ thuộc nguồn.
 - Lựa chọn nhóm tham chiếu theo thiết lập tổng hợp hiện có của trường/năm. Chỉ cho chọn khối/HR/lớp học khi loại tương ứng được bật; không thêm công tắc phía điểm đỏ. Cùng cấu hình tổng hợp X đọc kết quả của nhóm đã chọn, không tạo cấu hình khác chỉ để đổi loại. Được bật nhưng chưa có kết quả thì chưa xét được.
 - Nhóm tổng hợp, tổ hợp và nhóm môn có cấu hình hiện hữu thì được chọn/lưu độc lập với ba cờ trên; chọn bằng tên nhưng lưu ID. Theo mẫu Công khai thành tích（成績公開設定）, chọn cấu hình tổng hợp rồi đối tượng tổng hợp, dùng cùng thao tác ở điều kiện và công thức. Không thêm trường thứ hạng/tên hiển thị/biểu đồ từ màn ví dụ hoặc màn sửa nhóm theo từng môn mới.
-- Tự ưu tiên bản chốt đúng phạm vi; chỉ khi không có mới dùng bản hoàn tất mới nhất cùng phạm vi. Không lấy bản khác lấp dữ liệu thiếu của bản chốt, không tính lại trung bình từ điểm chưa tổng hợp.
+- Chỉ dùng bản đã chốt đang hiệu lực của đúng phạm vi (khối × kỳ/thời điểm), đọc qua `GradeCalcResultService::getTotalResults()` với `$use_fix_table = true` (PR #57058). Chưa chốt hoặc đã bỏ chốt thì chưa xét được. Không lấy kết quả chưa chốt hay bản khác lấp dữ liệu thiếu, không tính lại trung bình từ điểm chưa tổng hợp.
 - Chọn nhánh bằng `A`/`R` trước làm tròn: `A=49.99` thuộc `<50`. `R` kế thừa tổng điểm/tổng maximum của cùng tập đóng góp, không dùng trung bình cộng tỷ lệ cá nhân hoặc `A/M` của học sinh đang xét.
 - Công thức gồm vế trái/phải, bốn phép toán, phần lẻ từng dòng; tham chiếu nhận kết quả sau phần lẻ, dòng cuối cho `T`. Ngưỡng âm hữu hạn hợp lệ, không ép về 0/maximum. Từ chối mẫu số cố định 0, thiếu giá trị, tham chiếu chính dòng/dòng sau/dòng đã xóa lúc lưu; lỗi chỉ xuất hiện khi chạy thì trả chưa xét được cho Task 2.
 - **Đề xuất cần review:** Dấu phân nhánh `<`/`≤`/`≥`/`>`; toán hạng trung bình, số/hệ số, kết quả dòng trước. Công thức có một bộ nguồn cho trung bình; điều kiện có lựa chọn nguồn riêng. Vị trí phần lẻ `p=1..9` xử lý chữ số thập phân thứ p; phương thức gần nhất/lên/xuống. Với số âm, điểm giữa làm tròn ra xa 0, lên/xuống là ceil/floor.
@@ -125,7 +125,7 @@ Lưu duy nhất đúng trạng thái của ô mà không đổi điểm; ba đ�
 
 ### Hướng kỹ thuật
 
-- Bộ đọc kết quả tổng hợp hiện có là điểm đọc theo bộ tổng hợp, nhóm, môn, thời điểm. Không coi đường đọc hiện tại đã có bản chốt và đơn vị; phải giữ nhận diện đơn vị và lựa chọn bản chốt đến cuối.
+- Bộ đọc kết quả tổng hợp hiện có là điểm đọc theo bộ tổng hợp, nhóm, môn, thời điểm. Không coi đường đọc hiện tại đã có bản chốt và đơn vị; phải giữ nhận diện đơn vị và việc chỉ đọc bản chốt (`$use_fix_table = true`) đến cuối.
 - Đối chiếu tổng điểm, số người có điểm, tổng maximum trong cùng bản và cùng tập đóng góp. Không thay số người có điểm bằng số người xếp hạng; lấy tỷ lệ đủ độ chính xác hoặc các thành phần, không dùng số đã làm tròn để hiển thị. Số người 0, mẫu sai, thiếu dữ liệu không phải giá trị 0 thật.
 - Tham khảo editor của bộ điều khiển thiết lập tính tự động và `calcResult`, `getCalcValue`, `calcDecimalPlace` tại bộ tính điểm tự động hiện có. Không mở mọi toán hạng sẵn có; tách công thức ngưỡng khỏi ghi/xóa/giới hạn điểm. Sau xóa/đổi thứ tự dòng phải kiểm đúng nghĩa tham chiếu.
 - Nối cấu hình qua đường lưu Task 1, kết quả công thức qua đầu vào/đầu ra xét của Task 2. Một lượt dùng cùng nguồn nhiều lần phải cùng bản; đổi nguồn điều kiện không ngầm đổi nguồn công thức. Chốt chữ số, miền hệ số, số dòng trong thiết kế kỹ thuật, không âm thầm làm tròn giá trị đã nhận khi lưu.
@@ -133,7 +133,7 @@ Lưu duy nhất đúng trạng thái của ô mà không đổi điểm; ba đ�
 
 ### Phụ thuộc và phần chưa chốt
 
-Cần chọn rõ điều kiện/công thức trong đợt triển khai. Phần đã chọn được dùng dummy data để làm trước; không chặn mọi việc chỉ vì chờ kết nối liên quan [PR nguồn tổng hợp #57058](https://github.com/ednity/school-web/pull/57058). Tài liệu không xác nhận trạng thái merge hiện tại. Chưa hoàn tất tích hợp phần này nếu chưa kiểm nguồn thật, ưu tiên bản chốt, đơn vị và độ chính xác.
+Cần chọn rõ điều kiện/công thức trong đợt triển khai. Phần đã chọn được dùng dummy data để làm trước; không chặn mọi việc chỉ vì chờ kết nối liên quan [PR nguồn tổng hợp #57058](https://github.com/ednity/school-web/pull/57058). Tài liệu không xác nhận trạng thái merge hiện tại. Chưa hoàn tất tích hợp phần này nếu chưa kiểm nguồn thật, chỉ dùng bản chốt, đơn vị và độ chính xác.
 
 ### Hoàn tất khi
 
@@ -157,7 +157,7 @@ Cần chọn rõ điều kiện/công thức trong đợt triển khai. Phần �
 
 - Xét sau giới hạn điểm, cập nhật môn chính/phụ và ô liên quan. Không bỏ mục không có AutoRating, điểm sửa tay bị bỏ tính lại hoặc ô đã liên kết nhưng không gọi AutoRating.
 - Trường chỉ có rule đỏ vẫn chạy được bằng thao tác hàng loạt hiện hữu; mục đã xóa rule cuối vẫn được xử lý kết quả cũ. Không mở rộng quyền trường/năm/lớp/học sinh/thời điểm/thực thi.
-- Với đánh giá tương đối: tự tổng hợp để Không thực hiện（実行しない）, hoàn tất đầu vào → nút xanh Thực hiện tổng hợp（集計実行） hoàn tất → nút cam Thực hiện tính toán tự động（自動算出実行） hoàn tất. Tắt tự tổng hợp không tắt xét lúc đăng ký; bản chốt vẫn ưu tiên. Không thêm vòng lặp hội tụ hoặc quản lý hoàn tất mọi môn.
+- Với đánh giá tương đối: tự tổng hợp để Không thực hiện（実行しない）, hoàn tất đầu vào → nút xanh Thực hiện tổng hợp（集計実行） hoàn tất → Chốt kết quả tổng hợp（確定） → nút cam Thực hiện tính toán tự động（自動算出実行） hoàn tất. Tắt tự tổng hợp không tắt xét lúc đăng ký; vẫn chỉ dùng bản chốt (chưa chốt thì chưa xét được). Không thêm vòng lặp hội tụ hoặc quản lý hoàn tất mọi môn.
 - Nhập trực tiếp/CSV/liên kết giữ ranh giới giao dịch hiện có và điểm/kết quả nhất quán. Batch phân biệt phần hoàn tất, chưa xét được, thất bại; vào hàng đợi hay số lớp đã xử lý không được báo mọi ô đã xét xong.
 - Tách chưa chạy lại sau đổi cấu hình, đã chạy nhưng không tạo được ngưỡng, và lỗi kỹ thuật không lưu được. Hướng dẫn chạy lại, không thêm retry vô hạn, lộ lỗi nội bộ hoặc cấm công khai mới.
 - Xóa chính điểm số: ngay khi lưu thành công thì ô trống, ngừng dấu/lọc đỏ của ô, không chờ chạy lại. Lưu điểm và status=4 cùng transaction, không xác nhận thay đổi khi lưu lỗi. Hướng dẫn UI phân biệt với giữ kết quả trước sau xóa rule.

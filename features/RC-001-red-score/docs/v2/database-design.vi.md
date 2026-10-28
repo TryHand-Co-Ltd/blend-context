@@ -137,7 +137,7 @@ UI và kiểm tra lưu phía server dùng điều kiện khả dụng theo từn
 
 Loại 5 phải khớp cả lớp, không chỉ môn. Loại 6 giữ cả ID nhóm môn đã chọn và loại/nhóm được phân giải rồi đọc nhánh tổng hợp tương ứng. Điều kiện áp dụng và công thức dùng cùng cấu trúc nguồn nhưng lưu lựa chọn độc lập.
 
-Dùng ID thay tên nhóm và xác định đúng trường/năm/kỳ/nhóm/môn/mục/đơn vị. Ưu tiên bản chốt; chỉ khi chưa có bản chốt tương ứng mới dùng kết quả hoàn tất mới nhất. Thiếu hoặc mâu thuẫn dữ liệu thì chưa xét được, không tự đổi nhóm/bản nguồn.
+Dùng ID thay tên nhóm và xác định đúng trường/năm/kỳ/nhóm/môn/mục/đơn vị. Chỉ dùng bản đã chốt đang hiệu lực (đọc qua `getTotalResults()` với `$use_fix_table = true`, PR #57058); chưa chốt hoặc đã bỏ chốt thì chưa xét được, không dùng kết quả chưa chốt. Thiếu hoặc mâu thuẫn dữ liệu thì chưa xét được, không tự đổi nhóm/bản nguồn.
 
 Tỷ lệ nhóm kế thừa kết quả tổng hợp hiện có trước làm tròn; không tính trung bình tỷ lệ cá nhân riêng. Không chặn cấu hình hoặc dừng xử lý chỉ vì các lớp khác maximum.
 
@@ -246,10 +246,11 @@ Lưu thông tin của lần xét hiện hành, không lưu toàn bộ lịch s�
 
 Mỗi phần tử `sources` chứa:
 - `usage`: `condition`, `formula` hoặc `both`.
-- `kind`: `confirmed` cho bản chốt, `latest` cho kết quả hoàn tất mới nhất.
-- `reference`: object gồm `provider` và `key` để định danh bản nguồn thực tế.
+- `kind`: luôn là `confirmed` (chỉ dùng bản chốt). Giá trị `latest` của thiết kế cũ không còn được ghi.
+- `reference`: object gồm `provider` và `key` để định danh bản nguồn thực tế. Với bản chốt: `provider = grade_calc_fix_log`, `key` = ID bản chốt đang hiệu lực (cập nhật nội dung chốt tạo ID mới).
 - Bộ năm trường nguồn tại mục 3.1.
-- `sub_subject_id`, `evaluate_item_id`, `tangen_id` và `population_key` — danh sách chuỗi ID/số khối của nhóm đã phân giải.
+- `evaluate_item_id`: **mục đánh giá mà kết quả chốt thực sự tham chiếu** (lấy từ phương thức chung, PR #57058), không phải mục của ô đang xét và không lấy từ thiết lập hiện tại; `null` nếu không xác định (kết quả chốt chưa có ID mục).
+- `sub_subject_id`, `tangen_id` và `population_key` — danh sách chuỗi ID/số khối của nhóm đã phân giải.
 - Với loại 6, thêm `resolved_population_type` (1–5) và `resolved_population_ref_id`; không ghi đè `population_type=6`/ID đã chọn. Với loại 5 hoặc loại 6 phân giải thành 5, `population_key` chứa ID lớp thực tế.
 
 Lần xét dùng điểm hợp lệ cũng lưu `grade_id` là `grades.id` nguồn. Đây là thông tin giải thích, không thay thế cơ chế phiên bản tại mục 6.
@@ -416,7 +417,7 @@ Với nhiều ô/môn liên quan, xác định tập bị thay đổi trước r
 
 Xóa thành trống/xóa mềm/ngừng dùng đơn vị/xóa khi khôi phục dùng cùng khóa và transaction: cấp G mới, tăng V, lưu trạng thái 4 với `judged_version=V`, xóa thông tin rule/ngưỡng/nguồn cũ. Giữ dòng điều khiển. Khi tạo lại, tiếp tục cấp G và phiên bản mới, không kế thừa kết luận trước. Thay điểm thông thường tăng V, nên 29→40→29 vẫn làm ticket cũ hết hiệu lực. Xóa vật lý dòng điều khiển hoặc tái sử dụng token không thuộc luồng thông thường của phiên bản này.
 
-Nguồn tham chiếu và maximum được đọc nhất quán tại thời điểm lấy đầu vào; dùng lại scalar đã lấy cho cùng nguồn trong một lượt. Giữ ưu tiên bản chốt, đúng kỳ/môn/đơn vị/nhóm và độ chính xác trước làm tròn; không trộn thời điểm khi tổng hợp đang ghi lại. Nếu ID nguồn giữ nguyên nhưng dữ liệu bị ghi đè, dùng snapshot đọc nhất quán hoặc phiên bản provider để bảo đảm cùng bộ giá trị. Không thêm cơ chế tự xét lại toàn trường mỗi khi nguồn thay đổi.
+Nguồn tham chiếu và maximum được đọc nhất quán tại thời điểm lấy đầu vào; dùng lại scalar đã lấy cho cùng nguồn trong một lượt. Chỉ dùng bản chốt, đúng kỳ/môn/đơn vị/nhóm và độ chính xác trước làm tròn; không trộn thời điểm khi tổng hợp đang ghi lại. Nếu ID nguồn giữ nguyên nhưng dữ liệu bị ghi đè, dùng snapshot đọc nhất quán hoặc phiên bản provider để bảo đảm cùng bộ giá trị. Không thêm cơ chế tự xét lại toàn trường mỗi khi nguồn thay đổi.
 
 Tiến độ phân biệt lượt cũ là `superseded`, không tính thành cập nhật thành công hay chưa xét được theo nghiệp vụ. Không xóa kết quả mới hoặc tự tái tạo ô đã xóa. Deadlock/timeout rollback toàn transaction, đọc lại theo chính sách retry hữu hạn của job hiện có. Đường không có retry hữu hạn thì không bổ sung retry tự động; báo phạm vi thất bại và hướng dẫn chạy lại thủ công. Không hứa rollback toàn batch.
 

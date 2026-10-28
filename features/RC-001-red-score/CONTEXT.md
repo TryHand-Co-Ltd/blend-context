@@ -110,7 +110,7 @@ Trước khi triển khai/phát hành phải xác định riêng: loại điều
 Có thể thiết kế đầy đủ và phát hành từng phần:
 - Phần không phụ thuộc trung bình có thể tách khỏi việc tích hợp nguồn chốt, nhưng vẫn cần kết quả dùng chung và đủ đường đăng ký/chạy lại.
 - Các quyết định về ngưỡng phần lẻ, điểm tối đa hiện hành và thiếu dữ liệu đã có phản hồi ngày 25/09; đưa tỷ lệ vào bản phát hành vẫn cần xác định phạm vi, tích hợp và kiểm chứng tương ứng.
-- Chỉ thêm công thức/phân nhánh trung bình khi có nguồn đúng ngữ cảnh, ưu tiên bản chốt, xử lý lỗi và quy trình vận hành được xác định.
+- Chỉ thêm công thức/phân nhánh trung bình khi có nguồn đúng ngữ cảnh, chỉ dùng bản chốt (chưa chốt thì chưa xét được), xử lý lỗi và quy trình vận hành được xác định.
 - Không biểu thị một phần chưa triển khai như lựa chọn hoạt động trên màn sản phẩm.
 
 **Loại khỏi bản đầu:** A/B/C và đạt/không đạt dạng lựa chọn. Chưa chốt cách mở rộng chúng. Không chuyển dữ liệu điểm đỏ cũ. Không thêm quản lý hoàn tất mọi môn, chặn phát hành vì thiếu kết quả đỏ, lưu cố định toàn bộ phiếu hoặc vòng lặp tự hội tụ tính–tổng hợp.
@@ -128,7 +128,7 @@ Có thể thiết kế đầy đủ và phát hành từng phần:
 | R05 | Một mục có nhiều cấu hình, chọn theo ưu tiên giống tính toán tự động | Không gộp kết quả mọi rule hoặc tự lấy ngưỡng lớn nhất |
 | R06 | Công thức trung bình dùng nguồn được chọn và bốn phép toán | Kết quả là ngưỡng; không ghi/xóa/giới hạn điểm học sinh để tính ngưỡng |
 | R07 | Chọn nhánh bằng trung bình trước làm tròn; công thức có thể xử lý phần lẻ theo bước; tỷ lệ điểm tối đa cũng cho chọn xử lý phần lẻ | Không cắt điểm học sinh thay cho ngưỡng; không còn floor bắt buộc cho mọi tỷ lệ |
-| R08 | Đúng kỳ/bộ tổng hợp/nhóm/môn/mục và ngữ cảnh đơn vị; ưu tiên bản chốt, chưa chốt dùng kết quả đã chạy mới nhất | Không lấy trung bình tập đang lọc xuất; không tự đổi nguồn khi thiếu |
+| R08 | Đúng kỳ/bộ tổng hợp/nhóm/môn/mục và ngữ cảnh đơn vị; chỉ dùng bản chốt (chưa chốt/bỏ chốt thì chưa xét được; cập nhật 28/10/2026, xem DEC-004) | Không lấy trung bình tập đang lọc xuất; không tự đổi nguồn khi thiếu |
 | R09 | Fixed/rate độc lập không cần trung bình; tỷ lệ dùng điểm tối đa hiện hành đúng ngữ cảnh | Bản chốt là chính sách của nguồn trung bình, không thay M hiện hành của tỷ lệ độc lập; nếu điều kiện áp dụng đọc trung bình thì vẫn phụ thuộc trung bình |
 | R10 | Không có chế độ thủ công/tự động riêng; xét sau hoàn tất xử lý điểm | Tính hàng loạt theo thao tác hiện có cũng phải bao phủ xét đỏ |
 | R11 | Giữ kết quả trước khi chưa chạy lại, kể cả xóa thiết lập cuối; khi đã xét lại mà không tạo được ngưỡng hợp lệ hoặc không có thiết lập áp dụng thì ngừng dùng kết quả cũ | Thiếu dữ liệu là chưa xét được; không có điều kiện là không áp dụng; cả hai không phải kết luận đã đạt và không xóa điểm học sinh |
@@ -258,13 +258,13 @@ Ràng buộc nhập kế thừa: khi lưu điều kiện cố định, giữ 0 �
 
 Giữ đúng trường/năm/kỳ/bộ tổng hợp/nhóm/môn/mục/đơn vị áp dụng. Dữ liệu trung bình và các đại lượng cấu thành phải thuộc cùng bản nguồn. Trung bình trước làm tròn có thể được tính từ tổng điểm/số người đã lưu của bản đó; không tính lại trên điểm chưa tổng hợp.
 
-Nguồn chốt có ưu tiên tự động. Nếu bản chốt được chọn thiếu dữ liệu, không tự bỏ sang một bản khác; áp xử lý thiếu dữ liệu. Xem/xuất không chọn lại nguồn để tái xét.
+Chỉ bản chốt được dùng (DEC-004); chưa chốt hoặc đã bỏ chốt thì chưa xét được. Nếu bản chốt được chọn thiếu dữ liệu, không tự bỏ sang một bản khác; áp xử lý thiếu dữ liệu. Xem/xuất không chọn lại nguồn để tái xét.
 
 **Q3 đã xác nhận: kế thừa kết quả tổng hợp thứ hạng hiện có.** Theo kết quả nghiên cứu source đã ghi nhận, tỷ lệ nhóm là tổng điểm chia tổng điểm tối đa; không xây thêm cách tính trung bình tỷ lệ từng học sinh hoặc bộ tổng hợp riêng cho chức năng mới. Đây là hướng kế thừa kết quả hiện hữu, không phải xác nhận một kết quả bắt buộc cho ví dụ trộn điểm tối đa 50/100.
 
 Khách hàng xác nhận cùng mục có điểm tối đa khác nhau giữa các lớp là cấu hình có thể thiết lập nhưng không xảy ra trong thực tế ở cùng nhóm tổng hợp; nếu khác chương trình học thì nhóm tổng hợp cũng khác. Không thêm xử lý nghiệp vụ riêng hoặc chức năng ngăn cấu hình. Nếu vẫn xảy ra, tiếp tục dùng kết quả hiện hữu; riêng sự khác điểm tối đa không được gây lỗi làm dừng xử lý.
 
-Giữ đúng nhóm/bản nguồn, ưu tiên bản chốt và giá trị trước làm tròn. Câu “dùng nguyên kết quả hiện tại” không tự cho phép thay bằng số đã làm tròn trên màn hình. Team cần kiểm dữ liệu nguồn và độ chính xác khi tích hợp; chưa có bằng chứng rằng mọi nguồn đã đáp ứng. Thiếu nguồn hoặc dữ liệu không hợp lệ vẫn theo quy tắc chung, không thay bằng 0 hoặc tự coi là đã đạt.
+Giữ đúng nhóm/bản nguồn, chỉ dùng bản chốt và giá trị trước làm tròn. Câu “dùng nguyên kết quả hiện tại” không tự cho phép thay bằng số đã làm tròn trên màn hình. Team cần kiểm dữ liệu nguồn và độ chính xác khi tích hợp; chưa có bằng chứng rằng mọi nguồn đã đáp ứng. Thiếu nguồn hoặc dữ liệu không hợp lệ vẫn theo quy tắc chung, không thay bằng 0 hoặc tự coi là đã đạt.
 
 ### 5.3. Thời điểm thực hiện
 
@@ -380,7 +380,7 @@ Mốc bàn giao DB là bản có thể review về cấu hình, kết quả, ide
 | I03 — Điểm cuối và môn liên quan | Sau tính còn giới hạn min/max, xử lý đơn vị không dùng, ghi môn chính/sao chép điểm | Đọc S cuối, bao phủ ô môn chính hoặc ô khác thực sự thay đổi, không dùng kết quả trung gian |
 | I04 — Batch và quyền | Nút cam hiện phụ thuộc có AutoRating và có thể giới hạn nhân viên; dựng đối tượng có bộ lọc trước calc | Trường chỉ có rule đỏ và mục đã xóa rule cuối vẫn cần đường chạy lại phù hợp Q6.2-B; giữ quyền người chạy hiện hữu, thống nhất UI/server và phạm vi |
 | I05 — Thành công/skip/lỗi | Lưu trực tiếp/CSV có transaction; batch ghi dần; counter không phải số ô xét thành công | Ghi nhận kết quả thật, không hứa atomic toàn batch; tách lỗi kỹ thuật khỏi skip nghiệp vụ; thiết kế retry/recovery theo cơ chế có sẵn |
-| I06 — Nguồn chốt | PR #57058 chưa merge; có thể dùng dummy data để triển khai trước | Tích hợp và kiểm chứng nguồn thật khi sẵn sàng; chỉ dùng bản chốt (xem cập nhật 27/10/2026 ở đầu tài liệu); chuyển sang `getTotalResults()` / `getTotalData()` có `$use_fix_table` sau khi PR ổn định |
+| I06 — Nguồn chốt | PR #57058 chưa merge. ① đã đọc kết quả chốt qua `GradeCalcResultService::getTotalResults(..., true)`; chỉ chạy đúng sau khi PR này merge | Kiểm chứng trên dữ liệu thật sau khi merge; chỉ dùng bản chốt (DEC-004; xem cập nhật 27/10/2026 ở đầu tài liệu) |
 | I07 — Trung bình theo đơn vị | Log tổng hợp có tangen_id nhưng bộ đọc trung bình khảo sát chưa giữ chiều này trong SELECT/map | Giữ identity đơn vị, không gộp trung bình hai đơn vị; không hỏi lại phạm vi đơn vị đã xác nhận |
 | I08 — Maximum | Nhiều tầng; helper hiện thiếu tầng đơn vị; lưu định nghĩa khác lưu lựa chọn của lớp về trigger | Phân giải M hiện hành đúng Q1-A và giới hạn nhập đã kế thừa; không mở cơ chế tự tính mọi phụ thuộc hoặc lấy snapshot M cho tỷ lệ độc lập |
 | I09 — Không áp dụng / NULL / công thức hỏng | Engine cũ có đường ghi NULL khi không khớp, công thức lỗi có thể trả NULL khác FALSE | Không sao chép tác dụng xóa điểm; ngừng dùng kết quả cũ sau thiếu ngưỡng hoặc no-match theo Q5/Q6.1, phân biệt hai trạng thái; T âm hợp lệ xét bình thường |
@@ -441,7 +441,7 @@ Số Q ở bảng này là **số của bộ remaining Q&A r17 đã gửi (bản
 | --- | --- | --- |
 | Danh sách nhiều thiết lập, ưu tiên, điều hướng và các loại ngưỡng | Không đổi cấu trúc | Tiếp tục theo quy tắc đã xác nhận |
 | Điều kiện tỷ lệ nhóm và chú thích nguồn | Đã xác nhận, không còn giả định/chờ chọn A/B | Bản Nhật lịch sử đã đồng bộ; MW còn theo mục 9.7. Triển khai theo kết quả tổng hợp hiện hữu |
-| Nguồn dữ liệu và độ chính xác | Còn việc tích hợp, không còn lựa chọn nghiệp vụ A/B | Xác minh đúng nhóm/bản nguồn, ưu tiên bản chốt và giá trị trước làm tròn; không tự dùng số đã làm tròn trên màn hình |
+| Nguồn dữ liệu và độ chính xác | Còn việc tích hợp, không còn lựa chọn nghiệp vụ A/B | Xác minh đúng nhóm/bản nguồn, chỉ dùng kết quả đã chốt (mục đánh giá nguồn không cần trùng ô xét, ghi ID mục thực tế; DEC-004) và giá trị trước làm tròn; không tự dùng số đã làm tròn trên màn hình |
 | Ví dụ và tiêu chí phân nhánh | Không yêu cầu cách tính riêng cho nhóm trộn điểm tối đa | Dùng ví dụ cùng điểm tối đa; với tình huống khác điểm tối đa chỉ yêu cầu không gây lỗi dừng xử lý do sự khác biệt đó |
 | Vòng đời kết quả và ba đầu ra | Giữ Q5/Q6/Q7 | Thiếu dữ liệu vẫn theo quy tắc chung; không coi mọi ô là đã đạt chỉ để tránh lỗi |
 | Thiết kế DB, nguồn chốt, đơn vị và phạm vi phát hành | Không tự hoàn tất khi đóng Q3 | Hoàn thiện thiết kế/tích hợp và xác định đợt triển khai riêng |
@@ -454,7 +454,7 @@ Phản hồi Q3 chưa xác nhận bỏ yêu cầu giá trị trước làm tròn
 
 | Câu | Giả định trước phản hồi | Yêu cầu hiện hành / tác động |
 | --- | --- | --- |
-| Q1 | A — M hiện hành | Đã chốt A. Dùng M có hiệu lực tại lần xét, không bổ sung lựa chọn snapshot M; giữ riêng nguồn trung bình ưu tiên bản chốt |
+| Q1 | A — M hiện hành | Đã chốt A. Dùng M có hiệu lực tại lần xét, không bổ sung lựa chọn snapshot M; giữ riêng nguồn trung bình chỉ dùng kết quả đã chốt |
 | Q2 | A — có lựa chọn phần lẻ, mặc định không xử lý | Đã chốt A. Giữ điều khiển phương thức/vị trí chữ số; không floor bắt buộc; không coi mọi giới hạn UI hiện hữu là đã được duyệt riêng |
 | Q3 | A — tỷ lệ tổng | Đã chốt kế thừa kết quả tổng hợp hiện hữu; không xử lý riêng hoặc ngăn cấu hình khác điểm tối đa trong cùng nhóm, không gây lỗi dừng xử lý do tình huống đó. Bỏ nhãn giả định và ví dụ A/B trong thiết kế hiện hành |
 | Q4 | A — dùng T âm hợp lệ | Đã chốt A. Lần xét hợp lệ có thể không chọn ai, vẫn cập nhật kết quả; không đi qua Q5 chỉ vì âm |

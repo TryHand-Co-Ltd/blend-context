@@ -577,7 +577,7 @@
 | Phạm vi | Trường/năm/mục/nhóm theo giá trị gốc và case sử dụng; không mở rộng quyền từ alias. |
 | Trạng thái | Fixture thiết kế; chỉ coi đã chuẩn bị khi có quan sát đúng build/identity. |
 | Giá trị | Snapshot của nguồn mặc định, `A` thô = 49.99 (màn tổng hợp hiển thị 50.0) |
-| Target và non-target | Ưu tiên bản chốt, A trước làm tròn; đối chứng/kết quả thiết kế: Dùng 49.99 |
+| Target và non-target | Chỉ dùng bản chốt, A trước làm tròn; đối chứng/kết quả thiết kế: Dùng 49.99 |
 | Tạo | Chuẩn bị qua thao tác hiện hữu được phép theo giá trị trên; đường chưa rõ cần xác minh, không tự thực thi SQL hoặc dựng route. |
 | Kiểm tra | Đọc lại identity và giá trị của target/non-target trước lượt chạy; thiếu phép đọc đáng tin thì giữ gap chuẩn bị. |
 | Reset | Khôi phục fixture theo baseline của case bằng đường được phép; biến thể độc lập không dùng trạng thái của lượt trước. |
@@ -590,7 +590,7 @@
 | Phạm vi | Trường/năm/mục/nhóm theo giá trị gốc và case sử dụng; không mở rộng quyền từ alias. |
 | Trạng thái | Fixture thiết kế; chỉ coi đã chuẩn bị khi có quan sát đúng build/identity. |
 | Giá trị | Tổng hợp chạy sau TD-SRC-01 «Bản đã chốt: Snapshot của nguồn mặc định, `A` thô = 49.99…», `A` = 62 |
-| Target và non-target | Không thay bản chốt; đối chứng/kết quả thiết kế: Không dùng khi có TD-SRC-01 «Bản đã chốt: Snapshot của nguồn mặc định, `A` thô = 49.99…» |
+| Target và non-target | Không thay bản chốt và không dùng khi khối × kỳ chưa chốt; đối chứng/kết quả thiết kế: Không dùng khi có TD-SRC-01 «Bản đã chốt: Snapshot của nguồn mặc định, `A` thô = 49.99…» |
 | Tạo | Chuẩn bị qua thao tác hiện hữu được phép theo giá trị trên; đường chưa rõ cần xác minh, không tự thực thi SQL hoặc dựng route. |
 | Kiểm tra | Đọc lại identity và giá trị của target/non-target trước lượt chạy; thiếu phép đọc đáng tin thì giữ gap chuẩn bị. |
 | Reset | Khôi phục fixture theo baseline của case bằng đường được phép; biến thể độc lập không dùng trạng thái của lượt trước. |

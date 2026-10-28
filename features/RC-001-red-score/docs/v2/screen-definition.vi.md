@@ -174,7 +174,7 @@ Ba loại nhóm cấu hình cuối độc lập với ba công tắc khối/lớ
 | Áp dụng cho lớp A, tham chiếu trung bình nhóm A+B | Đối tượng được xét là lớp A; nguồn trung bình vẫn là A+B |
 | Ngưỡng cố định 30, nhưng điều kiện là trung bình ≥60 | Vẫn cần nguồn trung bình để biết quy tắc có áp dụng; thiếu nguồn không được bỏ điều kiện rồi áp 30 cho tất cả |
 
-Nguồn của điều kiện và nguồn của công thức được lưu độc lập. Sửa nguồn tại màn này không tự đổi nguồn ở màn ngưỡng. Cách chọn bản chốt và xử lý thiếu nguồn xem [quy tắc chung](#source-policy).
+Nguồn của điều kiện và nguồn của công thức được lưu độc lập. Sửa nguồn tại màn này không tự đổi nguồn ở màn ngưỡng. Nguồn chỉ là bản đã chốt; cách xử lý khi chưa chốt/thiếu nguồn xem [quy tắc chung](#source-policy).
 
 <a id="screen-threshold"></a>
 ## 04 — Thiết lập ngưỡng và công thức
@@ -250,7 +250,7 @@ Không làm tròn điểm học sinh thay cho ngưỡng, không cắt trung bìn
 | 4 | Nhóm tổng hợp, tổ hợp, nhóm môn | Cấu hình nhóm hiện có | Theo nhu cầu nguồn | Đúng trường/năm, định danh và mapping hợp lệ | Theo chức năng hiện hữu | Cung cấp những nhóm đã cấu hình để lựa chọn | — | Ba loại nhóm này không phụ thuộc ba công tắc ở dòng trên |
 | 5 | Lưu thiết lập tổng hợp | Thao tác lưu hiện có | — | Theo quyền/validation hiện có | Khi có quyền sửa | Lưu nguồn/cách tổng hợp | [06 — Thực hiện](#screen-execution) theo điều hướng hiện có | Lưu chưa tạo kết quả tổng hợp mới hoặc xét lại đỏ |
 
-Không bổ sung màn chọn bỏ qua bản chốt. Kết quả đã chốt được ưu tiên tự động theo [chính sách nguồn](#source-policy). Chức năng chốt kết quả thuộc luồng tổng hợp hiện hữu, không phải một chức năng chốt riêng của điểm đỏ.
+Không bổ sung màn chọn nguồn. Chỉ kết quả đã chốt được dùng, theo [chính sách nguồn](#source-policy). Chức năng chốt kết quả thuộc luồng tổng hợp hiện hữu, không phải một chức năng chốt riêng của điểm đỏ.
 
 <a id="screen-execution"></a>
 ## 06 — Tổng hợp, chạy tính toán và cập nhật kết quả
@@ -262,10 +262,10 @@ Không bổ sung màn chọn bỏ qua bản chốt. Kết quả đã chốt đư
 | STT | Thành phần | Loại | Bắt buộc/tùy chọn | Giới hạn/kiểm tra | Điều kiện hiển thị | Thao tác và kết quả | Chuyển đến | Ghi chú |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | 1 | Phạm vi chạy | Các bộ chọn hiện có | Bắt buộc | Trường/năm, lớp, kỳ/thời điểm và đối tượng trong quyền | Trước khi thực hiện | Chọn phạm vi cần tổng hợp/tính toán | Tại màn này | Không tự mở rộng thành toàn trường |
-| 2 | Thực hiện tổng hợp（集計実行） | Nút xanh hiện có | — | Hoàn tất đầu vào cần dùng; có quyền thực hiện | Theo chức năng tổng hợp hiện có | Tạo/cập nhật kết quả nguồn; chờ hoàn tất trước bước tiếp | Tại màn này | Chạy xong chưa đồng nghĩa đã xét đỏ; không tự thay bản chốt đang có hiệu lực |
+| 2 | Thực hiện tổng hợp（集計実行） | Nút xanh hiện có | — | Hoàn tất đầu vào cần dùng; có quyền thực hiện | Theo chức năng tổng hợp hiện có | Tạo/cập nhật kết quả nguồn; chờ hoàn tất trước bước tiếp | Tại màn này | Chạy xong chưa đồng nghĩa đã xét đỏ; không tự thay bản chốt đang có hiệu lực. Điểm đỏ chỉ dùng kết quả sau khi **chốt（確定）** (chức năng của PR #57058); muốn số liệu mới phải cập nhật nội dung chốt |
 | 3 | Thực hiện tính toán tự động（自動算出実行） | Nút cam hiện có | — | Có quyền, đúng phạm vi; kiểm tình trạng nguồn theo từng ô, không chặn cả lượt chỉ vì một ô thiếu nguồn tổng hợp | Theo quyền chạy hiện hành | Xử lý các ô độc lập/đủ nguồn; ô thiếu nguồn ghi nhận chưa xét được và được nêu riêng trong kết quả | Tại màn này | Phải bao phủ mục chỉ có rule đỏ, không có công thức tính điểm, và mục vừa xóa rule cuối |
 | 4 | Trạng thái thực hiện/thông báo kết quả | Hiển thị hiện có được bổ sung nội dung cần thiết | — | Phân biệt đang chờ, đã cập nhật, chưa xét được và lỗi | Trong/sau lượt xử lý | Cho biết phần chưa hoàn tất để xử lý tiếp | Tại màn này | Vào hàng đợi không phải hoàn tất; số lớp xử lý không tự là số ô xét thành công |
-| 5 | Thông tin thiếu dữ liệu | Thông báo trong phạm vi được phép xem | — | Nêu lý do nghiệp vụ: thiếu nguồn, maximum không hợp lệ, phép chia không hợp lệ… | Khi đã chạy nhưng không tạo được ngưỡng | Hướng dẫn chuẩn bị nguồn/sửa cấu hình rồi chạy lại | Màn tương ứng với nguyên nhân | Không suy “không có dấu đỏ” là đã đạt |
+| 5 | Thông tin thiếu dữ liệu | Thông báo trong phạm vi được phép xem | — | Nêu lý do nghiệp vụ: chưa có bản chốt hợp lệ, maximum không hợp lệ, phép chia không hợp lệ… | Khi đã chạy nhưng không tạo được ngưỡng | Hướng dẫn chốt kết quả tổng hợp/sửa cấu hình rồi chạy lại | Màn tương ứng với nguyên nhân | Không suy “không có dấu đỏ” là đã đạt |
 | 6 | Thông báo hoàn tất một phần | Thông báo kết quả lượt chạy | — | Phân biệt phần đã cập nhật và phần lỗi kỹ thuật | Khi lượt hàng loạt chưa hoàn tất toàn bộ | Giữ kết quả đã lưu, thông báo phạm vi cần khắc phục/chạy lại | Tại màn này | Không thông báo đã hoàn tác toàn lượt nếu thực tế đã lưu một phần |
 | 7 | Thực hiện lại sau khắc phục | Thao tác chạy hiện có | — | Giữ quyền, phạm vi và chống ghi kết quả cũ | Khi cần cập nhật lại | Xét theo điểm, cấu hình và nguồn phù hợp của lượt mới | Tại màn này | Không thêm chế độ điểm đỏ thủ công/tự động riêng hoặc vòng lặp vô hạn |
 
@@ -427,7 +427,7 @@ Khác học sinh, trường, năm, lớp học phần, mục, thời điểm ho�
 3. Chọn quy tắc đầu tiên xác định khớp. Tính ngưỡng của quy tắc đó; thiếu nguồn hoặc công thức không tính được thì không thử quy tắc khác.
 4. Nếu đủ dữ liệu xác định tất cả quy tắc không áp dụng, kết quả là không áp dụng.
 
-Nguồn tổng hợp phải đúng trường/năm/kỳ, cấu hình, nhóm, môn/mục và đơn vị. Có bản chốt tương ứng thì tự động ưu tiên; chỉ khi chưa có mới dùng bản hoàn tất mới nhất của cùng phạm vi. Bản chốt được chọn thiếu dữ liệu không được thay bằng bản thường, kỳ khác, nhóm khác, điểm chưa tổng hợp hoặc số 0.
+Nguồn tổng hợp phải đúng trường/năm/kỳ, cấu hình, nhóm, môn/mục và đơn vị. Chỉ dùng bản đã chốt đang hiệu lực của khối × kỳ/thời điểm, đọc qua `GradeCalcResultService::getTotalResults()` với `$use_fix_table = true` (PR #57058). Chưa chốt hoặc đã bỏ chốt thì chưa xét được, không dùng kết quả chưa chốt. Bản chốt thiếu dữ liệu không được thay bằng kết quả chưa chốt, kỳ khác, nhóm khác, điểm chưa tổng hợp hoặc số 0.
 
 Nguồn của điều kiện và công thức độc lập. Khi cùng một nguồn được dùng nhiều lần trong một lượt, phải dùng cùng bản và cùng bộ giá trị. Tỷ lệ nhóm kế thừa kết quả tổng hợp hiện có; không tính riêng trung bình tỷ lệ từng học sinh và không ghép maximum hiện hành của một học sinh vào tổng của bản chốt.
 
@@ -454,7 +454,7 @@ Ví dụ hai điểm 60/100 và 80/100 trong cùng nguồn cho tỷ lệ nhóm 7
 | Xóa một hoặc toàn bộ quy tắc | Dòng quy tắc biến mất; kết quả học sinh trước vẫn giữ | Xét quy tắc còn lại hoặc không áp dụng nếu đã hết |
 | Xóa điểm thành trống | Ô trống; ngừng dấu và đóng góp lọc đỏ của ô ngay | Chỉ xét khi có điểm hợp lệ trở lại; không kế thừa kết quả ô cũ |
 | Sửa 29 thành 40 | Khi lượt lưu/xét thành công, giữ điểm 40 cùng kết quả của điểm 40 | Không cho lượt cũ hoàn tất muộn ghi đè |
-| Chỉ cập nhật kết quả tổng hợp | Giữ kết quả đỏ trước; không tự xét mọi phụ thuộc | Dùng nguồn được chọn theo ưu tiên bản chốt |
+| Chỉ cập nhật kết quả tổng hợp | Giữ kết quả đỏ trước; không tự xét mọi phụ thuộc | Dùng bản đã chốt (chưa chốt thì chưa xét được) |
 | Đã chạy nhưng không tính được ngưỡng | Sau lưu trạng thái thành công, ngừng dùng kết quả cũ | Khắc phục rồi chạy lại mới có kết luận mới |
 | Xem/tải Excel/công khai/in lại | Đọc kết quả hiện hành, không thay dữ liệu xét | Không tự khởi chạy lượt xét |
 
@@ -669,7 +669,7 @@ Các mã cho chưa xét được: `source_missing` (thiếu nguồn), `source_in
 | `score`, `grade_id` | Giữ điểm và định danh bản ghi điểm thực sự đã dùng |
 | `threshold`, `compare_type` | Ngưỡng và dấu của lần xét; ngưỡng lưu dạng tử/mẫu số nguyên rút gọn để giữ độ chính xác |
 | `maximum` | Maximum thực sự dùng cho loại tỷ lệ; không dùng thì NULL |
-| `sources` | Các nguồn dùng ở điều kiện, công thức hoặc cả hai; bản chốt/mới nhất, định danh bản nguồn và đầy đủ phạm vi |
+| `sources` | Các nguồn dùng ở điều kiện, công thức hoặc cả hai; định danh bản chốt (ID bản chốt đang hiệu lực), phạm vi bản nguồn và đầy đủ phạm vi |
 | Nhóm môn đã phân giải | Giữ cả ID nhóm môn đã chọn và loại/nhóm thực tế được đọc; không ghi đè lựa chọn gốc |
 
 Trạng thái xét thành công bắt buộc có điểm, ngưỡng và dấu. Chưa xét được giữ phần thông tin đã xác định. Không áp dụng/không có điểm không giữ ngưỡng hay nguồn cũ không còn được dùng. Không lưu toàn bộ danh sách học sinh nguồn, thông tin liên hệ hoặc toàn bộ lịch sử trong trường này.

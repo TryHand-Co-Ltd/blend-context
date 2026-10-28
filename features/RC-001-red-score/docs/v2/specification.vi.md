@@ -126,7 +126,7 @@ Ví dụ: mặc định `100`, đơn vị `40`, lựa chọn lớp hợp lệ gh
 
 Tạo một định nghĩa lựa chọn maximum chưa làm lớp sử dụng lựa chọn đó. Mã lựa chọn `1` hoặc `2` không phải maximum 1 hoặc 2 điểm. Không dùng điểm cao nhất thực tế trong nhóm, tổng maximum của nhóm hoặc mặc định `100` thay cho `M` cá nhân.
 
-**Phân biệt thời điểm dữ liệu:** tỷ lệ điểm tối đa độc lập dùng `M` hiện hành. Trung bình và tỷ lệ nhóm dùng dữ liệu của bản tổng hợp được chọn, có ưu tiên bản chốt. Không lấy `M` hiện hành ghép vào tổng điểm của bản chốt để tính lại tỷ lệ nhóm.
+**Phân biệt thời điểm dữ liệu:** tỷ lệ điểm tối đa độc lập dùng `M` hiện hành. Trung bình và tỷ lệ nhóm chỉ dùng dữ liệu của bản tổng hợp **đã chốt** (xem mục 5.5). Không lấy `M` hiện hành ghép vào tổng điểm của bản chốt để tính lại tỷ lệ nhóm.
 
 <a id="screens"></a>
 
@@ -149,7 +149,7 @@ Các liên kết Figma dưới đây thuộc **bản vẽ tiếng Nhật**: 01�
 
 **Luồng chuẩn:** mở mục điểm số → danh sách thiết lập đỏ. Từ danh sách, mở màn điều kiện áp dụng hoặc màn ngưỡng tương ứng; sau khi lưu quay lại danh sách. Đăng ký điểm hoặc chạy tính toán phù hợp để xét, rồi đọc cùng kết quả có hiệu lực trên ba đầu ra.
 
-Không có radio chọn chế độ xét thủ công/tự động riêng. Không có radio chọn bỏ qua bản chốt để luôn dùng nguồn mới nhất. Lưu cấu hình và hoàn tất xét là hai sự kiện khác nhau.
+Không có radio chọn chế độ xét thủ công/tự động riêng. Không có radio chọn nguồn: chỉ dùng bản đã chốt, không có chế độ dùng nguồn mới nhất chưa chốt. Lưu cấu hình và hoàn tất xét là hai sự kiện khác nhau.
 
 <a id="configuration"></a>
 
@@ -268,7 +268,8 @@ Khi điều kiện hoặc công thức cần trung bình/tỷ lệ, người dù
 | Thời kỳ tổng hợp（集計対象時期） | Kỳ/thời điểm của kết quả nguồn |
 | Thiết lập tổng hợp thứ hạng（順位集計設定） | Bộ thiết lập đã tạo kết quả tổng hợp |
 | Nhóm học sinh được tổng hợp（集計対象（母集団）） | Nhóm tham chiếu, ví dụ nhóm lớp chủ nhiệm được cấu hình |
-| Môn, mục đánh giá và đơn vị | Phân giải theo đúng ngữ cảnh ô đang xét; không lấy môn/mục/đơn vị khác chỉ vì có kết quả |
+| Môn và đơn vị | Phân giải theo đúng ngữ cảnh ô đang xét; không lấy môn/đơn vị khác chỉ vì có kết quả |
+| Mục đánh giá | **Không giới hạn** trùng với mục của ô đang xét (shite, 28/10/2026): điểm thi lại có thể dùng trung bình đã chốt của kỳ thi gốc. Ghi lại mục mà kết quả chốt thực sự tham chiếu (xem §5.5 mục 7) |
 
 Nhóm tham chiếu và đối tượng áp dụng là hai khái niệm riêng. Ví dụ một quy tắc chỉ áp dụng cho lớp A nhưng tham chiếu trung bình của nhóm gồm A và B. Lọc chỉ lớp A trên màn xuất không làm thay trung bình tham chiếu.
 
@@ -282,14 +283,18 @@ Mỗi nơi sử dụng nguồn phải lưu đủ lựa chọn của chính nó. 
 
 ### 5.5. Chọn bản nguồn
 
-1. Tìm bản tổng hợp đã chốt có hiệu lực **đúng phạm vi nguồn**; có thì dùng bản đó.
-2. Chỉ khi chưa có bản chốt tương ứng mới dùng kết quả tổng hợp hoàn tất mới nhất có sẵn của cùng phạm vi.
-3. Bản chốt đã chọn thiếu dữ liệu thì báo chưa xét được; không chuyển sang bản thường hoặc bản khác kỳ.
-4. Chưa có kết quả tổng hợp phù hợp thì chưa xét được. Không tự tính từ điểm chưa tổng hợp hoặc danh sách đang lọc để xuất.
+1. **Chỉ dùng kết quả tổng hợp đã chốt（確定）đang có hiệu lực** của đúng phạm vi nguồn: khối × kỳ/thời điểm. Việc đọc đi qua phương thức chung `GradeCalcResultService::getTotalResults()` với `$use_fix_table = true` của [PR #57058](https://github.com/ednity/school-web/pull/57058) — cùng đường đọc với tính năng xếp hạng trung bình và ánh xạ khoảng điểm trung bình. Điểm đỏ không có SQL đọc kết quả riêng.
+2. Khối × kỳ/thời điểm **chưa chốt hoặc đã bỏ chốt** thì chưa xét được (lý do: không có kết quả tổng hợp đã chốt để tham chiếu). Không dùng kết quả tổng hợp chưa chốt mới nhất, kể cả khi vẫn còn.
+3. Bản chốt đang hiệu lực nhưng thiếu dòng cho ô (môn/đơn vị/nhóm) thì chưa xét được; không chuyển sang bản khác kỳ.
+4. Không tự tính từ điểm chưa tổng hợp hoặc danh sách đang lọc để xuất.
+5. **Định danh nguồn được ghi lại** là ID của bản chốt đang hiệu lực (bảng nhật ký chốt `grade_calc_fix_log`). Cập nhật nội dung chốt tạo ID mới, nên kết quả đỏ cũ vẫn chỉ ra đúng bản đã dùng.
+6. Trung bình thô = `total_score ÷ student_count` của dòng tổng đã chốt (không làm tròn); tỷ lệ nhóm = `total_score × 100 ÷ max_score`. Chỉ lấy dòng của đúng học sinh đang xét (phương thức chung đã lọc theo nhóm học sinh thuộc về).
+
+7. **Mục đánh giá không giới hạn; ghi mục tham chiếu thực tế.** Bỏ kiểm tra «mục của nguồn phải trùng mục của ô xét». Hiển thị nguồn và lịch sử dùng **ID mục đánh giá do kết quả chốt trả về** (`evaluate_item_id` của phương thức chung, PR #57058), không phải mục của ô đang xét. Nếu đổi mục đích của thiết lập tổng hợp mà **chưa tổng hợp lại hay cập nhật chốt**, vẫn dùng bản chốt cũ với đúng mục thực tế của nó; không thay bằng giá trị hiện tại của thiết lập. Kết quả chốt không có ID mục (ví dụ tổng hợp lớp học phần trước khi triển khai, giá trị rỗng/0) thì coi là **không xác định**: vẫn xét bằng số liệu đã chốt, lưu `null` (chỉ ghi trong thông tin nguồn đã lưu; chưa có chỗ hiển thị riêng trên màn hình). Chỉ bỏ ràng buộc mục đánh giá; môn, đơn vị, nhóm và kỳ vẫn kiểm tra như cũ (kết quả theo lớp học phần không dùng cho ô đơn vị).
 
 Trung bình thô có thể lấy từ tổng điểm và số người có điểm của cùng bản nguồn. Không thay số người có điểm bằng số người thuộc xếp hạng. Với tỷ lệ nhóm kế thừa kết quả hiện hữu, tử số và mẫu số phải tương ứng cùng tập đóng góp theo cấu hình tổng hợp; không ghép các tổng đã áp dụng chính sách loại trừ khác nhau.
 
-Số lượng bằng 0, tổng maximum không hợp lệ hoặc không xác định được các thành phần cùng bản nguồn làm phép tính phụ thuộc đó không hợp lệ. Không dùng `0` giả. Việc ánh xạ nguồn chốt và điểm theo đơn vị là yêu cầu tích hợp bắt buộc, không được bỏ chiều đơn vị hoặc thay bản chốt bằng bản thường.
+Số lượng bằng 0, tổng maximum không hợp lệ hoặc không xác định được các thành phần cùng bản nguồn làm phép tính phụ thuộc đó không hợp lệ. Không dùng `0` giả. Việc ánh xạ nguồn chốt và điểm theo đơn vị là yêu cầu tích hợp bắt buộc, không được bỏ chiều đơn vị hoặc thay bản chốt bằng kết quả chưa chốt.
 
 <a id="average-snapshot-dependency"></a>
 <a id="average-source-mock"></a>
@@ -475,13 +480,13 @@ Không suy mọi màn có chữ “điểm tối đa” đều chạy AutoRating
 1. Trong Thiết lập tổng hợp thứ hạng（順位集計設定） → Thiết lập chi tiết（詳細設定）, đặt tự tổng hợp khi đăng ký điểm thành **Không thực hiện（実行しない）** cho quy trình đánh giá tương đối.
 2. Chuẩn bị và hoàn tất các điểm đầu vào của toàn bộ nhóm cần lấy làm nguồn, kể cả xử lý tính điểm nguồn có liên quan.
 3. Tại [Tổng hợp thành tích（成績集計）](https://ad31.schoolstg.mwsite.work/admin/grade/grade_setting_system/grade_calc), chọn đúng phạm vi rồi chạy nút xanh **Thực hiện tổng hợp（集計実行）**. Chờ hoàn tất.
-4. Kiểm nguồn có hiệu lực: nếu có bản chốt đúng phạm vi, bản chốt vẫn được ưu tiên; chạy tổng hợp mới không tự thay bản chốt.
+4. **Chốt kết quả tổng hợp（確定）** của khối × kỳ/thời điểm cần dùng (chức năng của [PR #57058](https://github.com/ednity/school-web/pull/57058), không phải chức năng riêng của điểm đỏ). Chỉ bản đã chốt đang hiệu lực được điểm đỏ dùng; chưa chốt hoặc đã bỏ chốt thì ô dùng trung bình chưa xét được. Chạy tổng hợp mới không tự thay bản chốt: muốn dùng số liệu mới phải tổng hợp lại rồi cập nhật nội dung chốt（確定内容の更新）.
 5. Chạy nút cam **Thực hiện tính toán tự động（自動算出実行）** cho phạm vi cần xét. Chờ hoàn tất và kiểm các mục chưa xét được/lỗi.
 6. Xem/trích xuất/công khai/in bằng kết quả đã hoàn tất.
 
-Tắt tự tổng hợp không tắt việc xét khi đăng ký điểm. Lúc chưa có nguồn hợp lệ, phép xét phụ thuộc nguồn sẽ chưa có kết luận; người phụ trách chuẩn bị nguồn rồi chạy lại. Các quy tắc độc lập với trung bình vẫn xét được.
+Tắt tự tổng hợp không tắt việc xét khi đăng ký điểm. Lúc chưa có bản chốt hợp lệ, phép xét phụ thuộc nguồn sẽ chưa có kết luận; người phụ trách chốt kết quả tổng hợp rồi chạy lại. Các quy tắc độc lập với trung bình vẫn xét được.
 
-Nếu bước tính tự động sau tổng hợp lại sửa chính điểm đã dùng tạo nguồn, điểm hiện hành và nguồn tổng hợp có thể khác thời điểm. Phải chuẩn bị đúng đầu vào và kiểm cấu hình phụ thuộc; hệ thống không tự lặp xanh–cam đến khi hội tụ. Không tuyên bố hỗ trợ công thức phụ thuộc vòng hoặc luôn dùng “trung bình vừa bấm nút xanh”.
+Nếu bước tính tự động sau tổng hợp lại sửa chính điểm đã dùng tạo nguồn, điểm hiện hành và nguồn tổng hợp có thể khác thời điểm. Phải chuẩn bị đúng đầu vào và kiểm cấu hình phụ thuộc; hệ thống không tự lặp xanh–cam đến khi hội tụ. Không tuyên bố hỗ trợ công thức phụ thuộc vòng hoặc luôn dùng “trung bình vừa bấm nút xanh”: số liệu chỉ được dùng sau khi đã chốt.
 
 ### 7.5. Phạm vi một lượt và thứ tự hoàn tất
 
@@ -684,7 +689,7 @@ Phần này là yêu cầu tích hợp và **đề xuất thiết kế kỹ thu�
 | Danh sách quy tắc của mục | Liên kết trường/năm/mục/phạm vi, tên, thứ tự | Nhiều quy tắc, thứ tự xác định; tách khỏi ngưỡng scalar cũ |
 | Điều kiện áp dụng | Phạm vi môn/đối tượng, loại bộ lọc, giá trị, dấu so sánh và nguồn nếu dùng trung bình/tỷ lệ | Phân biệt không khớp với không đủ dữ liệu để xác định khớp |
 | Ngưỡng | Loại, `N`, dấu cuối; cấu hình phần lẻ; các dòng toán hạng/phép toán/tham chiếu nếu có | Chỉ loại hiện hành có hiệu lực; không thực thi chuỗi code từ input |
-| Nguồn tham chiếu | Kỳ, bộ tổng hợp, nhóm; ánh xạ môn/mục/đơn vị | Đúng trường/năm; ưu tiên bản chốt tự động |
+| Nguồn tham chiếu | Kỳ, bộ tổng hợp, nhóm; ánh xạ môn/mục/đơn vị | Đúng trường/năm; chỉ dùng bản đã chốt, đọc qua `getTotalResults()` (PR #57058) |
 | Kết quả hiện hành của ô | Identity ô, trạng thái ở mục 8, quy tắc/lượt xét liên quan, thời điểm | Một kết quả hiện hành; không dùng một boolean để gộp chưa xét được thành không đỏ |
 | Thông tin giải thích lượt xét | Điểm được dùng, ngưỡng cuối/dấu; maximum hoặc nguồn tổng hợp khi có; nguyên nhân chưa xét được | Đề xuất lưu đủ để kiểm tra và chống ghi đè sai thời điểm, không yêu cầu sao chép toàn bộ dữ liệu học sinh/nguồn |
 | Thiết lập trình bày | Lọc/ký hiệu/màu của trích xuất, hiệu ứng công khai, điều kiện phiếu | Thuộc từng đầu ra, không làm thay đổi kết quả xét |
@@ -704,7 +709,7 @@ Phương án lưu được mô tả trong [thiết kế DB](database-design.vi.m
 | Liên kết điểm thi | Xét cả ô đã ghi khi bước chuẩn bị AutoRating không nhận lớp đó | Bỏ sót điểm vì không có lần gọi bộ tính điểm |
 | AutoRating và tính hàng loạt | Tách việc tính ngưỡng khỏi tác dụng thay điểm; bao phủ không-config, nhập tay, môn liên quan và đơn vị | Kế thừa hành vi ghi `NULL` khi không khớp hoặc ép ngưỡng vào min/max của điểm |
 | Nút chạy và dựng danh sách batch | Có đường chạy cho chỉ-rule-đỏ và cho mục đã hết rule nhưng còn kết quả cần xử lý; giữ quyền/phạm vi hiện có | Dựa duy nhất vào “có công thức AutoRating” để cho chạy hoặc chọn đối tượng |
-| `GradeCalcResultService` và nguồn chốt | Cung cấp đúng bản nguồn, trung bình thô, tỷ lệ nhóm kế thừa kết quả hiện hữu với độ chính xác cần thiết và ngữ cảnh đơn vị; có thể dùng dummy data trước | Tự coi bản thường là bản chốt; bỏ `tangen_id`; ghép tử/mẫu khác tập học sinh; mặc định tỷ lệ đã làm tròn đáp ứng so sánh trước làm tròn |
+| `GradeCalcResultService` và nguồn chốt | Cung cấp đúng bản nguồn, trung bình thô, tỷ lệ nhóm kế thừa kết quả hiện hữu với độ chính xác cần thiết và ngữ cảnh đơn vị; có thể dùng dummy data trước | Dùng kết quả chưa chốt thay bản chốt; bỏ `tangen_id`; ghép tử/mẫu khác tập học sinh; mặc định tỷ lệ đã làm tròn đáp ứng so sánh trước làm tròn |
 | `GradeScoreRangeService`/cơ chế maximum | Phân giải đầy đủ mặc định, đơn vị, lựa chọn lớp | Dùng helper chưa có tầng đơn vị như đã bao phủ toàn bộ |
 | Dữ liệu dùng chung, `GradePublishService` và PDF công khai | Đưa trạng thái xét theo đúng ô đến web/API/PDF; áp hiệu ứng công khai | Tính lại ngưỡng tại renderer hoặc làm lộ điểm ẩn |
 | Bộ chuyển đổi và lưu tùy chọn phiếu | Thêm đỏ đúng thứ tự, giữ first-match, lưu cờ sử dụng điều kiện và đọc lại/copy template | Chỉ sửa bản vẽ/render mà thiếu đường lưu khi chỉ có điều kiện đỏ |
@@ -745,7 +750,7 @@ Nếu không ánh xạ được một tham chiếu, **đề xuất** không kíc
 | Nội dung | Phương án và điều kiện thực hiện |
 | --- | --- |
 | Phạm vi từng đợt | Xác định loại ngưỡng/công thức, điều kiện áp dụng, trường/quyền, đường đăng ký/chuyển cấu hình và ba đầu ra theo mục 1.4. Phần chưa đưa vào đợt không hiển thị như chức năng đang hoạt động |
-| Tỷ lệ nhóm và nguồn trung bình | Dùng kết quả tổng hợp hiện hữu, đúng kỳ/môn/mục/đơn vị/nhóm và độ chính xác trước làm tròn. Có thể chuẩn bị bằng dữ liệu mẫu; tích hợp hoàn tất cần kiểm nguồn thật và ưu tiên bản chốt |
+| Tỷ lệ nhóm và nguồn trung bình | Dùng kết quả tổng hợp hiện hữu, đúng kỳ/môn/mục/đơn vị/nhóm và độ chính xác trước làm tròn. Có thể chuẩn bị bằng dữ liệu mẫu; tích hợp hoàn tất cần kiểm nguồn thật; chỉ dùng bản đã chốt |
 | Kết hợp điều kiện | Bộ lọc thường: OR cùng loại, AND khác loại. Điều kiện trung bình/tỷ lệ nhóm: AND với nhau và với bộ lọc. Kiểm các ví dụ biên 40/50/60/70 và hướng dẫn 02-A/02-B |
 | Giao diện và dữ liệu lưu | Mặc định tạo mới, lưu dở, đổi loại, toán hạng và thông báo theo các phần tương ứng. Danh sách, form sửa và giải thích của cùng rule phải khớp cấu hình đã lưu |
 | Miền số và giới hạn | Áp dụng cùng phương án tại thiết kế DB mục 4.2; kiểm S=T, số âm, tràn và lưu/mở lại. Không âm thầm cắt giá trị đã nhận |
