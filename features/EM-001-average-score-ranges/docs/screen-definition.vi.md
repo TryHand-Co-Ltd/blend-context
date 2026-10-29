@@ -8,7 +8,7 @@ Người dùng xác định mục nhận kết quả, nguồn trung bình (thi�
 
 Cần thể hiện rõ giới hạn của mục nhận độc lập với số điều kiện. Ví dụ mục số giới hạn 1–5 nhưng bảng chỉ trả 1, 3, 5; thêm/xóa điều kiện không thay giới hạn mục. Không tạo thiết lập số mức riêng hoặc tự gán mức thấp nhất khi không khớp.
 
-Nguồn trung bình có thêm 授業平均 (khi 順位集計 bật tổng hợp theo tiết học). Ô giá trị đăng ký của mục dạng chọn có lựa chọn đầu "選択してください" (ô chưa dùng) tách biệt với "(空欄)" (đăng ký trống). Tối đa 20 khoảng và 20 điều kiện mỗi khoảng.
+Nguồn trung bình có thêm 授業平均 (khi 順位集計 bật tổng hợp theo tiết học) và 科目グループ (nhóm môn học, hiện theo tên nhóm + 平均). Ô giá trị đăng ký của mục dạng chọn có lựa chọn đầu "選択してください" (ô chưa dùng) tách biệt với "(空欄)" (đăng ký trống). Tối đa 10 khoảng và 20 điều kiện mỗi khoảng; nếu cấu hình quá lớn để lưu thì báo lỗi khi lưu. Các lựa chọn kỳ và nguồn trung bình luôn hiện đủ, không phụ thuộc cài đặt 学年/HR của 順位集計 (xếp hạng).
 
 ## 2. Xem lại cấu hình
 

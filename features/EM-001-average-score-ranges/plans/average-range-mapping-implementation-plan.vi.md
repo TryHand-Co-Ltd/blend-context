@@ -36,7 +36,7 @@ Kế hoạch này chỉ ghi lại hướng làm đề xuất. Đọc trước [c
 1. **`master` chưa có RA-001 và RC-001.** `RankingAverageReader`, loại điều kiện **平均点** (điểm trung bình) và việc bỏ chặn **科目平均** (trung bình môn) cho trường ngoài Uenomiya chỉ có ở nhánh RA-001.
    **Chiến lược nhánh (đề xuất): tạo nhánh EM-001 từ `master`, không copy hàm của RA-001.** Phần EM-001 cần từ RA-001 đi qua một **giao diện nhỏ** (mục 7.1), có một bản **tạm** nằm trong file mới riêng. Khi RA-001 được merge thì đổi một dòng khởi tạo sang `RankingAverageReader` và xóa bản tạm.
 2. **RA-001 và RC-001 xung đột nhau** ở `blend:application/models/GradeCalcResultEachSubSubjectLogs_m.php`, `blend:application/models/GradeCalcResultEachGroupLogs_m.php` và khối `unset(...)` trong `AutoRating::calc`. Vì vậy trên nhánh từ `master`, EM-001 **không sửa và không thêm** method vào hai model này, và **không sửa** `useRankingAverage`, `getSubSubjectAvgForFormula` hay các hàm khác của RA-001. Thêm bản thứ ba của các hàm đó sẽ gây xung đột ba chiều, trùng khai báo, và có thể lệch quy tắc so với RA-001.
-3. **Chính sách bản nguồn đã xác nhận (19/10/2026).** Chỉ dùng kết quả tổng hợp thứ hạng đã chốt và còn hiệu lực; chưa chốt, đã gỡ chốt hoặc thiếu nhóm thì coi là thiếu trung bình và ghi trống, không dùng số mới nhất. Quy tắc nằm một chỗ trong bộ đọc chung, không tách riêng cho EM-001. Bản tạm trên nhánh từ `master` đã đọc **chỉ bảng bản chốt** (`GradeCalcResultService::getFinalizedEachSubSubjectTotalResult`); khi chưa có bảng bản chốt thì trả trống.
+3. **Chính sách bản nguồn đã xác nhận (19/10/2026).** Chỉ dùng kết quả tổng hợp thứ hạng đã chốt và còn hiệu lực; chưa chốt, đã gỡ chốt hoặc thiếu nhóm thì coi là thiếu trung bình và ghi trống, không dùng số mới nhất. Quy tắc nằm một chỗ trong bộ đọc chung. Từ 28/10/2026 EM-001 đọc qua `GradeCalcResultService::getTotalResults()` với `$use_fix_table = true` của PR #57058 (xem 15.t); khi PR chưa vào `master` thì trả trống.
 
 ## 4. Quy tắc cần cài đặt
 
@@ -119,7 +119,7 @@ calcAverageRange(cfg, student, st_grades, save_info, tangen_id):
 
 | Bản | Nội dung | Trạng thái |
 | --- | --- | --- |
-| **Tạm** `AverageRangeSourceStub` (file mới, tên khác hẳn) | Chỉ đọc kết quả đã chốt (bảng `grade_calc_fix_each_sub_subject_*`) do `AutoRating` truyền vào; không có số mới nhất thay thế, chưa có bản chốt thì trả `null` (trống). `AutoRating` truyền kết quả đã chốt theo từng khối (`hr_grade`, mỗi khối một lần gọi `getFinalizedEachSubSubjectTotalResult`) và stub chỉ tra theo `hr_grade` của học sinh, nên nhóm giờ học nhiều khối không bị lẫn kết quả "学年毎" giữa các khối; khối không có bản chốt thì trống. Kết quả còn được tách theo `tangen_id`: kỳ 単元 dùng đúng 単元 đang tính, kỳ khác dùng `tangen_id = 0`. Chưa dùng bộ đọc chung. Ghi comment rõ là tạm, không dùng cho staging hoặc production. | Xóa khi RA-001 vào `master`. |
+| `AverageRangeFixedSource` (file mới, thay bản tạm `AverageRangeSourceStub` từ 28/10/2026) | Không có SQL riêng. Nhận hai hàm từ `AutoRating`: lấy dòng kết quả đã chốt qua `GradeCalcResultService::getTotalResults(... $use_fix_table = true)` và kiểm tra khối/học kỳ/thời kỳ đang chốt (`GradeCalcFixLogRepository::findActiveBy`). Trung bình = `total_score ÷ student_count` (bcmath, 20 chữ số). Chưa chốt, thiếu kết quả hoặc `student_count = 0` thì trả `null` (trống); không dùng số mới nhất thay thế. Tách theo `hr_grade` của học sinh, theo `tangen_id` (kỳ 単元 dùng đúng 単元 đang tính) và, với 授業, theo `group_id`. 授業 + kỳ 単元 thì không có trung bình. | Giữ lâu dài; chỉ phụ thuộc PR #57058 vào `master`. |
 | **Thật** adapter bọc `RankingAverageReader` | `getAverageDetail()` thêm vào `RankingAverageReader` dưới dạng method mới, không sửa `getAverage`. | Làm sau khi RA-001 merge. |
 
 Quy tắc khi dùng bản tạm:
@@ -267,7 +267,7 @@ PR [#57058](https://github.com/ednity/school-web/pull/57058) 「順位集計結�
 
 ### 15.x. Bổ sung sau review (20/10/2026)
 
-- **Khóa theo khối:** kết quả đã chốt có khóa "学年毎" trùng nhau giữa các khối, nên `AutoRating` lấy theo từng khối (`hr_grade`) và `AverageRangeSourceStub` nhận mảng `[hr_grade => kết quả]`, tra theo `hr_grade` của học sinh. Có test cho nhóm nhiều khối. Khi thay stub bằng bộ đọc chung của RA-001, bộ đọc đó cũng phải tra theo khối của học sinh.
+- **Khóa theo khối:** kết quả đã chốt có khóa "学年毎" trùng nhau giữa các khối, nên `AverageRangeFixedSource` gọi hàm chung theo từng khối (`hr_grade` đơn) với danh sách học sinh của khối đó và chỉ tra dòng của học sinh. Có test cho nhiều khối.
 - **Cấu hình thiếu `sub_subject_avg`:** bỏ qua việc thu thập học kỳ/thời kỳ (không phát sinh warning); ô kết quả để trống.
 - **Hiển thị danh sách cài đặt (`edit.php`):** mọi giá trị của nhánh loại 9 đều qua `html_escape`.
 - **Còn mở:** `RankingAverageReader` (RA-001) phải đổi sang "chỉ đọc kết quả đã chốt" khi được đưa vào; điều kiện `use_relative_evaluation`, F-08, F-09 chờ chủ sở hữu quyết định.
@@ -276,7 +276,7 @@ PR [#57058](https://github.com/ednity/school-web/pull/57058) 「順位集計結�
 
 | # | Mức | Nội dung | Cách xử lý |
 | --- | --- | --- | --- |
-| 1 | Cao | Kỳ 単元: 順位集計 tạo 1 log cho mỗi 単元, nhưng hàm đọc không lọc `tangen_id` và key chỉ theo môn nên các 単元 ghi đè nhau | `getEachSubSubjectTotalResult` có tham số `$tangen_ids` (`null` = hành vi cũ, không đổi key). Khi là mảng thì lấy `log.tangen_id` và thêm `tangen_id` làm key ngoài cùng (mảng rỗng = tất cả 単元). `AutoRating` lấy tất cả 単元 theo từng khối; `AverageRangeSourceStub` nhận thêm ID kỳ 単元: nếu kỳ nguồn là 単元 thì dùng 単元 đang tính (`$tangen_id`), kỳ khác dùng `tangen_id = 0` |
+| 1 | Cao | Kỳ 単元: 順位集計 tạo 1 log cho mỗi 単元, nhưng hàm đọc không lọc `tangen_id` và key chỉ theo môn nên các 単元 ghi đè nhau | (Bản tạm trước 28/10/2026; nay `AverageRangeFixedSource` lọc `tangen_id` trên dòng kết quả của hàm chung.) `getEachSubSubjectTotalResult` có tham số `$tangen_ids` (`null` = hành vi cũ, không đổi key). Khi là mảng thì lấy `log.tangen_id` và thêm `tangen_id` làm key ngoài cùng (mảng rỗng = tất cả 単元). `AutoRating` lấy tất cả 単元 theo từng khối; (từ 28/10/2026 `AverageRangeFixedSource`) nhận thêm ID kỳ 単元: nếu kỳ nguồn là 単元 thì dùng 単元 đang tính (`$tangen_id`), kỳ khác dùng `tangen_id = 0` |
 | 2 | Trung bình | Giá trị đăng ký chưa kiểm theo mục nhận (số 1–5 vẫn lưu được 6; mục số vẫn nhận số lẻ) | `validateRanges` nhận thêm `$save_value_limits` (`min`, `max`, `integer`): báo lỗi khi lưu nếu ngoài min/max hoặc là số lẻ ở mục số (数値入力). Mục thập phân (小数入力) chỉ kiểm min/max |
 | 3 | Thấp | `count(*)` + `LEFT JOIN ranks` + `GROUP BY ranks.…log_id`: log không có dòng ranks bị gộp vào nhóm NULL và đếm 1 | Chỉ ở đường đọc bản chốt: `COUNT(ranks.…log_id)` và `GROUP BY log.id`. Đường đọc kết quả mới nhất (mã cũ) giữ nguyên để không ảnh hưởng chức năng khác |
 | 4a | Thấp | `REGIST_TYPE_AVERAGE_RANGE = 9` bỏ qua số 8 | Giữ 9. Số 8 đã được PR #57058 dùng cho `REGIST_TYPE_RANK_LINK`, nên EM-001 nhường để không trùng khi PR vào `master` (master và RA-001 hiện chưa dùng 8) |
@@ -288,10 +288,10 @@ Kiểm tra: unit test (mapper 24, stub 9, AutoRating 11, service 11) và `spec_m
 
 - **Nguyên nhân:** ô chọn nguồn của EM-001 dựng từ danh sách dùng chung với công thức hiện có (`getSubSubjectAvgForFormula`) chỉ có 学年平均, HR平均, nhóm thứ hạng và nhóm kết hợp; không có `授業平均` dù thiết lập 順位集計 đã bật tổng hợp theo tiết học (`use_calc_group = 1`). RA-001 (Q5 đã xác nhận 12/10) đã gồm `授業平均` và EM-001 kế thừa quy tắc nguồn này, nên đây là chức năng còn thiếu, không phải khác biệt thiết kế.
 - **UI:** thêm `授業:授業平均` ngay sau HR平均 khi `use_calc_group = 1` (chỉ trong ô chọn của EM-001, không đổi danh sách dùng chung). Lưu dạng `{学期},{時期},授業`; kiểm tra khi lưu dùng cùng danh sách nên giá trị này hợp lệ.
-- **Bộ đọc:** `GradeCalcResultService::getFinalizedEachGroupTotalResult` đọc bảng bản chốt theo tiết học (`grade_calc_fix_each_group_logs/total/ranks`), chỉ với khối/học kỳ/thời kỳ có `grade_calc_fix_log.active = 1`, lọc theo `group_id` của tiết đang tính và môn của tiết; mẫu số = `COUNT` dòng ranks (không dùng `examinees`); thiếu bảng thì trả trống. Kết quả tách theo khối của học sinh. `AverageRangeSourceStub` dùng kết quả này khi nguồn là `授業`.
+- **Bộ đọc:** từ 28/10/2026 dùng `getTotalResults()` với tập hợp `group` (`$use_fix_table = true`), lọc theo `group_id` của tiết đang tính; mẫu số = `student_count`. Kỳ 単元 + 授業 thì không có trung bình. Bản tạm `getFinalizedEachGroupTotalResult` đã bỏ.
 - **Kỳ 単元:** theo RA-001, `授業平均` không có trung bình theo đơn vị, nên chọn kỳ 単元 thì coi như thiếu trung bình (ô trống).
 - **Kiểm tra:** test đơn vị (stub 11, service 14) đạt; trên MySQL local với bảng mô phỏng PR (`use_calc_group` bật tạm): chưa chốt → ô trống, đã chốt → trung bình = 62 ÷ 3 = 20,6667 của đúng tiết và range được chọn, chưa chốt lại → ô trống. Đã khôi phục cấu hình/dữ liệu local sau test. Chưa kiểm tra bằng bảng PR #57058 thật.
-- **Hạn chế:** nếu có nhóm thứ hạng tên đúng là `授業` thì trùng với nguồn này (khóa lưu theo tên).
+- **Hạn chế (đã giải quyết 28/10/2026):** trước đây khóa lưu theo tên nên nhóm tên `授業` trùng nguồn này; nay lưu theo khóa có loại.
 
 ### 15.w. Ba case còn lại trong phản hồi test (21/10/2026; FUNC-002 đã sửa ở 15.v, hai case còn lại chưa xử lý)
 
@@ -307,13 +307,21 @@ Kiểm tra: unit test (mapper 24, stub 9, AutoRating 11, service 11) và `spec_m
 - **Cách sửa:** ô giá trị đăng ký của mục dạng chọn có thêm lựa chọn đầu "選択してください" (giá trị rỗng) làm mặc định, tách biệt với "(空欄)" (giá trị `null`, là giá trị đăng ký hợp lệ). `normalizeRanges` chỉ bỏ điều kiện khi cả ngưỡng và giá trị đăng ký đều chưa nhập (rỗng); điều kiện nhập dở được giữ lại và `validateRanges` báo lỗi (ví dụ 「範囲3 条件4 個人点の値を入力してください」). Tham số `$save_value_choices` của `normalizeRanges` không còn dùng nên đã bỏ.
 - **Kiểm tra:** unit test (mapper) đạt. Trên môi trường local: cột điều kiện mới mặc định "選択してください"; lưu ô 空欄 ở range 1–2 và để range 3 chưa dùng → mở lại giữ `null` ở range 1–2 và trống ở range 3 (không còn hiện A); chọn giá trị nhưng bỏ trống ngưỡng → báo lỗi, không lưu. Đã trả cấu hình test về 3 điều kiện mỗi range.
 
+### 15.t. Chuyển sang bộ đọc chung `getTotalResults()` của PR #57058 (28/10/2026)
+
+- **Căn cứ:** thống nhất trong thread RA-001 (26–27/10/2026, nội bộ): ba chức năng tương đối (xét điểm liệt, trung bình xếp hạng, EM-001) đọc kết quả đã chốt qua `GradeCalcResultService::getTotalResults()` với `$use_fix_table = true`, dùng `student_count`, không SQL riêng.
+- **Đã làm:** thêm `AverageRangeFixedSource`; `AutoRating` tạo nguồn khi cần (theo tiết) và truyền hai hàm (lấy dòng đã chốt, kiểm tra đang chốt); bản đồ tập hợp: 学年毎→`hr_grade`, HR毎→`homeroom`, 授業毎→`group`, nhóm tổng hợp/kết hợp theo tên→`calc_group__ID`/`calc_group_combo__ID`. Đã xóa `AverageRangeSourceStub`, test của stub, `getFinalizedEach*TotalResult` và test của chúng; `GradeCalcResultService.php` về đúng bản `master` (giảm xung đột với PR). Hai khối `case ...REGIST_TYPE_AVERAGE_RANGE` chuyển lên trước `REGIST_TYPE_TANGEN`, bỏ khối khởi tạo trong phần setup để giảm xung đột chữ với PR.
+- **Thoái lui an toàn khi PR chưa vào `master`:** kiểm tra số tham số của `getTotalResults` (< 9 thì trả rỗng) và `class_exists` cho `GradeCalcFixLogRepository`; không bao giờ đọc kết quả chưa chốt.
+- **Còn lại:** (科目グループ đã hỗ trợ cùng ngày: giao diện thêm tên nhóm, `AutoRating` đổi sang `calc_group_sub_subject__<id>`; kiểm trên DB local khớp bảng chốt); xung đột với PR khi gộp (kiểm lại 28/10/2026): chỉ `m_AutoRatingConfItemRegistType.php` (`REGIST_TYPES_CHOICE`, giữ cả hai bên, mã loại 9 ≠ 8); `AutoRating.php` tự gộp được; chạy kiểm tra tích hợp với bảng thật của PR sau khi vào `master`.
+- **Kiểm thử:** `AverageRangeMapperTest` 25, `AverageRangeFixedSourceTest` 18, `AutoRatingAverageRangeTest` 11 đều đạt (chạy bằng shim vì không có PHPUnit).
+
 ### 15.u. Rà soát theo feedback PR RC-001 và củng cố bảo mật (22/10/2026)
 
 Đối chiếu 10 điểm trong feedback review của PR điểm đỏ (RC-001) với branch EM-001 (code `blend` tại branch `feature/EM-001_average_range`). Chỉ ghi các điểm liên quan EM-001:
 
 | Điểm feedback | EM-001 | Ghi chú |
 | --- | --- | --- |
-| Nguồn xếp hạng đã chốt đọc bằng bộ đọc khác | Giống | `AverageRangeSourceStub` đọc trực tiếp bảng `grade_calc_fix_*` của PR #57058 (chưa vào `master`). Cần xác nhận với người phụ trách; thay bằng bộ đọc chung khi có. 27/10/2026: bộ đọc chung thống nhất là `getTotalResults()` / `getTotalData()` có `$use_fix_table` (đã có trong PR #57058, chưa merge) |
+| Nguồn xếp hạng đã chốt đọc bằng bộ đọc khác | Đã xử lý (28/10/2026) | EM-001 đã chuyển sang `getTotalResults()` có `$use_fix_table` của PR #57058. Phụ thuộc: PR chưa vào `master`; trước đó nhánh trả trống (không đọc kết quả chưa chốt) |
 | CSRF của URL trực tiếp | Giống, có từ trước | Xem D8 |
 | Lỗi transaction AutoRating | Không áp dụng | EM-001 không ghi DB riêng; log đi cùng luồng lưu sẵn có |
 | Validate trước lock, không re-validate | Gần giống, rủi ro thấp | Không thêm lock. Cùng sai lệch (giá trị đăng ký > max của mục) vẫn xảy ra khi hạ max sau khi lưu (TC-EM-CALC-001), nên lock chỉ chặn được một phần rất nhỏ. Lúc chạy giá trị luôn bị giới hạn về max. Cải thiện tùy chọn: cảnh báo ở màn sửa khi giá trị đã lưu vượt min/max hiện tại |
@@ -327,7 +335,15 @@ Kiểm tra: unit test (mapper 24, stub 9, AutoRating 11, service 11) và `spec_m
 **Đã sửa trong EM-001:**
 
 - `registFormula` và `editFormula` kiểm tra mục thuộc đúng cấu hình tự động được gửi (`auto_rating_conf_item.auto_rating_conf_id` phải bằng `auto_rating_conf.id`). Trước đây chỉ kiểm tra cùng trường, nên gửi `conf_id` này với `item_id` của cấu hình khác thì validation của EM-001 (min/max, lựa chọn, danh sách mục điểm cá nhân) dùng ngữ cảnh của cấu hình sai. Đã test local: mục của cấu hình khác bị từ chối (`不正な送信です。` / 403).
-- `AverageRangeMapper` giới hạn tối đa **20 khoảng** và **20 điều kiện mỗi khoảng** (`MAX_RANGES`, `MAX_CONDITIONS`); vượt thì báo lỗi khi lưu. Lý do: cột `auto_rating_conf_items.condition` và `auto_rating_log.detail_log` đều là `TEXT` (64KB); cấu hình 3 × 3 cho log khoảng 800 byte. Đây là con số do nhóm đặt, không phải yêu cầu khách. Nút thêm khoảng/cột chưa bị chặn ở UI (chỉ báo lỗi khi lưu).
+- (Cập nhật 28/10/2026: nay là **10 khoảng** × 20 điều kiện và JSON ≤ 60.000 byte, kiểm bằng `validateConditionSize`; 20×20 tạo 92–100KB, vượt `TEXT` và bị cắt âm thầm.) `AverageRangeMapper` giới hạn tối đa **20 khoảng** và **20 điều kiện mỗi khoảng** (`MAX_RANGES`, `MAX_CONDITIONS`); vượt thì báo lỗi khi lưu. Lý do: cột `auto_rating_conf_items.condition` và `auto_rating_log.detail_log` đều là `TEXT` (64KB); cấu hình 3 × 3 cho log khoảng 800 byte. Đây là con số do nhóm đặt, không phải yêu cầu khách. Nút thêm khoảng/cột chưa bị chặn ở UI (chỉ báo lỗi khi lưu).
 - Unit test: mapper 25 (thêm `testValidateRangesLimitsNumberOfRangesAndConditions`), stub 11, AutoRating 11, service 14 đều đạt.
 
-**Chưa làm:** hardening CSRF cho `auto_rating/*` (D8); thay `AverageRangeSourceStub` bằng bộ đọc chung (`getTotalResults()` / `getTotalData()` có `$use_fix_table` của PR #57058, thống nhất 27/10/2026); kiểm tra với bảng thật của PR #57058.
+**Chưa làm:** hardening CSRF cho `auto_rating/*` (D8); kiểm tra tích hợp với bảng/dữ liệu thật của PR #57058 sau khi PR vào `master` (đã kiểm tra bằng test đơn vị với hàm giả lập; chưa chạy batch trên DB local có bảng PR).
+
+## Cập nhật 28/10/2026: sửa theo phản hồi của shite
+
+- Tập hợp lưu theo khóa có loại (`AverageRangeMapper::isPopulationKey`, `POPULATION_KEY_PATTERN`); `AverageRangeFixedSource` không còn nhận bản đồ tên→khóa, chỉ chấp nhận khóa; nhãn cho log/danh sách lấy từ `createPopulationList` (nhóm đã xóa hiện `（削除された集計対象）` – nhóm đã bị xóa).
+- Chuyển năm học: `FromAutoRatingConf::setPopulation` đổi `calc_group__`, `calc_group_combo__`, `calc_group_sub_subject__` theo bảng liên kết ID của năm mới (nhóm tổng hợp thứ hạng và nhóm môn học được sao chép trước cấu hình tự động).
+- Lựa chọn trên màn hình: `getAverageRangeSourceOptions()` dùng danh sách kết hợp học kỳ–thời kỳ và `createPopulationList` (không dùng `getSubSubjectAvgForFormula` vốn chỉ có khi 学年/HR bật).
+- Điểm cá nhân: dùng `loop_tangen_id` chỉ khi mục thuộc kỳ 単元, ngược lại 0.
+- Kiểm tra: `AverageRangeMapperTest` (31), `AverageRangeFixedSourceTest` (23), `AutoRatingAverageRangeTest` (13) đều đạt trên bộ chạy tạm (không có PHPUnit trong container).
