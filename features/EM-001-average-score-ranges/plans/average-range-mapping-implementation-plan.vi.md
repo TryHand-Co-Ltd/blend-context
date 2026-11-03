@@ -263,14 +263,14 @@ PR [#57058](https://github.com/ednity/school-web/pull/57058) 「順位集計結�
 | Nguồn bản chốt | Đọc bảng `grade_calc_fix_each_sub_subject_{logs,total,ranks}` của PR, chỉ với khối/học kỳ/thời kỳ có dòng `grade_calc_fix_log` `active = 1`. Gỡ chốt thì PR xóa dòng `fix` nên không còn kết quả (trống) |
 | Môi trường chưa có bảng của PR | Thiếu `grade_calc_fix_log`, `..._logs` hoặc `..._total` thì coi là chưa có bản chốt và trả trống, **không báo lỗi** |
 | Tránh xung đột file | Các file chung với PR (`m_AutoRatingConfItemRegistType`, `AutoRatingConfItem`, `Methods`, `AutoRatingConfItemRepository`, `AutoRatingConfController`, `edit.php`, `edit_formula.php`, `GradeCalcResultService`) được sửa ở vị trí không kề dòng PR sửa, và `AutoRatingConfItem` không thêm tham số constructor mà dùng `setAverageRange()` sau khi tạo. Đã mô phỏng merge với đầu PR (`6d3f27d`) bằng `git merge-tree`: không có xung đột |
-| Còn lại | PR chưa merge và đang là WIP; kiểm lại merge-tree khi PR đổi. Cần quyết định có giới hạn loại 9 theo `school_grade_conf.use_relative_evaluation` như 順位連動設定 hay không (chưa làm) |
+| Còn lại | PR chưa merge và đang là WIP; kiểm lại merge-tree khi PR đổi. Đã chốt hướng 02/11/2026 (nội bộ, Shite trả lời "That approach is fine." trong thread EM-001 lúc 15:07): ẩn loại 9 khi `school_grade_conf.use_relative_evaluation` tắt như 順位連動設定, giữ cấu hình đã lưu; chỉ đổi hiển thị, chưa triển khai (xem CONTEXT mục 12.4). Đầu PR hiện tại `439657dac95` đã có kiểm soát loại trừ (CONTEXT mục 12.2) |
 
 ### 15.x. Bổ sung sau review (20/10/2026)
 
 - **Khóa theo khối:** kết quả đã chốt có khóa "学年毎" trùng nhau giữa các khối, nên `AverageRangeFixedSource` gọi hàm chung theo từng khối (`hr_grade` đơn) với danh sách học sinh của khối đó và chỉ tra dòng của học sinh. Có test cho nhiều khối.
 - **Cấu hình thiếu `sub_subject_avg`:** bỏ qua việc thu thập học kỳ/thời kỳ (không phát sinh warning); ô kết quả để trống.
 - **Hiển thị danh sách cài đặt (`edit.php`):** mọi giá trị của nhánh loại 9 đều qua `html_escape`.
-- **Còn mở:** `RankingAverageReader` (RA-001) phải đổi sang "chỉ đọc kết quả đã chốt" khi được đưa vào; điều kiện `use_relative_evaluation`, F-08, F-09 chờ chủ sở hữu quyết định.
+- **Còn mở:** `RankingAverageReader` (RA-001) phải đổi sang "chỉ đọc kết quả đã chốt" khi được đưa vào; F-08, F-09 chờ chủ sở hữu quyết định; `use_relative_evaluation` đã chốt hướng 02/11/2026 (CONTEXT mục 12.4), chưa triển khai.
 
 ### 15.y. Sửa theo feedback review commit `344d71b2221` (20/10/2026)
 
