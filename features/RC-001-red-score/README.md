@@ -6,7 +6,7 @@
 | Nguồn quản lý | [BLEND — Project Management](https://docs.google.com/spreadsheets/d/1lK9kXTC5pjuucCCpZThCImZFDBBbQdn9At6Nl8y0LGc/edit?gid=277536463#gid=277536463); tra Work Item tại Client Deliverables và Task ID tại Internal Tasks |
 | Codebase | Repository `blend` |
 | Ngày đối chiếu ID | 28/09/2026 |
-| Redmine | Chưa có ID được xác minh cho feature này; ô Redmine / Client Link của Work Item đang trống khi đọc |
+| Redmine | Cập nhật 13/11/2026: Epic [228113](https://mw-dev.cloud.redmine.jp/issues/228113) (【BLEND全体】, mọi trường); Development [228057](https://mw-dev.cloud.redmine.jp/issues/228057); QA [228114](https://mw-dev.cloud.redmine.jp/issues/228114); SubTask phát hành [228116](https://mw-dev.cloud.redmine.jp/issues/228116) (thuộc 228057). `RC-001` là ID cũ của 228113; các task `RC-001-A`…`RC-001-W` trên Sheet gắn với SubTask của 228057 (nguồn: workspace `docs/features/228113-failing-score-conditions`, đọc Redmine ngày 09/11/2026). Ô Redmine trên Sheet vẫn trống. Branch `school-web`: `feature/RC-001_red_score`, `feature/RC-001_red_score_spec`; PR ứng dụng [57572](https://github.com/ednity/school-web/pull/57572) |
 
 Phạm vi: cấu hình điều kiện điểm đỏ và dùng chung kết quả tại Trích xuất thành tích（成績抽出）, Công khai thành tích（成績公開） và Công cụ phiếu điểm（通知表ツール）. Việc gắn ID không thay đổi yêu cầu, tình trạng approval hoặc phạm vi triển khai trong tài liệu hiện có.
 

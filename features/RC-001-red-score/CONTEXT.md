@@ -661,3 +661,35 @@ Các spec/split-tasks/AC và giả định cũ, kể cả bản tạo trước p
 6. Chỉ sửa Figma, code, dữ liệu hoặc xuất bản khi được giao đúng phạm vi. Việc cập nhật context không tự cấp các quyền đó.
 
 **Bàn giao hiện hành:** context/Q&A đến Q38 cùng phản hồi 30/09 và DEC-002. Thiết kế dùng setting_status; AND trong từng rule, xóa điểm, ví dụ phần lẻ và hiển thị thường/đơn vị đã được xác nhận. Tài liệu hiện hành độc lập với lịch sử phản hồi. Figma chưa kiểm hoàn tất; không suy thiết kế thành runtime/QA.
+
+## Cập nhật 10/11/2026 — Điều kiện áp dụng v2
+
+Theo chỉ dẫn của Shite (xác nhận nội bộ, review PR 11/11/2026; chưa có xác nhận của khách hàng): bỏ HR/lớp học khỏi bộ lọc riêng (giữ điều kiện cũ), thêm tổ hợp nhóm thành tích, điều kiện trung bình chỉ trong chế độ lọc, OR trong một ô và AND giữa các ô. Xem [DEC-005](decisions/DEC-005-apply-condition-v2.ja.md) ([EN](decisions/DEC-005-apply-condition-v2.en.md)). Kế thừa năm học chưa hỗ trợ.
+
+## Cập nhật 13/11/2026 — Đồng bộ từ workspace 228113 (thread PR 57572 và Redmine)
+
+Nguồn: workspace `docs/features/228113-failing-score-conditions` (CONTEXT, spec, qa, plan), thread Slack ④ 赤点 (điểm đỏ) đọc đến ngày 13/11/2026, Redmine/GitHub đọc 09/11/2026. Các mục dưới đây là **nội bộ** (Shite, người làm PR hoặc đội phát triển), **không phải xác nhận của khách hàng**, trừ khi ghi khác. Không thay đổi các quy tắc khách đã xác nhận ở trên.
+
+**Định danh:** Epic 228113 = RC-001 (xem README). PR ứng dụng 57572 (đang mở, base `master`); PR 57058 vẫn là điều kiện để ship nhánh trung bình.
+
+| Mục | Nội dung | Nhãn |
+| --- | --- | --- |
+| R25 | Điều kiện dùng trung bình chỉ chọn/lưu mới được khi trường bật `school_grade_conf.use_relative_evaluation` (相対評価機能を利用する, dùng chức năng đánh giá tương đối). Tắt: không chọn mới được; rule đã lưu vẫn hiển thị và xét là "không xét được". Điểm cố định và tỷ lệ độc lập với công tắc này | nội bộ (Shite, 03/11; đã triển khai; 228112 quyết định cùng công tắc) |
+| R27a | Màn 成績抽出 (trích xuất thành tích) và file Excel hiển thị **ngưỡng đã dùng khi xét** (ngưỡng lưu tại thời điểm xét, không bao giờ là ngưỡng mới cạnh kết quả cũ). Bản đầu: phiếu điểm và màn công khai không hiển thị ngưỡng | họp MW 19/10 do Shite chuyển lời; hiển thị trên phiếu được yêu cầu nhưng Shite để ngoài bản đầu |
+| R27b | Thiết kế hiển thị (đơn vị/vị trí, ngưỡng khác nhau theo nhóm, "không xét được" khác 0, phạm vi Excel, giá trị không biểu diễn đủ 20 chữ số thập phân hiển thị là xấp xỉ, giá trị chính xác nằm ở chi tiết); sheet 「赤点判定明細」 (chi tiết xét điểm đỏ) chỉ thêm khi người dùng tick | nội bộ (đề xuất của đội, chỉnh 22/10) |
+| R28a | Ô điểm trống không bao giờ hiển thị đỏ, không khớp bộ lọc đỏ, không có chi tiết ngưỡng, kể cả khi còn kết quả cũ; phiếu điểm không áp dòng đỏ và dùng hiển thị trống thường; ô còn số vẫn dùng kết quả cũ đến lần xét lại | nội bộ (Shite 28/10) |
+| R28b | Bộ lọc lựa chọn xét theo cặp (lớp, học sinh); kiểm ngưỡng cố định lúc lưu dùng cùng cặp (Toán 100 điểm, ngưỡng 60 không bị từ chối vì lớp Anh 50 điểm) | nội bộ (Shite 28/10) |
+| R28c | Lưu điều kiện và lưu ngưỡng: khóa → đọc lại thiết lập mới nhất → kiểm tổ hợp → lưu | nội bộ (Shite 21/10) |
+| R28d | Lỗi lưu điểm khi tính tự động tách khỏi lỗi điểm đỏ, bỏ tổng hợp thứ hạng sau đó; rollback lỗi thì batch dừng, không đánh dấu hoàn tất; màn HR一括CSV (nhập CSV hàng loạt theo HR) báo lưu một phần lỗi thay vì "hoàn tất" và luôn lưu số lớp thành công/tổng số lớp khi kết thúc (2/3; tất cả lỗi → 0/N); `false` khi lưu tóm tắt lần chạy tính là lỗi | nội bộ (Shite 21/10, 03/11; Tuan Vo 13/11) |
+| R28e | Không làm hỏng đầu ra cũ: lựa chọn hiển thị đỏ ở công khai không đụng chuỗi đồ thị; sao chép template phiếu giữ đủ cấu trúc điều kiện hiển thị; HR一括CSV có xét; các route ghi chỉ nhận POST chính thức kèm CSRF | nội bộ (Shite 21/10) |
+| R28f | 参照項目 (mục tham chiếu) trên màn điều kiện/công thức hiển thị tên mục của kết quả đã chốt thực sự dùng, không phải mục của thiết lập hiện tại; chỉ đếm khối/kỳ đã chốt hiệu lực; các câu 「順位集計設定と集計対象時期を選択してください」, 「確定済みの結果なし」, 「不明（記録なし）」, 「（削除された項目）」; cập nhật ngay khi đổi thiết lập/kỳ | nội bộ (Shite) |
+| R28g | Tính tự động không tính được thì ghi điểm trống; xét điểm đỏ không kế thừa hành vi này | nội bộ (Shite) |
+| R05c | Thiết lập mà bộ lọc đã chứng minh không áp dụng có thể bỏ qua không đọc nguồn trung bình; thiếu nguồn của thiết lập có thể áp dụng thì không bao giờ coi là "không khớp" | nội bộ (Shite) |
+| R09d | Dùng bản chốt của đúng khối của học sinh; không dùng trung bình đã chốt của khối khác | nội bộ (Shite 22/10); cần kiểm với nhiều khối khi tích hợp |
+| R12b | Tổng hợp lại mà bản chốt còn hiệu lực không đổi kết quả đã lưu; bỏ chốt không xóa kết quả đã lưu, chỉ lần xét lại sau đó mới thành "không xét được" | thống nhất với Shite; cần test chốt → bỏ chốt → xét lại |
+
+**Kế thừa năm học (cập nhật so với `research/year-carryover-status.vi.md`):** thread PR 57572 báo đã thêm sao chép vào `TakeOverUsecase` (batch đổi năm 1/4 và màn 年度引継ぎ dùng chung). Sao chép rule `setting_status` 0 hoặc 1, rule đã xóa không sao chép; ID trong rule được đổi sang ID năm mới (mục điểm, kỳ, thiết lập tổng hợp, nhóm tham chiếu, nhóm thành tích, tổ hợp, lựa chọn, マスタカリキュラム); mục điểm không có ở năm mới thì không sao chép; ID khác không thay được (kể cả HR/授業 đã lưu) giữ ID cũ và giữ điều kiện, judge không xét được hoặc không áp dụng, không áp dụng rộng hơn; kết quả xét không sao chép; cột hiển thị công khai đã được sao chép bởi cơ chế sẵn có. Cách này **khác** đề xuất ở nghiên cứu (lưu `setting_status=0`); chưa quyết định. Người làm PR báo đã chạy batch ChangeYear trên bản sao DB và thử màn 年度引継ぎ; workspace mới thấy kiểm tra tự động (127 assertion), chưa kiểm tích hợp. Sao chép sang phạm vi khác, xuất/nhập, khôi phục, đồng bộ vẫn chưa làm.
+
+**Sửa lỗi từ review Codex/Shite (báo 13/11, chưa kiểm lại độc lập):** giữ điều kiện đã lưu không còn trong danh sách (hiển thị 「（選択不可）」); giữ lựa chọn tổ hợp sau lỗi nhập; giải thích OR của giáo khoa/môn cũ; kiểm điểm tối đa chỉ tính lớp có học sinh khớp toàn bộ điều kiện (không tính lớp không có học sinh hoặc chỉ có học sinh không còn hoạt động); COMMIT thất bại được báo là lỗi lưu ở `AutoRating::calc`, màn đăng ký điểm/CSV và batch tính tự động.
+
+**Test:** `docs/v2/test-spec/test-cases.vi.md` hiện có 231 TC ID duy nhất (232 tiêu đề; `TC-RS-BR-041` trùng), gồm 10 case DEC-005 `TC-RS-*-V2C-*`; README test-spec và báo cáo xlsx vẫn ghi 216 TC / 569 biến thể (mốc 06/10) và chưa tính các case này.

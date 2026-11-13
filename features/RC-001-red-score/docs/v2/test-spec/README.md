@@ -14,6 +14,10 @@ Report đã được đưa về trạng thái **chưa thực hiện** để bàn
 
 Workbook hiện hành chưa có kết quả của lượt mới và chưa đủ điều kiện nghiệm thu. Readiness, căn cứ kỳ vọng, đường chạy và bằng chứng còn thiếu được giữ nguyên trong nguồn. Kết quả tester ghi nhận không đồng nghĩa nghiệm thu: checker kiểm riêng Actual, dữ liệu, kỳ vọng và bằng chứng còn thiếu; không dùng readiness để khóa bộ đếm Đạt/Không đạt về 0. Không chạy được do thiếu điều kiện thì ghi **Bị chặn** và lý do, không tự đổi kỳ vọng. Reset report không chạy lại ứng dụng.
 
+## Cập nhật 13/11/2026 — Case DEC-005 chưa có trong report
+
+[Testcase nguồn](test-cases.vi.md) được bổ sung ngày 10–11/11/2026 flow “Điều kiện áp dụng phiên bản 2 (DEC-005)” gồm 10 case: `TC-RS-FUNC-V2C-001` đến `005`, `TC-RS-VAL-V2C-001`, `TC-RS-DATA-V2C-001` đến `004` (căn cứ DEC-005, xác nhận nội bộ bởi Shite; Readiness Draft; Execution NOT RUN). File nguồn hiện có 231 TC ID duy nhất (232 tiêu đề; `TC-RS-BR-041` bị trùng). Các con số **216 TC / 569 biến thể** ở trên và [report xlsx](test-report.vi.xlsx) là mốc 06/10/2026 và **chưa gồm** các case V2C; report chưa được tạo lại. Khi chạy lượt kiểm thử tiếp theo cần thêm các case này vào report.
+
 ## Sử dụng report
 
 Đọc Tổng quan trước, rồi theo link đến tình huống cần xem. Điều kiện và thao tác chung chỉ viết một lần; bên trái là số bước, bên phải là mô tả thao tác. Bảng trường hợp ghi dữ liệu/thao tác riêng và kỳ vọng đầy đủ của chính nhánh đó, gồm đối chứng hoặc yêu cầu bảo toàn cần thiết. Tên nút, màn hình, toán tử và giá trị quyết định được nhấn đậm có chọn lọc. Ghi quan sát cụ thể ở Kết quả thực tế; với Không đạt/Bị chặn/Không thực hiện, ghi sai khác hoặc lý do và bước tiếp theo. Không đổi kỳ vọng theo thực tế.

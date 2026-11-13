@@ -6490,3 +6490,202 @@
 | year | Năm mới giữ legacy: Dùng fixture/đường **DATA-016** đã nêu, có cấu hình/legacy/bản chốt/kết quả cá nhân ở nguồn; thực hiện **kế thừa năm** qua chức năng được hỗ trợ, đọc nguồn/đích và mapping identity trước khi xét ở đích. Không tự dựng route/ID. | Legacy ở nguồn vẫn nguyên vẹn; đích không nhận kết quả cá nhân ngoài mapping hợp lệ và không dùng lại kết quả nguồn. |
 | import | Nhập giữ legacy: Dùng fixture/đường **DATA-017** đã nêu, có cấu hình/legacy/bản chốt/kết quả cá nhân ở nguồn; thực hiện **import** qua chức năng được hỗ trợ, đọc nguồn/đích và mapping identity trước khi xét ở đích. Không tự dựng route/ID. | Legacy ở nguồn vẫn nguyên vẹn; đích không nhận kết quả cá nhân ngoài mapping hợp lệ và không dùng lại kết quả nguồn. |
 | sync | Đồng bộ giữ legacy: Dùng fixture/đường **DATA-019** đã nêu, có cấu hình/legacy/bản chốt/kết quả cá nhân ở nguồn; thực hiện **sync** qua chức năng được hỗ trợ, đọc nguồn/đích và mapping identity trước khi xét ở đích. Không tự dựng route/ID. | Legacy ở nguồn vẫn nguyên vẹn; đích không nhận kết quả cá nhân ngoài mapping hợp lệ và không dùng lại kết quả nguồn. |
+
+### Flow: Điều kiện áp dụng（適用条件） phiên bản 2 (DEC-005, bổ sung 2026-11-10)
+
+Các case dưới đây bổ sung theo DEC-005 (xác nhận nội bộ bởi Shite, qua chỉ dẫn và review PR ngày 11/11/2026; chưa có xác nhận của khách hàng); Căn cứ kỳ vọng: DEC-005 (nội bộ); Readiness: Draft; Execution: NOT RUN. Đã chạy thử cục bộ phần tự động hóa (regression 250/43/194 pass) và kiểm tra thủ công trên Docker local; chưa có evidence trong report XLSX.
+
+#### TC-RS-FUNC-V2C-001 — Bộ lọc riêng không còn HR（HR）/ lớp học（授業）; điều kiện cũ được giữ
+
+| Field | Value |
+| --- | --- |
+| Chức năng | Điều kiện áp dụng（適用条件） |
+| Căn cứ | DEC-005; AC-G05 |
+| Priority | High |
+| Căn cứ kỳ vọng | Confirmed |
+| Thao tác | 1. Mở Điều kiện áp dụng（適用条件） của quy tắc mới, chọn “Lọc theo điều kiện đặc biệt（特定条件で絞り込む）”, mở danh sách loại bộ lọc.<br>2. Mở quy tắc cũ đã lưu có điều kiện HR（HR）/ lớp học（授業）, bấm Cập nhật（更新する） không đổi gì.<br>3. Gửi trực tiếp request thêm bộ lọc HR/lớp học cho quy tắc mới. |
+| Expected | 1. Không có lựa chọn HR/lớp học; có giáo khoa/môn, khối, nhóm thành tích（成績グループ）, tổ hợp nhóm thành tích（成績グループ組合わせ）, lựa chọn（選択）.<br>2. Điều kiện cũ hiển thị “（旧条件）”, vẫn lưu và vẫn được xét; không bị xóa.<br>3. Server từ chối, không lưu. |
+
+#### TC-RS-FUNC-V2C-002 — Giáo khoa/môn chọn nhiều bằng modal; chọn trùng bị từ chối
+
+| Field | Value |
+| --- | --- |
+| Chức năng | Điều kiện áp dụng（適用条件） |
+| Căn cứ | DEC-005 |
+| Priority | High |
+| Căn cứ kỳ vọng | Confirmed |
+| Thao tác | 1. Thêm bộ lọc giáo khoa/môn, mở modal, chọn 2 môn, xác nhận, lưu, mở lại.<br>2. Thêm dòng giáo khoa/môn thứ hai cùng loại; thử chọn lại môn đã chọn. |
+| Expected | 1. Hai môn được lưu và hiển thị lại đủ; tóm tắt liệt kê cả hai môn.<br>2. Màn hình chặn lựa chọn trùng; request ép gửi bị server từ chối. |
+
+#### TC-RS-FUNC-V2C-003 — Tổ hợp nhóm thành tích（成績グループ組合わせ）
+
+| Field | Value |
+| --- | --- |
+| Chức năng | Điều kiện áp dụng（適用条件） |
+| Căn cứ | DEC-005; DB design §3.2 `calc_group_combo` |
+| Priority | High |
+| Căn cứ kỳ vọng | Confirmed |
+| Thao tác | Chọn một tổ hợp đã đăng ký và các giá trị “mục A/mục B”, lưu, mở lại; chạy xét với học sinh thuộc/không thuộc tổ hợp. |
+| Expected | Lưu key_id=ID tổ hợp, hiển thị “A/B”; chỉ học sinh thuộc tổ hợp được áp dụng; kết hợp AND với khối. |
+
+#### TC-RS-FUNC-V2C-004 — OR trong một ô, AND giữa các ô; dữ liệu cũ giữ OR theo loại
+
+| Field | Value |
+| --- | --- |
+| Chức năng | Điều kiện áp dụng（適用条件） / xét điểm đỏ |
+| Căn cứ | DEC-005; AC-G05 |
+| Priority | High |
+| Căn cứ kỳ vọng | Confirmed |
+| Thao tác | Quy tắc v2: khối {1,2} AND môn {X}. Quy tắc cũ (không `version`): hai dòng cùng loại. Chạy xét với học sinh khối 1/môn X, khối 2/môn Y, khối 3/môn X. |
+| Expected | v2: áp dụng cho khối 1/môn X và khối 2/môn X, không áp dụng khối 2/môn Y, khối 3/môn X. Dữ liệu cũ giữ OR theo loại; lưu lại bằng màn hình không biến OR cũ thành AND. |
+
+#### TC-RS-FUNC-V2C-005 — Điều kiện trung bình/tỷ lệ nhóm chỉ trong “Lọc theo điều kiện đặc biệt”
+
+| Field | Value |
+| --- | --- |
+| Chức năng | Điều kiện áp dụng（適用条件） |
+| Căn cứ | DEC-005; AC-G05 |
+| Priority | High |
+| Căn cứ kỳ vọng | Confirmed |
+| Thao tác | 1. Chọn “Toàn bộ đối tượng（全員が対象）”.<br>2. Chọn “Lọc theo điều kiện đặc biệt” chỉ với điều kiện trung bình（giới hạn trên/dưới）, không bộ lọc riêng, lưu rồi mở lại.<br>3. Gửi request có điều kiện trung bình nhưng đối tượng “toàn bộ”. |
+| Expected | 1. Không hiển thị khung điều kiện trung bình.<br>2. Lưu được; mở lại vẫn ở chế độ lọc với chỉ trung bình, giới hạn trên/dưới giữ nguyên.<br>3. Server từ chối/không lưu điều kiện trung bình ngoài chế độ lọc. |
+
+#### TC-RS-VAL-V2C-001 — Ngưỡng cố định kiểm tra điểm tối đa theo điều kiện mới
+
+| Field | Value |
+| --- | --- |
+| Chức năng | Ngưỡng（基準設定） |
+| Căn cứ | DEC-005; AC-G08 |
+| Priority | Medium |
+| Căn cứ kỳ vọng | Confirmed |
+| Thao tác | Với quy tắc có điều kiện v2 (nhiều môn/tổ hợp), nhập điểm cố định N lớn hơn điểm tối đa M của một môn trong phạm vi. |
+| Expected | Bị từ chối theo phạm vi 0≤N≤M của mọi đối tượng thuộc điều kiện; không tự sửa N. |
+
+#### TC-RS-DATA-V2C-001 — Kế thừa năm học（年度引継ぎ）: hiện trạng chưa hỗ trợ
+
+| Field | Value |
+| --- | --- |
+| Chức năng | Kế thừa năm học / copy / xuất nhập |
+| Căn cứ | DEC-005; đặc tả §12.4, DB design §4.5 |
+| Priority | Medium |
+| Căn cứ kỳ vọng | Proposed |
+| Thao tác | Thực hiện kế thừa năm học/copy với dữ liệu có quy tắc điều kiện v2 (ID tổ hợp, môn, lựa chọn). |
+| Expected | Hiện trạng: quy tắc không được mang theo (chưa triển khai). Khi triển khai: ID tổ hợp/nhóm/môn/khung mục được ánh xạ sang năm đích, không để ID cũ. Case này chỉ ghi nhận hiện trạng. |
+
+#### TC-RS-DATA-V2C-002 — Dữ liệu cũ không bị mất/đổi nghĩa khi lưu lại
+
+| Field | Value |
+| --- | --- |
+| Chức năng | Điều kiện áp dụng（適用条件） |
+| Căn cứ | DEC-005 (phụ lục); AC-G05 |
+| Priority | High |
+| Căn cứ kỳ vọng | Confirmed |
+| Thao tác | 1. Quy tắc cũ (không `version`) có HR + khối: chỉ đổi tên rồi lưu.<br>2. Quy tắc cũ có hai nhóm thành tích khác key (trước đây OR): sửa điều kiện rồi lưu không tick xác nhận; sau đó tick và lưu.<br>3. Quy tắc có điều kiện JSON hỏng/loại lạ: mở và thử lưu. |
+| Expected | 1. JSON cũ giữ nguyên, không có `version`, HR cũ vẫn được xét.<br>2. Không tick: bị từ chối; có tick: lưu sang `version: 2` (AND).<br>3. Màn hình báo không đọc được, từ chối lưu, điều kiện không bị xóa. |
+
+#### TC-RS-DATA-V2C-003 — Dạng điều kiện cũ khác vẫn đọc và lưu được (HRコース, trung bình dạng cũ, nhiều dòng môn)
+
+| Field | Value |
+| --- | --- |
+| Chức năng | Điều kiện áp dụng（適用条件） / xét điểm đỏ |
+| Căn cứ | DEC-005 (phụ lục); AC-G05; đặc tả v2 mục 5.1 |
+| Priority | High |
+| Căn cứ kỳ vọng | Confirmed |
+| Fixture | Quy tắc cũ (không ``version``): (a) ``hr_course`` + ``hr_grade``; (b) ``average`` nằm trong ``filters``; (c) ``aggregate_conditions`` dùng khóa ``type``; (d) hai dòng ``subject`` với カリキュラム khác nhau; (e) ``homeroom`` cũ; (f) hai dòng ``hr_grade`` cùng loại |
+| Thao tác | Với từng quy tắc: mở Điều kiện áp dụng（適用条件）, chỉ đổi tên, bấm Cập nhật（更新する）. Sau đó, với (e), thử thay HR bằng giá trị khác. Chạy xét điểm đỏ với dữ liệu thật của lớp có HR/HRコース tương ứng. |
+| Expected | 1. Mở không báo lỗi, hiển thị đủ các dòng cũ.<br>2. Lưu thành công; JSON đã lưu không đổi (không có ``version``).<br>3. Thay HR cũ bằng giá trị khác bị từ chối, JSON giữ nguyên.<br>4. Xét điểm đỏ: quy tắc HR/HRコース khớp áp dụng cho học sinh thuộc HR/コース đó; giá trị không khớp thì không áp dụng; cùng điều kiện ở ``version: 2`` cho kết quả như mong đợi. |
+
+#### TC-RS-DATA-V2C-004 — Điều kiện không đọc được không bị xóa; không cho lưu
+
+| Field | Value |
+| --- | --- |
+| Chức năng | Điều kiện áp dụng（適用条件） |
+| Căn cứ | DEC-005 (phụ lục) |
+| Priority | High |
+| Căn cứ kỳ vọng | Confirmed |
+| Thao tác | Mở quy tắc có ``apply_condition`` là JSON hỏng / loại lạ / metric lạ; gửi trực tiếp request lưu. |
+| Expected | Màn hình báo không đọc được và không có nút Cập nhật（更新する）; request bị từ chối; ``apply_condition`` giữ nguyên; xóa quy tắc từ danh sách vẫn dùng được. |
+
+#### TC-RS-FUNC-V2C-006 — Xác nhận “OR sẽ thành AND” cho quy tắc cũ nhiều key
+
+| Field | Value |
+| --- | --- |
+| Chức năng | Điều kiện áp dụng（適用条件） |
+| Căn cứ | DEC-005 (phụ lục) |
+| Priority | High |
+| Căn cứ kỳ vọng | Confirmed |
+| Thao tác | Quy tắc cũ có hai nhóm thành tích khác key (xét OR). 1) Lưu không đổi. 2) Bỏ một dòng, không tick xác nhận, lưu. 3) Như 2 nhưng có tick. 4) Chuyển sang “全員” không tick. |
+| Expected | 1) Lưu được, JSON cũ giữ nguyên, không cần tick. 2) Bị từ chối với thông báo cần tick; JSON giữ nguyên. 3) Lưu được, ``version: 2``. 4) Lưu được, điều kiện rỗng. |
+
+#### Bằng chứng tự động (ghi nhận 2026-11-10, môi trường Docker local, chưa phải kết quả chính thức trong report XLSX)
+
+- Script chạy qua màn hình thật (đăng nhập, form, ``conditionStore``): 17 kiểm tra cho các case V2C-003/004/006/007 và HR cũ; kết quả 17 pass / 0 fail. Script chỉ chạy cục bộ, chưa nằm trong repo.
+- Xét điểm đỏ thật trên dữ liệu lớp có HR 175229 (khối 1, コース 5): ``homeroom`` cũ khớp 14 học sinh, ``homeroom`` 999 và ``hr_course`` 7 không áp dụng cho ai, ``hr_course`` 5 khớp 14, ``version: 2`` (hr_course AND hr_grade) khớp 14.
+
+#### TC-RS-FUNC-V2C-008 — Giá trị đã lưu không còn trong danh sách không bị mất khi lưu
+
+| Field | Value |
+| --- | --- |
+| Chức năng | Điều kiện áp dụng（適用条件） |
+| Căn cứ | Phản hồi: điều kiện đã lưu không đổi bị mất khi lưu; nhãn “授業カリキュラム” sai (dữ liệu là マスタカリキュラム); DEC-005 (phụ lục) |
+| Priority | High |
+| Căn cứ kỳ vọng | Confirmed |
+| Thao tác | Với mỗi loại điều kiện (教科, 科目, マスタカリキュラム, 学年, HRコース, HR cũ, 授業 cũ, 成績グループ khóa/mục, 組合わせ, 選択肢型 khóa/giá trị, điều kiện tổng hợp thời kỳ/設定) và với cả dạng cũ lẫn ``version: 2``: tạo quy tắc có giá trị đã lưu không còn trong danh sách, mở màn hình, bấm 更新する không sửa gì. Sau đó với ``version: 2`` bỏ tick mục “（選択不可）” rồi lưu. |
+| Expected | 1) Nhãn là “マスタカリキュラム”. 2) Mục “（選択不可）（không hiển thị ID; nhiều mục đánh số ①②; có câu giải thích）” hiển thị đã tick (trình duyệt thật, sau khi JS chạy). 3) Dạng cũ: lưu được, JSON giữ nguyên từng ký tự. 4) ``version: 2``: mọi loại đều giữ nguyên giá trị đã lưu (lưu được, JSON không đổi). 5) Chỉ bỏ tick thì mới bỏ giá trị đó. 6) Giá trị ngoài danh sách mà chưa từng được lưu, nếu thêm mới, vẫn bị từ chối kèm lý do (DB không đổi). 7) Bảng khác và các quy tắc khác không đổi. |
+
+#### Bằng chứng tự động (ghi nhận 2026-11-11, môi trường Docker local, chưa phải kết quả chính thức trong report XLSX)
+
+- Script ``condition-store.e2e.mjs``: 21 pass / 0 fail (thêm nhóm S8 cho マスタカリキュラム). Script ``condition-matrix.e2e.mjs``: 40 pass / 0 fail, gồm 6 case thêm giá trị ngoài danh sách mới bị từ chối (mọi loại × dạng cũ/v2 × lưu không đổi, kèm case đối chứng giá trị hợp lệ). Script chỉ chạy cục bộ.
+- Kiểm tra trên trình duyệt thật: trước khi sửa, khi mở màn hình các giá trị ngoài danh sách của 学年/HRコース/HR/授業/成績グループ/組合わせ/選択肢型 bị JS bỏ khỏi form (VD khối [1,98] → [1], rồi lưu ``version: 2`` sẽ mất 98 âm thầm); sau khi sửa form giữ nguyên, lưu ``version: 2`` và dạng cũ đều giữ JSON y nguyên (kể cả 学年 [1,98] kèm 成績グループ đã mất); bỏ tick 98 thì lưu thành [1].
+- Rà soát toàn phạm vi (ghi nhận 2026-11-11): màn điều kiện, màn threshold và màn danh sách không phát sinh lỗi/cảnh báo PHP với mọi loại giá trị ngoài danh sách (75 kiểm tra trong ``condition-matrix.e2e.mjs``); log ứng dụng không có lỗi mới. Trình duyệt thật: tạo mới (学年 + 成績グループ + điều kiện tổng hợp), mở lại, xóa một dòng rồi lưu; quy tắc cũ nhiều key (hiện hộp xác nhận, lưu không tick bị chặn, tick thì lưu thành ``version: 2``) đều đúng.
+- Phát hiện thêm và đã sửa (modal 教科・科目): 教科/科目 đã lưu mà không còn thuộc danh sách nào (ví dụ môn đã xóa khỏi master) không có ô trong modal, nên bấm 確定する thì bị bỏ âm thầm (“20,99999999” → “20”). Nay hiện thành “（選択不可）（không hiển thị ID; nhiều mục đánh số ①②; có câu giải thích）” đã tick, tóm tắt hiển thị và giữ khi 確定する (kiểm tra bằng trình duyệt thật cho cả chế độ 教科 và 科目).
+- Phát hiện thêm và đã sửa: so sánh “không đổi” với 組合わせ dạng cũ luôn lệch (định dạng “/” trên màn hình và “,” khi lưu) nên bị coi là có thay đổi.
+- Bảng ``red_score_result``, ``red_score_results``, ``red_score_setting`` và các quy tắc không phải test: checksum không đổi sau khi chạy hai script.
+
+#### TC-RS-FUNC-V2C-009 — Giải thích trên màn hình khớp với logic phán định (OR/AND) và không mất sau lỗi nhập liệu
+
+| Field | Value |
+| --- | --- |
+| Chức năng | Điều kiện áp dụng（適用条件） |
+| Căn cứ | Phản hồi: quy tắc cũ có “国語 (教科)” và “数学Ⅰ (科目)” thực tế phán định OR nhưng màn hình hướng dẫn AND; DEC-005 (phụ lục) |
+| Priority | High |
+| Căn cứ kỳ vọng | Confirmed |
+| Thao tác | (a) Mở quy tắc cũ có dòng 教科 và dòng 科目 (cả dạng một trường subject_id / sub_subject_id), và quy tắc có hai dòng 教科 khác マスタカリキュラム. (b) Mở quy tắc cũ có hai dòng cùng loại (学年×2, 教科×2). (c) Để trống tên rồi lưu (lỗi nhập liệu), kiểm tra lại các ghi chú và lựa chọn. (d) Lưu không đổi; lưu có thay đổi. |
+| Expected | 1) Hiển thị ghi chú “どれか1つに当てはまれば対象” cho quy tắc có nhiều dòng 教科・科目 (教科 + 科目, dạng một trường, khác マスタカリキュラム; cả cũ lẫn version 2) và KHÔNG yêu cầu gộp dòng (một dòng chỉ chọn được một curriculum). 2) Quy tắc cũ có nhiều dòng cùng loại khác (学年×2…) hiển thị ghi chú “これまでは「いずれか」… 1つの行にまとめてください”. 3) Mọi ghi chú (kể cả ghi chú HR・授業 và nhiều key) vẫn hiển thị sau lỗi nhập liệu; lựa chọn giữ nguyên. 4) Lưu không đổi giữ nguyên JSON cũ (kể cả khi thứ tự giá trị bị sắp lại); lưu có thay đổi giữ 2 dòng, version 2, phán định vẫn OR. 5) Phán định OR giống nhau ở cả quy tắc cũ và version 2 (test ``red_score_regression.php``). |
+
+#### Bằng chứng tự động (ghi nhận 2026-11-11, môi trường Docker local, chưa phải kết quả chính thức trong report XLSX)
+
+- ``rerender.e2e.mjs``: 34 pass / 0 fail (R1–R10). Khi triển khai tạm bản view/controller cũ, các mục fail đúng chỗ (tổ hợp bị tách, ghi chú mất sau lỗi, ghi chú gộp dòng sai cho dạng một trường/khác curriculum).
+- Bốn file PHP regression: 128 / 260 / 194 / 54 assertion pass.
+
+#### TC-RS-FUNC-V2C-010 — Kiểm tra điểm chuẩn cố định chỉ tính các lớp có học sinh thỏa mãn TẤT CẢ điều kiện
+
+| Field | Value |
+| --- | --- |
+| Chức năng | Điều kiện áp dụng（適用条件）/ Ngưỡng（閾値設定） |
+| Căn cứ | Phản hồi: lớp có “học sinh A chỉ thỏa ①, học sinh B chỉ thỏa ②” vẫn bị tính là đối tượng nên điểm tối đa của lớp không phải đối tượng chặn việc lưu điểm chuẩn hợp lệ; DEC-005 (phụ lục) |
+| Priority | High |
+| Căn cứ kỳ vọng | Confirmed |
+| Thao tác | Quy tắc có từ 2 điều kiện cấp học sinh trở lên (学年/HRコース/HR/成績グループ/組合わせ/選択肢型). Lưu điểm chuẩn cố định lớn hơn điểm tối đa. |
+| Expected | 1) Lớp mà không có học sinh nào thỏa mãn mọi điều kiện không được tính là lớp đối tượng (không bị chặn bởi điểm tối đa của lớp đó; hiện cảnh báo “không có lớp phù hợp”, vẫn lưu được). 2) Lớp có ít nhất một học sinh thỏa mãn mọi điều kiện vẫn bị kiểm tra như cũ. 3) Chỉ có một điều kiện: kết quả giống trước. |
+
+#### Bằng chứng tự động (ghi nhận 2026-11-11, môi trường Docker local, chưa phải kết quả chính thức trong report XLSX)
+
+- ``scope-student.e2e.mjs``: 3 pass / 0 fail. Dữ liệu thật: lớp 3378748 có học sinh khối 1 thuộc mục A và học sinh khối 2 nhưng không ai vừa khối 2 vừa thuộc mục A. Trước khi sửa lưu điểm chuẩn 99999 bị từ chối, sau khi sửa lưu được; trường hợp có học sinh thỏa cả hai vẫn bị từ chối.
+- ``scope-battery.e2e.mjs`` (24 tổ hợp 学年/コース/成績グループ/組合わせ/選択肢/HR): kết quả trước và sau sửa giống nhau ở 23 tổ hợp, chỉ khác ở tổ hợp “khối 2 + mục A” như dự kiến; không có lỗi PHP.
+- Sau review lần 2: lọc theo học sinh cũng áp dụng khi chỉ có MỘT điều kiện HR (学年/HRコース/HR), vì bước lọc theo liên kết lớp–HR có thể giữ lớp không có học sinh nào thuộc HR đó. 成績グループ/組合わせ/選択肢型 đơn lẻ vốn đã lọc theo học sinh nên không đổi.
+- ``scope-fixture.e2e.mjs``: 9 pass / 0 fail với dữ liệu tạm lớp 50 điểm / 100 điểm (tạo và xóa trong script): học sinh không giao nhau → lưu được 60; có học sinh giao nhau ở lớp 50 → bị chặn 60 và dữ liệu đã lưu không đổi; quy tắc đã có điểm chuẩn cố định 60 khi sửa điều kiện cũng được kiểm tra. Bản cũ fail 3 mục (A, B, E), bản staged trước khi sửa HR đơn lẻ fail mục A.
+- Sau review lần 3: (1) lớp không có học sinh nào luôn bị loại khỏi lớp đối tượng, kể cả khi quy tắc không có điều kiện cấp học sinh (hành vi này là quyết định cần PO/khách hàng xác nhận); (2) 学年/HR/HRコース xét theo HR thực tế của học sinh, không theo liên kết lớp–HR (group_hr); (3) chỉ một lượt lọc theo học sinh, dữ liệu thành viên lớp chỉ truy vấn một lần.
+- ``scope-fixture.e2e.mjs``: 14 pass / 0 fail (thêm G: lớp rỗng 50 điểm không kéo giới hạn xuống; H: học sinh khối 2 trong lớp chỉ liên kết HR khối 1 vẫn là đối tượng). Bản controller cũ: G×2 và H FAIL. Dữ liệu tạm tạo và xóa trong script (đã kiểm tra 0 dòng còn lại).
+- PHP regression: 136 / 260 / 194 / 54 assertion pass (chạy lại sau review lần 3).
+
+#### TC-RS-FUNC-V2C-007 — Modal giáo khoa/môn giống auto-calc: chọn một trong hai
+
+| Field | Value |
+| --- | --- |
+| Chức năng | Điều kiện áp dụng（適用条件） |
+| Căn cứ | DEC-005 (phụ lục); phản hồi: giống modal chọn nhiều của auto-calc |
+| Priority | High |
+| Căn cứ kỳ vọng | Confirmed |
+| Thao tác | 1. Thêm bộ lọc giáo khoa・môn（教科・科目）, mở modal.<br>2. Chọn “科目で絞り込む”, bấm 全選択 của một giáo khoa, bấm 確定する; mở lại.<br>3. Chuyển “教科で絞り込む”, chọn một giáo khoa, 確定する.<br>4. Bấm 戻る khi đang mở.<br>5. Gửi trực tiếp request có cả giáo khoa và môn trong một ô. |
+| Expected | 1. Modal giống auto-calc (radio hai chế độ, danh sách giáo khoa hoặc danh sách môn theo giáo khoa có 全選択, lớp phủ và nút 戻る/確定する).<br>2. Lưu chỉ danh sách môn, ô giáo khoa rỗng; mở lại tự ở chế độ môn và giữ các dấu chọn; tóm tắt “科目：…”.<br>3. Lưu chỉ giáo khoa, ô môn rỗng; tóm tắt “教科：…”.<br>4. Không đổi gì, lớp phủ đóng.<br>5. Server từ chối (“教科か科目のどちらか一方”). Điều kiện cũ có cả hai hiện thành hai ô và lưu không đổi vẫn giữ nguyên. |

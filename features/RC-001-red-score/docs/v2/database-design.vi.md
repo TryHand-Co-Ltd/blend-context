@@ -153,9 +153,14 @@ Tỷ lệ nhóm kế thừa kết quả tổng hợp hiện có trước làm tr
 | `group` | `groups.id` | Không sử dụng |
 | `homeroom` | `homerooms.id` | Không sử dụng |
 | `calc_group` | `grade_calc_group_items.id` | `grade_calc_groups.id` |
+| `calc_group_combo` | Chuỗi `id_mục_1,id_mục_2` của tổ hợp (`grade_calc_group_combo_items`) | `grade_calc_group_combos.id` |
 | `choice` | Chuỗi mã lựa chọn của mục, không phải tên hiển thị | `grade_evaluate_frame_items.id` |
 
-Các giá trị trong `values` và các phần tử cùng `type` dùng OR, kể cả khác key; giữ key gắn với từng giá trị. Khác type dùng AND; các `aggregate_conditions` kết hợp AND với nhau và với filters. Cùng type/key thì gộp values và bỏ trùng. Không lưu AND/OR lồng nhau.
+**`version` (từ 10/11/2026):** `apply_condition` có thêm khóa `version` = 2. Với version 2, ô điều kiện được xác định theo `type`; riêng `calc_group`, `calc_group_combo`, `choice` theo cả `key_id`. Các giá trị trong `values` của một ô dùng OR, `subject` và `sub_subject` là cùng một ô. Giữa các ô dùng AND; các `aggregate_conditions` kết hợp AND với nhau và với filters. Cùng type/key thì gộp values và bỏ trùng; không lưu hai ô cùng type/key. Không lưu AND/OR lồng nhau.
+
+Không có `version` (dữ liệu cũ): các phần tử cùng `type` dùng OR kể cả khác key, giữ key gắn với từng giá trị, như thiết kế trước đây; giữ nguyên cho tới khi người dùng lưu lại màn điều kiện.
+
+`filters[].type` `homeroom` và `group` không còn được chọn mới ở màn điều kiện (ID đổi theo năm học). Giá trị đã lưu vẫn được xét và vẫn đọc/ghi lại; chỉ có thể xóa. Điều kiện trung bình/tỷ lệ nhóm chỉ được tạo khi chọn lọc theo điều kiện cụ thể; `aggregate_conditions` có giá trị mà `filters` rỗng được hiểu là lọc chỉ có điều kiện trung bình (không lưu cờ riêng).
 
 OR cùng loại áp dụng cho bộ lọc đối tượng thông thường. Các điều kiện trung bình/tỷ lệ nhóm dùng AND với nhau, kể cả nhiều dòng cùng metric, rồi AND với kết quả bộ lọc. Hướng dẫn màn hình phân biệt hai cách kết hợp này. Ví dụ `A≥50 AND A<70` biểu diễn `50≤A<70`: 40/70 không thỏa, 50/60 thỏa.
 

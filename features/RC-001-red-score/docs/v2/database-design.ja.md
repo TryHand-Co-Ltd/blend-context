@@ -153,11 +153,12 @@ school_id + year + evaluate_frame_item_id + group_id + student_id + tangen_id
 | `group` | `groups.id` | 使用しない |
 | `homeroom` | `homerooms.id` | 使用しない |
 | `calc_group` | `grade_calc_group_items.id` | `grade_calc_groups.id` |
+| `calc_group_combo` | 組み合わせ項目IDをカンマ区切りにした文字列（例：`itemA,itemB`） | `grade_calc_group_combos.id` |
 | `choice` | 項目の選択肢コードの文字列。表示名称ではない | `grade_evaluate_frame_items.id` |
 
-`values` 内の値、および同じ `type` の要素は、keyが異なる場合もORで結合する。各値とkeyの対応は保持する。異なるtype間はANDとし、`aggregate_conditions` 同士、およびfiltersの結果との結合もANDとする。同じtype/keyのvaluesは統合し、重複を除く。AND/ORの入れ子構造は保存しない。
+`apply_condition` に `version: 2` を付与する（DEC-005）。`version: 2` では、同じ `type` でも `key_id` が異なれば別の条件欄とし、一つの条件欄の `values` 内はOR、条件欄どうしはANDで結合する（`calc_group`／`calc_group_combo`／`choice` は type+key_id、他は type）。`version` なしの旧データは従来どおり同じ `type` をkeyが異なってもORで結合して判定し、保存時に `version: 2` へ移すときは旧ORをANDへ変えない。`homeroom`／`group` は新規に保存できず、旧データのみ保持・判定する。`subject`／`sub_subject` は複数選択で、同じ教科は一つの条件欄に統合する。`aggregate_conditions` は絞り込み（filters）の対象範囲を持つ設定でのみ使い、平均のみでも保存できる。モード（全員／絞り込み）は保存せず、filters または aggregate_conditions の有無から導出する。各値とkeyの対応は保持する。`aggregate_conditions` 同士、およびfiltersの結果との結合もANDとする。同じtype/keyのvaluesは統合し、重複を除く。AND/ORの入れ子構造は保存しない。
 
-同種類ORは通常の対象フィルターに適用する。平均点・集団の得点率の条件は、同じmetricを複数行指定した場合もANDで結び、対象フィルターの結果ともANDで結合する。画面ではこの二つの結合規則を分けて説明する。例えば `A≥50 AND A<70` は `50≤A<70` を表し、40／70は不成立、50／60は成立する。
+条件欄内ORは通常の対象フィルターに適用する。平均点・集団の得点率の条件は、同じmetricを複数行指定した場合もANDで結び、対象フィルターの結果ともANDで結合する。画面ではこの二つの結合規則を分けて説明する。例えば `A≥50 AND A<70` は `50≤A<70` を表し、40／70は不成立、50／60は成立する。
 
 例：学年1または2で、グループAまたはBに属する条件は、A/Bのkeyが異なる場合も `(学年1 OR 学年2) AND (A OR B)` と解釈する。
 
