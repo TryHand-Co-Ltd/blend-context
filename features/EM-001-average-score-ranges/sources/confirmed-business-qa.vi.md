@@ -62,3 +62,19 @@ Nguồn: [thread Slack](https://tryhand.slack.com/archives/C0BRGJA6XDE/p17923830
 - Danh sách chọn 順位集計設定 hiển thị mọi thiết lập đã tạo, bất kể đã chốt hay chưa; trạng thái chốt chỉ ảnh hưởng việc lấy kết quả khi tính.
 - Phần hiển thị ngưỡng điểm đỏ trên 成績抽出 và Excel chỉ thuộc chức năng ①, không áp dụng cho EM-001.
 - Chức năng ② được tạm dừng ở mức hiện tại; thread không nói ③ dừng.
+
+## Phản hồi bổ sung ngày 03/11 và 13/11/2026 (thread EM-001)
+
+Nguồn: [tin nhắn 03/11](https://tryhand.slack.com/archives/C0BRGJA6XDE/p1793654503994759?thread_ts=1791290107.759389&cid=C0BRGJA6XDE) và [tin nhắn 13/11](https://tryhand.slack.com/archives/C0BRGJA6XDE/p1794579067380739?thread_ts=1791290107.759389&cid=C0BRGJA6XDE) của Shite. Đây là chỉ dẫn nội bộ của Shite cho nhóm phát triển, không phải phản hồi của khách; chi tiết ở [context mục 13](../CONTEXT.md).
+
+- 03/11: review OK PR #57688; giới hạn 10 khoảng × 20 điều kiện **chưa phải spec chốt**, Shite sẽ báo sau khi quyết cùng MW.
+- 13/11: đổi tên thành 「平均点連動評価」 (đã chốt trong cuộc họp) cho cả mục số và lựa chọn; đổi chữ 「丸め前」 thành cách nói rõ như 「端数処理前の平均点」, không đổi cách tính (trung bình = tổng điểm đã chốt ÷ số học sinh, không phụ thuộc cài đặt làm tròn bên 順位集計).
+- 13/11 (cần xác nhận, chưa quyết): cuộc họp hình dung 20 dải × 10 điều kiện nhưng bản triển khai là 10 × 20; bảng 18 dải của 豊南 không vừa; sẽ chốt giới hạn cuối và cách chia bảng cùng MW; không phải "trong tổng 200 ô thì xếp tự do", nên màn hình và kiểm tra khi lưu phải khớp giới hạn thực, gồm dung lượng.
+
+## Chỉ dẫn bổ sung ngày 19/11/2026 (thread EM-001)
+
+Nguồn: [tin nhắn của Shite 19/11/2026 16:46](https://tryhand.slack.com/archives/C0BRGJA6XDE/p1795081567331669?thread_ts=1791290107.759389&cid=C0BRGJA6XDE), trả lời báo cáo xử lý review PR #57688 của nhóm phát triển. Đây là chỉ dẫn nội bộ của Shite, không phải phản hồi của khách; chi tiết và kiểm chứng ở [context mục 13.10](../CONTEXT.md).
+
+- **Cột 個人条件 (điều kiện cá nhân) để trống:** chọn phương án C, giữ nguyên vị trí đã nhập; cột trống hoàn toàn bị bỏ qua khi tính. Lý do: bản trước loại cột trống theo từng 平均点帯 làm lệch thứ tự đánh giá đã xếp thẳng hàng; có thể có thiết lập "平均点帯 này không dùng đánh giá 1". Nhập dở một nửa vẫn báo lỗi theo đúng số cột thực tế.
+- **Cài đặt lưu theo định dạng cũ:** Shite yêu cầu kiểm tra môi trường nào còn; nếu chỉ là dữ liệu kiểm thử thì cài đặt lại là đủ, nếu cần giữ thì trao đổi cách chuyển đổi. Kết quả kiểm tra của nhóm phát triển ở context mục 13.10; chưa có phản hồi của Shite.
+- **Sau khi #57058 vào:** (a) thêm `rank_link` vào bảng xóa dữ liệu loại không dùng và kiểm tra giữ khi chọn, xóa khi đổi loại; (b) dùng chung với 順位連動設定 (thiết lập thứ hạng liên động) phần tạo danh sách lựa chọn cho 順位集計設定 (thiết lập tổng hợp thứ hạng), 学期時期 (học kỳ / thời kỳ), 母集団 (tập hợp tham chiếu). Hai việc này riêng nhau.

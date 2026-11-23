@@ -25,7 +25,7 @@ Kế hoạch này chỉ ghi lại hướng làm đề xuất. Đọc trước [c
 
 ## 2. Hướng làm
 
-- Thêm **loại đăng ký thứ 9** (mã `9`; mã `8` đã thuộc 順位連動設定 của [PR #57058](https://github.com/ednity/school-web/pull/57058)): **平均点の範囲で評価を登録する** (đăng ký đánh giá theo khoảng điểm trung bình) vào **自動計算設定** (thiết lập tính tự động).
+- Thêm **loại đăng ký thứ 9** (mã `9`; mã `8` đã thuộc 順位連動設定 của [PR #57058](https://github.com/ednity/school-web/pull/57058)): **平均点連動評価** (đánh giá liên động theo điểm trung bình; tên ban đầu 「平均点の範囲で評価を登録する」, đã đổi theo mục 16.1) vào **自動計算設定** (thiết lập tính tự động).
 - **Không cần DDL.** Cột `regist_type` là TINYINT. Cấu hình lưu trong JSON của `auto_rating_conf_items.condition`, đúng cách RA-001 đang lưu điều kiện trung bình.
 - Engine tính trong `domain\tmp\AutoRating`: chọn hàng theo trung bình nhóm (chưa làm tròn), rồi xét điều kiện điểm cá nhân trong hàng đó.
 - Trung bình nhóm đọc bằng `RankingAverageReader` của RA-001.
@@ -66,14 +66,15 @@ Ghi chú khi đối chiếu Figma:
 
 ## 6. Dữ liệu (không DDL)
 
-Thêm `REGIST_TYPE_AVERAGE_RANGE = 9`, nhãn `平均点の範囲で評価を登録する`. Cập nhật `REGIST_TYPES` và `REGIST_TYPES_CHOICE` trong `blend:application/domain/model/AutoRatingConf/m_AutoRatingConfItemRegistType.php`.
+Thêm `REGIST_TYPE_AVERAGE_RANGE = 9`, nhãn `平均点連動評価` (tên ban đầu `平均点の範囲で評価を登録する`, đã đổi theo mục 16.1). Cập nhật `REGIST_TYPES` và `REGIST_TYPES_CHOICE` trong `blend:application/domain/model/AutoRatingConf/m_AutoRatingConfItemRegistType.php`.
 
 ```json
 "regist_type": "9",
 "average_range": {
-  "calc_conf_name": "1学期集計（評点）",
-  "sub_subject_avg": "1学期,期末,グループ1",
-  "score_frame_item_id": "<frame item id>",
+  "grade_calc_conf_id": "<uuid 32 ký tự của grade_calc_conf>",
+  "period_term": "1111_2222",
+  "population": "hr_grade",
+  "evaluate_frame_item_id": "<frame item id>",
   "ranges": [
     {
       "id": 0,
@@ -99,7 +100,7 @@ Thêm `REGIST_TYPE_AVERAGE_RANGE = 9`, nhãn `平均点の範囲で評価を登�
 
 ```
 calcAverageRange(cfg, student, st_grades, save_info, tangen_id):
-  score = filterStudentGrade(st_grades, cfg.score_frame_item_id, tangen_id, true)   // trống => null; '0' vẫn là giá trị
+  score = filterStudentGrade(st_grades, cfg.evaluate_frame_item_id, tangen_id, true)   // trống => null; '0' vẫn là giá trị
   avg   = reader.getAverageDetail(...)      // null nếu thiếu; kèm total_score, student_count
   range = hàng đầu tiên thỏa compareAverage(avg, lower) và (không có upper hoặc compareAverage(avg, upper))
   nếu không có range           -> null   (lý do: thiếu trung bình / không khoảng nào khớp)
@@ -114,7 +115,7 @@ calcAverageRange(cfg, student, st_grades, save_info, tangen_id):
 `AverageRangeMapper` và `calcAverageRange` chỉ gọi nguồn trung bình qua giao diện `AverageRangeSource` (file mới), cùng chữ ký với `RankingAverageReader` của RA-001:
 
 - `prepare($school_id, $year)`
-- `getAverageDetail($calc_conf_name, $sub_subject_avg, $student_data, $group, $tangen_id)` → `['average', 'total_score', 'student_count']` hoặc `null`
+- `getAverageDetail($grade_calc_conf_id, $period_term, $population, $student_data, $group, $tangen_id)` → `['average', 'total_score', 'student_count']` hoặc `null`
 - `compareAverage($average, $threshold, $operator)` (bcmath)
 
 | Bản | Nội dung | Trạng thái |
@@ -161,7 +162,7 @@ Màn lịch sử nên hiện **登録結果** (kết quả đăng ký) bằng gi
 | 4 | **Controller**: `editFormula` cấp dữ liệu (danh sách điểm cá nhân chỉ gồm mục số; danh sách lựa chọn của mục nhận; tái dùng `getSubSubjectAvgForFormula()`); `registFormula` chuẩn hóa `average_range`; `conditionValidate` thêm `case`. | `blend:application/controllers/grade_report_setting/auto_rating/AutoRatingConfController.php` |
 | 5 | **Giao diện sửa**: panel mới, lưới lồng nhau với tên field có **chỉ số tường minh**, thêm/xóa khoảng và cột (tối thiểu 1 khoảng và 1 cột), khôi phục khi mở lại. Dùng class riêng và selector giới hạn trong panel. | `edit_formula.php` |
 | 6 | **Danh sách và lịch sử**: text tóm tắt trong repository và `edit.php`; modal `_log_modal.php` (escape mọi giá trị, vì modal nhận `$data` chưa `html_escape`); `getLog` truyền đủ dữ liệu. | `edit.php`, `_log_modal.php`, `AdminNBGradeSettingSystemLessonController::getLog` |
-| 7 | **Kế thừa năm học**: ánh xạ lại `score_frame_item_id` trong `FromAutoRatingConf::setCondition` (cạnh khối `calc_average`), nếu không sang năm mới vẫn giữ ID năm cũ. | `blend:application/usecase/grade_setting/takeover/output_data.php` |
+| 7 | **Kế thừa năm học**: ánh xạ lại `evaluate_frame_item_id`, `grade_calc_conf_id`, `period_term` (cả học kỳ và thời kỳ) và `population` trong `FromAutoRatingConf::setCondition` (cạnh khối `calc_average`; từ 19/11/2026, xem context mục 13.9), nếu không sang năm mới vẫn giữ ID năm cũ. | `blend:application/usecase/grade_setting/takeover/output_data.php` |
 | 8 | Kiểm thử, thu bằng chứng, sửa lỗi; cập nhật tài liệu feature (mục 13). | — |
 
 Chi tiết cần lưu ý ở bước 4–5:
@@ -211,7 +212,7 @@ Hiện `registFormula` chưa kiểm các điều sau. Với loại mới phải 
 | # | Vấn đề | Đề xuất |
 | --- | --- | --- |
 | D1 | Cận trên có bắt buộc không? Context ghi cận thứ hai tùy chọn, Figma luôn điền cả hai. | Tùy chọn: để trống giá trị cận trên thì không xét cận trên. |
-| D2 | Ô điều kiện để trống hoàn toàn (do lưới dùng chung số cột). | Trống hoàn toàn thì bỏ qua; nhập dở thì báo lỗi. Cần chủ thiết kế xác nhận. |
+| D2 | Ô điều kiện để trống hoàn toàn (do lưới dùng chung số cột). | Trống hoàn toàn thì bỏ qua; nhập dở thì báo lỗi. **Đã xác nhận (Shite 19/11/2026, phương án C): giữ nguyên vị trí, không dồn trái** — xem [context 13.10](../CONTEXT.md). |
 | D3 | Danh sách Figma ghi **未満** (dưới) ở cận trên và điều kiện cá nhân, còn màn sửa và lịch sử dùng **より小さい** (nhỏ hơn). RA-001 chủ ý tránh **未満**. | Thống nhất một cách ghi với chủ thiết kế. |
 | D4 | Ô kết quả **trống** hiện không mở được lịch sử (kiểm tra `checkPostData` từ chối giá trị rỗng); học sinh không khớp setting nào cũng không có log. Figma 03 chỉ vẽ trường hợp khớp. | v1 giữ nguyên, nhưng vẫn ghi `blank_reason` vào log để bật sau. |
 | D5 | Tự chạy lại khi trung bình hoặc bảng đổi (yêu cầu gốc). | Không tự kích hoạt; vận hành là **集計実行** → **自動算出実行**, như RA-001. Hiện không có đường nào chạy AutoRating sau tổng hợp thứ hạng, và thêm hook dễ tạo vòng lặp vì batch AutoRating lại xếp lịch tổng hợp thứ hạng. |
@@ -263,12 +264,12 @@ PR [#57058](https://github.com/ednity/school-web/pull/57058) 「順位集計結�
 | Nguồn bản chốt | Đọc bảng `grade_calc_fix_each_sub_subject_{logs,total,ranks}` của PR, chỉ với khối/học kỳ/thời kỳ có dòng `grade_calc_fix_log` `active = 1`. Gỡ chốt thì PR xóa dòng `fix` nên không còn kết quả (trống) |
 | Môi trường chưa có bảng của PR | Thiếu `grade_calc_fix_log`, `..._logs` hoặc `..._total` thì coi là chưa có bản chốt và trả trống, **không báo lỗi** |
 | Tránh xung đột file | Các file chung với PR (`m_AutoRatingConfItemRegistType`, `AutoRatingConfItem`, `Methods`, `AutoRatingConfItemRepository`, `AutoRatingConfController`, `edit.php`, `edit_formula.php`, `GradeCalcResultService`) được sửa ở vị trí không kề dòng PR sửa, và `AutoRatingConfItem` không thêm tham số constructor mà dùng `setAverageRange()` sau khi tạo. Đã mô phỏng merge với đầu PR (`6d3f27d`) bằng `git merge-tree`: không có xung đột |
-| Còn lại | PR chưa merge và đang là WIP; kiểm lại merge-tree khi PR đổi. Đã chốt hướng 02/11/2026 (nội bộ, Shite trả lời "That approach is fine." trong thread EM-001 lúc 15:07): ẩn loại 9 khi `school_grade_conf.use_relative_evaluation` tắt như 順位連動設定, giữ cấu hình đã lưu; chỉ đổi hiển thị, chưa triển khai (xem CONTEXT mục 12.4). Đầu PR hiện tại `439657dac95` đã có kiểm soát loại trừ (CONTEXT mục 12.2) |
+| Còn lại | PR chưa merge và đang là WIP; kiểm lại merge-tree khi PR đổi. Đã chốt hướng 02/11/2026 (nội bộ, Shite trả lời "That approach is fine." trong thread EM-001 lúc 15:07): ẩn loại 9 khi `school_grade_conf.use_relative_evaluation` tắt như 順位連動設定, giữ cấu hình đã lưu; chỉ đổi hiển thị, chưa triển khai (xem CONTEXT mục 12.4). Đầu PR hiện tại `439657dac95` đã có kiểm soát loại trừ (CONTEXT mục 12.2) **Cập nhật 23/11/2026:** đầu PR đã đổi từ `439657dac95` sang `544fd08880f3` (06/11/2026), chưa kiểm lại merge-tree và kiểm soát loại trừ ở đầu mới; xem [context mục 12.2](../CONTEXT.md). |
 
 ### 15.x. Bổ sung sau review (20/10/2026)
 
 - **Khóa theo khối:** kết quả đã chốt có khóa "学年毎" trùng nhau giữa các khối, nên `AverageRangeFixedSource` gọi hàm chung theo từng khối (`hr_grade` đơn) với danh sách học sinh của khối đó và chỉ tra dòng của học sinh. Có test cho nhiều khối.
-- **Cấu hình thiếu `sub_subject_avg`:** bỏ qua việc thu thập học kỳ/thời kỳ (không phát sinh warning); ô kết quả để trống.
+- **Cấu hình thiếu `period_term` (hoặc sai định dạng):** không đọc kết quả tổng hợp (không phát sinh warning); ô kết quả để trống.
 - **Hiển thị danh sách cài đặt (`edit.php`):** mọi giá trị của nhánh loại 9 đều qua `html_escape`.
 - **Còn mở:** `RankingAverageReader` (RA-001) phải đổi sang "chỉ đọc kết quả đã chốt" khi được đưa vào; F-08, F-09 chờ chủ sở hữu quyết định; `use_relative_evaluation` đã chốt hướng 02/11/2026 (CONTEXT mục 12.4), chưa triển khai.
 
@@ -299,13 +300,14 @@ Kiểm tra: unit test (mapper 24, stub 9, AutoRating 11, service 11) và `spec_m
 | --- | --- | --- |
 | TC-EM-FUNC-002 (ô chưa dùng hiện A) | Đúng như mô tả: ô không có ngưỡng được coi là chưa dùng, không lưu; khi dựng lại bảng ô lấy lựa chọn mặc định A. Không mất dữ liệu hợp lệ | Cân nhắc hiển thị ô chưa dùng ở trạng thái trống; đổi kỳ vọng test nếu giữ nguyên |
 | TC-EM-CALC-003 (không mở lịch sử ô trống) | Hạn chế sẵn có của màn lịch sử (nút không có nội dung) ở ô trống; không phải lỗi tính | Tách issue UI riêng |
-| TC-EM-ERR-001 (nhóm mới trùng tên thay nhóm đã xóa) | Tham chiếu lưu bằng tên (giống các nguồn hiện có), nên thấy nhóm mới cùng tên; giữ theo ID chưa có trong spec | Cần quyết định có lưu ID nhóm hay không; tách khỏi case xóa nguồn |
+| TC-EM-ERR-001 (nhóm mới trùng tên thay nhóm đã xóa) | **Đã lỗi thời (19/11/2026):** nguồn trung bình nay lưu theo ID (`grade_calc_conf_id`, `period_term`, `population`, `evaluate_frame_item_id`; nhóm môn học là `calc_group__ID`), nên nhóm mới trùng tên không thay nhóm đã xóa; xem [context 13.9](../CONTEXT.md) và test case EM-QA-026/027. Bản ghi cũ: tham chiếu lưu bằng tên | Chạy lại case theo hành vi lưu ID |
 
 ### 15.v. Sửa TC-EM-FUNC-002: ô điều kiện chưa dùng hiện trống (21/10/2026)
 
 - **Nguyên nhân:** với mục dạng chọn, ô giá trị đăng ký luôn có một lựa chọn được chọn sẵn (A), nên `normalizeRanges` chỉ dựa vào ngưỡng trống để bỏ ô chưa dùng; khi dựng lại bảng ô lấy lựa chọn đầu (A). Hệ quả phụ: hàng đã chọn giá trị nhưng để trống ngưỡng bị bỏ im lặng, trái với D2 (ô nhập dở phải báo lỗi).
 - **Cách sửa:** ô giá trị đăng ký của mục dạng chọn có thêm lựa chọn đầu "選択してください" (giá trị rỗng) làm mặc định, tách biệt với "(空欄)" (giá trị `null`, là giá trị đăng ký hợp lệ). `normalizeRanges` chỉ bỏ điều kiện khi cả ngưỡng và giá trị đăng ký đều chưa nhập (rỗng); điều kiện nhập dở được giữ lại và `validateRanges` báo lỗi (ví dụ 「範囲3 条件4 個人点の値を入力してください」). Tham số `$save_value_choices` của `normalizeRanges` không còn dùng nên đã bỏ.
 - **Kiểm tra:** unit test (mapper) đạt. Trên môi trường local: cột điều kiện mới mặc định "選択してください"; lưu ô 空欄 ở range 1–2 và để range 3 chưa dùng → mở lại giữ `null` ở range 1–2 và trống ở range 3 (không còn hiện A); chọn giá trị nhưng bỏ trống ngưỡng → báo lỗi, không lưu. Đã trả cấu hình test về 3 điều kiện mỗi range.
+- **Cập nhật 19/11/2026 (đã commit `268e2ab4151`):** cách bỏ ô chưa dùng ở trên đã đổi: cột trống hoàn toàn được **giữ nguyên vị trí** (chỉ cắt các cột trống sau cột có dữ liệu cuối), bỏ qua khi kiểm tra và khi tính; số hiệu 個人条件N là vị trí đã nhập; bỏ `column_no` / `removeColumnNo`. Xem [context 13.10](../CONTEXT.md).
 
 ### 15.t. Chuyển sang bộ đọc chung `getTotalResults()` của PR #57058 (28/10/2026)
 
@@ -328,14 +330,14 @@ Kiểm tra: unit test (mapper 24, stub 9, AutoRating 11, service 11) và `spec_m
 | `bcdiv` cắt 20 chữ số | Không | Cận trung bình tối đa 4 chữ số thập phân; khoảng cách nhỏ nhất giữa trung bình và cận (khác 0) lớn hơn nhiều so với 10^-20. Đã so với phép nhân chính xác trên 8 ca và hơn 20.000 tổ hợp, không có chênh lệch |
 | Import CSV bỏ sót đánh giá | Không | `autoRatingUse` trả true khi có bất kỳ cấu hình tự động nào ở mục trong kỳ, kể cả loại 9 (chưa test bằng upload CSV thật) |
 | Phạm vi max lấy lẫn học kỳ khác | Không | Giới hạn lấy từ đúng mục nhận của cấu hình; giới hạn theo đơn vị chỉ áp dụng lúc chạy |
-| Copy mẫu mất trường | Không | Chỉ có luồng takeover, đã ánh xạ `score_frame_item_id`. Mục không có trong bảng ánh xạ giữ ID năm cũ và màn sửa sẽ cảnh báo không tìm thấy |
+| Copy mẫu mất trường | Không | Chỉ có luồng takeover, đã ánh xạ `evaluate_frame_item_id`, `grade_calc_conf_id`, `period_term`, `population`. Mục không có trong bảng ánh xạ giữ ID năm cũ và màn sửa sẽ cảnh báo không tìm thấy |
 | Select dùng chung handler | Không | Không có handler `select change` chung; select của EM-001 có `no-nice` |
 | Mâu thuẫn OR/AND | Không | Ghi chú màn hình khớp `AverageRangeMapper::map` |
 
 **Đã sửa trong EM-001:**
 
 - `registFormula` và `editFormula` kiểm tra mục thuộc đúng cấu hình tự động được gửi (`auto_rating_conf_item.auto_rating_conf_id` phải bằng `auto_rating_conf.id`). Trước đây chỉ kiểm tra cùng trường, nên gửi `conf_id` này với `item_id` của cấu hình khác thì validation của EM-001 (min/max, lựa chọn, danh sách mục điểm cá nhân) dùng ngữ cảnh của cấu hình sai. Đã test local: mục của cấu hình khác bị từ chối (`不正な送信です。` / 403).
-- (Cập nhật 28/10/2026: nay là **10 khoảng** × 20 điều kiện và JSON ≤ 60.000 byte, kiểm bằng `validateConditionSize`; 20×20 tạo 92–100KB, vượt `TEXT` và bị cắt âm thầm.) `AverageRangeMapper` giới hạn tối đa **20 khoảng** và **20 điều kiện mỗi khoảng** (`MAX_RANGES`, `MAX_CONDITIONS`); vượt thì báo lỗi khi lưu. Lý do: cột `auto_rating_conf_items.condition` và `auto_rating_log.detail_log` đều là `TEXT` (64KB); cấu hình 3 × 3 cho log khoảng 800 byte. Đây là con số do nhóm đặt, không phải yêu cầu khách. Nút thêm khoảng/cột chưa bị chặn ở UI (chỉ báo lỗi khi lưu).
+- (Cập nhật 19/11/2026: nay là **20 khoảng** × **10 điều kiện** (xem context mục 13.8). Cập nhật 28/10/2026: từng là 10 khoảng × 20 điều kiện và JSON ≤ 60.000 byte (từ 17/11/2026 là 65.000 byte, xem context mục 13.7), kiểm bằng `validateConditionSize`; 20×20 tạo 92–100KB, vượt `TEXT` và bị cắt âm thầm.) `AverageRangeMapper` giới hạn tối đa **20 khoảng** và **20 điều kiện mỗi khoảng** (`MAX_RANGES`, `MAX_CONDITIONS`); vượt thì báo lỗi khi lưu. Lý do: cột `auto_rating_conf_items.condition` và `auto_rating_log.detail_log` đều là `TEXT` (64KB); cấu hình 3 × 3 cho log khoảng 800 byte. Đây là con số do nhóm đặt, không phải yêu cầu khách. Nút thêm khoảng/cột chưa bị chặn ở UI (chỉ báo lỗi khi lưu).
 - Unit test: mapper 25 (thêm `testValidateRangesLimitsNumberOfRangesAndConditions`), stub 11, AutoRating 11, service 14 đều đạt.
 
 **Chưa làm:** hardening CSRF cho `auto_rating/*` (D8); kiểm tra tích hợp với bảng/dữ liệu thật của PR #57058 sau khi PR vào `master` (đã kiểm tra bằng test đơn vị với hàm giả lập; chưa chạy batch trên DB local có bảng PR).
@@ -347,3 +349,16 @@ Kiểm tra: unit test (mapper 24, stub 9, AutoRating 11, service 11) và `spec_m
 - Lựa chọn trên màn hình: `getAverageRangeSourceOptions()` dùng danh sách kết hợp học kỳ–thời kỳ và `createPopulationList` (không dùng `getSubSubjectAvgForFormula` vốn chỉ có khi 学年/HR bật).
 - Điểm cá nhân: dùng `loop_tangen_id` chỉ khi mục thuộc kỳ 単元, ngược lại 0.
 - Kiểm tra: `AverageRangeMapperTest` (31), `AverageRangeFixedSourceTest` (23), `AutoRatingAverageRangeTest` (13) đều đạt trên bộ chạy tạm (không có PHPUnit trong container).
+
+## 16. Cập nhật 16/11/2026: việc phát sinh sau phản hồi của Shite ngày 13/11
+
+Nguồn và chi tiết: [context mục 13](../CONTEXT.md). 16.1 và 16.2 đã sửa ngày 16/11/2026 và đã commit (PR #57688 đã tạo) và đã kiểm trên app local; 16.3 đã làm phần chữ trên màn hình và thông báo lỗi dung lượng (đã commit; thêm 2 test biên, đã kiểm trên app local); 16.4: Shite đã chốt 20 × 10 và giữ 65.000 byte ngày 19/11/2026 ([context 13.8](../CONTEXT.md)); chưa chia bảng riêng và chưa đổi cột lưu.
+
+| Việc | Nội dung | Kiểm tra |
+| --- | --- | --- |
+| 16.1 | Đổi tên hiển thị thành 「平均点連動評価」 trên mọi chữ của màn hình, cho cả mục số lẫn mục lựa chọn (danh sách, màn sửa, lịch sử, Excel nếu có). Tìm tên cũ 「平均点の範囲で評価を登録する」 và 「平均点の範囲」 trong code trước | Tìm toàn code và mở hai màn sửa; không còn tên cũ |
+| 16.2 | Đổi chữ 「丸め前」 thành cách nói rõ như 「端数処理前の平均点」; không đổi cách tính | Kết quả tính trước và sau khi đổi chữ giống hệt |
+| 16.3 | Màn hình nêu số khoảng tối đa, số điều kiện tối đa, dung lượng lưu tối đa; lỗi lưu nêu rõ giới hạn nào bị vượt (số khoảng, số điều kiện hay dung lượng); cấu hình quá dung lượng bị từ chối và giữ nguyên bản đã lưu. Kiểm tra trước xem thông báo hiện tại đã nêu rõ chưa | Cấu hình vượt từng giới hạn cho đúng từng thông báo; lưu và mở lại không đổi |
+| 16.4 | Chờ Shite và MW chốt giới hạn cuối và cách chia bảng; nếu giới hạn tăng thì kiểm lại cột lưu (TEXT → MEDIUMTEXT), `max_input_vars`, màn thiết lập và batch theo số đo ở context mục 13.4 | Đo lại tại cỡ mới, gồm bảng 20 × 10 với giới hạn 60.000 byte. **Cập nhật 17/11/2026:** đã đo 20 × 10 ở 60.000 và 65.000 (bị chặn ở 60.000, lưu được 61.236 byte ở 65.000); production không strict; Shite chọn kiểm tra ở app, chưa đổi cột sang `MEDIUMTEXT`; chờ Shite xác nhận có nâng lên 65.000; Kurashima đã trả lời ngày 17/11 (không có ý đồ giữ dữ liệu không dùng), Shite muốn bỏ dữ liệu loại đăng ký không dùng cho **mọi loại đăng ký** và nhờ Hieu, Tuan xác nhận; đã triển khai ngày 17/11/2026 (context mục 13.7). **Cập nhật 19/11/2026:** Shite chốt 20 × 10 và giữ 65.000 byte (context 13.8) |
+
+Rủi ro: nếu giới hạn đổi, việc ở 16.3 có thể phải làm lại; vì vậy 16.3 chỉ nên dựa trên giới hạn hiện tại và để số dễ đổi. (Ghi chú 23/11/2026: giới hạn đã chốt 20 × 10 ngày 19/11; số lấy từ hằng số nên vẫn đổi được.)

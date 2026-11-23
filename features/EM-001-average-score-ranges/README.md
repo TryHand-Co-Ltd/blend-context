@@ -26,6 +26,8 @@ Bộ này được tổng hợp theo yêu cầu người phụ trách từ toàn
 
 Chưa tạo tasks, decisions hoặc thiết kế DB vì chưa có đầu vào tương ứng được xác minh; kế hoạch triển khai ở mục 5 chỉ là đề xuất. Mã EM-001 do người phụ trách cung cấp; không suy mã từ RA-001/RC-001. Khi có liên kết Work Item/Redmine, bổ sung nguồn quản lý mà không thay đổi nội dung nghiệp vụ.
 
+Cập nhật 16/11/2026: thêm [context mục 13](CONTEXT.md) (phản hồi của Shite ngày 03/11 và 13/11: đổi tên 「平均点連動評価」, đổi chữ 「丸め前」, câu hỏi về giới hạn 10 × 20 / 20 × 10 và dung lượng; số đo dung lượng 28/10). Mục 13.1 và 13.2 đã sửa và đã commit (xem 13.10); các mục còn lại chưa triển khai. Cập nhật 19/11/2026: giới hạn đã đổi sang 20 khoảng × 10 điều kiện, xem [context mục 13.8](CONTEXT.md). Cập nhật 23/11/2026: code đã commit và push; ô điều kiện trống giữ nguyên vị trí (Shite chọn phương án C ngày 19/11); kiểm tra dữ liệu dạng cũ; phần chờ #57058; xem [context mục 13.10](CONTEXT.md).
+
 ## Ngôn ngữ
 
 Context và research hiện bằng tiếng Việt. Có bản Nhật tương ứng cho [Q&A](sources/confirmed-business-qa.ja.md), [đặc tả dự thảo](docs/specification.ja.md) và [nội dung màn hình](docs/screen-definition.ja.md). Cập nhật hai bản cùng nhau; bản dịch không tạo thêm yêu cầu hoặc phê duyệt.
