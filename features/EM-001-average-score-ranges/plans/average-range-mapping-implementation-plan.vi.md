@@ -340,7 +340,7 @@ Kiểm tra: unit test (mapper 24, stub 9, AutoRating 11, service 11) và `spec_m
 - (Cập nhật 19/11/2026: nay là **20 khoảng** × **10 điều kiện** (xem context mục 13.8). Cập nhật 28/10/2026: từng là 10 khoảng × 20 điều kiện và JSON ≤ 60.000 byte (từ 17/11/2026 là 65.000 byte, xem context mục 13.7), kiểm bằng `validateConditionSize`; 20×20 tạo 92–100KB, vượt `TEXT` và bị cắt âm thầm.) `AverageRangeMapper` giới hạn tối đa **20 khoảng** và **20 điều kiện mỗi khoảng** (`MAX_RANGES`, `MAX_CONDITIONS`); vượt thì báo lỗi khi lưu. Lý do: cột `auto_rating_conf_items.condition` và `auto_rating_log.detail_log` đều là `TEXT` (64KB); cấu hình 3 × 3 cho log khoảng 800 byte. Đây là con số do nhóm đặt, không phải yêu cầu khách. Nút thêm khoảng/cột chưa bị chặn ở UI (chỉ báo lỗi khi lưu).
 - Unit test: mapper 25 (thêm `testValidateRangesLimitsNumberOfRangesAndConditions`), stub 11, AutoRating 11, service 14 đều đạt.
 
-**Chưa làm:** hardening CSRF cho `auto_rating/*` (D8); kiểm tra tích hợp với bảng/dữ liệu thật của PR #57058 sau khi PR vào `master` (đã kiểm tra bằng test đơn vị với hàm giả lập; chưa chạy batch trên DB local có bảng PR).
+**Chưa làm:** hardening CSRF cho `auto_rating/*` (D8); kiểm tra tích hợp với bảng/dữ liệu thật của PR #57058 sau khi PR vào `master` (đã kiểm tra bằng test đơn vị với hàm giả lập; chưa chạy batch trên DB local có bảng PR). **Cập nhật 26/11/2026:** đã chạy tích hợp trên DB local với bảng thật của PR #57058 (nhánh đã gộp), xem [context mục 14.3](../CONTEXT.md); PR #57058 vẫn OPEN, chưa vào `master`.
 
 ## Cập nhật 28/10/2026: sửa theo phản hồi của shite
 
@@ -362,3 +362,16 @@ Nguồn và chi tiết: [context mục 13](../CONTEXT.md). 16.1 và 16.2 đã s�
 | 16.4 | Chờ Shite và MW chốt giới hạn cuối và cách chia bảng; nếu giới hạn tăng thì kiểm lại cột lưu (TEXT → MEDIUMTEXT), `max_input_vars`, màn thiết lập và batch theo số đo ở context mục 13.4 | Đo lại tại cỡ mới, gồm bảng 20 × 10 với giới hạn 60.000 byte. **Cập nhật 17/11/2026:** đã đo 20 × 10 ở 60.000 và 65.000 (bị chặn ở 60.000, lưu được 61.236 byte ở 65.000); production không strict; Shite chọn kiểm tra ở app, chưa đổi cột sang `MEDIUMTEXT`; chờ Shite xác nhận có nâng lên 65.000; Kurashima đã trả lời ngày 17/11 (không có ý đồ giữ dữ liệu không dùng), Shite muốn bỏ dữ liệu loại đăng ký không dùng cho **mọi loại đăng ký** và nhờ Hieu, Tuan xác nhận; đã triển khai ngày 17/11/2026 (context mục 13.7). **Cập nhật 19/11/2026:** Shite chốt 20 × 10 và giữ 65.000 byte (context 13.8) |
 
 Rủi ro: nếu giới hạn đổi, việc ở 16.3 có thể phải làm lại; vì vậy 16.3 chỉ nên dựa trên giới hạn hiện tại và để số dễ đổi. (Ghi chú 23/11/2026: giới hạn đã chốt 20 × 10 ngày 19/11; số lấy từ hằng số nên vẫn đổi được.)
+
+## 17. Cập nhật 26/11/2026: gộp nhánh của Kurashima, chặn 単元 × 授業, đổi đích PR
+
+Nguồn và chi tiết: [context mục 14](../CONTEXT.md).
+
+| Việc | Nội dung | Trạng thái |
+| --- | --- | --- |
+| 17.1 | Gộp `feature/225156_grade_calc_fix` (sửa lệch 9 giờ của 確定日時, sửa DDL `20260825_grade_calc_fix.sql`) vào `feature/EM-001_average_range` | Xong, đã push 26/11/2026 |
+| 17.2 | Chặn 単元 × 授業 khi lưu (`validateAverageRange`), giữ trống lúc tính cho 科目グループ trỏ tới 授業 | Xong; kiểm bằng giao diện; chưa có unit test (đề xuất tách hàm thuần trong `AverageRangeMapper`) |
+| 17.3 | Đổi đích PR #57688 sang `feature/225156_grade_calc_fix` | Xong 26/11/2026; PR vẫn OPEN |
+| 17.4 | `rank_link` trong `KEYS_BY_REGIST_TYPE` (việc 10a) | Xong nhờ gộp nhánh; việc 10b (dùng chung tạo lựa chọn) và r4624128184 cũng đã xong khi gộp nhánh (`8d1d6b72c2f`) |
+| 17.5 | Kiểm lại từ đầu đến cuối trên local | Xong: lưu, tính thật (số, chọn, thập phân, 単元), modal log, 確定日時, cờ tắt, đổi loại; PHPUnit 240 test có 5 lỗi có sẵn từ trước |
+| 17.6 | Lỗi cũ: modal kết quả trống báo 「不正な送信です。」 | Chưa quyết định sửa |

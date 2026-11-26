@@ -31,3 +31,5 @@ Cập nhật 16/11/2026: thêm [context mục 13](CONTEXT.md) (phản hồi củ
 ## Ngôn ngữ
 
 Context và research hiện bằng tiếng Việt. Có bản Nhật tương ứng cho [Q&A](sources/confirmed-business-qa.ja.md), [đặc tả dự thảo](docs/specification.ja.md) và [nội dung màn hình](docs/screen-definition.ja.md). Cập nhật hai bản cùng nhau; bản dịch không tạo thêm yêu cầu hoặc phê duyệt.
+
+Cập nhật 26/11/2026: thêm [context mục 14](CONTEXT.md) (gộp nhánh của Kurashima, chặn 単元 × 授業 khi lưu, đổi đích PR #57688 sang `feature/225156_grade_calc_fix`, kiểm lại từ đầu đến cuối) và [kế hoạch mục 17](plans/average-range-mapping-implementation-plan.vi.md).
